@@ -3,6 +3,10 @@ package sample.entity;
 import javafx.scene.image.ImageView;
 
 public class Tile {
+    private int id;
+    private boolean passability;
+    private ImageView image;
+
     public int getId() {
         return id;
     }
@@ -19,9 +23,6 @@ public class Tile {
         this.passability = passability;
     }
 
-    private int id;
-    private boolean passability;
-
     public ImageView getImage() {
         return image;
     }
@@ -29,6 +30,4 @@ public class Tile {
     public void setImage(ImageView image) {
         this.image = image;
     }
-
-    private ImageView image;
 }

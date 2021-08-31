@@ -114,13 +114,11 @@ public class Main extends Application {
 
     private void drawShapes(GraphicsContext gc) {
         ImageView image = new javafx.scene.image.ImageView("Data/Graphics/Tiles/1.png");
-        ImageView image3 = new javafx.scene.image.ImageView("Data/Graphics/Tiles/2.png");
         for (int x = 0; x < 600; x += 40) {
             for (int y = 0; y < 600; y += 40) {
                 gc.drawImage(image.getImage(), x, y);
             }
         }
-        gc.drawImage(image3.getImage(), 80, 80);
     }
 
     private void drawTiles(Group root) {
@@ -158,7 +156,7 @@ public class Main extends Application {
         scrollPane2.setLayoutX(820);
         scrollPane2.setPrefSize(180, 600);
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 12; i++) {
             ImageView tile = new ImageView("/Data/Graphics/Tiles2/" + i + ".png");
             tile.setX(5 + (i / 13) * 45);
             tile.setY(10 + (i) * 45 - (i / 13) * 585);

@@ -1,6 +1,9 @@
 package sample.entity;
 
 public class TileInfo {
+    private int tile1Id;
+    private int tile2Id;
+
     public int getTile1Id() {
         return tile1Id;
     }
@@ -16,7 +19,4 @@ public class TileInfo {
     public void setTile2Id(int tile2Id) {
         this.tile2Id = tile2Id;
     }
-
-    private int tile1Id;
-    private int tile2Id;
 }
