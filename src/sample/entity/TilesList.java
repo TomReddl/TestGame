@@ -36,6 +36,13 @@ public class TilesList {
         tiles1.get(24).setPassability(Boolean.TRUE);
         tiles1.get(25).setPassability(Boolean.TRUE);
         tiles1.get(26).setPassability(Boolean.TRUE);
+
+        for (int i = 0; i < 4; i++) {
+            tiles2.add(new Tile());
+            tiles2.get(i).setId(i);
+            tiles2.get(i).setPassability(Boolean.FALSE);
+        }
+        tiles2.get(0).setPassability(Boolean.TRUE);
     }
 
 }
