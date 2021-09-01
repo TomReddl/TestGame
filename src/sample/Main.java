@@ -5,7 +5,9 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
@@ -38,45 +40,75 @@ public class Main extends Application {
         primaryStage.setTitle("Game");
         Group root = new Group();
         Canvas canvas = new Canvas(1000, 700);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        drawShapes(gc);
 
         canvas.setOnKeyReleased(event -> {
             KeyCode code = event.getCode();
             if (code == KeyCode.D) {
-                if ((tilesList.getTiles1().get(map.getTiles().get(
+                if (player.getxPosition() < 299 && (tilesList.getTiles1().get(map.getTiles().get(
                         player.getxPosition() + 1).get(player.getyPosition()).getTile1Id()).isPassability()) &&
                         (tilesList.getTiles2().get(map.getTiles().get(
                                 player.getxPosition() + 1).get(player.getyPosition()).getTile2Id()).isPassability())) {
-                    player.setxPosition(player.getxPosition() + 1);
-                    player.getImage().setX(player.getImage().getX() + 40);
+                    if (player.getxPosition() < 285) {
+                        player.setxPosition(player.getxPosition() + 1);
+                    }
+                    if (player.getxPosition() + 3 > player.getxMapPos()+ 12) {
+                        player.setxMapPos(player.getxMapPos() + 1);
+                        GraphicsContext gc = canvas.getGraphicsContext2D();
+                        map.drawMap(player.getxMapPos(), player.getyMapPos(), gc, tilesList);
+                    } else {
+                        player.getImage().setX(player.getImage().getX() + 40);
+                    }
                 }
             }
             if (code == KeyCode.A) {
-                if ((tilesList.getTiles1().get(map.getTiles().get(
+                if (player.getxPosition() > 0 && (tilesList.getTiles1().get(map.getTiles().get(
                         player.getxPosition() - 1).get(player.getyPosition()).getTile1Id()).isPassability()) &&
                         (tilesList.getTiles2().get(map.getTiles().get(
                                 player.getxPosition() - 1).get(player.getyPosition()).getTile2Id()).isPassability())) {
-                    player.setxPosition(player.getxPosition() - 1);
-                    player.getImage().setX(player.getImage().getX() - 40);
+                    if (player.getxPosition() > 0) {
+                        player.setxPosition(player.getxPosition() - 1);
+                    }
+                    if (player.getxMapPos() > 0 && player.getxPosition() - 3 < player.getxMapPos()) {
+                        player.setxMapPos(player.getxMapPos() - 1);
+                        GraphicsContext gc = canvas.getGraphicsContext2D();
+                        map.drawMap(player.getxMapPos(), player.getyMapPos(), gc, tilesList);
+                    } else {
+                        player.getImage().setX(player.getImage().getX() - 40);
+                    }
                 }
             }
             if (code == KeyCode.S) {
-                if ((tilesList.getTiles1().get(map.getTiles().get(
+                if (player.getyPosition() < 299 && (tilesList.getTiles1().get(map.getTiles().get(
                         player.getxPosition()).get(player.getyPosition() + 1).getTile1Id()).isPassability()) &&
                         (tilesList.getTiles2().get(map.getTiles().get(
                                 player.getyPosition() + 1).get(player.getyPosition()).getTile2Id()).isPassability())) {
-                    player.setyPosition(player.getyPosition() + 1);
-                    player.getImage().setY(player.getImage().getY() + 40);
+                    if (player.getyPosition() < 285) {
+                        player.setyPosition(player.getyPosition() + 1);
+                    }
+                    if (player.getyPosition() + 3 > player.getyMapPos() + 12) {
+                        player.setyMapPos(player.getyMapPos() + 1);
+                        GraphicsContext gc = canvas.getGraphicsContext2D();
+                        map.drawMap(player.getxMapPos(), player.getyMapPos(), gc, tilesList);
+                    } else {
+                        player.getImage().setY(player.getImage().getY() + 40);
+                    }
                 }
             }
             if (code == KeyCode.W) {
-                if ((tilesList.getTiles1().get(map.getTiles().get(
+                if (player.getyPosition() > 0 && (tilesList.getTiles1().get(map.getTiles().get(
                         player.getxPosition()).get(player.getyPosition() - 1).getTile1Id()).isPassability()) &&
                         (tilesList.getTiles2().get(map.getTiles().get(
                                 player.getyPosition() - 1).get(player.getyPosition()).getTile2Id()).isPassability())) {
-                    player.setyPosition(player.getyPosition() - 1);
-                    player.getImage().setY(player.getImage().getY() - 40);
+                    if (player.getyPosition() > 0) {
+                        player.setyPosition(player.getyPosition() - 1);
+                    }
+                    if (player.getyMapPos() > 0 && player.getyPosition() - 3 < player.getyMapPos()) {
+                        player.setyMapPos(player.getyMapPos() - 1);
+                        GraphicsContext gc = canvas.getGraphicsContext2D();
+                        map.drawMap(player.getxMapPos(), player.getyMapPos(), gc, tilesList);
+                    } else {
+                        player.getImage().setY(player.getImage().getY() - 40);
+                    }
                 }
             }
         });
@@ -84,6 +116,30 @@ public class Main extends Application {
         root.getChildren().add(canvas);
         root.getChildren().add(player.getImage());
         drawTiles(root);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        map.drawMap(player.getxMapPos(), player.getyMapPos(), gc, tilesList);
+
+        Label mapNameLabel = new Label("Название карты:");
+        mapNameLabel.setLayoutX(5);
+        mapNameLabel.setLayoutY(610);
+        root.getChildren().add(mapNameLabel);
+
+        TextField mapNameTextField = new TextField ();
+        mapNameTextField.setLayoutX(105);
+        mapNameTextField.setLayoutY(605);
+        mapNameTextField.setText(map.getMapName());
+        root.getChildren().add(mapNameTextField);
+
+        ImageView saveMapImage = new ImageView("/Data/Graphics/GUI/SaveMap.png");
+        saveMapImage.setLayoutX(260);
+        saveMapImage.setLayoutY(605);
+        root.getChildren().add(saveMapImage);
+
+        ImageView loadMapImage = new ImageView("/Data/Graphics/GUI/LoadMap.png");
+        loadMapImage.setLayoutX(295);
+        loadMapImage.setLayoutY(605);
+        root.getChildren().add(loadMapImage);
+
         root.setOnMousePressed(event -> {
             double x = event.getX();
             double y = event.getY();
@@ -112,21 +168,12 @@ public class Main extends Application {
         canvas.requestFocus();
     }
 
-    private void drawShapes(GraphicsContext gc) {
-        ImageView image = new javafx.scene.image.ImageView("Data/Graphics/Tiles/1.png");
-        for (int x = 0; x < 600; x += 40) {
-            for (int y = 0; y < 600; y += 40) {
-                gc.drawImage(image.getImage(), x, y);
-            }
-        }
-    }
-
     private void drawTiles(Group root) {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setLayoutX(630);
         scrollPane.setPrefSize(180, 600);
 
-        for (int i = 0; i < 27; i++) {
+        for (int i = 0; i < 35; i++) {
             ImageView tile = new ImageView("/Data/Graphics/Tiles/" + i + ".png");
             tile.setX(5 + (i / 13) * 45);
             tile.setY(10 + (i) * 45 - (i / 13) * 585);
@@ -145,7 +192,7 @@ public class Main extends Application {
             tilesList.getTiles1().get(i).setImage(tile);
             pane.getChildren().add(tile);
         }
-        border = new javafx.scene.image.ImageView("Border.png");
+        border = new javafx.scene.image.ImageView("/Data/Graphics/GUI/Border.png");
         border.setX(tilesList.getTiles1().get(0).getImage().getX() - 1);
         border.setY(tilesList.getTiles1().get(0).getImage().getY() - 1);
         pane.getChildren().add(border);

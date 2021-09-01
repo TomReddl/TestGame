@@ -14,7 +14,7 @@ public class Player {
         yPosition = 0;
         xMapPos = 0;
         yMapPos = 0;
-        image = new ImageView("hero.png");
+        image = new ImageView("/Data/Graphics/Characters/hero.png");
     }
 
     public int getxMapPos() {

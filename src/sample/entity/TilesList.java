@@ -24,7 +24,7 @@ public class TilesList {
     private List<Tile> tiles2 = new ArrayList<>();
 
     public TilesList() {
-        for (int i = 0; i < 27; i++) {
+        for (int i = 0; i < 35; i++) {
             tiles1.add(new Tile());
             tiles1.get(i).setId(i);
             tiles1.get(i).setPassability(Boolean.FALSE);
