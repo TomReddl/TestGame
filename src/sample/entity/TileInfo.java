@@ -1,6 +1,8 @@
 package sample.entity;
 
-public class TileInfo {
+import java.io.Serializable;
+
+public class TileInfo implements Serializable {
     private int tile1Id;
     private int tile2Id;
 

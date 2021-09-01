@@ -2,15 +2,16 @@ package sample.entity;
 
 import javafx.scene.canvas.GraphicsContext;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Map {
+public class Map implements Serializable {
     private List<List<TileInfo>> tiles = new ArrayList<>();
     private String mapName;
 
     public Map() {
-        mapName = "карта1";
+        mapName = "1";
         for (int i = 0; i < 300; i++) {
             tiles.add(new ArrayList<>());
             for (int j = 0; j < 300; j++) {
@@ -46,5 +47,35 @@ public class Map {
                         x * 40, y * 40);
             }
         }
+    }
+
+    public void saveMap(Map map) {
+        try {
+            FileOutputStream outputStream = new FileOutputStream("src/Data/World/" + this.getMapName() + ".wld");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            // сохраняем карту в файл
+            objectOutputStream.writeObject(map);
+            //закрываем поток и освобождаем ресурсы
+            objectOutputStream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Map loadMap() {
+        try {
+            FileInputStream fileInputStream = new FileInputStream("src/Data/World/1.wld");
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            return (Map) objectInputStream.readObject();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return this;
     }
 }

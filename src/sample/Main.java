@@ -51,7 +51,7 @@ public class Main extends Application {
                     if (player.getxPosition() < 285) {
                         player.setxPosition(player.getxPosition() + 1);
                     }
-                    if (player.getxPosition() + 3 > player.getxMapPos()+ 12) {
+                    if (player.getxPosition() + 3 > player.getxMapPos() + 12) {
                         player.setxMapPos(player.getxMapPos() + 1);
                         GraphicsContext gc = canvas.getGraphicsContext2D();
                         map.drawMap(player.getxMapPos(), player.getyMapPos(), gc, tilesList);
@@ -124,7 +124,7 @@ public class Main extends Application {
         mapNameLabel.setLayoutY(610);
         root.getChildren().add(mapNameLabel);
 
-        TextField mapNameTextField = new TextField ();
+        TextField mapNameTextField = new TextField();
         mapNameTextField.setLayoutX(105);
         mapNameTextField.setLayoutY(605);
         mapNameTextField.setText(map.getMapName());
@@ -133,11 +133,18 @@ public class Main extends Application {
         ImageView saveMapImage = new ImageView("/Data/Graphics/GUI/SaveMap.png");
         saveMapImage.setLayoutX(260);
         saveMapImage.setLayoutY(605);
+        saveMapImage.setOnMousePressed(event -> {
+            map.saveMap(map);
+        });
         root.getChildren().add(saveMapImage);
 
         ImageView loadMapImage = new ImageView("/Data/Graphics/GUI/LoadMap.png");
         loadMapImage.setLayoutX(295);
         loadMapImage.setLayoutY(605);
+        loadMapImage.setOnMousePressed(event -> {
+            map = map.loadMap();
+            map.drawMap(player.getxMapPos(), player.getyMapPos(), gc, tilesList);
+        });
         root.getChildren().add(loadMapImage);
 
         root.setOnMousePressed(event -> {
