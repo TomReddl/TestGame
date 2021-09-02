@@ -16,6 +16,8 @@ import sample.entity.Map;
 import sample.entity.Player;
 import sample.entity.TilesList;
 
+import java.io.File;
+
 public class Main extends Application {
     private Player player;
     private Map map;
@@ -81,7 +83,7 @@ public class Main extends Application {
                 if (player.getyPosition() < 299 && (tilesList.getTiles1().get(map.getTiles().get(
                         player.getxPosition()).get(player.getyPosition() + 1).getTile1Id()).isPassability()) &&
                         (tilesList.getTiles2().get(map.getTiles().get(
-                                player.getyPosition() + 1).get(player.getyPosition()).getTile2Id()).isPassability())) {
+                                player.getxPosition()).get(player.getyPosition() + 1).getTile2Id()).isPassability())) {
                     if (player.getyPosition() < 285) {
                         player.setyPosition(player.getyPosition() + 1);
                     }
@@ -98,7 +100,7 @@ public class Main extends Application {
                 if (player.getyPosition() > 0 && (tilesList.getTiles1().get(map.getTiles().get(
                         player.getxPosition()).get(player.getyPosition() - 1).getTile1Id()).isPassability()) &&
                         (tilesList.getTiles2().get(map.getTiles().get(
-                                player.getyPosition() - 1).get(player.getyPosition()).getTile2Id()).isPassability())) {
+                                player.getxPosition()).get(player.getyPosition() - 1).getTile2Id()).isPassability())) {
                     if (player.getyPosition() > 0) {
                         player.setyPosition(player.getyPosition() - 1);
                     }
@@ -180,8 +182,7 @@ public class Main extends Application {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setLayoutX(630);
         scrollPane.setPrefSize(180, 600);
-
-        for (int i = 0; i < 35; i++) {
+        for (int i = 0; i < tilesList.getTile1Count(); i++) {
             ImageView tile = new ImageView("/Data/Graphics/Tiles/" + i + ".png");
             tile.setX(5 + (i / 13) * 45);
             tile.setY(10 + (i) * 45 - (i / 13) * 585);
@@ -211,7 +212,7 @@ public class Main extends Application {
         scrollPane2.setLayoutX(820);
         scrollPane2.setPrefSize(180, 600);
 
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < tilesList.getTile2Count(); i++) {
             ImageView tile = new ImageView("/Data/Graphics/Tiles2/" + i + ".png");
             tile.setX(5 + (i / 13) * 45);
             tile.setY(10 + (i) * 45 - (i / 13) * 585);
