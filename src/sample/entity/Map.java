@@ -49,9 +49,9 @@ public class Map implements Serializable {
         }
     }
 
-    public void saveMap(Map map) {
+    public void saveMap(Map map, String name) {
         try {
-            FileOutputStream outputStream = new FileOutputStream("src/Data/World/" + this.getMapName() + ".wld");
+            FileOutputStream outputStream = new FileOutputStream("src/Data/World/" + name + ".wld");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
             // сохраняем карту в файл
             objectOutputStream.writeObject(map);
@@ -64,9 +64,9 @@ public class Map implements Serializable {
         }
     }
 
-    public Map loadMap() {
+    public Map loadMap(String name) {
         try {
-            FileInputStream fileInputStream = new FileInputStream("src/Data/World/1.wld");
+            FileInputStream fileInputStream = new FileInputStream("src/Data/World/" + name + ".wld");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             return (Map) objectInputStream.readObject();
         } catch (FileNotFoundException e) {

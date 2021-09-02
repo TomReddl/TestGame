@@ -136,7 +136,7 @@ public class Main extends Application {
         saveMapImage.setLayoutX(260);
         saveMapImage.setLayoutY(605);
         saveMapImage.setOnMousePressed(event -> {
-            map.saveMap(map);
+            map.saveMap(map, mapNameTextField.getText());
         });
         root.getChildren().add(saveMapImage);
 
@@ -144,7 +144,7 @@ public class Main extends Application {
         loadMapImage.setLayoutX(295);
         loadMapImage.setLayoutY(605);
         loadMapImage.setOnMousePressed(event -> {
-            map = map.loadMap();
+            map = map.loadMap(mapNameTextField.getText());
             map.drawMap(player.getxMapPos(), player.getyMapPos(), gc, tilesList);
         });
         root.getChildren().add(loadMapImage);
@@ -185,7 +185,7 @@ public class Main extends Application {
         for (int i = 0; i < tilesList.getTile1Count(); i++) {
             ImageView tile = new ImageView("/Data/Graphics/Tiles/" + i + ".png");
             tile.setX(5 + (i / 13) * 45);
-            tile.setY(10 + (i) * 45 - (i / 13) * 585);
+            tile.setY(5 + (i) * 45 - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             tile.setOnMousePressed(event -> {
                 if (pane2.getChildren().contains(border)) {
@@ -215,7 +215,7 @@ public class Main extends Application {
         for (int i = 0; i < tilesList.getTile2Count(); i++) {
             ImageView tile = new ImageView("/Data/Graphics/Tiles2/" + i + ".png");
             tile.setX(5 + (i / 13) * 45);
-            tile.setY(10 + (i) * 45 - (i / 13) * 585);
+            tile.setY(5 + (i) * 45 - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             tile.setOnMousePressed(event -> {
                 if (pane.getChildren().contains(border)) {
