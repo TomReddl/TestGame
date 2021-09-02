@@ -3,6 +3,7 @@ package sample.entity;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class TilesList {
     private List<Tile> tiles1 = new ArrayList<>();
@@ -27,8 +28,8 @@ public class TilesList {
     }
 
     public TilesList() {
-        tile1Count = new File("src/Data/Graphics/Tiles/").list().length;
-        tile2Count = new File("src/Data/Graphics/Tiles2/").list().length;
+        tile1Count = Objects.requireNonNull(new File("src/Data/Graphics/Tiles/").list()).length;
+        tile2Count = Objects.requireNonNull(new File("src/Data/Graphics/Tiles2/").list()).length;
         for (int i = 0; i < tile1Count; i++) {
             tiles1.add(new Tile());
             tiles1.get(i).setId(i);
