@@ -147,32 +147,33 @@ public class Main extends Application {
         });
         root.getChildren().add(loadMapImage);
 
-        root.setOnMousePressed(event -> {
-            double x = event.getX();
-            double y = event.getY();
-            if (x <= 600 && y <= 600) {
-                if ("tile1".equals(selectedType)) {
-                    map.getTiles().get(((((int) x)) / 40)).get(((((int) y)) / 40)).setTile1Id(selectTile);
-                } else {
-                    map.getTiles().get(((((int) x)) / 40)).get(((((int) y)) / 40)).setTile2Id(selectTile);
-                }
-
-                Canvas canvas2 = ((Canvas) (root.getChildren().get(0)));
-                GraphicsContext gc2 = canvas2.getGraphicsContext2D();
-                ImageView image = new ImageView("/Data/Graphics/Tiles/" +
-                        map.getTiles().get(((((int) x)) / 40)).get(((((int) y)) / 40)).getTile1Id() + ".png");
-                gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
-
-                ImageView image2 = new ImageView("/Data/Graphics/Tiles2/" +
-                        map.getTiles().get(((((int) x)) / 40)).get(((((int) y)) / 40)).getTile2Id() + ".png");
-                gc2.drawImage(image2.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
-                root.getChildren().set(0, canvas);
-                canvas.requestFocus();
-            }
-        });
+        root.setOnMousePressed(event -> drawTileOnMap(event.getX(), event.getY(), root, canvas));
+        root.setOnMouseDragged(event -> drawTileOnMap(event.getX(), event.getY(), root, canvas));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         canvas.requestFocus();
+    }
+
+    private void drawTileOnMap(double x, double y, Group root, Canvas canvas) {
+        if (x < 600 && y < 600) {
+            if ("tile1".equals(selectedType)) {
+                map.getTiles().get(((((int) x)) / 40)).get(((((int) y)) / 40)).setTile1Id(selectTile);
+            } else {
+                map.getTiles().get(((((int) x)) / 40)).get(((((int) y)) / 40)).setTile2Id(selectTile);
+            }
+
+            Canvas canvas2 = ((Canvas) (root.getChildren().get(0)));
+            GraphicsContext gc2 = canvas2.getGraphicsContext2D();
+            ImageView image = new ImageView("/Data/Graphics/Tiles/" +
+                    map.getTiles().get(((((int) x)) / 40)).get(((((int) y)) / 40)).getTile1Id() + ".png");
+            gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
+
+            ImageView image2 = new ImageView("/Data/Graphics/Tiles2/" +
+                    map.getTiles().get(((((int) x)) / 40)).get(((((int) y)) / 40)).getTile2Id() + ".png");
+            gc2.drawImage(image2.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
+            root.getChildren().set(0, canvas);
+            canvas.requestFocus();
+        }
     }
 
     private void drawTiles(Group root) {
