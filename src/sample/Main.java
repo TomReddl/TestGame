@@ -150,7 +150,7 @@ public class Main extends Application {
         root.setOnMousePressed(event -> {
             double x = event.getX();
             double y = event.getY();
-            if (x <= 640 && y <= 640) {
+            if (x <= 600 && y <= 600) {
                 if ("tile1".equals(selectedType)) {
                     map.getTiles().get(((((int) x)) / 40)).get(((((int) y)) / 40)).setTile1Id(selectTile);
                 } else {
