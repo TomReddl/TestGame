@@ -1,31 +1,20 @@
 package sample.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Setter
+@Getter
 public class TilesList {
     private List<Tile> tiles1 = new ArrayList<>();
     private List<Tile> tiles2 = new ArrayList<>();
     private int tile1Count; // количество тайлов нижнего уровня, равно числу картинок в папке src/Data/Graphics/Tiles
     private int tile2Count;
-
-    public List<Tile> getTiles1() {
-        return tiles1;
-    }
-
-    public void setTiles1(List<Tile> tiles1) {
-        this.tiles1 = tiles1;
-    }
-
-    public List<Tile> getTiles2() {
-        return tiles2;
-    }
-
-    public void setTiles2(List<Tile> tiles2) {
-        this.tiles2 = tiles2;
-    }
 
     public TilesList() {
         tile1Count = Objects.requireNonNull(new File("src/Data/Graphics/Tiles/").list()).length;

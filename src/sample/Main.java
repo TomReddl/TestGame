@@ -46,68 +46,68 @@ public class Main extends Application {
         canvas.setOnKeyReleased(event -> {
             KeyCode code = event.getCode();
             if (code == KeyCode.D) {
-                if (player.getxPosition() < 299 && (tilesList.getTiles1().get(map.getTiles().get(
-                        player.getxPosition() + 1).get(player.getyPosition()).getTile1Id()).isPassability()) &&
+                if (player.getXPosition() < 299 && (tilesList.getTiles1().get(map.getTiles().get(
+                        player.getXPosition() + 1).get(player.getYPosition()).getTile1Id()).isPassability()) &&
                         (tilesList.getTiles2().get(map.getTiles().get(
-                                player.getxPosition() + 1).get(player.getyPosition()).getTile2Id()).isPassability())) {
-                    if (player.getxPosition() < 285) {
-                        player.setxPosition(player.getxPosition() + 1);
+                                player.getXPosition() + 1).get(player.getYPosition()).getTile2Id()).isPassability())) {
+                    if (player.getXPosition() < 285) {
+                        player.setXPosition(player.getXPosition() + 1);
                     }
-                    if (player.getxPosition() + 3 > player.getxMapPos() + 12) {
-                        player.setxMapPos(player.getxMapPos() + 1);
+                    if (player.getXPosition() + 3 > player.getXMapPos() + 12) {
+                        player.setXMapPos(player.getXMapPos() + 1);
                         GraphicsContext gc = canvas.getGraphicsContext2D();
-                        map.drawMap(player.getxMapPos(), player.getyMapPos(), gc, tilesList);
+                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, tilesList);
                     } else {
                         player.getImage().setX(player.getImage().getX() + 40);
                     }
                 }
             }
             if (code == KeyCode.A) {
-                if (player.getxPosition() > 0 && (tilesList.getTiles1().get(map.getTiles().get(
-                        player.getxPosition() - 1).get(player.getyPosition()).getTile1Id()).isPassability()) &&
+                if (player.getXPosition() > 0 && (tilesList.getTiles1().get(map.getTiles().get(
+                        player.getXPosition() - 1).get(player.getYPosition()).getTile1Id()).isPassability()) &&
                         (tilesList.getTiles2().get(map.getTiles().get(
-                                player.getxPosition() - 1).get(player.getyPosition()).getTile2Id()).isPassability())) {
-                    if (player.getxPosition() > 0) {
-                        player.setxPosition(player.getxPosition() - 1);
+                                player.getXPosition() - 1).get(player.getYPosition()).getTile2Id()).isPassability())) {
+                    if (player.getXPosition() > 0) {
+                        player.setXPosition(player.getXPosition() - 1);
                     }
-                    if (player.getxMapPos() > 0 && player.getxPosition() - 3 < player.getxMapPos()) {
-                        player.setxMapPos(player.getxMapPos() - 1);
+                    if (player.getXMapPos() > 0 && player.getXPosition() - 3 < player.getXMapPos()) {
+                        player.setXMapPos(player.getXMapPos() - 1);
                         GraphicsContext gc = canvas.getGraphicsContext2D();
-                        map.drawMap(player.getxMapPos(), player.getyMapPos(), gc, tilesList);
+                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, tilesList);
                     } else {
                         player.getImage().setX(player.getImage().getX() - 40);
                     }
                 }
             }
             if (code == KeyCode.S) {
-                if (player.getyPosition() < 299 && (tilesList.getTiles1().get(map.getTiles().get(
-                        player.getxPosition()).get(player.getyPosition() + 1).getTile1Id()).isPassability()) &&
+                if (player.getYPosition() < 299 && (tilesList.getTiles1().get(map.getTiles().get(
+                        player.getXPosition()).get(player.getYPosition() + 1).getTile1Id()).isPassability()) &&
                         (tilesList.getTiles2().get(map.getTiles().get(
-                                player.getxPosition()).get(player.getyPosition() + 1).getTile2Id()).isPassability())) {
-                    if (player.getyPosition() < 285) {
-                        player.setyPosition(player.getyPosition() + 1);
+                                player.getXPosition()).get(player.getYPosition() + 1).getTile2Id()).isPassability())) {
+                    if (player.getYPosition() < 285) {
+                        player.setYPosition(player.getYPosition() + 1);
                     }
-                    if (player.getyPosition() + 3 > player.getyMapPos() + 12) {
-                        player.setyMapPos(player.getyMapPos() + 1);
+                    if (player.getYPosition() + 3 > player.getYMapPos() + 12) {
+                        player.setYMapPos(player.getYMapPos() + 1);
                         GraphicsContext gc = canvas.getGraphicsContext2D();
-                        map.drawMap(player.getxMapPos(), player.getyMapPos(), gc, tilesList);
+                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, tilesList);
                     } else {
                         player.getImage().setY(player.getImage().getY() + 40);
                     }
                 }
             }
             if (code == KeyCode.W) {
-                if (player.getyPosition() > 0 && (tilesList.getTiles1().get(map.getTiles().get(
-                        player.getxPosition()).get(player.getyPosition() - 1).getTile1Id()).isPassability()) &&
+                if (player.getYPosition() > 0 && (tilesList.getTiles1().get(map.getTiles().get(
+                        player.getXPosition()).get(player.getYPosition() - 1).getTile1Id()).isPassability()) &&
                         (tilesList.getTiles2().get(map.getTiles().get(
-                                player.getxPosition()).get(player.getyPosition() - 1).getTile2Id()).isPassability())) {
-                    if (player.getyPosition() > 0) {
-                        player.setyPosition(player.getyPosition() - 1);
+                                player.getXPosition()).get(player.getYPosition() - 1).getTile2Id()).isPassability())) {
+                    if (player.getYPosition() > 0) {
+                        player.setYPosition(player.getYPosition() - 1);
                     }
-                    if (player.getyMapPos() > 0 && player.getyPosition() - 3 < player.getyMapPos()) {
-                        player.setyMapPos(player.getyMapPos() - 1);
+                    if (player.getYMapPos() > 0 && player.getYPosition() - 3 < player.getYMapPos()) {
+                        player.setYMapPos(player.getYMapPos() - 1);
                         GraphicsContext gc = canvas.getGraphicsContext2D();
-                        map.drawMap(player.getxMapPos(), player.getyMapPos(), gc, tilesList);
+                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, tilesList);
                     } else {
                         player.getImage().setY(player.getImage().getY() - 40);
                     }
@@ -119,7 +119,7 @@ public class Main extends Application {
         root.getChildren().add(player.getImage());
         drawTiles(root);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        map.drawMap(player.getxMapPos(), player.getyMapPos(), gc, tilesList);
+        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, tilesList);
 
         Label mapNameLabel = new Label("Название карты:");
         mapNameLabel.setLayoutX(5);
@@ -136,7 +136,7 @@ public class Main extends Application {
         saveMapImage.setLayoutX(260);
         saveMapImage.setLayoutY(605);
         saveMapImage.setOnMousePressed(event -> {
-            map.saveMap(map, mapNameTextField.getText());
+            map.saveMap(mapNameTextField.getText());
         });
         root.getChildren().add(saveMapImage);
 
@@ -145,7 +145,7 @@ public class Main extends Application {
         loadMapImage.setLayoutY(605);
         loadMapImage.setOnMousePressed(event -> {
             map = map.loadMap(mapNameTextField.getText());
-            map.drawMap(player.getxMapPos(), player.getyMapPos(), gc, tilesList);
+            map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, tilesList);
         });
         root.getChildren().add(loadMapImage);
 
@@ -159,23 +159,23 @@ public class Main extends Application {
     private void drawTileOnMap(double x, double y, Group root, Canvas canvas) {
         if (x < 600 && y < 600) {
             if ("tile1".equals(selectedType)) {
-                map.getTiles().get(player.getxMapPos() + ((((int) x)) / 40)).
-                        get(player.getyMapPos() + ((((int) y)) / 40)).setTile1Id(selectTile);
+                map.getTiles().get(player.getXMapPos() + ((((int) x)) / 40)).
+                        get(player.getYMapPos() + ((((int) y)) / 40)).setTile1Id(selectTile);
             } else {
-                map.getTiles().get(player.getxMapPos() + ((((int) x)) / 40)).
-                        get(player.getyMapPos() + ((((int) y)) / 40)).setTile2Id(selectTile);
+                map.getTiles().get(player.getXMapPos() + ((((int) x)) / 40)).
+                        get(player.getYMapPos() + ((((int) y)) / 40)).setTile2Id(selectTile);
             }
 
             Canvas canvas2 = ((Canvas) (root.getChildren().get(0)));
             GraphicsContext gc2 = canvas2.getGraphicsContext2D();
             ImageView image = new ImageView("/Data/Graphics/Tiles/" +
-                    map.getTiles().get(player.getxMapPos() + ((((int) x)) / 40)).
-                            get(player.getyMapPos() + ((((int) y)) / 40)).getTile1Id() + ".png");
+                    map.getTiles().get(player.getXMapPos() + ((((int) x)) / 40)).
+                            get(player.getYMapPos() + ((((int) y)) / 40)).getTile1Id() + ".png");
             gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
 
             ImageView image2 = new ImageView("/Data/Graphics/Tiles2/" +
-                    map.getTiles().get(player.getxMapPos() + ((((int) x)) / 40)).
-                            get(player.getyMapPos() + ((((int) y)) / 40)).getTile2Id() + ".png");
+                    map.getTiles().get(player.getXMapPos() + ((((int) x)) / 40)).
+                            get(player.getYMapPos() + ((((int) y)) / 40)).getTile2Id() + ".png");
             gc2.drawImage(image2.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
             root.getChildren().set(0, canvas);
             canvas.requestFocus();

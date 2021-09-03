@@ -1,11 +1,18 @@
 package sample.entity;
 
 import javafx.scene.canvas.GraphicsContext;
+import lombok.Generated;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
+@Slf4j
 public class Map implements Serializable {
     private List<List<TileInfo>> tiles = new ArrayList<>();
     private String mapName;
@@ -22,22 +29,6 @@ public class Map implements Serializable {
         }
     }
 
-    public List<List<TileInfo>> getTiles() {
-        return tiles;
-    }
-
-    public void setTiles(List<List<TileInfo>> tiles) {
-        this.tiles = tiles;
-    }
-
-    public String getMapName() {
-        return mapName;
-    }
-
-    public void setMapName(String mapName) {
-        this.mapName = mapName;
-    }
-
     public void drawMap(int Xpos, int YPos, GraphicsContext gc, TilesList tilesList) {
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 15; y++) {
@@ -49,33 +40,23 @@ public class Map implements Serializable {
         }
     }
 
-    public void saveMap(Map map, String name) {
-        try {
-            FileOutputStream outputStream = new FileOutputStream("src/Data/World/" + name + ".wld");
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-            // сохраняем карту в файл
-            objectOutputStream.writeObject(map);
-            //закрываем поток и освобождаем ресурсы
-            objectOutputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void saveMap(String name) {
+        try (var outputStream = new FileOutputStream("src/Data/World/" + name + ".wld");
+             var objectOutputStream = new ObjectOutputStream(outputStream);) {
+            objectOutputStream.writeObject(this);
+        } catch (Exception ex) {
+            log.error("can not load the map, name={}", name, ex);
+            throw new RuntimeException("can not load the map");
         }
     }
 
     public Map loadMap(String name) {
-        try {
-            FileInputStream fileInputStream = new FileInputStream("src/Data/World/" + name + ".wld");
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+        try (var fileInputStream = new FileInputStream("src/Data/World/" + name + ".wld");
+             var objectInputStream = new ObjectInputStream(fileInputStream)) {
             return (Map) objectInputStream.readObject();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            log.error("can not load the map, name={}", name, ex);
+            throw new RuntimeException("can not load the map");
         }
-        return this;
     }
 }

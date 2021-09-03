@@ -1,7 +1,11 @@
 package sample.entity;
 
 import javafx.scene.image.ImageView;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Player {
     private ImageView image;
     private int xPosition;
@@ -15,41 +19,5 @@ public class Player {
         xMapPos = 0;
         yMapPos = 0;
         image = new ImageView("/Data/Graphics/Characters/hero.png");
-    }
-
-    public int getxMapPos() {
-        return xMapPos;
-    }
-
-    public void setxMapPos(int xMapPos) {
-        this.xMapPos = xMapPos;
-    }
-
-    public int getyMapPos() {
-        return yMapPos;
-    }
-
-    public void setyMapPos(int yMapPos) {
-        this.yMapPos = yMapPos;
-    }
-
-    public int getxPosition() {
-        return xPosition;
-    }
-
-    public void setxPosition(int xPosition) {
-        this.xPosition = xPosition;
-    }
-
-    public int getyPosition() {
-        return yPosition;
-    }
-
-    public void setyPosition(int yPosition) {
-        this.yPosition = yPosition;
-    }
-
-    public ImageView getImage() {
-        return image;
     }
 }
