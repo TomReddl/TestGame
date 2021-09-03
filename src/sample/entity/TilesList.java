@@ -39,21 +39,4 @@ public class TilesList {
         }
         tiles2.get(0).setPassability(Boolean.TRUE);
     }
-
-    public int getTile1Count() {
-        return tile1Count;
-    }
-
-    public void setTile1Count(int tile1Count) {
-        this.tile1Count = tile1Count;
-    }
-
-    public int getTile2Count() {
-        return tile2Count;
-    }
-
-    public void setTile2Count(int tile2Count) {
-        this.tile2Count = tile2Count;
-    }
-
 }
