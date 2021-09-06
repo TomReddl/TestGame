@@ -1,4 +1,4 @@
-package sample.entity;
+package entity;
 
 import javafx.scene.canvas.GraphicsContext;
 import lombok.Generated;
@@ -41,7 +41,7 @@ public class Map implements Serializable {
     }
 
     public void saveMap(String name) {
-        try (var outputStream = new FileOutputStream("src/Data/World/" + name + ".wld");
+        try (var outputStream = new FileOutputStream("/World/" + name + ".wld");
              var objectOutputStream = new ObjectOutputStream(outputStream);) {
             objectOutputStream.writeObject(this);
         } catch (Exception ex) {
@@ -51,7 +51,7 @@ public class Map implements Serializable {
     }
 
     public Map loadMap(String name) {
-        try (var fileInputStream = new FileInputStream("src/Data/World/" + name + ".wld");
+        try (var fileInputStream = new FileInputStream("/World/" + name + ".wld");
              var objectInputStream = new ObjectInputStream(fileInputStream)) {
             return (Map) objectInputStream.readObject();
         } catch (Exception ex) {

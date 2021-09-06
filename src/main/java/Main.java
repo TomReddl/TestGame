@@ -1,5 +1,6 @@
-package sample;
-
+import entity.Map;
+import entity.Player;
+import entity.TilesList;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -12,11 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import sample.entity.Map;
-import sample.entity.Player;
-import sample.entity.TilesList;
-
-import java.io.File;
 
 public class Main extends Application {
     private Player player;
@@ -132,7 +128,7 @@ public class Main extends Application {
         mapNameTextField.setText(map.getMapName());
         root.getChildren().add(mapNameTextField);
 
-        ImageView saveMapImage = new ImageView("/Data/Graphics/GUI/SaveMap.png");
+        ImageView saveMapImage = new ImageView("/Graphics/GUI/SaveMap.png");
         saveMapImage.setLayoutX(260);
         saveMapImage.setLayoutY(605);
         saveMapImage.setOnMousePressed(event -> {
@@ -140,7 +136,7 @@ public class Main extends Application {
         });
         root.getChildren().add(saveMapImage);
 
-        ImageView loadMapImage = new ImageView("/Data/Graphics/GUI/LoadMap.png");
+        ImageView loadMapImage = new ImageView("/Graphics/GUI/LoadMap.png");
         loadMapImage.setLayoutX(295);
         loadMapImage.setLayoutY(605);
         loadMapImage.setOnMousePressed(event -> {
@@ -168,12 +164,12 @@ public class Main extends Application {
 
             Canvas canvas2 = ((Canvas) (root.getChildren().get(0)));
             GraphicsContext gc2 = canvas2.getGraphicsContext2D();
-            ImageView image = new ImageView("/Data/Graphics/Tiles/" +
+            ImageView image = new ImageView("/Graphics/Tiles/" +
                     map.getTiles().get(player.getXMapPos() + ((((int) x)) / 40)).
                             get(player.getYMapPos() + ((((int) y)) / 40)).getTile1Id() + ".png");
             gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
 
-            ImageView image2 = new ImageView("/Data/Graphics/Tiles2/" +
+            ImageView image2 = new ImageView("/Graphics/Tiles2/" +
                     map.getTiles().get(player.getXMapPos() + ((((int) x)) / 40)).
                             get(player.getYMapPos() + ((((int) y)) / 40)).getTile2Id() + ".png");
             gc2.drawImage(image2.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
@@ -194,7 +190,7 @@ public class Main extends Application {
         scrollPane.setLayoutX(630);
         scrollPane.setPrefSize(180, 600);
         for (int i = 0; i < tilesList.getTile1Count(); i++) {
-            ImageView tile = new ImageView("/Data/Graphics/Tiles/" + i + ".png");
+            ImageView tile = new ImageView("/Graphics/Tiles/" + i + ".png");
             tile.setX(5 + (i / 13) * 45);
             tile.setY(5 + (i) * 45 - (i / 13) * 585);
             tile.setId(String.valueOf(i));
@@ -212,7 +208,7 @@ public class Main extends Application {
             tilesList.getTiles1().get(i).setImage(tile);
             pane.getChildren().add(tile);
         }
-        border = new javafx.scene.image.ImageView("/Data/Graphics/GUI/Border.png");
+        border = new javafx.scene.image.ImageView("/Graphics/GUI/Border.png");
         border.setX(tilesList.getTiles1().get(0).getImage().getX() - 1);
         border.setY(tilesList.getTiles1().get(0).getImage().getY() - 1);
         pane.getChildren().add(border);
@@ -224,7 +220,7 @@ public class Main extends Application {
         scrollPane2.setPrefSize(180, 600);
 
         for (int i = 0; i < tilesList.getTile2Count(); i++) {
-            ImageView tile = new ImageView("/Data/Graphics/Tiles2/" + i + ".png");
+            ImageView tile = new ImageView("/Graphics/Tiles2/" + i + ".png");
             tile.setX(5 + (i / 13) * 45);
             tile.setY(5 + (i) * 45 - (i / 13) * 585);
             tile.setId(String.valueOf(i));

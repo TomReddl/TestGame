@@ -1,4 +1,4 @@
-package sample.entity;
+package entity;
 
 import javafx.scene.image.ImageView;
 import lombok.Getter;
@@ -18,6 +18,6 @@ public class Player {
         yPosition = 0;
         xMapPos = 0;
         yMapPos = 0;
-        image = new ImageView("/Data/Graphics/Characters/hero.png");
+        image = new ImageView("/Graphics/Characters/hero.png");
     }
 }
