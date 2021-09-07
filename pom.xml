@@ -93,7 +93,7 @@
                     <source>11</source>
                     <target>11</target>
                     <release>11</release>
-                    <mainClass>Main</mainClass>
+                    <mainClass>Game</mainClass>
                 </configuration>
             </plugin>
 

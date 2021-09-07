@@ -1,6 +1,7 @@
-import entity.Map;
-import entity.Player;
-import entity.TilesList;
+import engine.Render;
+import entity.old.Map;
+import entity.old.Player;
+import entity.old.TilesList;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;

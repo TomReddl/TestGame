@@ -1,5 +1,6 @@
-package entity;
+package entity.old;
 
+import entity.old.Tile;
 import lombok.Getter;
 import lombok.Setter;
 

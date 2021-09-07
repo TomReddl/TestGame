@@ -1,4 +1,4 @@
-package entity;
+package entity.old;
 
 import javafx.scene.image.ImageView;
 import lombok.Getter;
