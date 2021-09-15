@@ -14,17 +14,17 @@ import java.util.List;
 @Setter
 @Slf4j
 public class Map implements Serializable {
-    private List<List<TileInfo>> tiles = new ArrayList<>();
+    private TileInfo[][] tiles = new TileInfo[300][300];
     private String mapName;
 
     public Map() {
         mapName = "1";
         for (int i = 0; i < 300; i++) {
-            tiles.add(new ArrayList<>());
             for (int j = 0; j < 300; j++) {
-                tiles.get(i).add(new TileInfo());
-                tiles.get(i).get(j).setTile1Id(1);
-                tiles.get(i).get(j).setTile2Id(0);
+                var taleInfo = new TileInfo();
+                taleInfo.setTile1Id(1);
+                taleInfo.setTile1Id(0);
+                tiles[i][j] = taleInfo;
             }
         }
     }
@@ -32,9 +32,9 @@ public class Map implements Serializable {
     public void drawMap(int Xpos, int YPos, GraphicsContext gc, TilesList tilesList) {
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 15; y++) {
-                gc.drawImage(tilesList.getTiles1().get(tiles.get(Xpos + x).get(YPos + y).getTile1Id()).getImage().getImage(),
+                gc.drawImage(tilesList.getTiles1().get(tiles[Xpos + x][YPos + y].getTile1Id()).getImage().getImage(),
                         x * 40, y * 40);
-                gc.drawImage(tilesList.getTiles2().get(tiles.get(Xpos + x).get(YPos + y).getTile2Id()).getImage().getImage(),
+                gc.drawImage(tilesList.getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id()).getImage().getImage(),
                         x * 40, y * 40);
             }
         }

@@ -42,10 +42,12 @@ public class Main extends Application {
         canvas.setOnKeyReleased(event -> {
             KeyCode code = event.getCode();
             if (code == KeyCode.D) {
-                if (player.getXPosition() < 299 && (tilesList.getTiles1().get(map.getTiles().get(
-                        player.getXPosition() + 1).get(player.getYPosition()).getTile1Id()).isPassability()) &&
-                        (tilesList.getTiles2().get(map.getTiles().get(
-                                player.getXPosition() + 1).get(player.getYPosition()).getTile2Id()).isPassability())) {
+                if (player.getXPosition() < 299 && (tilesList.getTiles1()
+                        .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile1Id())
+                        .isPassability()) &&
+                        (tilesList.getTiles2()
+                                .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile2Id())
+                                .isPassability())) {
                     if (player.getXPosition() < 285) {
                         player.setXPosition(player.getXPosition() + 1);
                     }
@@ -59,10 +61,10 @@ public class Main extends Application {
                 }
             }
             if (code == KeyCode.A) {
-                if (player.getXPosition() > 0 && (tilesList.getTiles1().get(map.getTiles().get(
-                        player.getXPosition() - 1).get(player.getYPosition()).getTile1Id()).isPassability()) &&
-                        (tilesList.getTiles2().get(map.getTiles().get(
-                                player.getXPosition() - 1).get(player.getYPosition()).getTile2Id()).isPassability())) {
+                if (player.getXPosition() > 0 && (tilesList.getTiles1().get(map.getTiles()[
+                        player.getXPosition() - 1][player.getYPosition()].getTile1Id()).isPassability()) &&
+                        (tilesList.getTiles2().get(map.getTiles()[
+                                player.getXPosition() - 1][player.getYPosition()].getTile2Id()).isPassability())) {
                     if (player.getXPosition() > 0) {
                         player.setXPosition(player.getXPosition() - 1);
                     }
@@ -76,10 +78,10 @@ public class Main extends Application {
                 }
             }
             if (code == KeyCode.S) {
-                if (player.getYPosition() < 299 && (tilesList.getTiles1().get(map.getTiles().get(
-                        player.getXPosition()).get(player.getYPosition() + 1).getTile1Id()).isPassability()) &&
-                        (tilesList.getTiles2().get(map.getTiles().get(
-                                player.getXPosition()).get(player.getYPosition() + 1).getTile2Id()).isPassability())) {
+                if (player.getYPosition() < 299 && (tilesList.getTiles1().get(map.getTiles()[
+                        player.getXPosition()][player.getYPosition() + 1].getTile1Id()).isPassability()) &&
+                        (tilesList.getTiles2().get(map.getTiles()[
+                                player.getXPosition()][player.getYPosition() + 1].getTile2Id()).isPassability())) {
                     if (player.getYPosition() < 285) {
                         player.setYPosition(player.getYPosition() + 1);
                     }
@@ -93,10 +95,10 @@ public class Main extends Application {
                 }
             }
             if (code == KeyCode.W) {
-                if (player.getYPosition() > 0 && (tilesList.getTiles1().get(map.getTiles().get(
-                        player.getXPosition()).get(player.getYPosition() - 1).getTile1Id()).isPassability()) &&
-                        (tilesList.getTiles2().get(map.getTiles().get(
-                                player.getXPosition()).get(player.getYPosition() - 1).getTile2Id()).isPassability())) {
+                if (player.getYPosition() > 0 && (tilesList.getTiles1().get(map.getTiles()[
+                        player.getXPosition()][player.getYPosition() - 1].getTile1Id()).isPassability()) &&
+                        (tilesList.getTiles2().get(map.getTiles()[
+                                player.getXPosition()][player.getYPosition() - 1].getTile2Id()).isPassability())) {
                     if (player.getYPosition() > 0) {
                         player.setYPosition(player.getYPosition() - 1);
                     }
@@ -155,23 +157,23 @@ public class Main extends Application {
     private void drawTileOnMap(double x, double y, Group root, Canvas canvas) {
         if (x < 600 && y < 600) {
             if ("tile1".equals(selectedType)) {
-                map.getTiles().get(player.getXMapPos() + ((((int) x)) / 40)).
-                        get(player.getYMapPos() + ((((int) y)) / 40)).setTile1Id(selectTile);
+                map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                        [player.getYMapPos() + ((((int) y)) / 40)].setTile1Id(selectTile);
             } else {
-                map.getTiles().get(player.getXMapPos() + ((((int) x)) / 40)).
-                        get(player.getYMapPos() + ((((int) y)) / 40)).setTile2Id(selectTile);
+                map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                        [player.getYMapPos() + ((((int) y)) / 40)].setTile2Id(selectTile);
             }
 
             Canvas canvas2 = ((Canvas) (root.getChildren().get(0)));
             GraphicsContext gc2 = canvas2.getGraphicsContext2D();
             ImageView image = new ImageView("/Graphics/Tiles/" +
-                    map.getTiles().get(player.getXMapPos() + ((((int) x)) / 40)).
-                            get(player.getYMapPos() + ((((int) y)) / 40)).getTile1Id() + ".png");
+                    map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                            [player.getYMapPos() + ((((int) y)) / 40)].getTile1Id() + ".png");
             gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
 
             ImageView image2 = new ImageView("/Graphics/Tiles2/" +
-                    map.getTiles().get(player.getXMapPos() + ((((int) x)) / 40)).
-                            get(player.getYMapPos() + ((((int) y)) / 40)).getTile2Id() + ".png");
+                    map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                            [player.getYMapPos() + ((((int) y)) / 40)].getTile2Id() + ".png");
             gc2.drawImage(image2.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
             root.getChildren().set(0, canvas);
             canvas.requestFocus();
