@@ -1,5 +1,6 @@
 import engine.Render;
 import entity.World;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -17,22 +18,27 @@ public class Game extends Application {
 
   @Override
   public void start(Stage stage) throws Exception {
-    world.setEntities(entityGenerator.generate(100));
-//    world.setEntities(entityGenerator.generateSingleton());
+    world.setEntities(entityGenerator.generate(10000));
+    render.prepareWorld(world);
+
+    AnimationTimer animationTimer = new AnimationTimer() {
+      long delta;
+      long lastFrameTime;
+      @Override
+      public void handle(long now) {
+        delta = now - lastFrameTime;
+        lastFrameTime = now;
+        render.drawWorld(lastFrameTime);
+      }
+    };
+    animationTimer.start();
 
     stage.setTitle("Game");
     Group root = new Group();
     root.getChildren().add(render.getCanvas());
 
-    render.start(world);
-
     stage.setScene(new Scene(root));
     stage.show();
-  }
-
-  @Override
-  public void stop(){
-    render.stop();
   }
 
 }

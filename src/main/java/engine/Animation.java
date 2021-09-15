@@ -24,6 +24,10 @@ public class Animation {
       return images[0];
     }
     int index = (time % (images.length * duration)) / duration;
+    if (index < 0) {
+      index = 0;
+    }
+
     return images[index];
   }
 
