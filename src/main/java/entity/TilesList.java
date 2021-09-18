@@ -17,8 +17,8 @@ public class TilesList {
     private int tile2Count;
 
     public TilesList() {
-        tile1Count = Objects.requireNonNull(new File("src/main/resources/Graphics/Tiles").list()).length;
-        tile2Count = Objects.requireNonNull(new File("src/main/resources/Graphics/Tiles2").list()).length;
+        tile1Count = Objects.requireNonNull(new File("src/main/resources/graphics/tiles").list()).length;
+        tile2Count = Objects.requireNonNull(new File("src/main/resources/graphics/tiles2").list()).length;
         for (int i = 0; i < tile1Count; i++) {
             tiles1.add(new Tile());
             tiles1.get(i).setId(i);

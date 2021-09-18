@@ -18,6 +18,6 @@ public class Player {
         yPosition = 0;
         xMapPos = 0;
         yMapPos = 0;
-        image = new ImageView("/Graphics/Characters/hero.png");
+        image = new ImageView("/graphics/characters/0.png");
     }
 }

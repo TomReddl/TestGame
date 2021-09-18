@@ -1,4 +1,5 @@
 import entity.Map;
+import entity.NPCList;
 import entity.Player;
 import entity.TilesList;
 import javafx.application.Application;
@@ -6,9 +7,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
@@ -18,9 +17,11 @@ public class Main extends Application {
     private Player player;
     private Map map;
     private TilesList tilesList;
+    private NPCList npcList;
     private ImageView border;
     Pane pane = new Pane();
     Pane pane2 = new Pane();
+    Pane pane3 = new Pane();
 
     private int selectTile = 0;
     private String selectedType = "tile1";
@@ -34,10 +35,11 @@ public class Main extends Application {
         player = new Player();
         map = new Map();
         tilesList = new TilesList();
+        npcList = new NPCList();
 
         primaryStage.setTitle("Game");
         Group root = new Group();
-        Canvas canvas = new Canvas(1000, 700);
+        Canvas canvas = new Canvas(1020, 680); // размеры игрового окна
 
         canvas.setOnKeyReleased(event -> {
             KeyCode code = event.getCode();
@@ -130,7 +132,7 @@ public class Main extends Application {
         mapNameTextField.setText(map.getMapName());
         root.getChildren().add(mapNameTextField);
 
-        ImageView saveMapImage = new ImageView("/Graphics/GUI/SaveMap.png");
+        ImageView saveMapImage = new ImageView("/graphics/gui/SaveMap.png");
         saveMapImage.setLayoutX(260);
         saveMapImage.setLayoutY(605);
         saveMapImage.setOnMousePressed(event -> {
@@ -138,7 +140,7 @@ public class Main extends Application {
         });
         root.getChildren().add(saveMapImage);
 
-        ImageView loadMapImage = new ImageView("/Graphics/GUI/LoadMap.png");
+        ImageView loadMapImage = new ImageView("/graphics/gui/LoadMap.png");
         loadMapImage.setLayoutX(295);
         loadMapImage.setLayoutY(605);
         loadMapImage.setOnMousePressed(event -> {
@@ -166,12 +168,12 @@ public class Main extends Application {
 
             Canvas canvas2 = ((Canvas) (root.getChildren().get(0)));
             GraphicsContext gc2 = canvas2.getGraphicsContext2D();
-            ImageView image = new ImageView("/Graphics/Tiles/" +
+            ImageView image = new ImageView("/graphics/tiles/" +
                     map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
                             [player.getYMapPos() + ((((int) y)) / 40)].getTile1Id() + ".png");
             gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
 
-            ImageView image2 = new ImageView("/Graphics/Tiles2/" +
+            ImageView image2 = new ImageView("/graphics/tiles2/" +
                     map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
                             [player.getYMapPos() + ((((int) y)) / 40)].getTile2Id() + ".png");
             gc2.drawImage(image2.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
@@ -188,17 +190,32 @@ public class Main extends Application {
     }
 
     private void drawTiles(Group root) {
+        TabPane tabPane = new TabPane();
+        tabPane.setLayoutX(630);
+        tabPane.setPrefSize(370, 620);
+        tabPane.getTabs().add(new Tab("Тайлы"));
+        tabPane.getTabs().add(new Tab("Объекты"));
+        tabPane.getTabs().add(new Tab("Персонажи"));
+        tabPane.getTabs().add(new Tab("Существа"));
+        tabPane.getTabs().get(0).setClosable(false);
+        tabPane.getTabs().get(1).setClosable(false);
+        tabPane.getTabs().get(2).setClosable(false);
+        tabPane.getTabs().get(3).setClosable(false);
+
         ScrollPane scrollPane = new ScrollPane();
-        scrollPane.setLayoutX(630);
+        scrollPane.setLayoutX(5);
         scrollPane.setPrefSize(180, 600);
         for (int i = 0; i < tilesList.getTile1Count(); i++) {
-            ImageView tile = new ImageView("/Graphics/Tiles/" + i + ".png");
+            ImageView tile = new ImageView("/graphics/tiles/" + i + ".png");
             tile.setX(5 + (i / 13) * 45);
             tile.setY(5 + (i) * 45 - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             tile.setOnMousePressed(event -> {
                 if (pane2.getChildren().contains(border)) {
                     pane2.getChildren().remove(border);
+                    pane.getChildren().add(border);
+                } else if (pane3.getChildren().contains(border)) {
+                    pane3.getChildren().remove(border);
                     pane.getChildren().add(border);
                 }
                 selectTile = tilesList.getTiles1().get(Integer.parseInt(tile.getId())).getId();
@@ -210,25 +227,28 @@ public class Main extends Application {
             tilesList.getTiles1().get(i).setImage(tile);
             pane.getChildren().add(tile);
         }
-        border = new javafx.scene.image.ImageView("/Graphics/GUI/Border.png");
+        border = new javafx.scene.image.ImageView("/graphics/gui/Border.png");
         border.setX(tilesList.getTiles1().get(0).getImage().getX() - 1);
         border.setY(tilesList.getTiles1().get(0).getImage().getY() - 1);
         pane.getChildren().add(border);
         scrollPane.setContent(pane);
-        root.getChildren().add(scrollPane);
+        tabPane.getTabs().get(0).setContent(scrollPane);
 
         ScrollPane scrollPane2 = new ScrollPane();
-        scrollPane2.setLayoutX(820);
+        scrollPane2.setLayoutX(190);
         scrollPane2.setPrefSize(180, 600);
 
         for (int i = 0; i < tilesList.getTile2Count(); i++) {
-            ImageView tile = new ImageView("/Graphics/Tiles2/" + i + ".png");
+            ImageView tile = new ImageView("/graphics/tiles2/" + i + ".png");
             tile.setX(5 + (i / 13) * 45);
             tile.setY(5 + (i) * 45 - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             tile.setOnMousePressed(event -> {
                 if (pane.getChildren().contains(border)) {
                     pane.getChildren().remove(border);
+                    pane2.getChildren().add(border);
+                } else if (pane3.getChildren().contains(border)) {
+                    pane3.getChildren().remove(border);
                     pane2.getChildren().add(border);
                 }
                 selectTile = tilesList.getTiles2().get(Integer.parseInt(tile.getId())).getId();
@@ -241,6 +261,37 @@ public class Main extends Application {
             pane2.getChildren().add(tile);
         }
         scrollPane2.setContent(pane2);
-        root.getChildren().add(scrollPane2);
+        tabPane.getTabs().get(1).setContent(scrollPane2);
+
+        ScrollPane scrollPane3 = new ScrollPane();
+        scrollPane3.setLayoutX(190);
+        scrollPane3.setPrefSize(180, 600);
+
+        for (int i = 0; i < npcList.getNpcCount(); i++) {
+            ImageView tile = new ImageView("/graphics/characters/" + i + ".png");
+            tile.setX(5 + (i / 13) * 45);
+            tile.setY(5 + (i) * 45 - (i / 13) * 585);
+            tile.setId(String.valueOf(i));
+            tile.setOnMousePressed(event -> {
+                if (pane.getChildren().contains(border)) {
+                    pane.getChildren().remove(border);
+                    pane3.getChildren().add(border);
+                } else if (pane2.getChildren().contains(border)) {
+                    pane2.getChildren().remove(border);
+                    pane3.getChildren().add(border);
+                }
+                selectTile = npcList.getNpc().get(Integer.parseInt(tile.getId())).getImageId();
+                selectedType = "npc";
+                border.setX(npcList.getNpc().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+                border.setY(npcList.getNpc().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+            });
+
+            npcList.getNpc().get(i).setImage(tile);
+            pane3.getChildren().add(tile);
+        }
+        scrollPane3.setContent(pane3);
+        tabPane.getTabs().get(2).setContent(scrollPane3);
+
+        root.getChildren().add(tabPane);
     }
 }

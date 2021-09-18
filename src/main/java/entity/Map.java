@@ -1,14 +1,11 @@
 package entity;
 
 import javafx.scene.canvas.GraphicsContext;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -41,17 +38,17 @@ public class Map implements Serializable {
     }
 
     public void saveMap(String name) {
-        try (var outputStream = new FileOutputStream("src/main/resources/World/" + name + ".wld");
+        try (var outputStream = new FileOutputStream("src/main/resources/world/" + name + ".wld");
              var objectOutputStream = new ObjectOutputStream(outputStream);) {
             objectOutputStream.writeObject(this);
         } catch (Exception ex) {
-            log.error("can not load the map, name={}", name, ex);
-            throw new RuntimeException("can not load the map");
+            log.error("can not save the map, name={}", name, ex);
+            throw new RuntimeException("can not save the map");
         }
     }
 
     public Map loadMap(String name) {
-        try (var fileInputStream = new FileInputStream("src/main/resources/World/" + name + ".wld");
+        try (var fileInputStream = new FileInputStream("src/main/resources/world/" + name + ".wld");
              var objectInputStream = new ObjectInputStream(fileInputStream)) {
             return (Map) objectInputStream.readObject();
         } catch (Exception ex) {
