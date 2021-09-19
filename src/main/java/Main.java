@@ -1,7 +1,4 @@
-import entity.Map;
-import entity.NPCList;
-import entity.Player;
-import entity.TilesList;
+import entity.*;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -18,10 +15,12 @@ public class Main extends Application {
     private Map map;
     private TilesList tilesList;
     private NPCList npcList;
+    private CreatureList creatureList;
     private ImageView border;
     Pane pane = new Pane();
     Pane pane2 = new Pane();
     Pane pane3 = new Pane();
+    Pane pane4 = new Pane();
 
     private int selectTile = 0;
     private String selectedType = "tile1";
@@ -36,6 +35,7 @@ public class Main extends Application {
         map = new Map();
         tilesList = new TilesList();
         npcList = new NPCList();
+        creatureList = new CreatureList();
 
         primaryStage.setTitle("Game");
         Group root = new Group();
@@ -161,9 +161,25 @@ public class Main extends Application {
             if ("tile1".equals(selectedType)) {
                 map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
                         [player.getYMapPos() + ((((int) y)) / 40)].setTile1Id(selectTile);
-            } else {
+            } else if ("tile2".equals(selectedType)) {
                 map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
                         [player.getYMapPos() + ((((int) y)) / 40)].setTile2Id(selectTile);
+            } else if ("npc".equals(selectedType)) {
+                map.getNpcList().add(new NPC(selectTile, map.getNpcList().size(),
+                        player.getXMapPos() + ((((int) x)) / 40),
+                        player.getYMapPos() + ((((int) y)) / 40)));
+
+                map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                        [player.getYMapPos() + ((((int) y)) / 40)].
+                        setNpcId(map.getNpcList().get(map.getNpcList().size()-1).getId());
+            } else if ("creature".equals(selectedType)) {
+                map.getCreaturesList().add(new Creature(selectTile, map.getCreaturesList().size(),
+                        player.getXMapPos() + ((((int) x)) / 40),
+                        player.getYMapPos() + ((((int) y)) / 40)));
+
+                map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                        [player.getYMapPos() + ((((int) y)) / 40)].
+                        setCreatureId(map.getCreaturesList().get(map.getCreaturesList().size()-1).getId());
             }
 
             Canvas canvas2 = ((Canvas) (root.getChildren().get(0)));
@@ -173,10 +189,27 @@ public class Main extends Application {
                             [player.getYMapPos() + ((((int) y)) / 40)].getTile1Id() + ".png");
             gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
 
-            ImageView image2 = new ImageView("/graphics/tiles2/" +
+            image = new ImageView("/graphics/tiles2/" +
                     map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
                             [player.getYMapPos() + ((((int) y)) / 40)].getTile2Id() + ".png");
-            gc2.drawImage(image2.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
+            gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
+
+            if (map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                    [player.getYMapPos() + ((((int) y)) / 40)].getNpcId() != null) {
+                image = new ImageView("/graphics/characters/" +
+                        map.getNpcList().get(map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                                [player.getYMapPos() + ((((int) y)) / 40)].getNpcId()).getNpcTypeId() + ".png");
+                gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
+            }
+
+            if (map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                    [player.getYMapPos() + ((((int) y)) / 40)].getCreatureId() != null) {
+                image = new ImageView("/graphics/creatures/" +
+                        map.getCreaturesList().get(map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                                [player.getYMapPos() + ((((int) y)) / 40)].getCreatureId()).getCreatureTypeId() + ".png");
+                gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
+            }
+
             root.getChildren().set(0, canvas);
             canvas.requestFocus();
         }
@@ -217,6 +250,9 @@ public class Main extends Application {
                 } else if (pane3.getChildren().contains(border)) {
                     pane3.getChildren().remove(border);
                     pane.getChildren().add(border);
+                } else if (pane4.getChildren().contains(border)) {
+                    pane4.getChildren().remove(border);
+                    pane.getChildren().add(border);
                 }
                 selectTile = tilesList.getTiles1().get(Integer.parseInt(tile.getId())).getId();
                 selectedType = "tile1";
@@ -250,6 +286,9 @@ public class Main extends Application {
                 } else if (pane3.getChildren().contains(border)) {
                     pane3.getChildren().remove(border);
                     pane2.getChildren().add(border);
+                } else if (pane4.getChildren().contains(border)) {
+                    pane4.getChildren().remove(border);
+                    pane2.getChildren().add(border);
                 }
                 selectTile = tilesList.getTiles2().get(Integer.parseInt(tile.getId())).getId();
                 selectedType = "tile2";
@@ -279,6 +318,9 @@ public class Main extends Application {
                 } else if (pane2.getChildren().contains(border)) {
                     pane2.getChildren().remove(border);
                     pane3.getChildren().add(border);
+                } else if (pane4.getChildren().contains(border)) {
+                    pane4.getChildren().remove(border);
+                    pane3.getChildren().add(border);
                 }
                 selectTile = npcList.getNpc().get(Integer.parseInt(tile.getId())).getImageId();
                 selectedType = "npc";
@@ -291,6 +333,38 @@ public class Main extends Application {
         }
         scrollPane3.setContent(pane3);
         tabPane.getTabs().get(2).setContent(scrollPane3);
+
+        ScrollPane scrollPane4 = new ScrollPane();
+        scrollPane4.setLayoutX(190);
+        scrollPane4.setPrefSize(180, 600);
+
+        for (int i = 0; i < creatureList.getCreaturesCount(); i++) {
+            ImageView tile = new ImageView("/graphics/creatures/" + i + ".png");
+            tile.setX(5 + (i / 13) * 45);
+            tile.setY(5 + (i) * 45 - (i / 13) * 585);
+            tile.setId(String.valueOf(i));
+            tile.setOnMousePressed(event -> {
+                if (pane.getChildren().contains(border)) {
+                    pane.getChildren().remove(border);
+                    pane4.getChildren().add(border);
+                } else if (pane2.getChildren().contains(border)) {
+                    pane2.getChildren().remove(border);
+                    pane4.getChildren().add(border);
+                } else if (pane3.getChildren().contains(border)) {
+                    pane3.getChildren().remove(border);
+                    pane4.getChildren().add(border);
+                }
+                selectTile = creatureList.getCreatures().get(Integer.parseInt(tile.getId())).getImageId();
+                selectedType = "creature";
+                border.setX(creatureList.getCreatures().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+                border.setY(creatureList.getCreatures().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+            });
+
+            creatureList.getCreatures().get(i).setImage(tile);
+            pane4.getChildren().add(tile);
+        }
+        scrollPane4.setContent(pane4);
+        tabPane.getTabs().get(3).setContent(scrollPane4);
 
         root.getChildren().add(tabPane);
     }

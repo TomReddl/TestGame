@@ -6,12 +6,16 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @Slf4j
 public class Map implements Serializable {
     private TileInfo[][] tiles = new TileInfo[300][300];
+    List<NPC> npcList = new ArrayList<>();
+    List<Creature> creaturesList = new ArrayList<>();
     private String mapName;
 
     public Map() {
