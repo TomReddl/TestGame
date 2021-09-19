@@ -340,6 +340,10 @@ public class Main extends Application {
 
         for (int i = 0; i < creatureList.getCreaturesCount(); i++) {
             ImageView tile = new ImageView("/graphics/creatures/" + i + ".png");
+            tile.setFitWidth(40);
+            tile.setPreserveRatio(true);
+            tile.setSmooth(true);
+            tile.setCache(true);
             tile.setX(5 + (i / 13) * 45);
             tile.setY(5 + (i) * 45 - (i / 13) * 585);
             tile.setId(String.valueOf(i));

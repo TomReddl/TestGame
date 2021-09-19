@@ -2,6 +2,7 @@ package entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import utils.JsonUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -19,18 +20,7 @@ public class TilesList {
     public TilesList() {
         tile1Count = Objects.requireNonNull(new File("src/main/resources/graphics/tiles").list()).length;
         tile2Count = Objects.requireNonNull(new File("src/main/resources/graphics/tiles2").list()).length;
-        for (int i = 0; i < tile1Count; i++) {
-            tiles1.add(new Tile());
-            tiles1.get(i).setId(i);
-            tiles1.get(i).setPassability(Boolean.FALSE);
-        }
-        tiles1.get(0).setPassability(Boolean.TRUE);
-        tiles1.get(1).setPassability(Boolean.TRUE);
-        tiles1.get(14).setPassability(Boolean.TRUE);
-        tiles1.get(23).setPassability(Boolean.TRUE);
-        tiles1.get(24).setPassability(Boolean.TRUE);
-        tiles1.get(25).setPassability(Boolean.TRUE);
-        tiles1.get(26).setPassability(Boolean.TRUE);
+        tiles1 = JsonUtils.getTiles();
 
         for (int i = 0; i < tile2Count; i++) {
             tiles2.add(new Tile());
