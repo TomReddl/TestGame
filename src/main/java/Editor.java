@@ -6,6 +6,7 @@ import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import lombok.Getter;
@@ -25,15 +26,34 @@ public class Editor {
   private TilesList tilesList;
   private NPCList npcList;
   private CreatureList creatureList;
+  private EditorMode editorMode;
+  private double startX;
+  private double startY;
 
   public Editor() {
     tilesList = new TilesList();
     npcList = new NPCList();
     creatureList = new CreatureList();
+    editorMode = EditorMode.ADDING;
   }
 
 
   public void drawTiles(Group root) {
+
+    ImageView currentEditorMode = new ImageView("/graphics/gui/SaveMap.png");
+    currentEditorMode.setLayoutX(600);
+    currentEditorMode.setLayoutY(200);
+    currentEditorMode.setOnMousePressed(event -> {
+      if (editorMode == EditorMode.ADDING) {
+        editorMode = EditorMode.CHOOSING;
+        currentEditorMode.setImage(new Image("/graphics/gui/SaveMap.png"));
+      } else {
+        editorMode = EditorMode.ADDING;
+        currentEditorMode.setImage(new Image("/graphics/gui/LoadMap.png"));
+      }
+    });
+    root.getChildren().add(currentEditorMode);
+
     TabPane tabPane = new TabPane();
     tabPane.setLayoutX(630);
     tabPane.setPrefSize(370, 620);
@@ -184,4 +204,8 @@ public class Editor {
     root.getChildren().add(tabPane);
   }
 
+  public enum EditorMode {
+    CHOOSING,
+    ADDING
+  }
 }
