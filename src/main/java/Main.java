@@ -17,13 +17,12 @@ public class Main extends Application {
     private NPCList npcList;
     private CreatureList creatureList;
     private ImageView border;
-    Pane pane = new Pane();
-    Pane pane2 = new Pane();
-    Pane pane3 = new Pane();
-    Pane pane4 = new Pane();
-
+    private final Pane pane = new Pane();
+    private final Pane pane2 = new Pane();
+    private final Pane pane3 = new Pane();
+    private final Pane pane4 = new Pane();
     private int selectTile = 0;
-    private String selectedType = "tile1";
+    private TileType selectedType = TileType.GROUND;
 
     public static void main(String[] args) {
         launch(args);
@@ -44,10 +43,10 @@ public class Main extends Application {
         canvas.setOnKeyReleased(event -> {
             KeyCode code = event.getCode();
             if (code == KeyCode.D) {
-                if (player.getXPosition() < 299 && (tilesList.getTiles1()
+                if (player.getXPosition() < 299 && (tilesList.getGroundTiles()
                         .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile1Id())
                         .isPassability()) &&
-                        (tilesList.getTiles2()
+                        (tilesList.getGameObjects()
                                 .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile2Id())
                                 .isPassability())) {
                     if (player.getXPosition() < 285) {
@@ -63,9 +62,9 @@ public class Main extends Application {
                 }
             }
             if (code == KeyCode.A) {
-                if (player.getXPosition() > 0 && (tilesList.getTiles1().get(map.getTiles()[
+                if (player.getXPosition() > 0 && (tilesList.getGroundTiles().get(map.getTiles()[
                         player.getXPosition() - 1][player.getYPosition()].getTile1Id()).isPassability()) &&
-                        (tilesList.getTiles2().get(map.getTiles()[
+                        (tilesList.getGameObjects().get(map.getTiles()[
                                 player.getXPosition() - 1][player.getYPosition()].getTile2Id()).isPassability())) {
                     if (player.getXPosition() > 0) {
                         player.setXPosition(player.getXPosition() - 1);
@@ -80,9 +79,9 @@ public class Main extends Application {
                 }
             }
             if (code == KeyCode.S) {
-                if (player.getYPosition() < 299 && (tilesList.getTiles1().get(map.getTiles()[
+                if (player.getYPosition() < 299 && (tilesList.getGroundTiles().get(map.getTiles()[
                         player.getXPosition()][player.getYPosition() + 1].getTile1Id()).isPassability()) &&
-                        (tilesList.getTiles2().get(map.getTiles()[
+                        (tilesList.getGameObjects().get(map.getTiles()[
                                 player.getXPosition()][player.getYPosition() + 1].getTile2Id()).isPassability())) {
                     if (player.getYPosition() < 285) {
                         player.setYPosition(player.getYPosition() + 1);
@@ -97,9 +96,9 @@ public class Main extends Application {
                 }
             }
             if (code == KeyCode.W) {
-                if (player.getYPosition() > 0 && (tilesList.getTiles1().get(map.getTiles()[
+                if (player.getYPosition() > 0 && (tilesList.getGroundTiles().get(map.getTiles()[
                         player.getXPosition()][player.getYPosition() - 1].getTile1Id()).isPassability()) &&
-                        (tilesList.getTiles2().get(map.getTiles()[
+                        (tilesList.getGameObjects().get(map.getTiles()[
                                 player.getXPosition()][player.getYPosition() - 1].getTile2Id()).isPassability())) {
                     if (player.getYPosition() > 0) {
                         player.setYPosition(player.getYPosition() - 1);
@@ -238,7 +237,7 @@ public class Main extends Application {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setLayoutX(5);
         scrollPane.setPrefSize(180, 600);
-        for (int i = 0; i < tilesList.getTile1Count(); i++) {
+        for (int i = 0; i < tilesList.getGroundCounts(); i++) {
             ImageView tile = new ImageView("/graphics/tiles/" + i + ".png");
             tile.setX(5 + (i / 13) * 45);
             tile.setY(5 + (i) * 45 - (i / 13) * 585);
@@ -254,18 +253,18 @@ public class Main extends Application {
                     pane4.getChildren().remove(border);
                     pane.getChildren().add(border);
                 }
-                selectTile = tilesList.getTiles1().get(Integer.parseInt(tile.getId())).getId();
-                selectedType = "tile1";
-                border.setX(tilesList.getTiles1().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
-                border.setY(tilesList.getTiles1().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+                selectTile = tilesList.getGroundTiles().get(Integer.parseInt(tile.getId())).getId();
+                selectedType = TileType.GROUND;
+                border.setX(tilesList.getGroundTiles().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+                border.setY(tilesList.getGroundTiles().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
             });
 
-            tilesList.getTiles1().get(i).setImage(tile);
+            tilesList.getGroundTiles().get(i).setImage(tile);
             pane.getChildren().add(tile);
         }
         border = new javafx.scene.image.ImageView("/graphics/gui/Border.png");
-        border.setX(tilesList.getTiles1().get(0).getImage().getX() - 1);
-        border.setY(tilesList.getTiles1().get(0).getImage().getY() - 1);
+        border.setX(tilesList.getGroundTiles().get(0).getImage().getX() - 1);
+        border.setY(tilesList.getGroundTiles().get(0).getImage().getY() - 1);
         pane.getChildren().add(border);
         scrollPane.setContent(pane);
         tabPane.getTabs().get(0).setContent(scrollPane);
@@ -290,13 +289,13 @@ public class Main extends Application {
                     pane4.getChildren().remove(border);
                     pane2.getChildren().add(border);
                 }
-                selectTile = tilesList.getTiles2().get(Integer.parseInt(tile.getId())).getId();
-                selectedType = "tile2";
-                border.setX(tilesList.getTiles2().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
-                border.setY(tilesList.getTiles2().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+                selectTile = tilesList.getGameObjects().get(Integer.parseInt(tile.getId())).getId();
+                selectedType = TileType.OBJECT;
+                border.setX(tilesList.getGameObjects().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+                border.setY(tilesList.getGameObjects().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
             });
 
-            tilesList.getTiles2().get(i).setImage(tile);
+            tilesList.getGameObjects().get(i).setImage(tile);
             pane2.getChildren().add(tile);
         }
         scrollPane2.setContent(pane2);
@@ -323,7 +322,7 @@ public class Main extends Application {
                     pane3.getChildren().add(border);
                 }
                 selectTile = npcList.getNpc().get(Integer.parseInt(tile.getId())).getImageId();
-                selectedType = "npc";
+                selectedType = TileType.NPC;
                 border.setX(npcList.getNpc().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
                 border.setY(npcList.getNpc().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
             });
@@ -359,7 +358,7 @@ public class Main extends Application {
                     pane4.getChildren().add(border);
                 }
                 selectTile = creatureList.getCreatures().get(Integer.parseInt(tile.getId())).getImageId();
-                selectedType = "creature";
+                selectedType = TileType.CREATURE;
                 border.setX(creatureList.getCreatures().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
                 border.setY(creatureList.getCreatures().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
             });
@@ -372,4 +371,7 @@ public class Main extends Application {
 
         root.getChildren().add(tabPane);
     }
+
+
+
 }

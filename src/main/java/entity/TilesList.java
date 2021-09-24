@@ -12,21 +12,21 @@ import java.util.Objects;
 @Setter
 @Getter
 public class TilesList {
-    private List<Tile> tiles1 = new ArrayList<>();
-    private List<Tile> tiles2 = new ArrayList<>();
-    private int tile1Count; // количество тайлов нижнего уровня, равно числу картинок в папке src/Data/Graphics/Tiles
+    private List<Tile> groundTiles;
+    private List<Tile> gameObjects = new ArrayList<>();
+    private int groundCounts; // количество тайлов нижнего уровня, равно числу картинок в папке src/Data/Graphics/Tiles
     private int tile2Count;
 
     public TilesList() {
-        tile1Count = Objects.requireNonNull(new File("src/main/resources/graphics/tiles").list()).length;
         tile2Count = Objects.requireNonNull(new File("src/main/resources/graphics/tiles2").list()).length;
-        tiles1 = JsonUtils.getTiles();
+        groundTiles = JsonUtils.getTiles();
+        groundCounts = groundTiles.size();
 
         for (int i = 0; i < tile2Count; i++) {
-            tiles2.add(new Tile());
-            tiles2.get(i).setId(i);
-            tiles2.get(i).setPassability(Boolean.FALSE);
+            gameObjects.add(new Tile());
+            gameObjects.get(i).setId(i);
+            gameObjects.get(i).setPassability(Boolean.FALSE);
         }
-        tiles2.get(0).setPassability(Boolean.TRUE);
+        gameObjects.get(0).setPassability(Boolean.TRUE);
     }
 }
