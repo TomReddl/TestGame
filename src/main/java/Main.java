@@ -9,8 +9,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.*;
-import javafx.scene.paint.Color;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -32,13 +32,13 @@ public class Main extends Application {
         Group root = new Group();
         Canvas canvas = new Canvas(1020, 680); // размеры игрового окна
 
-     /*   canvas.setOnKeyReleased(event -> {
+        canvas.setOnKeyReleased(event -> {
             KeyCode code = event.getCode();
             if (code == KeyCode.D) {
-                if (player.getXPosition() < 299 && (tilesList.getGroundTiles()
+                if (player.getXPosition() < 299 && (editor.getTilesList().getGroundTiles()
                         .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile1Id())
                         .isPassability()) &&
-                        (tilesList.getGameObjects()
+                        (editor.getTilesList().getGameObjects()
                                 .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile2Id())
                                 .isPassability())) {
                     if (player.getXPosition() < 285) {
@@ -47,16 +47,16 @@ public class Main extends Application {
                     if (player.getXPosition() + 3 > player.getXMapPos() + 12) {
                         player.setXMapPos(player.getXMapPos() + 1);
                         GraphicsContext gc = canvas.getGraphicsContext2D();
-                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, tilesList);
+                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor.getTilesList());
                     } else {
                         player.getImage().setX(player.getImage().getX() + 40);
                     }
                 }
             }
             if (code == KeyCode.A) {
-                if (player.getXPosition() > 0 && (tilesList.getGroundTiles().get(map.getTiles()[
+                if (player.getXPosition() > 0 && (editor.getTilesList().getGroundTiles().get(map.getTiles()[
                         player.getXPosition() - 1][player.getYPosition()].getTile1Id()).isPassability()) &&
-                        (tilesList.getGameObjects().get(map.getTiles()[
+                        (editor.getTilesList().getGameObjects().get(map.getTiles()[
                                 player.getXPosition() - 1][player.getYPosition()].getTile2Id()).isPassability())) {
                     if (player.getXPosition() > 0) {
                         player.setXPosition(player.getXPosition() - 1);
@@ -64,16 +64,16 @@ public class Main extends Application {
                     if (player.getXMapPos() > 0 && player.getXPosition() - 3 < player.getXMapPos()) {
                         player.setXMapPos(player.getXMapPos() - 1);
                         GraphicsContext gc = canvas.getGraphicsContext2D();
-                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, tilesList);
+                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor.getTilesList());
                     } else {
                         player.getImage().setX(player.getImage().getX() - 40);
                     }
                 }
             }
             if (code == KeyCode.S) {
-                if (player.getYPosition() < 299 && (tilesList.getGroundTiles().get(map.getTiles()[
+                if (player.getYPosition() < 299 && (editor.getTilesList().getGroundTiles().get(map.getTiles()[
                         player.getXPosition()][player.getYPosition() + 1].getTile1Id()).isPassability()) &&
-                        (tilesList.getGameObjects().get(map.getTiles()[
+                        (editor.getTilesList().getGameObjects().get(map.getTiles()[
                                 player.getXPosition()][player.getYPosition() + 1].getTile2Id()).isPassability())) {
                     if (player.getYPosition() < 285) {
                         player.setYPosition(player.getYPosition() + 1);
@@ -81,16 +81,16 @@ public class Main extends Application {
                     if (player.getYPosition() + 3 > player.getYMapPos() + 12) {
                         player.setYMapPos(player.getYMapPos() + 1);
                         GraphicsContext gc = canvas.getGraphicsContext2D();
-                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, tilesList);
+                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor.getTilesList());
                     } else {
                         player.getImage().setY(player.getImage().getY() + 40);
                     }
                 }
             }
             if (code == KeyCode.W) {
-                if (player.getYPosition() > 0 && (tilesList.getGroundTiles().get(map.getTiles()[
+                if (player.getYPosition() > 0 && (editor.getTilesList().getGroundTiles().get(map.getTiles()[
                         player.getXPosition()][player.getYPosition() - 1].getTile1Id()).isPassability()) &&
-                        (tilesList.getGameObjects().get(map.getTiles()[
+                        (editor.getTilesList().getGameObjects().get(map.getTiles()[
                                 player.getXPosition()][player.getYPosition() - 1].getTile2Id()).isPassability())) {
                     if (player.getYPosition() > 0) {
                         player.setYPosition(player.getYPosition() - 1);
@@ -98,13 +98,13 @@ public class Main extends Application {
                     if (player.getYMapPos() > 0 && player.getYPosition() - 3 < player.getYMapPos()) {
                         player.setYMapPos(player.getYMapPos() - 1);
                         GraphicsContext gc = canvas.getGraphicsContext2D();
-                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, tilesList);
+                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor.getTilesList());
                     } else {
                         player.getImage().setY(player.getImage().getY() - 40);
                     }
                 }
             }
-        });*/
+        });
 
         root.getChildren().add(canvas);
         root.getChildren().add(player.getImage());
@@ -140,66 +140,11 @@ public class Main extends Application {
         });
         root.getChildren().add(loadMapImage);
 
-        canvas.setOnMousePressed(event -> drawTileOnMapOrSelect(event.getX(), event.getY(), root, canvas));
-
+        root.setOnMousePressed(event -> drawTileOnMap(event.getX(), event.getY(), root, canvas));
+        root.setOnMouseDragged(event -> drawTileOnMap(event.getX(), event.getY(), root, canvas));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         canvas.requestFocus();
-    }
-
-    private void drawTileOnMapOrSelect(double x, double y, Group root, Canvas canvas) {
-        System.out.println(editor.getEditorMode());
-        // todo перенеси в эдитор!
-        if (editor.getEditorMode() == Editor.EditorMode.ADDING) {
-            drawTileOnMap(x, y, root, canvas);
-        } else {
-            selectTile(x, y, root, canvas);
-        }
-    }
-
-    public void selectTile(double x, double y, Group root, Canvas canvas) {
-        if (x >= 600 || y >= 600) {
-            return;
-        }
-        var tileInfo = map.getTiles()
-                [player.getXMapPos() + ((((int) x)) / 40)]
-                [player.getYMapPos() + ((((int) y)) / 40)];
-
-        if (tileInfo.getCreatureId() != null) {
-            var image = new ImageView("/graphics/creatures/" +
-                    map.getCreaturesList().get(map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
-                            [player.getYMapPos() + ((((int) y)) / 40)].getCreatureId()).getCreatureTypeId() + ".png");
-
-            Canvas canvas2 = ((Canvas) (root.getChildren().get(0)));
-            GraphicsContext gc2 = canvas2.getGraphicsContext2D();
-            gc2.drawImage(reColor(image.getImage(), Color.AQUA, Color.AZURE), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
-        }
-    }
-
-    public static Image reColor(Image inputImage, Color oldColor, Color newColor) {
-        int W = (int) inputImage.getWidth();
-        int H = (int) inputImage.getHeight();
-        WritableImage outputImage = new WritableImage(W, H);
-        PixelReader reader = inputImage.getPixelReader();
-        PixelWriter writer = outputImage.getPixelWriter();
-        int nb=(int) newColor.getBlue()*255;
-        int nr=(int) newColor.getRed()*255;
-        int ng=(int) newColor.getGreen()*255;
-        for (int y = 0; y < H; y++) {
-            for (int x = 0; x < W; x++) {
-                int argb = reader.getArgb(x, y);
-                int a = (argb >> 24) & 0xFF;
-                int r = (argb >> 16) & 0xFF;
-                int g = (argb >>  8) & 0xFF;
-                int b =  argb        & 0xFF;
-                r=nr;
-                g=ng;
-                b=nb;
-                argb = (a << 24) | (r << 16) | (g << 8) | b;
-                writer.setArgb(x, y, argb);
-            }
-        }
-        return outputImage;
     }
 
     public void drawTileOnMap(double x, double y, Group root, Canvas canvas) {
