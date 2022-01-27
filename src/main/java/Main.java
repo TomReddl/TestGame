@@ -1,7 +1,8 @@
-import entity.Creature;
-import entity.Map;
-import entity.NPC;
+import entity.map.Creature;
+import entity.map.Map;
+import entity.map.NPC;
 import entity.Player;
+import gui.Editor;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -47,7 +48,7 @@ public class Main extends Application {
                     if (player.getXPosition() + 3 > player.getXMapPos() + 12) {
                         player.setXMapPos(player.getXMapPos() + 1);
                         GraphicsContext gc = canvas.getGraphicsContext2D();
-                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor.getTilesList());
+                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
                     } else {
                         player.getImage().setX(player.getImage().getX() + 40);
                     }
@@ -64,7 +65,7 @@ public class Main extends Application {
                     if (player.getXMapPos() > 0 && player.getXPosition() - 3 < player.getXMapPos()) {
                         player.setXMapPos(player.getXMapPos() - 1);
                         GraphicsContext gc = canvas.getGraphicsContext2D();
-                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor.getTilesList());
+                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
                     } else {
                         player.getImage().setX(player.getImage().getX() - 40);
                     }
@@ -81,7 +82,7 @@ public class Main extends Application {
                     if (player.getYPosition() + 3 > player.getYMapPos() + 12) {
                         player.setYMapPos(player.getYMapPos() + 1);
                         GraphicsContext gc = canvas.getGraphicsContext2D();
-                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor.getTilesList());
+                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
                     } else {
                         player.getImage().setY(player.getImage().getY() + 40);
                     }
@@ -98,7 +99,7 @@ public class Main extends Application {
                     if (player.getYMapPos() > 0 && player.getYPosition() - 3 < player.getYMapPos()) {
                         player.setYMapPos(player.getYMapPos() - 1);
                         GraphicsContext gc = canvas.getGraphicsContext2D();
-                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor.getTilesList());
+                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
                     } else {
                         player.getImage().setY(player.getImage().getY() - 40);
                     }
@@ -110,7 +111,7 @@ public class Main extends Application {
         root.getChildren().add(player.getImage());
         editor.drawTiles(root);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor.getTilesList());
+        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
 
         Label mapNameLabel = new Label("Название карты:");
         mapNameLabel.setLayoutX(5);
@@ -136,7 +137,7 @@ public class Main extends Application {
         loadMapImage.setLayoutY(605);
         loadMapImage.setOnMousePressed(event -> {
             map = map.loadMap(mapNameTextField.getText());
-            map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor.getTilesList());
+            map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
         });
         root.getChildren().add(loadMapImage);
 
@@ -164,6 +165,9 @@ public class Main extends Application {
                     map.getNpcList().add(new NPC(editor.getSelectTile(), map.getNpcList().size(),
                             player.getXMapPos() + ((((int) x)) / 40),
                             player.getYMapPos() + ((((int) y)) / 40)));
+                    map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                            [player.getYMapPos() + ((((int) y)) / 40)].
+                            setNpcId(map.getNpcList().get(map.getNpcList().size()-1).getId());
                     break;
                 }
                 case CREATURE: {

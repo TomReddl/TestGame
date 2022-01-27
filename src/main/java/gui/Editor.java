@@ -1,3 +1,5 @@
+package gui;
+
 import entity.CreatureList;
 import entity.NPCList;
 import entity.TileType;
