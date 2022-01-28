@@ -165,7 +165,7 @@ public class Main extends Application {
                "X: " + xPos + ", Y: " + yPos + ". " +
                editor.getTilesList().getTiles1().get(map.getTiles()[xPos][yPos].getTile1Id()).getDesc() +
                (map.getTiles()[xPos][yPos].getTile2Id() == 0 ? "" : ", " +
-               editor.getTilesList().getTiles2().get(map.getTiles()[xPos][yPos].getTile2Id()).getDesc()));
+               editor.getTilesList().getTiles2().get(map.getTiles()[xPos][yPos].getTile2Id()).getDesc().toLowerCase()));
         } else {
             mapInfoLabel.setText("");
         }

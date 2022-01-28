@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.InstantDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
+import entity.NPCInfo;
 import entity.Tile;
 import lombok.experimental.UtilityClass;
 
@@ -47,6 +48,26 @@ public class JsonUtils {
             });
         } catch (Exception ex) {
             throw new RuntimeException("can not read 'tiles2.json', cause=%s" + ex.getMessage());
+        }
+    }
+
+    public static List<NPCInfo> getNPC() {
+        try {
+            var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/characters.json";
+            return objectMapper.readValue(new File(path), new TypeReference<>() {
+            });
+        } catch (Exception ex) {
+            throw new RuntimeException("can not read 'characters.json', cause=%s" + ex.getMessage());
+        }
+    }
+
+    public static List<NPCInfo> getCreatures() {
+        try {
+            var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/creatures.json";
+            return objectMapper.readValue(new File(path), new TypeReference<>() {
+            });
+        } catch (Exception ex) {
+            throw new RuntimeException("can not read 'creatures.json', cause=%s" + ex.getMessage());
         }
     }
 }
