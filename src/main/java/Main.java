@@ -1,7 +1,7 @@
+import entity.Player;
 import entity.map.Creature;
 import entity.map.Map;
 import entity.map.NPC;
-import entity.Player;
 import gui.Editor;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -36,10 +38,10 @@ public class Main extends Application {
         canvas.setOnKeyReleased(event -> {
             KeyCode code = event.getCode();
             if (code == KeyCode.D) {
-                if (player.getXPosition() < 299 && (editor.getTilesList().getGroundTiles()
+                if (player.getXPosition() < 299 && (editor.getTilesList().getTiles1()
                         .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile1Id())
                         .isPassability()) &&
-                        (editor.getTilesList().getGameObjects()
+                        (editor.getTilesList().getTiles2()
                                 .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile2Id())
                                 .isPassability())) {
                     if (player.getXPosition() < 285) {
@@ -55,9 +57,9 @@ public class Main extends Application {
                 }
             }
             if (code == KeyCode.A) {
-                if (player.getXPosition() > 0 && (editor.getTilesList().getGroundTiles().get(map.getTiles()[
+                if (player.getXPosition() > 0 && (editor.getTilesList().getTiles1().get(map.getTiles()[
                         player.getXPosition() - 1][player.getYPosition()].getTile1Id()).isPassability()) &&
-                        (editor.getTilesList().getGameObjects().get(map.getTiles()[
+                        (editor.getTilesList().getTiles2().get(map.getTiles()[
                                 player.getXPosition() - 1][player.getYPosition()].getTile2Id()).isPassability())) {
                     if (player.getXPosition() > 0) {
                         player.setXPosition(player.getXPosition() - 1);
@@ -72,9 +74,9 @@ public class Main extends Application {
                 }
             }
             if (code == KeyCode.S) {
-                if (player.getYPosition() < 299 && (editor.getTilesList().getGroundTiles().get(map.getTiles()[
+                if (player.getYPosition() < 299 && (editor.getTilesList().getTiles1().get(map.getTiles()[
                         player.getXPosition()][player.getYPosition() + 1].getTile1Id()).isPassability()) &&
-                        (editor.getTilesList().getGameObjects().get(map.getTiles()[
+                        (editor.getTilesList().getTiles2().get(map.getTiles()[
                                 player.getXPosition()][player.getYPosition() + 1].getTile2Id()).isPassability())) {
                     if (player.getYPosition() < 285) {
                         player.setYPosition(player.getYPosition() + 1);
@@ -89,9 +91,9 @@ public class Main extends Application {
                 }
             }
             if (code == KeyCode.W) {
-                if (player.getYPosition() > 0 && (editor.getTilesList().getGroundTiles().get(map.getTiles()[
+                if (player.getYPosition() > 0 && (editor.getTilesList().getTiles1().get(map.getTiles()[
                         player.getXPosition()][player.getYPosition() - 1].getTile1Id()).isPassability()) &&
-                        (editor.getTilesList().getGameObjects().get(map.getTiles()[
+                        (editor.getTilesList().getTiles2().get(map.getTiles()[
                                 player.getXPosition()][player.getYPosition() - 1].getTile2Id()).isPassability())) {
                     if (player.getYPosition() > 0) {
                         player.setYPosition(player.getYPosition() - 1);
@@ -141,11 +143,32 @@ public class Main extends Application {
         });
         root.getChildren().add(loadMapImage);
 
+        Label mapInfoLabel = new Label("");
+        mapInfoLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        mapInfoLabel.setLayoutX(360);
+        mapInfoLabel.setLayoutY(610);
+        root.getChildren().add(mapInfoLabel);
+
         root.setOnMousePressed(event -> drawTileOnMap(event.getX(), event.getY(), root, canvas));
         root.setOnMouseDragged(event -> drawTileOnMap(event.getX(), event.getY(), root, canvas));
+        root.setOnMouseMoved(event -> showMapPointInfo(event.getX(), event.getY(), mapInfoLabel));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         canvas.requestFocus();
+    }
+
+    private void showMapPointInfo(double x, double y, Label mapInfoLabel) {
+        if (x < 600 && y < 600) {
+            int xPos = player.getXMapPos() + (((int) x) / 40);
+            int yPos = player.getYMapPos() + (((int) y) / 40);
+            mapInfoLabel.setText(
+               "X: " + xPos + ", Y: " + yPos + ". " +
+               editor.getTilesList().getTiles1().get(map.getTiles()[xPos][yPos].getTile1Id()).getDesc() +
+               (map.getTiles()[xPos][yPos].getTile2Id() == 0 ? "" : ", " +
+               editor.getTilesList().getTiles2().get(map.getTiles()[xPos][yPos].getTile2Id()).getDesc()));
+        } else {
+            mapInfoLabel.setText("");
+        }
     }
 
     public void drawTileOnMap(double x, double y, Group root, Canvas canvas) {
@@ -162,22 +185,34 @@ public class Main extends Application {
                     break;
                 }
                 case NPC: {
-                    map.getNpcList().add(new NPC(editor.getSelectTile(), map.getNpcList().size(),
-                            player.getXMapPos() + ((((int) x)) / 40),
-                            player.getYMapPos() + ((((int) y)) / 40)));
-                    map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
-                            [player.getYMapPos() + ((((int) y)) / 40)].
-                            setNpcId(map.getNpcList().get(map.getNpcList().size()-1).getId());
+                    if (editor.getSelectTile() == 0) {
+                        map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                                [player.getYMapPos() + ((((int) y)) / 40)].setNpcId(null);
+                    } else if (map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                            [player.getYMapPos() + ((((int) y)) / 40)].getNpcId() == null) {
+                        map.getNpcList().add(new NPC(editor.getSelectTile(), map.getNpcList().size(),
+                                player.getXMapPos() + ((((int) x)) / 40),
+                                player.getYMapPos() + ((((int) y)) / 40)));
+                        map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                                [player.getYMapPos() + ((((int) y)) / 40)].
+                                setNpcId(map.getNpcList().get(map.getNpcList().size() - 1).getId());
+                    }
                     break;
                 }
                 case CREATURE: {
-                    map.getCreaturesList().add(new Creature(editor.getSelectTile(), map.getCreaturesList().size(),
-                            player.getXMapPos() + ((((int) x)) / 40),
-                            player.getYMapPos() + ((((int) y)) / 40)));
+                    if (editor.getSelectTile() == 0) {
+                        map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                                [player.getYMapPos() + ((((int) y)) / 40)].setCreatureId(null);
+                    } else if (map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                            [player.getYMapPos() + ((((int) y)) / 40)].getCreatureId() == null) {
+                        map.getCreaturesList().add(new Creature(editor.getSelectTile(), map.getCreaturesList().size(),
+                                player.getXMapPos() + ((((int) x)) / 40),
+                                player.getYMapPos() + ((((int) y)) / 40)));
 
-                    map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
-                            [player.getYMapPos() + ((((int) y)) / 40)].
-                            setCreatureId(map.getCreaturesList().get(map.getCreaturesList().size()-1).getId());
+                        map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                                [player.getYMapPos() + ((((int) y)) / 40)].
+                                setCreatureId(map.getCreaturesList().get(map.getCreaturesList().size() - 1).getId());
+                    }
                     break;
                 }
             }

@@ -1,0 +1,604 @@
+[
+  {
+    "id": 0,
+    "name": "",
+    "desc": "",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 1,
+    "name": "Каменная лестница",
+    "desc": "Каменная лестница, ведущая вниз",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 2,
+    "name": "Каменная лестница",
+    "desc": "Каменная лестница, ведущая вверх",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 3,
+    "name": "Пень",
+    "desc": "Пень",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 4,
+    "name": "Дуб",
+    "desc": "Дуб",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 5,
+    "name": "Акация",
+    "desc": "Акация",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 6,
+    "name": "Берёза",
+    "desc": "Берёза",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 7,
+    "name": "Пальма",
+    "desc": "Пальма",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 8,
+    "name": "Глициния",
+    "desc": "Глициния",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 9,
+    "name": "Кактус",
+    "desc": "Кактус",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 10,
+    "name": "Кактус",
+    "desc": "Кактус",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 11,
+    "name": "Сухой дуб",
+    "desc": "Сухой дуб",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 12,
+    "name": "Ящик",
+    "desc": "Ящик",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 13,
+    "name": "Ящик",
+    "desc": "Ящик",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 14,
+    "name": "Ящик",
+    "desc": "Ящик",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 15,
+    "name": "Сундук",
+    "desc": "Сундук",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 16,
+    "name": "Бочка",
+    "desc": "Бочка",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 17,
+    "name": "Манекен",
+    "desc": "Манекен",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 18,
+    "name": "Наковальня",
+    "desc": "Наковальня",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 19,
+    "name": "Поленница",
+    "desc": "Поленница",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 20,
+    "name": "Мешок с зерном",
+    "desc": "Мешок с зерном",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 21,
+    "name": "Кафедра",
+    "desc": "Кафедра",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 22,
+    "name": "Тумба",
+    "desc": "Тумба",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 23,
+    "name": "Тумба",
+    "desc": "Тумба",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 24,
+    "name": "Стол",
+    "desc": "Деревянный стол",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 25,
+    "name": "Стул",
+    "desc": "Деревянный стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 26,
+    "name": "Стул",
+    "desc": "Деревянный стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 27,
+    "name": "Стул",
+    "desc": "Деревянный стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 28,
+    "name": "Стул",
+    "desc": "Деревянный стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 29,
+    "name": "Табурет",
+    "desc": "Деревянный табурет",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 30,
+    "name": "Табурет",
+    "desc": "Деревянный табурет",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 31,
+    "name": "Мешок",
+    "desc": "Мешок",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 32,
+    "name": "Стопка мешков",
+    "desc": "Стопка мешков",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 33,
+    "name": "Пустой пень",
+    "desc": "Пустой пень",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 34,
+    "name": "Оружейная стойка",
+    "desc": "Оружейная стойка",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 35,
+    "name": "Стол",
+    "desc": "Каменный стол",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 36,
+    "name": "Стул",
+    "desc": "Каменный стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 37,
+    "name": "Стул",
+    "desc": "Каменный стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 38,
+    "name": "Стул",
+    "desc": "Каменный стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 39,
+    "name": "Стул",
+    "desc": "Каменный стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 40,
+    "name": "Табурет",
+    "desc": "Каменный табурет",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 41,
+    "name": "Табурет",
+    "desc": "Каменный табурет",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 42,
+    "name": "Платяной шкаф",
+    "desc": "Платяной шкаф",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 43,
+    "name": "Зеркало",
+    "desc": "Зеркало",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 44,
+    "name": "Кухонный шкаф",
+    "desc": "Кухонный шкаф",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 45,
+    "name": "Напольные часы",
+    "desc": "Напольные часы",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 46,
+    "name": "Потушенный факел",
+    "desc": "Потушенный факел",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 47,
+    "name": "Горящий факел",
+    "desc": "Горящий факел",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 48,
+    "name": "Железная клетка",
+    "desc": "Железная клетка",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 49,
+    "name": "Железная клетка",
+    "desc": "Железная клетка",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 50,
+    "name": "Синий стул",
+    "desc": "Синий стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 51,
+    "name": "Синий стул",
+    "desc": "Синий стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 52,
+    "name": "Синий стул",
+    "desc": "Синий стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 53,
+    "name": "Синий стул",
+    "desc": "Синий стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 54,
+    "name": "Красный стул",
+    "desc": "Красный стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 55,
+    "name": "Красный стул",
+    "desc": "Красный стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 56,
+    "name": "Красный стул",
+    "desc": "Красный стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 57,
+    "name": "Красный стул",
+    "desc": "Красный стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 58,
+    "name": "Большая кровать",
+    "desc": "Большая кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 59,
+    "name": "Большая кровать",
+    "desc": "Большая кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 60,
+    "name": "Кровать",
+    "desc": "Кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 61,
+    "name": "Кровать",
+    "desc": "Кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 62,
+    "name": "Кровать",
+    "desc": "Кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 63,
+    "name": "Большая кровать",
+    "desc": "Большая кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 64,
+    "name": "Большая кровать",
+    "desc": "Большая кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 65,
+    "name": "Большая кровать",
+    "desc": "Большая кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 66,
+    "name": "Большая кровать",
+    "desc": "Большая кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 67,
+    "name": "Кровать",
+    "desc": "Кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 68,
+    "name": "Кровать",
+    "desc": "Кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 69,
+    "name": "Кровать",
+    "desc": "Кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 70,
+    "name": "Большая кровать",
+    "desc": "Большая кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 71,
+    "name": "Большая кровать",
+    "desc": "Большая кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 72,
+    "name": "Большая кровать",
+    "desc": "Большая кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 73,
+    "name": "Кровать",
+    "desc": "Кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 74,
+    "name": "Кровать",
+    "desc": "Кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 75,
+    "name": "Кровать",
+    "desc": "Кровать",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 76,
+    "name": "Зеленый стул",
+    "desc": "Зеленый стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 77,
+    "name": "Зеленый стул",
+    "desc": "Зеленый стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 78,
+    "name": "Зеленый стул",
+    "desc": "Зеленый стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 79,
+    "name": "Зеленый стул",
+    "desc": "Зеленый стул",
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 80,
+    "name": "Деревянная дверь",
+    "desc": "Деревянная дверь",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 81,
+    "name": "Деревянная дверь",
+    "desc": "Деревянная дверь",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 82,
+    "name": "Деревянная дверь",
+    "desc": "Деревянная дверь",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 83,
+    "name": "Деревянная дверь",
+    "desc": "Деревянная дверь",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 84,
+    "name": "Деревянная дверь",
+    "desc": "Деревянная дверь",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 85,
+    "name": "Деревянная дверь",
+    "desc": "Деревянная дверь",
+    "strength": 0,
+    "passability": false
+  }
+]

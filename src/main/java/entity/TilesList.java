@@ -4,29 +4,20 @@ import lombok.Getter;
 import lombok.Setter;
 import utils.JsonUtils;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Setter
 @Getter
 public class TilesList {
-    private List<Tile> groundTiles;
-    private List<Tile> gameObjects = new ArrayList<>();
-    private int groundCounts; // количество тайлов нижнего уровня, равно числу картинок в папке src/Data/Graphics/Tiles
-    private int tile2Count;
+    private List<Tile> tiles1;
+    private List<Tile> tiles2;
+    private int tiles1Count;
+    private int tiles2Count;
 
     public TilesList() {
-        tile2Count = Objects.requireNonNull(new File("src/main/resources/graphics/tiles2").list()).length;
-        groundTiles = JsonUtils.getTiles();
-        groundCounts = groundTiles.size();
-
-        for (int i = 0; i < tile2Count; i++) {
-            gameObjects.add(new Tile());
-            gameObjects.get(i).setId(i);
-            gameObjects.get(i).setPassability(Boolean.FALSE);
-        }
-        gameObjects.get(0).setPassability(Boolean.TRUE);
+        tiles1 = JsonUtils.getTiles1();
+        tiles2 = JsonUtils.getTiles2();
+        tiles1Count = tiles1.size();
+        tiles2Count = tiles2.size();
     }
 }

@@ -34,9 +34,9 @@ public class Map implements Serializable {
     public void drawMap(int Xpos, int YPos, GraphicsContext gc, Editor editor) {
         for (int x = 0; x < 15; x++) {
             for (int y = 0; y < 15; y++) {
-                gc.drawImage(editor.getTilesList().getGroundTiles().get(tiles[Xpos + x][YPos + y].getTile1Id()).getImage().getImage(),
+                gc.drawImage(editor.getTilesList().getTiles1().get(tiles[Xpos + x][YPos + y].getTile1Id()).getImage().getImage(),
                         x * 40, y * 40);
-                gc.drawImage(editor.getTilesList().getGameObjects().get(tiles[Xpos + x][YPos + y].getTile2Id()).getImage().getImage(),
+                gc.drawImage(editor.getTilesList().getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id()).getImage().getImage(),
                         x * 40, y * 40);
             }
         }

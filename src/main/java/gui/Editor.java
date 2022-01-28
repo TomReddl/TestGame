@@ -51,7 +51,7 @@ public class Editor {
     ScrollPane scrollPane = new ScrollPane();
     scrollPane.setLayoutX(5);
     scrollPane.setPrefSize(180, 600);
-    for (int i = 0; i < tilesList.getGroundCounts(); i++) {
+    for (int i = 0; i < tilesList.getTiles1Count(); i++) {
       ImageView tile = new ImageView("/graphics/tiles/" + i + ".png");
       tile.setX(5 + (i / 13) * 45);
       tile.setY(5 + (i) * 45 - (i / 13) * 585);
@@ -67,18 +67,18 @@ public class Editor {
           pane4.getChildren().remove(border);
           pane.getChildren().add(border);
         }
-        selectTile = tilesList.getGroundTiles().get(Integer.parseInt(tile.getId())).getId();
+        selectTile = tilesList.getTiles1().get(Integer.parseInt(tile.getId())).getId();
         selectedType = TileType.GROUND;
-        border.setX(tilesList.getGroundTiles().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
-        border.setY(tilesList.getGroundTiles().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+        border.setX(tilesList.getTiles1().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+        border.setY(tilesList.getTiles1().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
       });
 
-      tilesList.getGroundTiles().get(i).setImage(tile);
+      tilesList.getTiles1().get(i).setImage(tile);
       pane.getChildren().add(tile);
     }
     border = new javafx.scene.image.ImageView("/graphics/gui/Border.png");
-    border.setX(tilesList.getGroundTiles().get(0).getImage().getX() - 1);
-    border.setY(tilesList.getGroundTiles().get(0).getImage().getY() - 1);
+    border.setX(tilesList.getTiles1().get(0).getImage().getX() - 1);
+    border.setY(tilesList.getTiles1().get(0).getImage().getY() - 1);
     pane.getChildren().add(border);
     scrollPane.setContent(pane);
     tabPane.getTabs().get(0).setContent(scrollPane);
@@ -87,7 +87,7 @@ public class Editor {
     scrollPane2.setLayoutX(190);
     scrollPane2.setPrefSize(180, 600);
 
-    for (int i = 0; i < tilesList.getTile2Count(); i++) {
+    for (int i = 0; i < tilesList.getTiles2Count(); i++) {
       ImageView tile = new ImageView("/graphics/tiles2/" + i + ".png");
       tile.setX(5 + (i / 13) * 45);
       tile.setY(5 + (i) * 45 - (i / 13) * 585);
@@ -103,13 +103,13 @@ public class Editor {
           pane4.getChildren().remove(border);
           pane2.getChildren().add(border);
         }
-        selectTile = tilesList.getGameObjects().get(Integer.parseInt(tile.getId())).getId();
+        selectTile = tilesList.getTiles2().get(Integer.parseInt(tile.getId())).getId();
         selectedType = TileType.OBJECT;
-        border.setX(tilesList.getGameObjects().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
-        border.setY(tilesList.getGameObjects().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+        border.setX(tilesList.getTiles2().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+        border.setY(tilesList.getTiles2().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
       });
 
-      tilesList.getGameObjects().get(i).setImage(tile);
+      tilesList.getTiles2().get(i).setImage(tile);
       pane2.getChildren().add(tile);
     }
     scrollPane2.setContent(pane2);
@@ -120,7 +120,12 @@ public class Editor {
     scrollPane3.setPrefSize(180, 600);
 
     for (int i = 0; i < npcList.getNpcCount(); i++) {
-      ImageView tile = new ImageView("/graphics/characters/" + i + ".png");
+      ImageView tile;
+      if (i==0) {
+        tile = new ImageView("/graphics/gui/Delete.png");
+      } else {
+        tile = new ImageView("/graphics/characters/" + i + ".png");
+      }
       tile.setX(5 + (i / 13) * 45);
       tile.setY(5 + (i) * 45 - (i / 13) * 585);
       tile.setId(String.valueOf(i));
@@ -152,7 +157,12 @@ public class Editor {
     scrollPane4.setPrefSize(180, 600);
 
     for (int i = 0; i < creatureList.getCreaturesCount(); i++) {
-      ImageView tile = new ImageView("/graphics/creatures/" + i + ".png");
+      ImageView tile;
+      if (i==0) {
+        tile = new ImageView("/graphics/gui/Delete.png");
+      } else {
+        tile = new ImageView("/graphics/creatures/" + i + ".png");
+      }
       tile.setFitWidth(40);
       tile.setPreserveRatio(true);
       tile.setSmooth(true);

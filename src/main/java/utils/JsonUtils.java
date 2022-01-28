@@ -30,13 +30,23 @@ public class JsonUtils {
         return mapper;
     }
 
-    public static List<Tile> getTiles() {
+    public static List<Tile> getTiles1() {
         try {
-            var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/tiles.json";
+            var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/tiles1.json";
             return objectMapper.readValue(new File(path), new TypeReference<>() {
             });
         } catch (Exception ex) {
-            throw new RuntimeException("can not read 'tiles.json', cause=%s" + ex.getMessage());
+            throw new RuntimeException("can not read 'tiles1.json', cause=%s" + ex.getMessage());
+        }
+    }
+
+    public static List<Tile> getTiles2() {
+        try {
+            var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/tiles2.json";
+            return objectMapper.readValue(new File(path), new TypeReference<>() {
+            });
+        } catch (Exception ex) {
+            throw new RuntimeException("can not read 'tiles2.json', cause=%s" + ex.getMessage());
         }
     }
 }
