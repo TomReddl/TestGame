@@ -6,11 +6,14 @@ import utils.JsonUtils;
 
 import java.util.List;
 
+/*
+ * Список тайлов в редакторе
+ * */
 @Setter
 @Getter
 public class TilesList {
-    private List<Tile> tiles1;
-    private List<Tile> tiles2;
+    private List<TileInfo> tiles1;
+    private List<TileInfo> tiles2;
     private int tiles1Count;
     private int tiles2Count;
 

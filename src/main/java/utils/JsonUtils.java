@@ -5,8 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.InstantDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
+import entity.ItemInfo;
 import entity.NPCInfo;
-import entity.Tile;
+import entity.TileInfo;
 import lombok.experimental.UtilityClass;
 
 import java.io.File;
@@ -31,7 +32,7 @@ public class JsonUtils {
         return mapper;
     }
 
-    public static List<Tile> getTiles1() {
+    public static List<TileInfo> getTiles1() {
         try {
             var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/tiles1.json";
             return objectMapper.readValue(new File(path), new TypeReference<>() {
@@ -41,7 +42,7 @@ public class JsonUtils {
         }
     }
 
-    public static List<Tile> getTiles2() {
+    public static List<TileInfo> getTiles2() {
         try {
             var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/tiles2.json";
             return objectMapper.readValue(new File(path), new TypeReference<>() {
@@ -68,6 +69,16 @@ public class JsonUtils {
             });
         } catch (Exception ex) {
             throw new RuntimeException("can not read 'creatures.json', cause=%s" + ex.getMessage());
+        }
+    }
+
+    public static List<ItemInfo> getItems() {
+        try {
+            var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/items.json";
+            return objectMapper.readValue(new File(path), new TypeReference<>() {
+            });
+        } catch (Exception ex) {
+            throw new RuntimeException("can not read 'items.json', cause=%s" + ex.getMessage());
         }
     }
 }

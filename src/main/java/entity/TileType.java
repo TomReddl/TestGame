@@ -4,5 +4,6 @@ public enum TileType {
   GROUND,
   OBJECT,
   NPC,
-  CREATURE
+  CREATURE,
+  ITEM
 }

@@ -6,6 +6,9 @@ import utils.JsonUtils;
 
 import java.util.List;
 
+/*
+ * Список существ в редакторе
+ * */
 @Setter
 @Getter
 public class CreatureList {

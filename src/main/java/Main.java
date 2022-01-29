@@ -1,5 +1,6 @@
 import entity.Player;
 import entity.map.Creature;
+import entity.map.Item;
 import entity.map.Map;
 import entity.map.NPC;
 import gui.Editor;
@@ -15,6 +16,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 public class Main extends Application {
     private Editor editor;
@@ -215,6 +218,19 @@ public class Main extends Application {
                     }
                     break;
                 }
+                case ITEM: {
+                    if (editor.getSelectTile() == 0) {
+                        map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                                [player.getYMapPos() + ((((int) y)) / 40)].setItems(null);
+                    } else if (map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                            [player.getYMapPos() + ((((int) y)) / 40)].getItems() == null) {
+                        map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                                [player.getYMapPos() + ((((int) y)) / 40)].setItems(new ArrayList<>());
+                        map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                                [player.getYMapPos() + ((((int) y)) / 40)].getItems().add(new Item(editor.getSelectTile(), 1));
+                    }
+                    break;
+                }
             }
 
 
@@ -229,6 +245,14 @@ public class Main extends Application {
                     map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
                             [player.getYMapPos() + ((((int) y)) / 40)].getTile2Id() + ".png");
             gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
+
+            if (map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                    [player.getYMapPos() + ((((int) y)) / 40)].getItems() != null) {
+                image = new ImageView("/graphics/items/" +
+                        map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                                [player.getYMapPos() + ((((int) y)) / 40)].getItems().get(0).getTypeId() + ".png");
+                gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
+            }
 
             if (map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
                     [player.getYMapPos() + ((((int) y)) / 40)].getNpcId() != null) {

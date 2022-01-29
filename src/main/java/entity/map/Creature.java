@@ -3,6 +3,9 @@ package entity.map;
 import lombok.Getter;
 import lombok.Setter;
 
+/*
+ * * Информация о существе
+ */
 @Getter
 @Setter
 public class Creature {

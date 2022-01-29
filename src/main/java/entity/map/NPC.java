@@ -3,7 +3,9 @@ package entity.map;
 import lombok.Getter;
 import lombok.Setter;
 
-//Класс с данными конкретного NPC на карте.
+/*
+ * * Информация о NPC
+ */
 @Getter
 @Setter
 public class NPC {

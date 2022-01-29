@@ -10,6 +10,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+* Карта мира со всеми персонажами и предметами на ней
+* */
 @Getter
 @Setter
 @Slf4j
@@ -38,6 +41,12 @@ public class Map implements Serializable {
                         x * 40, y * 40);
                 gc.drawImage(editor.getTilesList().getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id()).getImage().getImage(),
                         x * 40, y * 40);
+
+                if (tiles[Xpos + x][YPos + y].getItems() != null) {
+                    gc.drawImage(editor.getItemsList().getItems().get(
+                            tiles[Xpos + x][YPos + y].getItems().get(0).getTypeId()).getImage().getImage(),
+                            x * 40, y * 40);
+                }
             }
         }
 

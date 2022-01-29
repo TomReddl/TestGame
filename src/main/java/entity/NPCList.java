@@ -6,6 +6,9 @@ import utils.JsonUtils;
 
 import java.util.List;
 
+/*
+ * Список NPC в редакторе
+ * */
 @Setter
 @Getter
 public class NPCList {

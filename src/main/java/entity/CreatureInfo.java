@@ -5,9 +5,11 @@ import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 
+/*
+* Данные типа существа в редакторе
+* */
 @Setter
 @Getter
-// Класс с данными типа существа в редакторе
 public class CreatureInfo {
     private int imageId;
     @JsonIgnore
