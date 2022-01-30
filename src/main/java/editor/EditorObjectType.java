@@ -1,6 +1,6 @@
-package entity;
+package editor;
 
-public enum TileType {
+public enum EditorObjectType {
   GROUND,
   OBJECT,
   NPC,

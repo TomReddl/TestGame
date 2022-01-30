@@ -2,11 +2,15 @@
   {
     "id": 0,
     "name": "",
-    "desc": ""
+    "desc": "",
+    "weight": "",
+    "types": null
   },
   {
     "id": 1,
     "name": "Яблоко",
-    "desc": "Красное яблоко"
+    "desc": "Красное яблоко",
+    "weight": "200",
+    "types": ["EAT", "INGREDIENT"]
   }
 ]

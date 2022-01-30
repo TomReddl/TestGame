@@ -1,4 +1,4 @@
-package entity;
+package editor;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import javafx.scene.image.ImageView;

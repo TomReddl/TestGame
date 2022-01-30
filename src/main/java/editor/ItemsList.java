@@ -1,4 +1,4 @@
-package entity;
+package editor;
 
 import lombok.Getter;
 import lombok.Setter;

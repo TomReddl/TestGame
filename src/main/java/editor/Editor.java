@@ -1,6 +1,5 @@
-package gui;
+package editor;
 
-import entity.*;
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
@@ -21,7 +20,7 @@ public class Editor {
   private final Pane pane4 = new Pane();
   private final Pane pane5 = new Pane();
   private int selectTile = 0;
-  private TileType selectedType = TileType.GROUND;
+  private EditorObjectType selectedType = EditorObjectType.GROUND;
   private TilesList tilesList;
   private NPCList npcList;
   private CreatureList creatureList;
@@ -61,7 +60,7 @@ public class Editor {
       tile.setOnMousePressed(event -> {
         setBorder(pane1);
         selectTile = tilesList.getTiles1().get(Integer.parseInt(tile.getId())).getId();
-        selectedType = TileType.GROUND;
+        selectedType = EditorObjectType.GROUND;
         border.setX(tilesList.getTiles1().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
         border.setY(tilesList.getTiles1().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
       });
@@ -88,7 +87,7 @@ public class Editor {
       tile.setOnMousePressed(event -> {
         setBorder(pane2);
         selectTile = tilesList.getTiles2().get(Integer.parseInt(tile.getId())).getId();
-        selectedType = TileType.OBJECT;
+        selectedType = EditorObjectType.OBJECT;
         border.setX(tilesList.getTiles2().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
         border.setY(tilesList.getTiles2().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
       });
@@ -116,7 +115,7 @@ public class Editor {
       tile.setOnMousePressed(event -> {
         setBorder(pane3);
         selectTile = npcList.getNpc().get(Integer.parseInt(tile.getId())).getImageId();
-        selectedType = TileType.NPC;
+        selectedType = EditorObjectType.NPC;
         border.setX(npcList.getNpc().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
         border.setY(npcList.getNpc().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
       });
@@ -148,7 +147,7 @@ public class Editor {
       tile.setOnMousePressed(event -> {
         setBorder(pane4);
         selectTile = creatureList.getCreatures().get(Integer.parseInt(tile.getId())).getImageId();
-        selectedType = TileType.CREATURE;
+        selectedType = EditorObjectType.CREATURE;
         border.setX(creatureList.getCreatures().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
         border.setY(creatureList.getCreatures().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
       });
@@ -180,7 +179,7 @@ public class Editor {
       tile.setOnMousePressed(event -> {
         setBorder(pane5);
         selectTile = itemsList.getItems().get(Integer.parseInt(tile.getId())).getId();
-        selectedType = TileType.ITEM;
+        selectedType = EditorObjectType.ITEM;
         border.setX(itemsList.getItems().get(Integer.parseInt(tile.getId())).getIcon().getX() - 1);
         border.setY(itemsList.getItems().get(Integer.parseInt(tile.getId())).getIcon().getY() - 1);
       });

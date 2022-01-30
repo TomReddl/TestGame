@@ -1,5 +1,6 @@
-package entity;
+package editor;
 
+import editor.TileInfo;
 import lombok.Getter;
 import lombok.Setter;
 import utils.JsonUtils;

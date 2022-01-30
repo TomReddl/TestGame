@@ -1,6 +1,6 @@
 package entity.map;
 
-import gui.Editor;
+import editor.Editor;
 import javafx.scene.canvas.GraphicsContext;
 import lombok.Getter;
 import lombok.Setter;

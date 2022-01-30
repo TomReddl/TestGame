@@ -3,7 +3,7 @@ import entity.map.Creature;
 import entity.map.Item;
 import entity.map.Map;
 import entity.map.NPC;
-import gui.Editor;
+import editor.Editor;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;

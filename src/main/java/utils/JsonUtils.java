@@ -5,9 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.InstantDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
-import entity.ItemInfo;
-import entity.NPCInfo;
-import entity.TileInfo;
+import editor.ItemInfo;
+import editor.NPCInfo;
+import editor.TileInfo;
 import lombok.experimental.UtilityClass;
 
 import java.io.File;
