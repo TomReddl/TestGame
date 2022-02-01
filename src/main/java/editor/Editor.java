@@ -250,7 +250,7 @@ public class Editor {
             ImageView itemTile = (ImageView) tile;
             List<ItemType> types = itemsList.getItems().get(Integer.parseInt(itemTile.getId())).getTypes();
             if (types != null) {
-                itemTile.setVisible(types.contains(type));
+                itemTile.setVisible(types.contains(type) || ItemType.ALL.equals(type));
                 if (itemTile.isVisible()) {
                     itemTile.setX(5 + (i / 13) * 45);
                     itemTile.setY(5 + (i) * 45 - (i / 13) * 585);

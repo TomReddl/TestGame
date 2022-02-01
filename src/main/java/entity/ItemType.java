@@ -4,6 +4,7 @@ package entity;
 * Тип предмета
 * */
 public enum ItemType {
+  ALL("Все"),
   EAT("Еда"),
   CLOTHES("Одежда"),
   WEAPON("Оружие"),
