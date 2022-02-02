@@ -1,3 +1,4 @@
+import entity.DirectionEnum;
 import entity.Player;
 import entity.map.Creature;
 import entity.map.Item;
@@ -41,6 +42,8 @@ public class Main extends Application {
         canvas.setOnKeyReleased(event -> {
             KeyCode code = event.getCode();
             if (code == KeyCode.D) {
+                player.setDirection(DirectionEnum.RIGHT);
+                player.getImage().setScaleX(1);
                 if (player.getXPosition() < 299 && (editor.getTilesList().getTiles1()
                         .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile1Id())
                         .isPassability()) &&
@@ -60,6 +63,8 @@ public class Main extends Application {
                 }
             }
             if (code == KeyCode.A) {
+                player.setDirection(DirectionEnum.LEFT);
+                player.getImage().setScaleX(-1);
                 if (player.getXPosition() > 0 && (editor.getTilesList().getTiles1().get(map.getTiles()[
                         player.getXPosition() - 1][player.getYPosition()].getTile1Id()).isPassability()) &&
                         (editor.getTilesList().getTiles2().get(map.getTiles()[
@@ -77,6 +82,7 @@ public class Main extends Application {
                 }
             }
             if (code == KeyCode.S) {
+                player.setDirection(DirectionEnum.DOWN);
                 if (player.getYPosition() < 299 && (editor.getTilesList().getTiles1().get(map.getTiles()[
                         player.getXPosition()][player.getYPosition() + 1].getTile1Id()).isPassability()) &&
                         (editor.getTilesList().getTiles2().get(map.getTiles()[
@@ -94,6 +100,7 @@ public class Main extends Application {
                 }
             }
             if (code == KeyCode.W) {
+                player.setDirection(DirectionEnum.UP);
                 if (player.getYPosition() > 0 && (editor.getTilesList().getTiles1().get(map.getTiles()[
                         player.getXPosition()][player.getYPosition() - 1].getTile1Id()).isPassability()) &&
                         (editor.getTilesList().getTiles2().get(map.getTiles()[
