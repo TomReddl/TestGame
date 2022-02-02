@@ -25,6 +25,8 @@ public class Editor {
     private final Pane pane4 = new Pane();
     private final Pane pane5 = new Pane();
     private final Pane itemsPane = new Pane();
+    private final TextField searchItemTF = new TextField();
+    private final TabPane itemsTabPane = new TabPane();
 
     private int selectTile = 0;
     private EditorObjectType selectedType = EditorObjectType.GROUND;
@@ -169,13 +171,15 @@ public class Editor {
         scrollPane5.setLayoutX(190);
         scrollPane5.setPrefSize(180, 600);
 
-        TextField searchItemTextField = new TextField();
-        searchItemTextField.setLayoutX(5);
-        searchItemTextField.setLayoutY(5);
-        searchItemTextField.setPromptText("Название предмета");
-        pane5.getChildren().add(searchItemTextField);
+        searchItemTF.setLayoutX(5);
+        searchItemTF.setLayoutY(5);
+        searchItemTF.setPromptText("Название предмета");
+        searchItemTF.setOnAction(event -> filterItems(
+                itemsTabPane.getSelectionModel().getSelectedItem().getText(),
+                searchItemTF.getText()));
+        pane5.getChildren().add(searchItemTF);
 
-        TabPane itemsTabPane = new TabPane();
+
         itemsTabPane.setLayoutX(5);
         itemsTabPane.setLayoutY(35);
         itemsTabPane.setPrefSize(350, 620);
@@ -189,7 +193,7 @@ public class Editor {
                 (observableValue, tab, t1) -> {
                     tab.setContent(null);
                     t1.setContent(itemsPane);
-                    filterItems(t1.getText());
+                    filterItems(t1.getText(), searchItemTF.getText());
                 }
         );
         pane5.getChildren().add(itemsTabPane);
@@ -243,14 +247,17 @@ public class Editor {
         pane.getChildren().add(border);
     }
 
-    private void filterItems(String itemType) {
+    private void filterItems(String itemType, String searchString) {
         ItemType type = ItemType.getItemTypeByCode(itemType);
         int i = 1;
         for (Node tile : itemsPane.getChildren()) {
             ImageView itemTile = (ImageView) tile;
-            List<ItemType> types = itemsList.getItems().get(Integer.parseInt(itemTile.getId())).getTypes();
+            ItemInfo itemInfo = itemsList.getItems().get(Integer.parseInt(itemTile.getId()));
+            List<ItemType> types = itemInfo.getTypes();
             if (types != null) {
-                itemTile.setVisible(types.contains(type) || ItemType.ALL.equals(type));
+                itemTile.setVisible((types.contains(type) || ItemType.ALL.equals(type)) &&
+                        ((itemInfo.getDesc().toLowerCase().contains(searchString.toLowerCase())) ||
+                                (itemInfo.getName().toLowerCase().contains(searchString.toLowerCase()))));
                 if (itemTile.isVisible()) {
                     itemTile.setX(5 + (i / 13) * 45);
                     itemTile.setY(5 + (i) * 45 - (i / 13) * 585);
