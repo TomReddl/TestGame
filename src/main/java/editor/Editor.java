@@ -18,6 +18,8 @@ import java.util.List;
 @Getter
 public class Editor {
 
+    private final TabPane tabPane = new TabPane();
+    private final Pane buttonsPane = new Pane();
     private ImageView border;
     private final Pane pane1 = new Pane();
     private final Pane pane2 = new Pane();
@@ -44,7 +46,10 @@ public class Editor {
 
 
     public void drawTiles(Group root) {
-        TabPane tabPane = new TabPane();
+        buttonsPane.setLayoutX(5);
+        buttonsPane.setLayoutY(610);
+        root.getChildren().add(buttonsPane);
+
         tabPane.setLayoutX(630);
         tabPane.setPrefSize(370, 620);
         tabPane.getTabs().add(new Tab("Тайлы"));

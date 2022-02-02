@@ -20,6 +20,7 @@ public class Player {
         xMapPos = 0;
         yMapPos = 0;
         image = new ImageView("/graphics/characters/31.png");
+        image.setVisible(Boolean.FALSE);
         direction = DirectionEnum.RIGHT;
     }
 }

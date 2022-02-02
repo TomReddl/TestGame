@@ -1,4 +1,5 @@
 import entity.DirectionEnum;
+import entity.GameModeEnum;
 import entity.Player;
 import entity.map.Creature;
 import entity.map.Item;
@@ -24,6 +25,8 @@ public class Main extends Application {
     private Editor editor;
     private Player player;
     private Map map;
+    private GameModeEnum gameMode;
+    private final ImageView stopTestGameImage = new ImageView("/graphics/gui/StopTestGame.png");
 
     public static void main(String[] args) {
         launch(args);
@@ -34,6 +37,7 @@ public class Main extends Application {
         player = new Player();
         map = new Map();
         editor = new Editor();
+        setGameMode(GameModeEnum.EDITOR);
 
         primaryStage.setTitle("Game");
         Group root = new Group();
@@ -41,79 +45,81 @@ public class Main extends Application {
 
         canvas.setOnKeyReleased(event -> {
             KeyCode code = event.getCode();
-            if (code == KeyCode.D) {
-                player.setDirection(DirectionEnum.RIGHT);
-                player.getImage().setScaleX(1);
-                if (player.getXPosition() < 299 && (editor.getTilesList().getTiles1()
-                        .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile1Id())
-                        .isPassability()) &&
-                        (editor.getTilesList().getTiles2()
-                                .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile2Id())
-                                .isPassability())) {
-                    if (player.getXPosition() < 285) {
-                        player.setXPosition(player.getXPosition() + 1);
-                    }
-                    if (player.getXPosition() + 3 > player.getXMapPos() + 12) {
-                        player.setXMapPos(player.getXMapPos() + 1);
-                        GraphicsContext gc = canvas.getGraphicsContext2D();
-                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
-                    } else {
-                        player.getImage().setX(player.getImage().getX() + 40);
-                    }
-                }
-            }
-            if (code == KeyCode.A) {
-                player.setDirection(DirectionEnum.LEFT);
-                player.getImage().setScaleX(-1);
-                if (player.getXPosition() > 0 && (editor.getTilesList().getTiles1().get(map.getTiles()[
-                        player.getXPosition() - 1][player.getYPosition()].getTile1Id()).isPassability()) &&
-                        (editor.getTilesList().getTiles2().get(map.getTiles()[
-                                player.getXPosition() - 1][player.getYPosition()].getTile2Id()).isPassability())) {
-                    if (player.getXPosition() > 0) {
-                        player.setXPosition(player.getXPosition() - 1);
-                    }
-                    if (player.getXMapPos() > 0 && player.getXPosition() - 3 < player.getXMapPos()) {
-                        player.setXMapPos(player.getXMapPos() - 1);
-                        GraphicsContext gc = canvas.getGraphicsContext2D();
-                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
-                    } else {
-                        player.getImage().setX(player.getImage().getX() - 40);
+            if (gameMode == GameModeEnum.GAME) {
+                if (code == KeyCode.D) {
+                    player.setDirection(DirectionEnum.RIGHT);
+                    player.getImage().setScaleX(1);
+                    if (player.getXPosition() < 299 && (editor.getTilesList().getTiles1()
+                            .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile1Id())
+                            .isPassability()) &&
+                            (editor.getTilesList().getTiles2()
+                                    .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile2Id())
+                                    .isPassability())) {
+                        if (player.getXPosition() < 285) {
+                            player.setXPosition(player.getXPosition() + 1);
+                        }
+                        if (player.getXPosition() + 3 > player.getXMapPos() + 12) {
+                            player.setXMapPos(player.getXMapPos() + 1);
+                            GraphicsContext gc = canvas.getGraphicsContext2D();
+                            map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
+                        } else {
+                            player.getImage().setX(player.getImage().getX() + 40);
+                        }
                     }
                 }
-            }
-            if (code == KeyCode.S) {
-                player.setDirection(DirectionEnum.DOWN);
-                if (player.getYPosition() < 299 && (editor.getTilesList().getTiles1().get(map.getTiles()[
-                        player.getXPosition()][player.getYPosition() + 1].getTile1Id()).isPassability()) &&
-                        (editor.getTilesList().getTiles2().get(map.getTiles()[
-                                player.getXPosition()][player.getYPosition() + 1].getTile2Id()).isPassability())) {
-                    if (player.getYPosition() < 285) {
-                        player.setYPosition(player.getYPosition() + 1);
-                    }
-                    if (player.getYPosition() + 3 > player.getYMapPos() + 12) {
-                        player.setYMapPos(player.getYMapPos() + 1);
-                        GraphicsContext gc = canvas.getGraphicsContext2D();
-                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
-                    } else {
-                        player.getImage().setY(player.getImage().getY() + 40);
+                if (code == KeyCode.A) {
+                    player.setDirection(DirectionEnum.LEFT);
+                    player.getImage().setScaleX(-1);
+                    if (player.getXPosition() > 0 && (editor.getTilesList().getTiles1().get(map.getTiles()[
+                            player.getXPosition() - 1][player.getYPosition()].getTile1Id()).isPassability()) &&
+                            (editor.getTilesList().getTiles2().get(map.getTiles()[
+                                    player.getXPosition() - 1][player.getYPosition()].getTile2Id()).isPassability())) {
+                        if (player.getXPosition() > 0) {
+                            player.setXPosition(player.getXPosition() - 1);
+                        }
+                        if (player.getXMapPos() > 0 && player.getXPosition() - 3 < player.getXMapPos()) {
+                            player.setXMapPos(player.getXMapPos() - 1);
+                            GraphicsContext gc = canvas.getGraphicsContext2D();
+                            map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
+                        } else {
+                            player.getImage().setX(player.getImage().getX() - 40);
+                        }
                     }
                 }
-            }
-            if (code == KeyCode.W) {
-                player.setDirection(DirectionEnum.UP);
-                if (player.getYPosition() > 0 && (editor.getTilesList().getTiles1().get(map.getTiles()[
-                        player.getXPosition()][player.getYPosition() - 1].getTile1Id()).isPassability()) &&
-                        (editor.getTilesList().getTiles2().get(map.getTiles()[
-                                player.getXPosition()][player.getYPosition() - 1].getTile2Id()).isPassability())) {
-                    if (player.getYPosition() > 0) {
-                        player.setYPosition(player.getYPosition() - 1);
+                if (code == KeyCode.S) {
+                    player.setDirection(DirectionEnum.DOWN);
+                    if (player.getYPosition() < 299 && (editor.getTilesList().getTiles1().get(map.getTiles()[
+                            player.getXPosition()][player.getYPosition() + 1].getTile1Id()).isPassability()) &&
+                            (editor.getTilesList().getTiles2().get(map.getTiles()[
+                                    player.getXPosition()][player.getYPosition() + 1].getTile2Id()).isPassability())) {
+                        if (player.getYPosition() < 285) {
+                            player.setYPosition(player.getYPosition() + 1);
+                        }
+                        if (player.getYPosition() + 3 > player.getYMapPos() + 12) {
+                            player.setYMapPos(player.getYMapPos() + 1);
+                            GraphicsContext gc = canvas.getGraphicsContext2D();
+                            map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
+                        } else {
+                            player.getImage().setY(player.getImage().getY() + 40);
+                        }
                     }
-                    if (player.getYMapPos() > 0 && player.getYPosition() - 3 < player.getYMapPos()) {
-                        player.setYMapPos(player.getYMapPos() - 1);
-                        GraphicsContext gc = canvas.getGraphicsContext2D();
-                        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
-                    } else {
-                        player.getImage().setY(player.getImage().getY() - 40);
+                }
+                if (code == KeyCode.W) {
+                    player.setDirection(DirectionEnum.UP);
+                    if (player.getYPosition() > 0 && (editor.getTilesList().getTiles1().get(map.getTiles()[
+                            player.getXPosition()][player.getYPosition() - 1].getTile1Id()).isPassability()) &&
+                            (editor.getTilesList().getTiles2().get(map.getTiles()[
+                                    player.getXPosition()][player.getYPosition() - 1].getTile2Id()).isPassability())) {
+                        if (player.getYPosition() > 0) {
+                            player.setYPosition(player.getYPosition() - 1);
+                        }
+                        if (player.getYMapPos() > 0 && player.getYPosition() - 3 < player.getYMapPos()) {
+                            player.setYMapPos(player.getYMapPos() - 1);
+                            GraphicsContext gc = canvas.getGraphicsContext2D();
+                            map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
+                        } else {
+                            player.getImage().setY(player.getImage().getY() - 40);
+                        }
                     }
                 }
             }
@@ -127,35 +133,47 @@ public class Main extends Application {
 
         Label mapNameLabel = new Label("Название карты:");
         mapNameLabel.setLayoutX(5);
-        mapNameLabel.setLayoutY(610);
-        root.getChildren().add(mapNameLabel);
+        mapNameLabel.setLayoutY(10);
+        editor.getButtonsPane().getChildren().add(mapNameLabel);
 
         TextField mapNameTextField = new TextField();
         mapNameTextField.setLayoutX(105);
-        mapNameTextField.setLayoutY(605);
+        mapNameTextField.setLayoutY(5);
         mapNameTextField.setText(map.getMapName());
-        root.getChildren().add(mapNameTextField);
+        editor.getButtonsPane().getChildren().add(mapNameTextField);
 
         ImageView saveMapImage = new ImageView("/graphics/gui/SaveMap.png");
         saveMapImage.setLayoutX(260);
-        saveMapImage.setLayoutY(605);
+        saveMapImage.setLayoutY(5);
         saveMapImage.setOnMousePressed(event -> {
             map.saveMap(mapNameTextField.getText());
         });
-        root.getChildren().add(saveMapImage);
+        editor.getButtonsPane().getChildren().add(saveMapImage);
 
         ImageView loadMapImage = new ImageView("/graphics/gui/LoadMap.png");
         loadMapImage.setLayoutX(295);
-        loadMapImage.setLayoutY(605);
+        loadMapImage.setLayoutY(5);
         loadMapImage.setOnMousePressed(event -> {
             map = map.loadMap(mapNameTextField.getText());
             map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
         });
-        root.getChildren().add(loadMapImage);
+        editor.getButtonsPane().getChildren().add(loadMapImage);
+
+        ImageView startTestGameImage = new ImageView("/graphics/gui/StartTestGame.png");
+        startTestGameImage.setLayoutX(330);
+        startTestGameImage.setLayoutY(5);
+        startTestGameImage.setOnMousePressed(event -> setGameMode(GameModeEnum.GAME));
+        editor.getButtonsPane().getChildren().add(startTestGameImage);
+
+        stopTestGameImage.setLayoutX(5);
+        stopTestGameImage.setLayoutY(610);
+        stopTestGameImage.setOnMousePressed(event -> setGameMode(GameModeEnum.EDITOR));
+        stopTestGameImage.setVisible(Boolean.FALSE);
+        root.getChildren().add(stopTestGameImage);
 
         Label mapInfoLabel = new Label("");
         mapInfoLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        mapInfoLabel.setLayoutX(360);
+        mapInfoLabel.setLayoutX(380);
         mapInfoLabel.setLayoutY(610);
         root.getChildren().add(mapInfoLabel);
 
@@ -279,6 +297,32 @@ public class Main extends Application {
 
             root.getChildren().set(0, canvas);
             canvas.requestFocus();
+        }
+    }
+
+    private void setGameMode(GameModeEnum mode) {
+        gameMode = mode;
+        switch (gameMode) {
+            case MENU: {
+                break;
+            }
+            case EDITOR: {
+                player.getImage().setVisible(Boolean.FALSE);
+                editor.getTabPane().setVisible(Boolean.TRUE);
+                editor.getButtonsPane().setVisible(Boolean.TRUE);
+                stopTestGameImage.setVisible(Boolean.FALSE);
+                break;
+            }
+            case GAME: {
+                player.getImage().setVisible(Boolean.TRUE);
+                editor.getTabPane().setVisible(Boolean.FALSE);
+                editor.getButtonsPane().setVisible(Boolean.FALSE);
+                stopTestGameImage.setVisible(Boolean.TRUE);
+                break;
+            }
+            case PAUSE: {
+                break;
+            }
         }
     }
 }
