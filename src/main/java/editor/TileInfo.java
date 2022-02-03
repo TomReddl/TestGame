@@ -16,6 +16,9 @@ public class TileInfo {
     private String desc;
     private Integer strength; // прочность тайла, если 0, он неразрушаем
     private boolean passability; // проходимость тайла
+    private boolean twoLayer; // у тайла есть второй уровень, отрисовывающийся поверх персонажа
     @JsonIgnore
     private ImageView image;
+    @JsonIgnore
+    private ImageView upLayerImage;
 }

@@ -600,5 +600,13 @@
     "desc": "Деревянная дверь",
     "strength": 0,
     "passability": false
+  },
+  {
+    "id": 86,
+    "name": "Пшеница",
+    "desc": "Пшеница",
+    "strength": 0,
+    "passability": true,
+    "twoLayer": true
   }
 ]

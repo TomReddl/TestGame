@@ -1,5 +1,6 @@
 package entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,11 +8,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Player {
+    @JsonIgnore
     private ImageView image;
-    private int xPosition;
+    private int xPosition; // координаты персонажа на карте
     private int yPosition;
     private int xMapPos; // сдвиг области отрисовки карты от начала координат
     private int yMapPos;
+    private int xViewPos; // положение персонажа в отрисованной области
+    private int yViewPos;
     private DirectionEnum direction; // направление движения персонажа
 
     public Player() {

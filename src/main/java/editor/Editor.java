@@ -3,6 +3,7 @@ package editor;
 import entity.ItemType;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -36,6 +37,7 @@ public class Editor {
     private NPCList npcList;
     private CreatureList creatureList;
     private ItemsList itemsList;
+    private Canvas canvas = new Canvas(1020, 680); // размеры игрового окна
 
     public Editor() {
         tilesList = new TilesList();
@@ -107,6 +109,10 @@ public class Editor {
             });
 
             tilesList.getTiles2().get(i).setImage(tile);
+            if (tilesList.getTiles2().get(i).isTwoLayer()) {
+                ImageView upTile = new ImageView("/graphics/tiles2/" + i + ".up.png");
+                tilesList.getTiles2().get(i).setUpLayerImage(upTile);
+            }
             pane2.getChildren().add(tile);
         }
         scrollPane2.setContent(pane2);

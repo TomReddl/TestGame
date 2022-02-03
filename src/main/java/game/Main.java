@@ -1,16 +1,16 @@
+package game;
+
+import editor.Editor;
 import entity.DirectionEnum;
 import entity.GameModeEnum;
-import entity.Player;
 import entity.map.Creature;
 import entity.map.Item;
 import entity.map.Map;
 import entity.map.NPC;
-import editor.Editor;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -18,14 +18,15 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import lombok.Getter;
 
 import java.util.ArrayList;
 
 public class Main extends Application {
     private Editor editor;
-    private Player player;
     private Map map;
-    private GameModeEnum gameMode;
+    @Getter
+    private static GameModeEnum gameMode = GameModeEnum.EDITOR;
     private final ImageView stopTestGameImage = new ImageView("/graphics/gui/StopTestGame.png");
 
     public static void main(String[] args) {
@@ -34,16 +35,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        player = new Player();
         map = new Map();
         editor = new Editor();
-        setGameMode(GameModeEnum.EDITOR);
+        var player = map.getPlayer();
+        Group root = new Group();
+        root.getChildren().add(editor.getCanvas());
+        editor.drawTiles(root);
+        map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
 
         primaryStage.setTitle("Game");
-        Group root = new Group();
-        Canvas canvas = new Canvas(1020, 680); // размеры игрового окна
 
-        canvas.setOnKeyReleased(event -> {
+        editor.getCanvas().setOnKeyReleased(event -> {
             KeyCode code = event.getCode();
             if (gameMode == GameModeEnum.GAME) {
                 if (code == KeyCode.D) {
@@ -60,10 +62,13 @@ public class Main extends Application {
                         }
                         if (player.getXPosition() + 3 > player.getXMapPos() + 12) {
                             player.setXMapPos(player.getXMapPos() + 1);
-                            GraphicsContext gc = canvas.getGraphicsContext2D();
-                            map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
+                            map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
                         } else {
-                            player.getImage().setX(player.getImage().getX() + 40);
+                            player.setXViewPos(player.getXViewPos() + 1);
+                            map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                                    player.getXViewPos() - 1, player.getYViewPos(), editor);
+                            map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                                    player.getXViewPos(), player.getYViewPos(), editor);
                         }
                     }
                 }
@@ -79,10 +84,13 @@ public class Main extends Application {
                         }
                         if (player.getXMapPos() > 0 && player.getXPosition() - 3 < player.getXMapPos()) {
                             player.setXMapPos(player.getXMapPos() - 1);
-                            GraphicsContext gc = canvas.getGraphicsContext2D();
-                            map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
+                            map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
                         } else {
-                            player.getImage().setX(player.getImage().getX() - 40);
+                            player.setXViewPos(player.getXViewPos() - 1);
+                            map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                                    player.getXViewPos() + 1, player.getYViewPos(), editor);
+                            map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                                    player.getXViewPos(), player.getYViewPos(), editor);
                         }
                     }
                 }
@@ -97,10 +105,13 @@ public class Main extends Application {
                         }
                         if (player.getYPosition() + 3 > player.getYMapPos() + 12) {
                             player.setYMapPos(player.getYMapPos() + 1);
-                            GraphicsContext gc = canvas.getGraphicsContext2D();
-                            map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
+                            map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
                         } else {
-                            player.getImage().setY(player.getImage().getY() + 40);
+                            player.setYViewPos(player.getYViewPos() + 1);
+                            map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                                    player.getXViewPos(), player.getYViewPos() - 1, editor);
+                            map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                                    player.getXViewPos(), player.getYViewPos(), editor);
                         }
                     }
                 }
@@ -115,21 +126,18 @@ public class Main extends Application {
                         }
                         if (player.getYMapPos() > 0 && player.getYPosition() - 3 < player.getYMapPos()) {
                             player.setYMapPos(player.getYMapPos() - 1);
-                            GraphicsContext gc = canvas.getGraphicsContext2D();
-                            map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
+                            map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
                         } else {
-                            player.getImage().setY(player.getImage().getY() - 40);
+                            player.setYViewPos(player.getYViewPos() - 1);
+                            map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                                    player.getXViewPos(), player.getYViewPos() + 1, editor);
+                            map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                                    player.getXViewPos(), player.getYViewPos(), editor);
                         }
                     }
                 }
             }
         });
-
-        root.getChildren().add(canvas);
-        root.getChildren().add(player.getImage());
-        editor.drawTiles(root);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
 
         Label mapNameLabel = new Label("Название карты:");
         mapNameLabel.setLayoutX(5);
@@ -155,7 +163,7 @@ public class Main extends Application {
         loadMapImage.setLayoutY(5);
         loadMapImage.setOnMousePressed(event -> {
             map = map.loadMap(mapNameTextField.getText());
-            map.drawMap(player.getXMapPos(), player.getYMapPos(), gc, editor);
+            map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
         });
         editor.getButtonsPane().getChildren().add(loadMapImage);
 
@@ -177,29 +185,31 @@ public class Main extends Application {
         mapInfoLabel.setLayoutY(610);
         root.getChildren().add(mapInfoLabel);
 
-        root.setOnMousePressed(event -> drawTileOnMap(event.getX(), event.getY(), root, canvas));
-        root.setOnMouseDragged(event -> drawTileOnMap(event.getX(), event.getY(), root, canvas));
+        root.setOnMousePressed(event -> drawTileOnMap(event.getX(), event.getY(), root, editor.getCanvas()));
+        root.setOnMouseDragged(event -> drawTileOnMap(event.getX(), event.getY(), root, editor.getCanvas()));
         root.setOnMouseMoved(event -> showMapPointInfo(event.getX(), event.getY(), mapInfoLabel));
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-        canvas.requestFocus();
+        editor.getCanvas().requestFocus();
     }
 
     private void showMapPointInfo(double x, double y, Label mapInfoLabel) {
+        var player = map.getPlayer();
         if (x < 600 && y < 600) {
             int xPos = player.getXMapPos() + (((int) x) / 40);
             int yPos = player.getYMapPos() + (((int) y) / 40);
             mapInfoLabel.setText(
-               "X: " + xPos + ", Y: " + yPos + ". " +
-               editor.getTilesList().getTiles1().get(map.getTiles()[xPos][yPos].getTile1Id()).getDesc() +
-               (map.getTiles()[xPos][yPos].getTile2Id() == 0 ? "" : ", " +
-               editor.getTilesList().getTiles2().get(map.getTiles()[xPos][yPos].getTile2Id()).getDesc().toLowerCase()));
+                    "X: " + xPos + ", Y: " + yPos + ". " +
+                            editor.getTilesList().getTiles1().get(map.getTiles()[xPos][yPos].getTile1Id()).getDesc() +
+                            (map.getTiles()[xPos][yPos].getTile2Id() == 0 ? "" : ", " +
+                                    editor.getTilesList().getTiles2().get(map.getTiles()[xPos][yPos].getTile2Id()).getDesc().toLowerCase()));
         } else {
             mapInfoLabel.setText("");
         }
     }
 
     public void drawTileOnMap(double x, double y, Group root, Canvas canvas) {
+        var player = map.getPlayer();
         if (x < 600 && y < 600) {
             switch (editor.getSelectedType()) {
                 case GROUND: {
@@ -258,42 +268,7 @@ public class Main extends Application {
                 }
             }
 
-
-            Canvas canvas2 = ((Canvas) (root.getChildren().get(0)));
-            GraphicsContext gc2 = canvas2.getGraphicsContext2D();
-            ImageView image = new ImageView("/graphics/tiles/" +
-                    map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
-                            [player.getYMapPos() + ((((int) y)) / 40)].getTile1Id() + ".png");
-            gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
-
-            image = new ImageView("/graphics/tiles2/" +
-                    map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
-                            [player.getYMapPos() + ((((int) y)) / 40)].getTile2Id() + ".png");
-            gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
-
-            if (map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
-                    [player.getYMapPos() + ((((int) y)) / 40)].getItems() != null) {
-                image = new ImageView("/graphics/items/" +
-                        map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
-                                [player.getYMapPos() + ((((int) y)) / 40)].getItems().get(0).getTypeId() + ".png");
-                gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
-            }
-
-            if (map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
-                    [player.getYMapPos() + ((((int) y)) / 40)].getNpcId() != null) {
-                image = new ImageView("/graphics/characters/" +
-                        map.getNpcList().get(map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
-                                [player.getYMapPos() + ((((int) y)) / 40)].getNpcId()).getNpcTypeId() + ".png");
-                gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
-            }
-
-            if (map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
-                    [player.getYMapPos() + ((((int) y)) / 40)].getCreatureId() != null) {
-                image = new ImageView("/graphics/creatures/" +
-                        map.getCreaturesList().get(map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
-                                [player.getYMapPos() + ((((int) y)) / 40)].getCreatureId()).getCreatureTypeId() + ".png");
-                gc2.drawImage(image.getImage(), ((((int) x)) / 40) * 40, ((((int) y)) / 40) * 40);
-            }
+            map.drawTile(player.getXMapPos(), player.getYMapPos(), ((((int) x)) / 40), ((((int) y)) / 40), editor);
 
             root.getChildren().set(0, canvas);
             canvas.requestFocus();
@@ -302,19 +277,22 @@ public class Main extends Application {
 
     private void setGameMode(GameModeEnum mode) {
         gameMode = mode;
+        var player = map.getPlayer();
         switch (gameMode) {
             case MENU: {
                 break;
             }
             case EDITOR: {
-                player.getImage().setVisible(Boolean.FALSE);
+                map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                        player.getXViewPos(), player.getYViewPos(), editor);
                 editor.getTabPane().setVisible(Boolean.TRUE);
                 editor.getButtonsPane().setVisible(Boolean.TRUE);
                 stopTestGameImage.setVisible(Boolean.FALSE);
                 break;
             }
             case GAME: {
-                player.getImage().setVisible(Boolean.TRUE);
+                map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                        player.getXViewPos(), player.getYViewPos(), editor);
                 editor.getTabPane().setVisible(Boolean.FALSE);
                 editor.getButtonsPane().setVisible(Boolean.FALSE);
                 stopTestGameImage.setVisible(Boolean.TRUE);

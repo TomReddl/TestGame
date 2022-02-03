@@ -98,7 +98,7 @@
                     <source>11</source>
                     <target>11</target>
                     <release>${java.version}</release>
-                    <mainClass>Main</mainClass>
+                    <mainClass>game.Main</mainClass>
                 </configuration>
             </plugin>
 
