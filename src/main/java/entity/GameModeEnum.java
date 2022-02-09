@@ -1,10 +1,10 @@
 package entity;
 
 public enum GameModeEnum {
-    MENU("Меню"),
+    MAIN_MENU("Главное меню"),
     EDITOR("Редактор"),
     GAME("Игра"),
-    PAUSE("Пауза");
+    GAME_MENU("Меню в игре");
 
     private final String desc;
 

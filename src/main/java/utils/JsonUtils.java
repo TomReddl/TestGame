@@ -8,12 +8,17 @@ import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
 import editor.ItemInfo;
 import editor.NPCInfo;
 import editor.TileInfo;
+import entity.map.Map;
 import lombok.experimental.UtilityClass;
 
 import java.io.File;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Paths;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.regex.Matcher;
 
 @UtilityClass
 /*
@@ -79,6 +84,26 @@ public class JsonUtils {
             });
         } catch (Exception ex) {
             throw new RuntimeException("can not read 'items.json', cause=%s" + ex.getMessage());
+        }
+    }
+
+    public void saveMap(String mapName, Map map) {
+        try {
+            var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "world/" + mapName + ".json";
+            path = path.replaceAll("/", Matcher.quoteReplacement("\\"));
+            objectMapper.writeValue(new File(path), map);
+        } catch (Exception ex) {
+            throw new RuntimeException("can not save map " + ex.getMessage());
+        }
+    }
+
+    public static Map loadMap(String mapName) {
+        try {
+            var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "world/" + mapName + ".json";
+            return objectMapper.readValue(new File(path), new TypeReference<>() {
+            });
+        } catch (Exception ex) {
+            throw new RuntimeException("can not read map, cause=%s" + ex.getMessage());
         }
     }
 }

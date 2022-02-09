@@ -13,19 +13,26 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import lombok.Getter;
+import lombok.Setter;
+import menu.MainMenu;
+import utils.JsonUtils;
 
 import java.util.ArrayList;
 
 public class Main extends Application {
-    private Editor editor;
-    private Map map;
+    private final Group root = new Group();
+    private final Editor editor = new Editor(root);
+    private Map map= new Map();
+    private final MainMenu mainMenu = new MainMenu(root);
     @Getter
+    @Setter
     private static GameModeEnum gameMode = GameModeEnum.EDITOR;
     private final ImageView stopTestGameImage = new ImageView("/graphics/gui/StopTestGame.png");
 
@@ -35,15 +42,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        map = new Map();
-        editor = new Editor();
-        var player = map.getPlayer();
-        Group root = new Group();
-        root.getChildren().add(editor.getCanvas());
-        editor.drawTiles(root);
-        map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
-
         primaryStage.setTitle("Game");
+        primaryStage.setResizable(Boolean.FALSE);
+        primaryStage.setMaximized(Boolean.FALSE);
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/graphics/gui/Icon.png")));
+
+        var player = map.getPlayer();
+        map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
 
         editor.getCanvas().setOnKeyReleased(event -> {
             KeyCode code = event.getCode();
@@ -136,6 +141,33 @@ public class Main extends Application {
                         }
                     }
                 }
+                if (code == KeyCode.ESCAPE) {
+                    mainMenu.getMenuPane().setVisible(Boolean.TRUE);
+                    setGameMode(GameModeEnum.GAME_MENU);
+                }
+            } else if (gameMode.equals(GameModeEnum.EDITOR)) {
+                switch (code) {
+                    case W: {
+                        player.setYMapPos(Math.max(player.getYMapPos() - 15, 0));
+                        map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
+                        break;
+                    }
+                    case S: {
+                        player.setYMapPos(Math.min(player.getYMapPos() + 15, 285));
+                        map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
+                        break;
+                    }
+                    case D: {
+                        player.setXMapPos(Math.max(player.getXMapPos() + 15, 0));
+                        map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
+                        break;
+                    }
+                    case A: {
+                        player.setXMapPos(Math.min(player.getXMapPos() - 15, 285));
+                        map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
+                        break;
+                    }
+                }
             }
         });
 
@@ -153,16 +185,14 @@ public class Main extends Application {
         ImageView saveMapImage = new ImageView("/graphics/gui/SaveMap.png");
         saveMapImage.setLayoutX(260);
         saveMapImage.setLayoutY(5);
-        saveMapImage.setOnMousePressed(event -> {
-            map.saveMap(mapNameTextField.getText());
-        });
+        saveMapImage.setOnMousePressed(event -> JsonUtils.saveMap(mapNameTextField.getText(), map));
         editor.getButtonsPane().getChildren().add(saveMapImage);
 
         ImageView loadMapImage = new ImageView("/graphics/gui/LoadMap.png");
         loadMapImage.setLayoutX(295);
         loadMapImage.setLayoutY(5);
         loadMapImage.setOnMousePressed(event -> {
-            map = map.loadMap(mapNameTextField.getText());
+            map = JsonUtils.loadMap(mapNameTextField.getText());
             map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
         });
         editor.getButtonsPane().getChildren().add(loadMapImage);
@@ -177,6 +207,7 @@ public class Main extends Application {
         stopTestGameImage.setLayoutY(610);
         stopTestGameImage.setOnMousePressed(event -> setGameMode(GameModeEnum.EDITOR));
         stopTestGameImage.setVisible(Boolean.FALSE);
+        stopTestGameImage.setId("stopTestGameImage");
         root.getChildren().add(stopTestGameImage);
 
         Label mapInfoLabel = new Label("");
@@ -275,11 +306,12 @@ public class Main extends Application {
         }
     }
 
-    private void setGameMode(GameModeEnum mode) {
+    public void setGameMode(GameModeEnum mode) {
         gameMode = mode;
         var player = map.getPlayer();
         switch (gameMode) {
-            case MENU: {
+            case MAIN_MENU: {
+                mainMenu.getMenuPane().setVisible(Boolean.TRUE);
                 break;
             }
             case EDITOR: {
@@ -288,6 +320,7 @@ public class Main extends Application {
                 editor.getTabPane().setVisible(Boolean.TRUE);
                 editor.getButtonsPane().setVisible(Boolean.TRUE);
                 stopTestGameImage.setVisible(Boolean.FALSE);
+                mainMenu.getMenuPane().setVisible(Boolean.FALSE);
                 break;
             }
             case GAME: {
@@ -296,9 +329,10 @@ public class Main extends Application {
                 editor.getTabPane().setVisible(Boolean.FALSE);
                 editor.getButtonsPane().setVisible(Boolean.FALSE);
                 stopTestGameImage.setVisible(Boolean.TRUE);
+                mainMenu.getMenuPane().setVisible(Boolean.FALSE);
                 break;
             }
-            case PAUSE: {
+            case GAME_MENU: {
                 break;
             }
         }

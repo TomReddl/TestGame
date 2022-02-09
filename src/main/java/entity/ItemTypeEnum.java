@@ -3,21 +3,22 @@ package entity;
 /*
 * Тип предмета
 * */
-public enum ItemType {
+public enum ItemTypeEnum {
   ALL("Все"),
   EAT("Еда"),
   CLOTHES("Одежда"),
   WEAPON("Оружие"),
-  RESOURCE("Ресурс"),
-  BOOK("Книга"),
-  TREASURE("Сокровище"),
-  INGREDIENT("Ингридиент"),
-  POTION("Зелье"),
+  RESOURCE("Ресурсы"),
+  BOOK("Книги"),
+  TREASURE("Сокровища"),
+  INGREDIENT("Ингридиенты"),
+  POTION("Зелья"),
+  COMMON("Бытовые"),
   TRASH("Мусор");
 
   private final String desc;
 
-  ItemType(String desc) {
+  ItemTypeEnum(String desc) {
     this.desc = desc;
   }
 
@@ -25,8 +26,8 @@ public enum ItemType {
     return desc;
   }
 
-  public static ItemType getItemTypeByCode(String desc) {
-    for (ItemType item : ItemType.values()) {
+  public static ItemTypeEnum getItemTypeByCode(String desc) {
+    for (ItemTypeEnum item : ItemTypeEnum.values()) {
       if (item.getDesc().equals(desc)) {
         return item;
       }

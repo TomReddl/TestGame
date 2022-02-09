@@ -1,6 +1,6 @@
 package editor;
 
-import entity.ItemType;
+import entity.ItemTypeEnum;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -18,6 +18,9 @@ import java.util.List;
 @Setter
 @Getter
 public class Editor {
+
+    private final int screenSizeX = 1020;
+    private final int screenSizeY = 680;
 
     private final TabPane tabPane = new TabPane();
     private final Pane buttonsPane = new Pane();
@@ -37,17 +40,19 @@ public class Editor {
     private NPCList npcList;
     private CreatureList creatureList;
     private ItemsList itemsList;
-    private Canvas canvas = new Canvas(1020, 680); // размеры игрового окна
+    private Canvas canvas = new Canvas(screenSizeX, screenSizeY); // размеры игрового окна
 
-    public Editor() {
+    public Editor(Group root) {
         tilesList = new TilesList();
         npcList = new NPCList();
         creatureList = new CreatureList();
         itemsList = new ItemsList();
+        root.getChildren().add(canvas);
+        drawTiles(root);
     }
 
 
-    public void drawTiles(Group root) {
+    private void drawTiles(Group root) {
         buttonsPane.setLayoutX(5);
         buttonsPane.setLayoutY(610);
         root.getChildren().add(buttonsPane);
@@ -194,7 +199,7 @@ public class Editor {
         itemsTabPane.setLayoutX(5);
         itemsTabPane.setLayoutY(35);
         itemsTabPane.setPrefSize(350, 620);
-        for (ItemType itemType : ItemType.values()) {
+        for (ItemTypeEnum itemType : ItemTypeEnum.values()) {
             Tab tab = new Tab(itemType.getDesc());
             tab.setClosable(Boolean.FALSE);
             itemsTabPane.getTabs().add(tab);
@@ -259,14 +264,14 @@ public class Editor {
     }
 
     private void filterItems(String itemType, String searchString) {
-        ItemType type = ItemType.getItemTypeByCode(itemType);
+        ItemTypeEnum type = ItemTypeEnum.getItemTypeByCode(itemType);
         int i = 1;
         for (Node tile : itemsPane.getChildren()) {
             ImageView itemTile = (ImageView) tile;
             ItemInfo itemInfo = itemsList.getItems().get(Integer.parseInt(itemTile.getId()));
-            List<ItemType> types = itemInfo.getTypes();
+            List<ItemTypeEnum> types = itemInfo.getTypes();
             if (types != null) {
-                itemTile.setVisible((types.contains(type) || ItemType.ALL.equals(type)) &&
+                itemTile.setVisible((types.contains(type) || ItemTypeEnum.ALL.equals(type)) &&
                         ((itemInfo.getDesc().toLowerCase().contains(searchString.toLowerCase())) ||
                                 (itemInfo.getName().toLowerCase().contains(searchString.toLowerCase()))));
                 if (itemTile.isVisible()) {
