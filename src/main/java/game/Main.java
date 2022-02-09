@@ -158,12 +158,12 @@ public class Main extends Application {
                         break;
                     }
                     case D: {
-                        player.setXMapPos(Math.max(player.getXMapPos() + 15, 0));
+                        player.setXMapPos(Math.min(player.getXMapPos() + 15, 285));
                         map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
                         break;
                     }
                     case A: {
-                        player.setXMapPos(Math.min(player.getXMapPos() - 15, 285));
+                        player.setXMapPos(Math.max(player.getXMapPos() - 15, 0));
                         map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
                         break;
                     }
