@@ -30,6 +30,7 @@ public class Editor {
     private final Pane pane3 = new Pane();
     private final Pane pane4 = new Pane();
     private final Pane pane5 = new Pane();
+    private final Pane pane6 = new Pane();
     private final Pane itemsPane = new Pane();
     private final TextField searchItemTF = new TextField();
     private final TabPane itemsTabPane = new TabPane();
@@ -40,6 +41,7 @@ public class Editor {
     private NPCList npcList;
     private CreatureList creatureList;
     private ItemsList itemsList;
+    private PollutionList pollutionList = new PollutionList();
     private Canvas canvas = new Canvas(screenSizeX, screenSizeY); // размеры игрового окна
 
     public Editor(Group root) {
@@ -58,17 +60,19 @@ public class Editor {
         root.getChildren().add(buttonsPane);
 
         tabPane.setLayoutX(630);
-        tabPane.setPrefSize(370, 620);
+        tabPane.setPrefSize(420, 620);
         tabPane.getTabs().add(new Tab("Тайлы"));
         tabPane.getTabs().add(new Tab("Объекты"));
         tabPane.getTabs().add(new Tab("Персонажи"));
         tabPane.getTabs().add(new Tab("Существа"));
         tabPane.getTabs().add(new Tab("Предметы"));
+        tabPane.getTabs().add(new Tab("Загрязнения"));
         tabPane.getTabs().get(0).setClosable(false);
         tabPane.getTabs().get(1).setClosable(false);
         tabPane.getTabs().get(2).setClosable(false);
         tabPane.getTabs().get(3).setClosable(false);
         tabPane.getTabs().get(4).setClosable(false);
+        tabPane.getTabs().get(5).setClosable(false);
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setLayoutX(5);
@@ -245,6 +249,38 @@ public class Editor {
         scrollPane5.setContent(pane5);
         tabPane.getTabs().get(4).setContent(scrollPane5);
 
+        ScrollPane scrollPane6 = new ScrollPane();
+        scrollPane6.setLayoutX(190);
+        scrollPane6.setPrefSize(180, 600);
+
+        for (int i = 0; i < pollutionList.getPollutionsCount(); i++) {
+            ImageView tile;
+            if (i == 0) {
+                tile = new ImageView("/graphics/gui/Delete.png");
+            } else {
+                tile = new ImageView("/graphics/pollutions/" + i + ".png");
+            }
+            tile.setFitWidth(40);
+            tile.setPreserveRatio(true);
+            tile.setSmooth(true);
+            tile.setCache(true);
+            tile.setX(5 + (i / 13) * 45);
+            tile.setY(5 + (i) * 45 - (i / 13) * 585);
+            tile.setId(String.valueOf(i));
+            tile.setOnMousePressed(event -> {
+                setBorder(pane6);
+                selectTile = pollutionList.getPollutions().get(Integer.parseInt(tile.getId())).getId();
+                selectedType = EditorObjectType.POLLUTION;
+                border.setX(pollutionList.getPollutions().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+                border.setY(pollutionList.getPollutions().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+            });
+
+            pollutionList.getPollutions().get(i).setImage(tile);
+            pane6.getChildren().add(tile);
+        }
+        scrollPane6.setContent(pane6);
+        tabPane.getTabs().get(5).setContent(scrollPane6);
+
         root.getChildren().add(tabPane);
     }
 
@@ -259,6 +295,8 @@ public class Editor {
             pane4.getChildren().remove(border);
         } else if (itemsPane.getChildren().contains(border)) {
             itemsPane.getChildren().remove(border);
+        } else if (pane6.getChildren().contains(border)) {
+            pane6.getChildren().remove(border);
         }
         pane.getChildren().add(border);
     }

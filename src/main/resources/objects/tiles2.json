@@ -608,5 +608,13 @@
     "strength": 0,
     "passability": true,
     "twoLayer": true
+  },
+  {
+    "id": 87,
+    "name": "Высокая трава",
+    "desc": "Высокая трава",
+    "strength": 0,
+    "passability": true,
+    "twoLayer": true
   }
 ]

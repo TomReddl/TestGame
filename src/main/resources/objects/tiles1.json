@@ -250,5 +250,12 @@
     "desc": "Сухая трава",
     "strength": 0,
     "passability": true
+  },
+  {
+    "id": 36,
+    "name": "Песок",
+    "desc": "Песок",
+    "strength": 0,
+    "passability": true
   }
 ]

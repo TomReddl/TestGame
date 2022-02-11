@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.InstantDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
 import editor.ItemInfo;
 import editor.NPCInfo;
+import editor.PollutionInfo;
 import editor.TileInfo;
 import entity.map.Map;
 import lombok.experimental.UtilityClass;
@@ -84,6 +85,16 @@ public class JsonUtils {
             });
         } catch (Exception ex) {
             throw new RuntimeException("can not read 'items.json', cause=%s" + ex.getMessage());
+        }
+    }
+
+    public static List<PollutionInfo> getPollutions() {
+        try {
+            var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/pollutions.json";
+            return objectMapper.readValue(new File(path), new TypeReference<>() {
+            });
+        } catch (Exception ex) {
+            throw new RuntimeException("can not read 'pollutions.json', cause=%s" + ex.getMessage());
         }
     }
 

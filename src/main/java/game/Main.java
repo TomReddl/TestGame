@@ -53,97 +53,104 @@ public class Main extends Application {
         editor.getCanvas().setOnKeyReleased(event -> {
             KeyCode code = event.getCode();
             if (gameMode == GameModeEnum.GAME) {
-                if (code == KeyCode.D) {
-                    player.setDirection(DirectionEnum.RIGHT);
-                    player.getImage().setScaleX(1);
-                    if (player.getXPosition() < 299 && (editor.getTilesList().getTiles1()
-                            .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile1Id())
-                            .isPassability()) &&
-                            (editor.getTilesList().getTiles2()
-                                    .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile2Id())
-                                    .isPassability())) {
-                        if (player.getXPosition() < 285) {
-                            player.setXPosition(player.getXPosition() + 1);
+                switch (code) {
+                    case D: {
+                        player.setDirection(DirectionEnum.RIGHT);
+                        player.getImage().setScaleX(1);
+                        if (player.getXPosition() < 299 && (editor.getTilesList().getTiles1()
+                                .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile1Id())
+                                .isPassability()) &&
+                                (editor.getTilesList().getTiles2()
+                                        .get(map.getTiles()[player.getXPosition() + 1][player.getYPosition()].getTile2Id())
+                                        .isPassability())) {
+                            if (player.getXPosition() < 285) {
+                                player.setXPosition(player.getXPosition() + 1);
+                            }
+                            if (player.getXPosition() + 3 > player.getXMapPos() + 12) {
+                                player.setXMapPos(player.getXMapPos() + 1);
+                                map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
+                            } else {
+                                player.setXViewPos(player.getXViewPos() + 1);
+                                map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                                        player.getXViewPos() - 1, player.getYViewPos(), editor);
+                                map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                                        player.getXViewPos(), player.getYViewPos(), editor);
+                            }
                         }
-                        if (player.getXPosition() + 3 > player.getXMapPos() + 12) {
-                            player.setXMapPos(player.getXMapPos() + 1);
-                            map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
-                        } else {
-                            player.setXViewPos(player.getXViewPos() + 1);
-                            map.drawTile(player.getXMapPos(), player.getYMapPos(),
-                                    player.getXViewPos() - 1, player.getYViewPos(), editor);
-                            map.drawTile(player.getXMapPos(), player.getYMapPos(),
-                                    player.getXViewPos(), player.getYViewPos(), editor);
-                        }
+                        break;
                     }
-                }
-                if (code == KeyCode.A) {
-                    player.setDirection(DirectionEnum.LEFT);
-                    player.getImage().setScaleX(-1);
-                    if (player.getXPosition() > 0 && (editor.getTilesList().getTiles1().get(map.getTiles()[
-                            player.getXPosition() - 1][player.getYPosition()].getTile1Id()).isPassability()) &&
-                            (editor.getTilesList().getTiles2().get(map.getTiles()[
-                                    player.getXPosition() - 1][player.getYPosition()].getTile2Id()).isPassability())) {
-                        if (player.getXPosition() > 0) {
-                            player.setXPosition(player.getXPosition() - 1);
+                    case A: {
+                        player.setDirection(DirectionEnum.LEFT);
+                        player.getImage().setScaleX(-1);
+                        if (player.getXPosition() > 0 && (editor.getTilesList().getTiles1().get(map.getTiles()[
+                                player.getXPosition() - 1][player.getYPosition()].getTile1Id()).isPassability()) &&
+                                (editor.getTilesList().getTiles2().get(map.getTiles()[
+                                        player.getXPosition() - 1][player.getYPosition()].getTile2Id()).isPassability())) {
+                            if (player.getXPosition() > 0) {
+                                player.setXPosition(player.getXPosition() - 1);
+                            }
+                            if (player.getXMapPos() > 0 && player.getXPosition() - 3 < player.getXMapPos()) {
+                                player.setXMapPos(player.getXMapPos() - 1);
+                                map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
+                            } else {
+                                player.setXViewPos(player.getXViewPos() - 1);
+                                map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                                        player.getXViewPos() + 1, player.getYViewPos(), editor);
+                                map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                                        player.getXViewPos(), player.getYViewPos(), editor);
+                            }
                         }
-                        if (player.getXMapPos() > 0 && player.getXPosition() - 3 < player.getXMapPos()) {
-                            player.setXMapPos(player.getXMapPos() - 1);
-                            map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
-                        } else {
-                            player.setXViewPos(player.getXViewPos() - 1);
-                            map.drawTile(player.getXMapPos(), player.getYMapPos(),
-                                    player.getXViewPos() + 1, player.getYViewPos(), editor);
-                            map.drawTile(player.getXMapPos(), player.getYMapPos(),
-                                    player.getXViewPos(), player.getYViewPos(), editor);
-                        }
+                        break;
                     }
-                }
-                if (code == KeyCode.S) {
-                    player.setDirection(DirectionEnum.DOWN);
-                    if (player.getYPosition() < 299 && (editor.getTilesList().getTiles1().get(map.getTiles()[
-                            player.getXPosition()][player.getYPosition() + 1].getTile1Id()).isPassability()) &&
-                            (editor.getTilesList().getTiles2().get(map.getTiles()[
-                                    player.getXPosition()][player.getYPosition() + 1].getTile2Id()).isPassability())) {
-                        if (player.getYPosition() < 285) {
-                            player.setYPosition(player.getYPosition() + 1);
+                    case S: {
+                        player.setDirection(DirectionEnum.DOWN);
+                        if (player.getYPosition() < 299 && (editor.getTilesList().getTiles1().get(map.getTiles()[
+                                player.getXPosition()][player.getYPosition() + 1].getTile1Id()).isPassability()) &&
+                                (editor.getTilesList().getTiles2().get(map.getTiles()[
+                                        player.getXPosition()][player.getYPosition() + 1].getTile2Id()).isPassability())) {
+                            if (player.getYPosition() < 285) {
+                                player.setYPosition(player.getYPosition() + 1);
+                            }
+                            if (player.getYPosition() + 3 > player.getYMapPos() + 12) {
+                                player.setYMapPos(player.getYMapPos() + 1);
+                                map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
+                            } else {
+                                player.setYViewPos(player.getYViewPos() + 1);
+                                map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                                        player.getXViewPos(), player.getYViewPos() - 1, editor);
+                                map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                                        player.getXViewPos(), player.getYViewPos(), editor);
+                            }
                         }
-                        if (player.getYPosition() + 3 > player.getYMapPos() + 12) {
-                            player.setYMapPos(player.getYMapPos() + 1);
-                            map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
-                        } else {
-                            player.setYViewPos(player.getYViewPos() + 1);
-                            map.drawTile(player.getXMapPos(), player.getYMapPos(),
-                                    player.getXViewPos(), player.getYViewPos() - 1, editor);
-                            map.drawTile(player.getXMapPos(), player.getYMapPos(),
-                                    player.getXViewPos(), player.getYViewPos(), editor);
-                        }
+                        break;
                     }
-                }
-                if (code == KeyCode.W) {
-                    player.setDirection(DirectionEnum.UP);
-                    if (player.getYPosition() > 0 && (editor.getTilesList().getTiles1().get(map.getTiles()[
-                            player.getXPosition()][player.getYPosition() - 1].getTile1Id()).isPassability()) &&
-                            (editor.getTilesList().getTiles2().get(map.getTiles()[
-                                    player.getXPosition()][player.getYPosition() - 1].getTile2Id()).isPassability())) {
-                        if (player.getYPosition() > 0) {
-                            player.setYPosition(player.getYPosition() - 1);
+                    case W: {
+                        player.setDirection(DirectionEnum.UP);
+                        if (player.getYPosition() > 0 && (editor.getTilesList().getTiles1().get(map.getTiles()[
+                                player.getXPosition()][player.getYPosition() - 1].getTile1Id()).isPassability()) &&
+                                (editor.getTilesList().getTiles2().get(map.getTiles()[
+                                        player.getXPosition()][player.getYPosition() - 1].getTile2Id()).isPassability())) {
+                            if (player.getYPosition() > 0) {
+                                player.setYPosition(player.getYPosition() - 1);
+                            }
+                            if (player.getYMapPos() > 0 && player.getYPosition() - 3 < player.getYMapPos()) {
+                                player.setYMapPos(player.getYMapPos() - 1);
+                                map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
+                            } else {
+                                player.setYViewPos(player.getYViewPos() - 1);
+                                map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                                        player.getXViewPos(), player.getYViewPos() + 1, editor);
+                                map.drawTile(player.getXMapPos(), player.getYMapPos(),
+                                        player.getXViewPos(), player.getYViewPos(), editor);
+                            }
                         }
-                        if (player.getYMapPos() > 0 && player.getYPosition() - 3 < player.getYMapPos()) {
-                            player.setYMapPos(player.getYMapPos() - 1);
-                            map.drawMap(player.getXMapPos(), player.getYMapPos(), editor);
-                        } else {
-                            player.setYViewPos(player.getYViewPos() - 1);
-                            map.drawTile(player.getXMapPos(), player.getYMapPos(),
-                                    player.getXViewPos(), player.getYViewPos() + 1, editor);
-                            map.drawTile(player.getXMapPos(), player.getYMapPos(),
-                                    player.getXViewPos(), player.getYViewPos(), editor);
-                        }
+                        break;
                     }
-                }
-                if (code == KeyCode.ESCAPE) {
-                    mainMenu.getMenuPane().setVisible(Boolean.TRUE);
-                    setGameMode(GameModeEnum.GAME_MENU);
+                    case ESCAPE: {
+                        mainMenu.getMenuPane().setVisible(Boolean.TRUE);
+                        setGameMode(GameModeEnum.GAME_MENU);
+                        break;
+                    }
                 }
             } else if (gameMode.equals(GameModeEnum.EDITOR)) {
                 switch (code) {
@@ -295,6 +302,11 @@ public class Main extends Application {
                         map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
                                 [player.getYMapPos() + ((((int) y)) / 40)].getItems().add(new Item(editor.getSelectTile(), 1));
                     }
+                    break;
+                }
+                case POLLUTION: {
+                    map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                            [player.getYMapPos() + ((((int) y)) / 40)].setPollutionId(editor.getSelectTile());
                     break;
                 }
             }
