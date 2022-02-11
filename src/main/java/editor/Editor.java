@@ -4,11 +4,9 @@ import entity.ItemTypeEnum;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,17 +29,20 @@ public class Editor {
     private final Pane pane4 = new Pane();
     private final Pane pane5 = new Pane();
     private final Pane pane6 = new Pane();
+    private final Pane pane7 = new Pane();
     private final Pane itemsPane = new Pane();
     private final TextField searchItemTF = new TextField();
     private final TabPane itemsTabPane = new TabPane();
 
     private int selectTile = 0;
+    private boolean showZones = false;
     private EditorObjectType selectedType = EditorObjectType.GROUND;
     private TilesList tilesList;
     private NPCList npcList;
     private CreatureList creatureList;
     private ItemsList itemsList;
     private PollutionList pollutionList = new PollutionList();
+    private ZoneList zonesList = new ZoneList();
     private Canvas canvas = new Canvas(screenSizeX, screenSizeY); // размеры игрового окна
 
     public Editor(Group root) {
@@ -60,19 +61,21 @@ public class Editor {
         root.getChildren().add(buttonsPane);
 
         tabPane.setLayoutX(630);
-        tabPane.setPrefSize(420, 620);
+        tabPane.setPrefSize(460, 620);
         tabPane.getTabs().add(new Tab("Тайлы"));
         tabPane.getTabs().add(new Tab("Объекты"));
         tabPane.getTabs().add(new Tab("Персонажи"));
         tabPane.getTabs().add(new Tab("Существа"));
         tabPane.getTabs().add(new Tab("Предметы"));
         tabPane.getTabs().add(new Tab("Загрязнения"));
+        tabPane.getTabs().add(new Tab("Зоны"));
         tabPane.getTabs().get(0).setClosable(false);
         tabPane.getTabs().get(1).setClosable(false);
         tabPane.getTabs().get(2).setClosable(false);
         tabPane.getTabs().get(3).setClosable(false);
         tabPane.getTabs().get(4).setClosable(false);
         tabPane.getTabs().get(5).setClosable(false);
+        tabPane.getTabs().get(6).setClosable(false);
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setLayoutX(5);
@@ -82,7 +85,7 @@ public class Editor {
             tile.setX(5 + (i / 13) * 45);
             tile.setY(5 + (i) * 45 - (i / 13) * 585);
             tile.setId(String.valueOf(i));
-            tile.setOnMousePressed(event -> {
+            tile.setOnMouseClicked(event -> {
                 setBorder(pane1);
                 selectTile = tilesList.getTiles1().get(Integer.parseInt(tile.getId())).getId();
                 selectedType = EditorObjectType.GROUND;
@@ -109,7 +112,7 @@ public class Editor {
             tile.setX(5 + (i / 13) * 45);
             tile.setY(5 + (i) * 45 - (i / 13) * 585);
             tile.setId(String.valueOf(i));
-            tile.setOnMousePressed(event -> {
+            tile.setOnMouseClicked(event -> {
                 setBorder(pane2);
                 selectTile = tilesList.getTiles2().get(Integer.parseInt(tile.getId())).getId();
                 selectedType = EditorObjectType.OBJECT;
@@ -141,7 +144,7 @@ public class Editor {
             tile.setX(5 + (i / 13) * 45);
             tile.setY(5 + (i) * 45 - (i / 13) * 585);
             tile.setId(String.valueOf(i));
-            tile.setOnMousePressed(event -> {
+            tile.setOnMouseClicked(event -> {
                 setBorder(pane3);
                 selectTile = npcList.getNpc().get(Integer.parseInt(tile.getId())).getImageId();
                 selectedType = EditorObjectType.NPC;
@@ -173,7 +176,7 @@ public class Editor {
             tile.setX(5 + (i / 13) * 45);
             tile.setY(5 + (i) * 45 - (i / 13) * 585);
             tile.setId(String.valueOf(i));
-            tile.setOnMousePressed(event -> {
+            tile.setOnMouseClicked(event -> {
                 setBorder(pane4);
                 selectTile = creatureList.getCreatures().get(Integer.parseInt(tile.getId())).getImageId();
                 selectedType = EditorObjectType.CREATURE;
@@ -232,7 +235,7 @@ public class Editor {
             tile.setX(5 + (i / 13) * 45);
             tile.setY(5 + (i) * 45 - (i / 13) * 585);
             tile.setId(String.valueOf(i));
-            tile.setOnMousePressed(event -> {
+            tile.setOnMouseClicked(event -> {
                 setBorder(itemsPane);
                 selectTile = itemsList.getItems().get(Integer.parseInt(tile.getId())).getId();
                 selectedType = EditorObjectType.ITEM;
@@ -267,7 +270,7 @@ public class Editor {
             tile.setX(5 + (i / 13) * 45);
             tile.setY(5 + (i) * 45 - (i / 13) * 585);
             tile.setId(String.valueOf(i));
-            tile.setOnMousePressed(event -> {
+            tile.setOnMouseClicked(event -> {
                 setBorder(pane6);
                 selectTile = pollutionList.getPollutions().get(Integer.parseInt(tile.getId())).getId();
                 selectedType = EditorObjectType.POLLUTION;
@@ -281,7 +284,57 @@ public class Editor {
         scrollPane6.setContent(pane6);
         tabPane.getTabs().get(5).setContent(scrollPane6);
 
+        ScrollPane scrollPane7 = new ScrollPane();
+        scrollPane7.setLayoutX(190);
+        scrollPane7.setPrefSize(180, 600);
+
+        CheckBox showZonesCheckBox = new CheckBox();
+        showZonesCheckBox.setLayoutX(5);
+        showZonesCheckBox.setLayoutY(5);
+        showZonesCheckBox.setOnAction(event -> changeShowZones());
+
+        HBox box = new HBox();
+        box.setLayoutX(5);
+        box.setLayoutY(5);
+        Label text = new Label("Отображать зоны");
+        box.getChildren().addAll(showZonesCheckBox, text);
+        box.setSpacing(5);
+
+        pane7.getChildren().add(box);
+
+        for (int i = 0; i < zonesList.getZonesCount(); i++) {
+            ImageView tile;
+            if (i == 0) {
+                tile = new ImageView("/graphics/gui/Delete.png");
+            } else {
+                tile = new ImageView("/graphics/zones/" + i + ".png");
+            }
+            tile.setFitWidth(40);
+            tile.setPreserveRatio(true);
+            tile.setSmooth(true);
+            tile.setCache(true);
+            tile.setX(5 + (i / 13) * 45);
+            tile.setY(35 + (i) * 45 - (i / 13) * 585);
+            tile.setId(String.valueOf(i));
+            tile.setOnMouseClicked(event -> {
+                setBorder(pane7);
+                selectTile = zonesList.getZones().get(Integer.parseInt(tile.getId())).getId();
+                selectedType = EditorObjectType.ZONE;
+                border.setX(zonesList.getZones().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+                border.setY(zonesList.getZones().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+            });
+
+            zonesList.getZones().get(i).setImage(tile);
+            pane7.getChildren().add(tile);
+        }
+        scrollPane7.setContent(pane7);
+        tabPane.getTabs().get(6).setContent(scrollPane7);
+
         root.getChildren().add(tabPane);
+    }
+
+    private void changeShowZones() {
+        showZones = !showZones;
     }
 
     private void setBorder(Pane pane) {
@@ -297,6 +350,8 @@ public class Editor {
             itemsPane.getChildren().remove(border);
         } else if (pane6.getChildren().contains(border)) {
             pane6.getChildren().remove(border);
+        } else if (pane7.getChildren().contains(border)) {
+            pane7.getChildren().remove(border);
         }
         pane.getChildren().add(border);
     }

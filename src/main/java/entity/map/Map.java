@@ -105,5 +105,11 @@ public class Map implements Serializable {
             gc.drawImage(editor.getTilesList().getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id()).getUpLayerImage().getImage(),
                     x * 40, y * 40);
         }
+
+        // Если включено отображение зон, то рисуем их поверх всего
+        if (editor.isShowZones() && (tiles[Xpos + x][YPos + y].getZoneId() != 0)) {
+            gc.drawImage(editor.getZonesList().getZones().get(tiles[Xpos + x][YPos + y].getZoneId()).getImage().getImage(),
+                    x * 40, y * 40);
+        }
     }
 }

@@ -6,5 +6,6 @@ public enum EditorObjectType {
   NPC,
   CREATURE,
   ITEM,
-  POLLUTION
+  POLLUTION,
+  ZONE
 }

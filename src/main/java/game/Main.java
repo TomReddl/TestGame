@@ -309,6 +309,11 @@ public class Main extends Application {
                             [player.getYMapPos() + ((((int) y)) / 40)].setPollutionId(editor.getSelectTile());
                     break;
                 }
+                case ZONE: {
+                    map.getTiles()[player.getXMapPos() + ((((int) x)) / 40)]
+                            [player.getYMapPos() + ((((int) y)) / 40)].setZoneId(editor.getSelectTile());
+                    break;
+                }
             }
 
             map.drawTile(player.getXMapPos(), player.getYMapPos(), ((((int) x)) / 40), ((((int) y)) / 40), editor);
