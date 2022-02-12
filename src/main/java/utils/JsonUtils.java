@@ -10,9 +10,6 @@ import entity.map.Map;
 import lombok.experimental.UtilityClass;
 
 import java.io.File;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -20,8 +17,8 @@ import java.util.regex.Matcher;
 
 @UtilityClass
 /*
-* Вспомогательный класс для работы с json-файлами
-* */
+ * Вспомогательный класс для работы с json-файлами
+ * */
 public class JsonUtils {
     private static final ObjectMapper objectMapper = createMapper();
 
@@ -65,7 +62,7 @@ public class JsonUtils {
         }
     }
 
-    public static List<NPCInfo> getCreatures() {
+    public static List<CreatureInfo> getCreatures() {
         try {
             var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/creatures.json";
             return objectMapper.readValue(new File(path), new TypeReference<>() {

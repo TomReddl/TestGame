@@ -10,6 +10,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import lombok.Getter;
 import lombok.Setter;
+import utils.JsonUtils;
 
 import java.util.List;
 
@@ -37,19 +38,16 @@ public class Editor {
     private int selectTile = 0;
     private boolean showZones = false;
     private EditorObjectType selectedType = EditorObjectType.GROUND;
-    private TilesList tilesList;
-    private NPCList npcList;
-    private CreatureList creatureList;
-    private ItemsList itemsList;
-    private PollutionList pollutionList = new PollutionList();
-    private ZoneList zonesList = new ZoneList();
+    private List<TileInfo> tiles1 = JsonUtils.getTiles1();
+    private List<TileInfo> tiles2 = JsonUtils.getTiles2();
+    private List<NPCInfo> npcList= JsonUtils.getNPC();
+    private List<CreatureInfo> creatureList = JsonUtils.getCreatures();
+    private List<ItemInfo> itemsList = JsonUtils.getItems();
+    private List<PollutionInfo> pollutionList = JsonUtils.getPollutions();
+    private List<ZoneInfo> zonesList = JsonUtils.getZones();
     private Canvas canvas = new Canvas(screenSizeX, screenSizeY); // размеры игрового окна
 
     public Editor(Group root) {
-        tilesList = new TilesList();
-        npcList = new NPCList();
-        creatureList = new CreatureList();
-        itemsList = new ItemsList();
         root.getChildren().add(canvas);
         drawTiles(root);
     }
@@ -80,25 +78,25 @@ public class Editor {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setLayoutX(5);
         scrollPane.setPrefSize(180, 600);
-        for (int i = 0; i < tilesList.getTiles1Count(); i++) {
+        for (int i = 0; i < tiles1.size(); i++) {
             ImageView tile = new ImageView("/graphics/tiles/" + i + ".png");
             tile.setX(5 + (i / 13) * 45);
             tile.setY(5 + (i) * 45 - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             tile.setOnMouseClicked(event -> {
                 setBorder(pane1);
-                selectTile = tilesList.getTiles1().get(Integer.parseInt(tile.getId())).getId();
+                selectTile = tiles1.get(Integer.parseInt(tile.getId())).getId();
                 selectedType = EditorObjectType.GROUND;
-                border.setX(tilesList.getTiles1().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
-                border.setY(tilesList.getTiles1().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+                border.setX(tiles1.get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+                border.setY(tiles1.get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
             });
 
-            tilesList.getTiles1().get(i).setImage(tile);
+            tiles1.get(i).setImage(tile);
             pane1.getChildren().add(tile);
         }
         border = new javafx.scene.image.ImageView("/graphics/gui/Border.png");
-        border.setX(tilesList.getTiles1().get(0).getImage().getX() - 1);
-        border.setY(tilesList.getTiles1().get(0).getImage().getY() - 1);
+        border.setX(tiles1.get(0).getImage().getX() - 1);
+        border.setY(tiles1.get(0).getImage().getY() - 1);
         pane1.getChildren().add(border);
         scrollPane.setContent(pane1);
         tabPane.getTabs().get(0).setContent(scrollPane);
@@ -107,23 +105,23 @@ public class Editor {
         scrollPane2.setLayoutX(190);
         scrollPane2.setPrefSize(180, 600);
 
-        for (int i = 0; i < tilesList.getTiles2Count(); i++) {
+        for (int i = 0; i < tiles2.size(); i++) {
             ImageView tile = new ImageView("/graphics/tiles2/" + i + ".png");
             tile.setX(5 + (i / 13) * 45);
             tile.setY(5 + (i) * 45 - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             tile.setOnMouseClicked(event -> {
                 setBorder(pane2);
-                selectTile = tilesList.getTiles2().get(Integer.parseInt(tile.getId())).getId();
+                selectTile = tiles2.get(Integer.parseInt(tile.getId())).getId();
                 selectedType = EditorObjectType.OBJECT;
-                border.setX(tilesList.getTiles2().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
-                border.setY(tilesList.getTiles2().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+                border.setX(tiles2.get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+                border.setY(tiles2.get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
             });
 
-            tilesList.getTiles2().get(i).setImage(tile);
-            if (tilesList.getTiles2().get(i).isTwoLayer()) {
+            tiles2.get(i).setImage(tile);
+            if (tiles2.get(i).isTwoLayer()) {
                 ImageView upTile = new ImageView("/graphics/tiles2/" + i + ".up.png");
-                tilesList.getTiles2().get(i).setUpLayerImage(upTile);
+                tiles2.get(i).setUpLayerImage(upTile);
             }
             pane2.getChildren().add(tile);
         }
@@ -134,7 +132,7 @@ public class Editor {
         scrollPane3.setLayoutX(190);
         scrollPane3.setPrefSize(180, 600);
 
-        for (int i = 0; i < npcList.getNpcCount(); i++) {
+        for (int i = 0; i < npcList.size(); i++) {
             ImageView tile;
             if (i == 0) {
                 tile = new ImageView("/graphics/gui/Delete.png");
@@ -146,13 +144,13 @@ public class Editor {
             tile.setId(String.valueOf(i));
             tile.setOnMouseClicked(event -> {
                 setBorder(pane3);
-                selectTile = npcList.getNpc().get(Integer.parseInt(tile.getId())).getImageId();
+                selectTile = npcList.get(Integer.parseInt(tile.getId())).getImageId();
                 selectedType = EditorObjectType.NPC;
-                border.setX(npcList.getNpc().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
-                border.setY(npcList.getNpc().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+                border.setX(npcList.get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+                border.setY(npcList.get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
             });
 
-            npcList.getNpc().get(i).setImage(tile);
+            npcList.get(i).setImage(tile);
             pane3.getChildren().add(tile);
         }
         scrollPane3.setContent(pane3);
@@ -162,7 +160,7 @@ public class Editor {
         scrollPane4.setLayoutX(190);
         scrollPane4.setPrefSize(180, 600);
 
-        for (int i = 0; i < creatureList.getCreaturesCount(); i++) {
+        for (int i = 0; i < creatureList.size(); i++) {
             ImageView tile;
             if (i == 0) {
                 tile = new ImageView("/graphics/gui/Delete.png");
@@ -178,13 +176,13 @@ public class Editor {
             tile.setId(String.valueOf(i));
             tile.setOnMouseClicked(event -> {
                 setBorder(pane4);
-                selectTile = creatureList.getCreatures().get(Integer.parseInt(tile.getId())).getImageId();
+                selectTile = creatureList.get(Integer.parseInt(tile.getId())).getImageId();
                 selectedType = EditorObjectType.CREATURE;
-                border.setX(creatureList.getCreatures().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
-                border.setY(creatureList.getCreatures().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+                border.setX(creatureList.get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+                border.setY(creatureList.get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
             });
 
-            creatureList.getCreatures().get(i).setImage(tile);
+            creatureList.get(i).setImage(tile);
             pane4.getChildren().add(tile);
         }
         scrollPane4.setContent(pane4);
@@ -221,7 +219,7 @@ public class Editor {
         );
         pane5.getChildren().add(itemsTabPane);
 
-        for (int i = 0; i < itemsList.getItemsCount(); i++) {
+        for (int i = 0; i < itemsList.size(); i++) {
             ImageView tile;
             if (i == 0) {
                 tile = new ImageView("/graphics/gui/Delete.png");
@@ -237,15 +235,15 @@ public class Editor {
             tile.setId(String.valueOf(i));
             tile.setOnMouseClicked(event -> {
                 setBorder(itemsPane);
-                selectTile = itemsList.getItems().get(Integer.parseInt(tile.getId())).getId();
+                selectTile = itemsList.get(Integer.parseInt(tile.getId())).getId();
                 selectedType = EditorObjectType.ITEM;
-                border.setX(itemsList.getItems().get(Integer.parseInt(tile.getId())).getIcon().getX() - 1);
-                border.setY(itemsList.getItems().get(Integer.parseInt(tile.getId())).getIcon().getY() - 1);
+                border.setX(itemsList.get(Integer.parseInt(tile.getId())).getIcon().getX() - 1);
+                border.setY(itemsList.get(Integer.parseInt(tile.getId())).getIcon().getY() - 1);
             });
 
-            itemsList.getItems().get(i).setIcon(tile);
+            itemsList.get(i).setIcon(tile);
             if (i > 0) {
-                itemsList.getItems().get(i).setImage(new ImageView("/graphics/items/" + i + ".png"));
+                itemsList.get(i).setImage(new ImageView("/graphics/items/" + i + ".png"));
             }
             itemsPane.getChildren().add(tile);
         }
@@ -256,7 +254,7 @@ public class Editor {
         scrollPane6.setLayoutX(190);
         scrollPane6.setPrefSize(180, 600);
 
-        for (int i = 0; i < pollutionList.getPollutionsCount(); i++) {
+        for (int i = 0; i < pollutionList.size(); i++) {
             ImageView tile;
             if (i == 0) {
                 tile = new ImageView("/graphics/gui/Delete.png");
@@ -272,13 +270,13 @@ public class Editor {
             tile.setId(String.valueOf(i));
             tile.setOnMouseClicked(event -> {
                 setBorder(pane6);
-                selectTile = pollutionList.getPollutions().get(Integer.parseInt(tile.getId())).getId();
+                selectTile = pollutionList.get(Integer.parseInt(tile.getId())).getId();
                 selectedType = EditorObjectType.POLLUTION;
-                border.setX(pollutionList.getPollutions().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
-                border.setY(pollutionList.getPollutions().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+                border.setX(pollutionList.get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+                border.setY(pollutionList.get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
             });
 
-            pollutionList.getPollutions().get(i).setImage(tile);
+            pollutionList.get(i).setImage(tile);
             pane6.getChildren().add(tile);
         }
         scrollPane6.setContent(pane6);
@@ -302,7 +300,7 @@ public class Editor {
 
         pane7.getChildren().add(box);
 
-        for (int i = 0; i < zonesList.getZonesCount(); i++) {
+        for (int i = 0; i < zonesList.size(); i++) {
             ImageView tile;
             if (i == 0) {
                 tile = new ImageView("/graphics/gui/Delete.png");
@@ -318,13 +316,13 @@ public class Editor {
             tile.setId(String.valueOf(i));
             tile.setOnMouseClicked(event -> {
                 setBorder(pane7);
-                selectTile = zonesList.getZones().get(Integer.parseInt(tile.getId())).getId();
+                selectTile = zonesList.get(Integer.parseInt(tile.getId())).getId();
                 selectedType = EditorObjectType.ZONE;
-                border.setX(zonesList.getZones().get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
-                border.setY(zonesList.getZones().get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+                border.setX(zonesList.get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+                border.setY(zonesList.get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
             });
 
-            zonesList.getZones().get(i).setImage(tile);
+            zonesList.get(i).setImage(tile);
             pane7.getChildren().add(tile);
         }
         scrollPane7.setContent(pane7);
@@ -361,7 +359,7 @@ public class Editor {
         int i = 1;
         for (Node tile : itemsPane.getChildren()) {
             ImageView itemTile = (ImageView) tile;
-            ItemInfo itemInfo = itemsList.getItems().get(Integer.parseInt(itemTile.getId()));
+            ItemInfo itemInfo = itemsList.get(Integer.parseInt(itemTile.getId()));
             List<ItemTypeEnum> types = itemInfo.getTypes();
             if (types != null) {
                 itemTile.setVisible((types.contains(type) || ItemTypeEnum.ALL.equals(type)) &&

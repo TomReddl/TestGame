@@ -51,7 +51,7 @@ public class MainMenu {
         editorButton.setLayoutX(20);
         editorButton.setLayoutY(110);
         editorButton.setPrefWidth(100);
-        editorButton.setOnAction(event -> startEditor());
+        editorButton.setOnAction(event -> Main.game.setGameMode(GameModeEnum.EDITOR));
         menuPane.getChildren().add(editorButton);
 
         settingsButton.setLayoutX(20);
@@ -70,23 +70,6 @@ public class MainMenu {
         menuPane.setPrefSize(140, 210);
 
         root.getChildren().add(menuPane);
-    }
-
-    public void setMenuMode(GameModeEnum gameMode) {
-        if (gameMode.equals(GameModeEnum.MAIN_MENU)) {
-            menuPane.setLayoutX(0);
-            menuPane.setLayoutY(0);
-            backgroundImage.setVisible(Boolean.TRUE);
-        } else {
-            menuPane.setLayoutX(gameMenuPosY);
-            menuPane.setLayoutY(gameMenuPosY);
-            backgroundImage.setVisible(Boolean.FALSE);
-        }
-    }
-
-    public void startEditor() {
-        setMenuMode(GameModeEnum.EDITOR);
-        menuPane.setVisible(Boolean.FALSE);
     }
 
     public void closeGame() {

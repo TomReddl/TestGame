@@ -3,20 +3,19 @@ package entity.map;
 import editor.Editor;
 import entity.GameModeEnum;
 import entity.Player;
-import game.Main;
+import game.Game;
 import javafx.scene.canvas.GraphicsContext;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import utils.JsonUtils;
 
-import java.io.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /*
-* Карта мира со всеми персонажами и предметами на ней
-* */
+ * Карта мира со всеми персонажами и предметами на ней
+ * */
 @Getter
 @Setter
 @Slf4j
@@ -61,19 +60,19 @@ public class Map implements Serializable {
     // отрисовка нижнего уровня тайла
     private void drawBottomLayer(Editor editor, int Xpos, int YPos, int x, int y) {
         GraphicsContext gc = editor.getCanvas().getGraphicsContext2D();
-        gc.drawImage(editor.getTilesList().getTiles1().get(tiles[Xpos + x][YPos + y].getTile1Id()).getImage().getImage(),
+        gc.drawImage(editor.getTiles1().get(tiles[Xpos + x][YPos + y].getTile1Id()).getImage().getImage(),
                 x * 40, y * 40);
-        gc.drawImage(editor.getTilesList().getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id()).getImage().getImage(),
+        gc.drawImage(editor.getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id()).getImage().getImage(),
                 x * 40, y * 40);
 
         // загрязнение на тайле
         if (tiles[Xpos + x][YPos + y].getPollutionId() != 0) {
-            gc.drawImage(editor.getPollutionList().getPollutions().get(tiles[Xpos + x][YPos + y].getPollutionId()).getImage().getImage(),
+            gc.drawImage(editor.getPollutionList().get(tiles[Xpos + x][YPos + y].getPollutionId()).getImage().getImage(),
                     x * 40, y * 40);
         }
 
         if (tiles[Xpos + x][YPos + y].getItems() != null) {
-            gc.drawImage(editor.getItemsList().getItems().get(
+            gc.drawImage(editor.getItemsList().get(
                     tiles[Xpos + x][YPos + y].getItems().get(0).getTypeId()).getImage().getImage(),
                     x * 40, y * 40);
         }
@@ -83,32 +82,32 @@ public class Map implements Serializable {
     private void drawUpperLayer(Editor editor, int Xpos, int YPos, int x, int y) {
         GraphicsContext gc = editor.getCanvas().getGraphicsContext2D();
         if (tiles[Xpos + x][YPos + y].getNpcId() != null) {
-            gc.drawImage(editor.getNpcList().getNpc().get(npcList.get(
+            gc.drawImage(editor.getNpcList().get(npcList.get(
                     tiles[Xpos + x][YPos + y].getNpcId()).getNpcTypeId()).getImage().getImage(),
                     x * 40, y * 40);
         }
         if (tiles[Xpos + x][YPos + y].getCreatureId() != null) {
-            gc.drawImage(editor.getCreatureList().getCreatures().get(
+            gc.drawImage(editor.getCreatureList().get(
                     creaturesList.get(tiles[Xpos + x][YPos + y].getCreatureId()).getCreatureTypeId()).getImage().getImage(),
                     x * 40, y * 40);
         }
 
-        if ((Main.getGameMode().equals(GameModeEnum.GAME) ||
-                Main.getGameMode().equals(GameModeEnum.GAME_MENU)) &&
+        if ((Game.getGameMode().equals(GameModeEnum.GAME) ||
+                Game.getGameMode().equals(GameModeEnum.GAME_MENU)) &&
                 (player.getXViewPos() == x) && (player.getYViewPos() == y)) {
             gc.drawImage(player.getImage().getImage(),
                     player.getXViewPos() * 40, player.getYViewPos() * 40);
         }
 
         // если у тайла есть верхний уровень, рисуем его поверх персонажа или NPC
-        if (editor.getTilesList().getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id()).isTwoLayer()) {
-            gc.drawImage(editor.getTilesList().getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id()).getUpLayerImage().getImage(),
+        if (editor.getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id()).isTwoLayer()) {
+            gc.drawImage(editor.getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id()).getUpLayerImage().getImage(),
                     x * 40, y * 40);
         }
 
         // Если включено отображение зон, то рисуем их поверх всего
         if (editor.isShowZones() && (tiles[Xpos + x][YPos + y].getZoneId() != 0)) {
-            gc.drawImage(editor.getZonesList().getZones().get(tiles[Xpos + x][YPos + y].getZoneId()).getImage().getImage(),
+            gc.drawImage(editor.getZonesList().get(tiles[Xpos + x][YPos + y].getZoneId()).getImage().getImage(),
                     x * 40, y * 40);
         }
     }
