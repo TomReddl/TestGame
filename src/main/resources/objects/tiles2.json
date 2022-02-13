@@ -616,5 +616,28 @@
     "strength": 0,
     "passability": true,
     "twoLayer": true
+  },
+  {
+    "id": 88,
+    "name": "Кровавая трава",
+    "desc": "Кровавая трава",
+    "strength": 0,
+    "passability": true,
+    "twoLayer": true
+  },
+  {
+    "id": 89,
+    "name": "Камень",
+    "desc": "Камень",
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 90,
+    "name": "Рогоз",
+    "desc": "Рогоз",
+    "strength": 0,
+    "passability": true,
+    "twoLayer": true
   }
 ]

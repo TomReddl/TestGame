@@ -1,6 +1,7 @@
 package editor;
 
 import entity.ItemTypeEnum;
+import game.Game;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -13,6 +14,8 @@ import lombok.Setter;
 import utils.JsonUtils;
 
 import java.util.List;
+
+import static params.GameParams.tileSize;
 
 @Setter
 @Getter
@@ -167,7 +170,7 @@ public class Editor {
             } else {
                 tile = new ImageView("/graphics/creatures/" + i + ".png");
             }
-            tile.setFitWidth(40);
+            tile.setFitWidth(tileSize);
             tile.setPreserveRatio(true);
             tile.setSmooth(true);
             tile.setCache(true);
@@ -226,7 +229,7 @@ public class Editor {
             } else {
                 tile = new ImageView("/graphics/items/icons/" + i + ".png");
             }
-            tile.setFitWidth(40);
+            tile.setFitWidth(tileSize);
             tile.setPreserveRatio(true);
             tile.setSmooth(true);
             tile.setCache(true);
@@ -261,7 +264,7 @@ public class Editor {
             } else {
                 tile = new ImageView("/graphics/pollutions/" + i + ".png");
             }
-            tile.setFitWidth(40);
+            tile.setFitWidth(tileSize);
             tile.setPreserveRatio(true);
             tile.setSmooth(true);
             tile.setCache(true);
@@ -307,7 +310,7 @@ public class Editor {
             } else {
                 tile = new ImageView("/graphics/zones/" + i + ".png");
             }
-            tile.setFitWidth(40);
+            tile.setFitWidth(tileSize);
             tile.setPreserveRatio(true);
             tile.setSmooth(true);
             tile.setCache(true);
@@ -333,6 +336,7 @@ public class Editor {
 
     private void changeShowZones() {
         showZones = !showZones;
+        Game.getMap().drawCurrentMap();
     }
 
     private void setBorder(Pane pane) {
