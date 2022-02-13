@@ -40,8 +40,7 @@ public class Game {
                 break;
             }
             case EDITOR: {
-                map.drawTile(player.getXMapPos(), player.getYMapPos(),
-                        player.getXViewPos(), player.getYViewPos(), editor);
+                map.drawCurrentMap();
                 editor.getTabPane().setVisible(Boolean.TRUE);
                 editor.getButtonsPane().setVisible(Boolean.TRUE);
                 stopTestGameImage.setVisible(Boolean.FALSE);
@@ -49,8 +48,7 @@ public class Game {
                 break;
             }
             case GAME: {
-                map.drawTile(player.getXMapPos(), player.getYMapPos(),
-                        player.getXViewPos(), player.getYViewPos(), editor);
+                map.drawCurrentMap();
                 editor.getTabPane().setVisible(Boolean.FALSE);
                 editor.getButtonsPane().setVisible(Boolean.FALSE);
                 stopTestGameImage.setVisible(Boolean.TRUE);

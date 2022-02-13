@@ -125,7 +125,9 @@ public class Map implements Serializable {
         }
 
         // Если включено отображение зон, то рисуем их поверх всего
-        if (editor.isShowZones() && (tiles[Xpos + x][YPos + y].getZoneId() != 0)) {
+        if (Game.getGameMode().equals(GameModeEnum.EDITOR) &&
+                editor.isShowZones() &&
+                (tiles[Xpos + x][YPos + y].getZoneId() != 0)) {
             gc.drawImage(editor.getZonesList().get(tiles[Xpos + x][YPos + y].getZoneId()).getImage().getImage(),
                     x * tileSize, y * tileSize);
         }
