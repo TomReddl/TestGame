@@ -15,15 +15,11 @@ import utils.JsonUtils;
 
 import java.util.List;
 
-import static params.GameParams.tileSize;
+import static params.GameParams.*;
 
 @Setter
 @Getter
 public class Editor {
-
-    private final int screenSizeX = 1020;
-    private final int screenSizeY = 680;
-
     private final TabPane tabPane = new TabPane();
     private final Pane buttonsPane = new Pane();
     private ImageView border;
@@ -63,13 +59,13 @@ public class Editor {
 
         tabPane.setLayoutX(630);
         tabPane.setPrefSize(460, 620);
-        tabPane.getTabs().add(new Tab("Тайлы"));
-        tabPane.getTabs().add(new Tab("Объекты"));
-        tabPane.getTabs().add(new Tab("Персонажи"));
-        tabPane.getTabs().add(new Tab("Существа"));
-        tabPane.getTabs().add(new Tab("Предметы"));
-        tabPane.getTabs().add(new Tab("Загрязнения"));
-        tabPane.getTabs().add(new Tab("Зоны"));
+        tabPane.getTabs().add(new Tab(Game.getText("TILES")));
+        tabPane.getTabs().add(new Tab(Game.getText("OBJECTS")));
+        tabPane.getTabs().add(new Tab(Game.getText("CHARACTERS")));
+        tabPane.getTabs().add(new Tab(Game.getText("CREATURES")));
+        tabPane.getTabs().add(new Tab(Game.getText("ITEMS")));
+        tabPane.getTabs().add(new Tab(Game.getText("POLLUTIONS")));
+        tabPane.getTabs().add(new Tab(Game.getText("ZONES")));
         tabPane.getTabs().get(0).setClosable(false);
         tabPane.getTabs().get(1).setClosable(false);
         tabPane.getTabs().get(2).setClosable(false);
@@ -83,8 +79,8 @@ public class Editor {
         scrollPane.setPrefSize(180, 600);
         for (int i = 0; i < tiles1.size(); i++) {
             ImageView tile = new ImageView("/graphics/tiles/" + i + ".png");
-            tile.setX(5 + (i / 13) * 45);
-            tile.setY(5 + (i) * 45 - (i / 13) * 585);
+            tile.setX(5 + (i / 13) * (tileSize + 5));
+            tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             tile.setOnMouseClicked(event -> {
                 setBorder(pane1);
@@ -110,8 +106,8 @@ public class Editor {
 
         for (int i = 0; i < tiles2.size(); i++) {
             ImageView tile = new ImageView("/graphics/tiles2/" + i + ".png");
-            tile.setX(5 + (i / 13) * 45);
-            tile.setY(5 + (i) * 45 - (i / 13) * 585);
+            tile.setX(5 + (i / 13) * (tileSize + 5));
+            tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             tile.setOnMouseClicked(event -> {
                 setBorder(pane2);
@@ -142,8 +138,8 @@ public class Editor {
             } else {
                 tile = new ImageView("/graphics/characters/" + i + ".png");
             }
-            tile.setX(5 + (i / 13) * 45);
-            tile.setY(5 + (i) * 45 - (i / 13) * 585);
+            tile.setX(5 + (i / 13) * (tileSize + 5));
+            tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             tile.setOnMouseClicked(event -> {
                 setBorder(pane3);
@@ -174,8 +170,8 @@ public class Editor {
             tile.setPreserveRatio(true);
             tile.setSmooth(true);
             tile.setCache(true);
-            tile.setX(5 + (i / 13) * 45);
-            tile.setY(5 + (i) * 45 - (i / 13) * 585);
+            tile.setX(5 + (i / 13) * (tileSize + 5));
+            tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             tile.setOnMouseClicked(event -> {
                 setBorder(pane4);
@@ -197,7 +193,7 @@ public class Editor {
 
         searchItemTF.setLayoutX(5);
         searchItemTF.setLayoutY(5);
-        searchItemTF.setPromptText("Название предмета");
+        searchItemTF.setPromptText(Game.getText("ITEM_NAME"));
         searchItemTF.setOnAction(event -> filterItems(
                 itemsTabPane.getSelectionModel().getSelectedItem().getText(),
                 searchItemTF.getText()));
@@ -233,8 +229,8 @@ public class Editor {
             tile.setPreserveRatio(true);
             tile.setSmooth(true);
             tile.setCache(true);
-            tile.setX(5 + (i / 13) * 45);
-            tile.setY(5 + (i) * 45 - (i / 13) * 585);
+            tile.setX(5 + (i / 13) * (tileSize + 5));
+            tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             tile.setOnMouseClicked(event -> {
                 setBorder(itemsPane);
@@ -245,6 +241,8 @@ public class Editor {
             });
 
             itemsList.get(i).setIcon(tile);
+            itemsList.get(i).setName(Game.getItemsText(i + "NAME"));
+            itemsList.get(i).setDesc(Game.getItemsText(i + "DESC"));
             if (i > 0) {
                 itemsList.get(i).setImage(new ImageView("/graphics/items/" + i + ".png"));
             }
@@ -268,8 +266,8 @@ public class Editor {
             tile.setPreserveRatio(true);
             tile.setSmooth(true);
             tile.setCache(true);
-            tile.setX(5 + (i / 13) * 45);
-            tile.setY(5 + (i) * 45 - (i / 13) * 585);
+            tile.setX(5 + (i / 13) * (tileSize + 5));
+            tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             tile.setOnMouseClicked(event -> {
                 setBorder(pane6);
@@ -297,7 +295,7 @@ public class Editor {
         HBox box = new HBox();
         box.setLayoutX(5);
         box.setLayoutY(5);
-        Label text = new Label("Отображать зоны");
+        Label text = new Label(Game.getText("SHOW_ZONES"));
         box.getChildren().addAll(showZonesCheckBox, text);
         box.setSpacing(5);
 
@@ -314,8 +312,8 @@ public class Editor {
             tile.setPreserveRatio(true);
             tile.setSmooth(true);
             tile.setCache(true);
-            tile.setX(5 + (i / 13) * 45);
-            tile.setY(35 + (i) * 45 - (i / 13) * 585);
+            tile.setX(5 + (i / 13) * (tileSize + 5));
+            tile.setY(35 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             tile.setOnMouseClicked(event -> {
                 setBorder(pane7);
@@ -370,8 +368,8 @@ public class Editor {
                         ((itemInfo.getDesc().toLowerCase().contains(searchString.toLowerCase())) ||
                                 (itemInfo.getName().toLowerCase().contains(searchString.toLowerCase()))));
                 if (itemTile.isVisible()) {
-                    itemTile.setX(5 + (i / 13) * 45);
-                    itemTile.setY(5 + (i) * 45 - (i / 13) * 585);
+                    itemTile.setX(5 + (i / 13) * (tileSize + 5));
+                    itemTile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
                     i++;
                 }
             }

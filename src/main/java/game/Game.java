@@ -8,34 +8,56 @@ import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 import menu.MainMenu;
+import params.GameParams;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class Game {
     @Getter
-    @Setter
+    private static final Properties properties;
+    private static final Properties itemsProperties;
+    static {
+        properties = new Properties();
+        itemsProperties = new Properties();
+        try {
+            InputStream in = new FileInputStream("src/main/resources/text/editor_" +
+                    GameParams.lang.toString().toLowerCase() + ".properties");
+            properties.load(in);
+            in.close();
+
+            in = new FileInputStream("src/main/resources/text/items_" +
+                    GameParams.lang.toString().toLowerCase() + ".properties");
+            itemsProperties.load(in);
+            in.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Getter
     private static final Group root = new Group();
     @Getter
-    @Setter
     private static final Editor editor = new Editor(root);
     @Getter
     @Setter
-    private static final Map map= new Map();
+    private static Map map= new Map();
     @Getter
-    @Setter
     private static final MainMenu mainMenu = new MainMenu(root);
     @Getter
     private static GameModeEnum gameMode = GameModeEnum.MAIN_MENU;
     @Getter
-    @Setter
     private static final ImageView stopTestGameImage = new ImageView("/graphics/gui/StopTestGame.png");
 
-    public void setGameMode(GameModeEnum mode) {
+    public static void setGameMode(GameModeEnum mode) {
         gameMode = mode;
-        var player = map.getPlayer();
         switch (gameMode) {
             case MAIN_MENU: {
-                mainMenu.getMenuPane().setVisible(Boolean.TRUE);
-                mainMenu.getMenuPane().setLayoutX(0);
-                mainMenu.getMenuPane().setLayoutY(0);
+                MainMenu.getPane().setVisible(Boolean.TRUE);
+                MainMenu.getPane().setLayoutX(0);
+                MainMenu.getPane().setLayoutY(0);
                 mainMenu.getBackgroundImage().setVisible(Boolean.TRUE);
                 break;
             }
@@ -44,7 +66,7 @@ public class Game {
                 editor.getTabPane().setVisible(Boolean.TRUE);
                 editor.getButtonsPane().setVisible(Boolean.TRUE);
                 stopTestGameImage.setVisible(Boolean.FALSE);
-                mainMenu.getMenuPane().setVisible(Boolean.FALSE);
+                MainMenu.getPane().setVisible(Boolean.FALSE);
                 break;
             }
             case GAME: {
@@ -52,15 +74,23 @@ public class Game {
                 editor.getTabPane().setVisible(Boolean.FALSE);
                 editor.getButtonsPane().setVisible(Boolean.FALSE);
                 stopTestGameImage.setVisible(Boolean.TRUE);
-                mainMenu.getMenuPane().setVisible(Boolean.FALSE);
+                MainMenu.getPane().setVisible(Boolean.FALSE);
                 break;
             }
             case GAME_MENU: {
-                mainMenu.getMenuPane().setLayoutX(mainMenu.getGameMenuPosX());
-                mainMenu.getMenuPane().setLayoutY(mainMenu.getGameMenuPosY());
+                MainMenu.getPane().setLayoutX(mainMenu.getGameMenuPosX());
+                MainMenu.getPane().setLayoutY(mainMenu.getGameMenuPosY());
                 mainMenu.getBackgroundImage().setVisible(Boolean.FALSE);
                 break;
             }
         }
+    }
+
+    public static String getText(String strId) {
+        return properties.getProperty(strId);
+    }
+
+    public static String getItemsText(String strId) {
+        return itemsProperties.getProperty(strId);
     }
 }

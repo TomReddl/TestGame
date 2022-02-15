@@ -1,5 +1,8 @@
 package editor;
 
+/*
+ * Тип выбранного в редакторе тайла
+ */
 public enum EditorObjectType {
   GROUND,
   OBJECT,

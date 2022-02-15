@@ -29,10 +29,6 @@ public class Player implements Serializable {
     private DirectionEnum direction; // направление движения персонажа
 
     public Player() {
-        xPosition = 0;
-        yPosition = 0;
-        xMapPos = 0;
-        yMapPos = 0;
         image = new ImageView("/graphics/characters/31.png");
         image.setVisible(Boolean.FALSE);
         direction = DirectionEnum.RIGHT;

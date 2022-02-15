@@ -1,20 +1,22 @@
 package entity;
 
+import game.Game;
+
 /*
 * Тип предмета
 * */
 public enum ItemTypeEnum {
-  ALL("Все"),
-  EAT("Еда"),
-  CLOTHES("Одежда"),
-  WEAPON("Оружие"),
-  RESOURCE("Ресурсы"),
-  BOOK("Книги"),
-  TREASURE("Сокровища"),
-  INGREDIENT("Ингридиенты"),
-  POTION("Зелья"),
-  COMMON("Бытовые"),
-  TRASH("Мусор");
+  ALL(Game.getText("ALL")),
+  EAT(Game.getText("EAT")),
+  CLOTHES(Game.getText("CLOTHES")),
+  WEAPON(Game.getText("WEAPON")),
+  RESOURCE(Game.getText("RESOURCE")),
+  BOOK(Game.getText("BOOK")),
+  TREASURE(Game.getText("TREASURE")),
+  INGREDIENT(Game.getText("INGREDIENT")),
+  POTION(Game.getText("POTION")),
+  COMMON(Game.getText("COMMON")),
+  TRASH(Game.getText("TRASH"));
 
   private final String desc;
 
