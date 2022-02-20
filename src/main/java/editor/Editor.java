@@ -173,6 +173,7 @@ public class Editor {
                 tile = new ImageView("/graphics/creatures/" + i + ".png");
             }
             tile.setFitWidth(tileSize);
+            tile.setFitHeight(tileSize);
             tile.setPreserveRatio(true);
             tile.setSmooth(true);
             tile.setCache(true);
