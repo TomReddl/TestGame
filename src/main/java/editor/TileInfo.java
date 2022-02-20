@@ -12,7 +12,9 @@ import lombok.Setter;
 @Setter
 public class TileInfo {
     private int id;
+    @JsonIgnore
     private String name;
+    @JsonIgnore
     private String desc;
     private Integer strength; // прочность тайла, если 0, он неразрушаем
     private boolean passability; // проходимость тайла

@@ -1,260 +1,186 @@
 [
   {
     "id": 0,
-    "name": "Жухлая трава",
-    "desc": "Жухлая трава",
     "strength": 0,
     "passability": true
   },
   {
     "id": 1,
-    "name": "Каменистая земля",
-    "desc": "Каменистая земля",
     "strength": 0,
     "passability": true
   },
   {
     "id": 2,
-    "name": "Каменистая стена",
-    "desc": "Каменистая стена",
     "strength": 0,
     "passability": false
   },
   {
     "id": 3,
-    "name": "Каменистая стена",
-    "desc": "Каменистая стена",
     "strength": 0,
     "passability": false
   },
   {
     "id": 4,
-    "name": "Каменистая стена",
-    "desc": "Каменистая стена",
     "strength": 0,
     "passability": false
   },
   {
     "id": 5,
-    "name": "Каменистая стена",
-    "desc": "Каменистая стена",
     "strength": 0,
     "passability": false
   },
   {
     "id": 6,
-    "name": "Каменистая стена",
-    "desc": "Каменистая стена",
     "strength": 0,
     "passability": false
   },
   {
     "id": 7,
-    "name": "Каменистая стена",
-    "desc": "Каменистая стена",
     "strength": 0,
     "passability": false
   },
   {
     "id": 8,
-    "name": "Каменистая стена",
-    "desc": "Каменистая стена",
     "strength": 0,
     "passability": false
   },
   {
     "id": 9,
-    "name": "Каменистая стена",
-    "desc": "Каменистая стена",
     "strength": 0,
     "passability": false
   },
   {
     "id": 10,
-    "name": "Каменистая земля",
-    "desc": "Каменистая земля",
     "strength": 0,
     "passability": true
   },
   {
     "id": 11,
-    "name": "Каменистая земля",
-    "desc": "Каменистая земля",
     "strength": 0,
     "passability": true
   },
   {
     "id": 12,
-    "name": "Каменистая земля",
-    "desc": "Каменистая земля",
     "strength": 0,
     "passability": true
   },
   {
     "id": 13,
-    "name": "Каменистая земля",
-    "desc": "Каменистая земля",
     "strength": 0,
     "passability": true
   },
   {
     "id": 14,
-    "name": "Трава",
-    "desc": "Трава",
     "strength": 0,
     "passability": true
   },
   {
     "id": 15,
-    "name": "Каменная стена",
-    "desc": "Каменная стена",
     "strength": 0,
     "passability": false
   },
   {
     "id": 16,
-    "name": "Каменная стена",
-    "desc": "Каменная стена",
     "strength": 0,
     "passability": false
   },
   {
     "id": 17,
-    "name": "Каменная стена",
-    "desc": "Каменная стена",
     "strength": 0,
     "passability": false
   },
   {
     "id": 18,
-    "name": "Каменная стена",
-    "desc": "Каменная стена",
     "strength": 0,
     "passability": false
   },
   {
     "id": 19,
-    "name": "Каменная стена",
-    "desc": "Каменная стена",
     "strength": 0,
     "passability": false
   },
   {
     "id": 20,
-    "name": "Каменная стена",
-    "desc": "Каменная стена",
     "strength": 0,
     "passability": false
   },
   {
     "id": 21,
-    "name": "Каменная стена",
-    "desc": "Каменная стена",
     "strength": 0,
     "passability": false
   },
   {
     "id": 22,
-    "name": "Каменная стена",
-    "desc": "Каменная стена",
     "strength": 0,
     "passability": false
   },
   {
     "id": 23,
-    "name": "Деревянный пол",
-    "desc": "Деревянный пол",
     "strength": 0,
     "passability": true
   },
   {
     "id": 24,
-    "name": "Деревянный пол",
-    "desc": "Деревянный пол",
     "strength": 0,
     "passability": true
   },
   {
     "id": 25,
-    "name": "Деревянный пол",
-    "desc": "Деревянный пол",
     "strength": 0,
     "passability": true
   },
   {
     "id": 26,
-    "name": "Деревянный пол",
-    "desc": "Деревянный пол",
     "strength": 0,
     "passability": true
   },
   {
     "id": 27,
-    "name": "Стена из песчанника",
-    "desc": "Стена из песчанника",
     "strength": 0,
     "passability": false
   },
   {
     "id": 28,
-    "name": "Стена из песчанника",
-    "desc": "Стена из песчанника",
     "strength": 0,
     "passability": false
   },
   {
     "id": 29,
-    "name": "Стена из песчанника",
-    "desc": "Стена из песчанника",
     "strength": 0,
     "passability": false
   },
   {
     "id": 30,
-    "name": "Стена из песчанника",
-    "desc": "Стена из песчанника",
     "strength": 0,
     "passability": false
   },
   {
     "id": 31,
-    "name": "Стена из песчанника",
-    "desc": "Стена из песчанника",
     "strength": 0,
     "passability": false
   },
   {
     "id": 32,
-    "name": "Стена из песчанника",
-    "desc": "Стена из песчанника",
     "strength": 0,
     "passability": false
   },
   {
     "id": 33,
-    "name": "Стена из песчанника",
-    "desc": "Стена из песчанника",
     "strength": 0,
     "passability": false
   },
   {
     "id": 34,
-    "name": "Стена из песчанника",
-    "desc": "Стена из песчанника",
     "strength": 0,
     "passability": false
   },
   {
     "id": 35,
-    "name": "Сухая трава",
-    "desc": "Сухая трава",
     "strength": 0,
     "passability": true
   },
   {
     "id": 36,
-    "name": "Песок",
-    "desc": "Песок",
     "strength": 0,
     "passability": true
   }

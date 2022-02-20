@@ -1,6 +1,8 @@
 package entity;
 
 import game.Game;
+import lombok.Getter;
+import lombok.Setter;
 
 /*
 * Тип предмета
@@ -18,14 +20,12 @@ public enum ItemTypeEnum {
   COMMON(Game.getText("COMMON")),
   TRASH(Game.getText("TRASH"));
 
-  private final String desc;
+  @Getter
+  @Setter
+  private String desc;
 
   ItemTypeEnum(String desc) {
     this.desc = desc;
-  }
-
-  public String getDesc() {
-    return desc;
   }
 
   public static ItemTypeEnum getItemTypeByCode(String desc) {

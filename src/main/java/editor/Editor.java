@@ -3,12 +3,13 @@ package editor;
 import entity.ItemTypeEnum;
 import game.Game;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import lombok.Getter;
 import lombok.Setter;
 import utils.JsonUtils;
@@ -33,13 +34,13 @@ public class Editor {
     private final Pane itemsPane = new Pane();
     private final TextField searchItemTF = new TextField();
     private final TabPane itemsTabPane = new TabPane();
-
+    private final Label showZonesLabel = new Label(Game.getText("SHOW_ZONES"));
     private int selectTile = 0;
     private boolean showZones = false;
     private EditorObjectType selectedType = EditorObjectType.GROUND;
     private List<TileInfo> tiles1 = JsonUtils.getTiles1();
     private List<TileInfo> tiles2 = JsonUtils.getTiles2();
-    private List<NPCInfo> npcList= JsonUtils.getNPC();
+    private List<NPCInfo> npcList = JsonUtils.getNPC();
     private List<CreatureInfo> creatureList = JsonUtils.getCreatures();
     private List<ItemInfo> itemsList = JsonUtils.getItems();
     private List<PollutionInfo> pollutionList = JsonUtils.getPollutions();
@@ -91,6 +92,8 @@ public class Editor {
             });
 
             tiles1.get(i).setImage(tile);
+            tiles1.get(i).setName(Game.getTiles1Text(i + "NAME"));
+            tiles1.get(i).setDesc(Game.getTiles1Text(i + "DESC"));
             pane1.getChildren().add(tile);
         }
         border = new javafx.scene.image.ImageView("/graphics/gui/Border.png");
@@ -118,6 +121,9 @@ public class Editor {
             });
 
             tiles2.get(i).setImage(tile);
+            tiles2.get(i).setName(Game.getTiles2Text(i + "NAME"));
+            tiles2.get(i).setDesc(Game.getTiles2Text(i + "DESC"));
+
             if (tiles2.get(i).isTwoLayer()) {
                 ImageView upTile = new ImageView("/graphics/tiles2/" + i + ".up.png");
                 tiles2.get(i).setUpLayerImage(upTile);
@@ -202,7 +208,7 @@ public class Editor {
 
         itemsTabPane.setLayoutX(5);
         itemsTabPane.setLayoutY(35);
-        itemsTabPane.setPrefSize(350, 620);
+        itemsTabPane.setPrefSize(430, 620);
         for (ItemTypeEnum itemType : ItemTypeEnum.values()) {
             Tab tab = new Tab(itemType.getDesc());
             tab.setClosable(Boolean.FALSE);
@@ -246,7 +252,18 @@ public class Editor {
             if (i > 0) {
                 itemsList.get(i).setImage(new ImageView("/graphics/items/" + i + ".png"));
             }
-            itemsPane.getChildren().add(tile);
+            itemsPane.getChildren().add(itemsList.get(i).getIcon());
+
+            var itemName = itemsList.get(i).getName();
+            itemName = itemName.length() > 8 ? itemName.substring(0, 8) : itemName;
+            Label itemNameLabel = new Label(itemName);
+            itemNameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 8));
+            itemNameLabel.setLayoutX(tile.getX());
+            itemNameLabel.setLayoutY(tile.getY() + tileSize - 8);
+            itemNameLabel.setId(String.valueOf(i));
+            itemsList.get(i).setNameLabel(itemNameLabel);
+            itemsPane.getChildren().add(itemsList.get(i).getNameLabel());
+
         }
         scrollPane5.setContent(pane5);
         tabPane.getTabs().get(4).setContent(scrollPane5);
@@ -295,8 +312,7 @@ public class Editor {
         HBox box = new HBox();
         box.setLayoutX(5);
         box.setLayoutY(5);
-        Label text = new Label(Game.getText("SHOW_ZONES"));
-        box.getChildren().addAll(showZonesCheckBox, text);
+        box.getChildren().addAll(showZonesCheckBox, showZonesLabel);
         box.setSpacing(5);
 
         pane7.getChildren().add(box);
@@ -359,20 +375,25 @@ public class Editor {
     private void filterItems(String itemType, String searchString) {
         ItemTypeEnum type = ItemTypeEnum.getItemTypeByCode(itemType);
         int i = 1;
-        for (Node tile : itemsPane.getChildren()) {
-            ImageView itemTile = (ImageView) tile;
-            ItemInfo itemInfo = itemsList.get(Integer.parseInt(itemTile.getId()));
+        boolean visible = false;
+        for (ItemInfo itemInfo : itemsList) {
+            ImageView itemTile = itemInfo.getIcon();
             List<ItemTypeEnum> types = itemInfo.getTypes();
             if (types != null) {
-                itemTile.setVisible((types.contains(type) || ItemTypeEnum.ALL.equals(type)) &&
+                visible = (types.contains(type) || ItemTypeEnum.ALL.equals(type)) &&
                         ((itemInfo.getDesc().toLowerCase().contains(searchString.toLowerCase())) ||
-                                (itemInfo.getName().toLowerCase().contains(searchString.toLowerCase()))));
+                                (itemInfo.getName().toLowerCase().contains(searchString.toLowerCase())));
+                itemTile.setVisible(visible);
                 if (itemTile.isVisible()) {
                     itemTile.setX(5 + (i / 13) * (tileSize + 5));
                     itemTile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
                     i++;
                 }
             }
+            Label label = itemInfo.getNameLabel();
+            label.setVisible(visible);
+            label.setLayoutX(itemTile.getX());
+            label.setLayoutY(itemTile.getY() + tileSize - 8);
         }
     }
 

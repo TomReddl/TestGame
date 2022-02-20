@@ -2,7 +2,6 @@ package menu;
 
 import entity.GameModeEnum;
 import game.Game;
-import game.Main;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
@@ -54,7 +53,7 @@ public class MainMenu {
         editorButton.setLayoutX(20);
         editorButton.setLayoutY(110);
         editorButton.setPrefWidth(100);
-        editorButton.setOnAction(event -> Main.game.setGameMode(GameModeEnum.EDITOR));
+        editorButton.setOnAction(event -> Game.setGameMode(GameModeEnum.EDITOR));
         pane.getChildren().add(editorButton);
 
         settingsButton.setLayoutX(20);

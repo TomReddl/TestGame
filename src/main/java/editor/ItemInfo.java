@@ -2,6 +2,7 @@ package editor;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import entity.ItemTypeEnum;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +16,9 @@ import java.util.List;
 @Getter
 public class ItemInfo {
     private int id;
+    @JsonIgnore
     private String name;
+    @JsonIgnore
     private String desc;
     private Long weight;
     private List<ItemTypeEnum> types;
@@ -23,4 +26,6 @@ public class ItemInfo {
     private ImageView image;
     @JsonIgnore
     private ImageView icon;
+    @JsonIgnore
+    private Label nameLabel;
 }
