@@ -1,11 +1,6 @@
 package game;
 
-import entity.DirectionEnum;
-import entity.GameModeEnum;
-import entity.Player;
-import entity.map.Creature;
-import entity.map.Item;
-import entity.map.NPC;
+import controller.utils.JsonUtils;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -14,14 +9,24 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.robot.Robot;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import utils.JsonUtils;
+import model.editor.ItemInfo;
+import model.entity.DirectionEnum;
+import model.entity.GameModeEnum;
+import model.entity.map.Creature;
+import model.entity.map.Items;
+import model.entity.map.NPC;
+import model.entity.player.Player;
+import view.Game;
+import view.menu.MainMenu;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import static params.GameParams.*;
+import static view.params.GameParams.*;
 
 public class Main extends Application {
     public static Game game = new Game();
@@ -63,9 +68,38 @@ public class Main extends Application {
                             break;
                         }
                         case ESCAPE: {
-                            Game.getMainMenu().getPane().setVisible(Boolean.TRUE);
+                            MainMenu.getPane().setVisible(Boolean.TRUE);
                             Game.setGameMode(GameModeEnum.GAME_MENU);
                             break;
+                        }
+                        case I: {
+                            Game.getInventory().showInventory();
+                            break;
+                        }
+                        case P: {
+                            Game.getParams().getPane().setVisible(
+                                    !Game.getParams().getPane().isVisible()
+                            );
+                            break;
+                        }
+                        case E: {
+                            Robot robot = new Robot();
+                            int x = ((int) (robot.getMousePosition().getX() - primaryStage.getX()) / tileSize);
+                            int y = ((int) (robot.getMousePosition().getY() - primaryStage.getY() - headerSize) / tileSize);
+                            if ((Math.abs(player.getXPosition() - (player.getXMapPos() + x)) < 2) &&
+                                    (Math.abs(player.getYPosition() - (player.getYMapPos() + y)) < 2)) {
+                                List<Items> itemsList = Game.getMap().getTiles()[player.getXMapPos() + x]
+                                        [player.getYMapPos() + y].getItems();
+                                if (itemsList != null) {
+                                    for (Items items : itemsList) {
+                                        Player.addItem(items, player.getInventory());
+                                    }
+                                    Game.getMap().getTiles()[player.getXMapPos() + x]
+                                            [player.getYMapPos() + y].setItems(null);
+                                    Game.getMap().drawTile(player.getXMapPos(), player.getYMapPos(),
+                                            x, y, Game.getEditor());
+                                }
+                            }
                         }
                     }
                     break;
@@ -93,7 +127,7 @@ public class Main extends Application {
                             break;
                         }
                         case ESCAPE: {
-                            Game.getMainMenu().getPane().setVisible(Boolean.FALSE);
+                            MainMenu.getPane().setVisible(Boolean.FALSE);
                             Game.setGameMode(GameModeEnum.GAME_MENU);
                             break;
                         }
@@ -157,15 +191,9 @@ public class Main extends Application {
         Game.getStopTestGameImage().setId("Game.getStopTestGameImage()");
         Game.getRoot().getChildren().add(Game.getStopTestGameImage());
 
-        Label mapInfoLabel = new Label("");
-        mapInfoLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        mapInfoLabel.setLayoutX(380);
-        mapInfoLabel.setLayoutY(610);
-        Game.getRoot().getChildren().add(mapInfoLabel);
-
         Game.getRoot().setOnMousePressed(event -> drawTileOnMap(event.getX(), event.getY(), Game.getEditor().getCanvas()));
         Game.getRoot().setOnMouseDragged(event -> drawTileOnMap(event.getX(), event.getY(), Game.getEditor().getCanvas()));
-        Game.getRoot().setOnMouseMoved(event -> showMapPointInfo(event.getX(), event.getY(), mapInfoLabel));
+        Game.getRoot().setOnMouseMoved(event -> showMapPointInfo(event.getX(), event.getY(), Game.getEditor().getMapInfoLabel()));
         primaryStage.setScene(scene);
         primaryStage.show();
         Game.getEditor().getCanvas().requestFocus();
@@ -330,7 +358,24 @@ public class Main extends Application {
                         Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
                                 [player.getYMapPos() + ((((int) y)) / tileSize)].setItems(new ArrayList<>());
                         Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                                [player.getYMapPos() + ((((int) y)) / tileSize)].getItems().add(new Item(Game.getEditor().getSelectTile(), 1));
+                                [player.getYMapPos() + ((((int) y)) / tileSize)].getItems().add(new Items(Game.getEditor().getSelectTile(), 1));
+                    } else {
+                        ItemInfo itemInfo = Game.getEditor().getItems().get(Game.getEditor().getSelectTile());
+                        boolean found = false;
+                        if (itemInfo.getStackable()) {
+                            for (Items items : Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
+                                    [player.getYMapPos() + ((((int) y)) / tileSize)].getItems()) {
+                                if (items.getTypeId() == Game.getEditor().getSelectTile()) {
+                                    items.setCount(items.getCount() + 1);
+                                    found = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (!found) {
+                            Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
+                                    [player.getYMapPos() + ((((int) y)) / tileSize)].getItems().add(new Items(Game.getEditor().getSelectTile(), 1));
+                        }
                     }
                     break;
                 }

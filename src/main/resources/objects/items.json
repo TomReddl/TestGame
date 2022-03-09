@@ -2,106 +2,169 @@
   {
     "id": 0,
     "weight": "",
+    "volume": "",
+    "price": "",
+    "stackable": false,
     "types": null
   },
   {
     "id": 1,
     "weight": "200",
+    "volume": "250",
+    "price": "20",
+    "stackable": true,
     "types": ["EAT", "INGREDIENT"]
   },
   {
     "id": 2,
     "weight": "400",
+    "volume": "1000",
+    "price": "10",
+    "stackable": true,
     "types": ["EAT"]
   },
   {
     "id": 3,
     "weight": "5000",
+    "volume": "3000",
+    "price": "10000",
+    "stackable": false,
     "types": ["WEAPON"]
   },
   {
     "id": 4,
     "weight": "300",
+    "volume": "200",
+    "price": "10",
+    "stackable": false,
     "types": ["CLOTHES"]
   },
   {
     "id": 5,
-    "weight": "300",
+    "weight": "10000",
+    "volume": "20000",
+    "price": "100",
+    "stackable": true,
     "types": ["RESOURCE"]
   },
   {
     "id": 6,
-    "weight": "300",
+    "weight": "2000",
+    "volume": "5000",
+    "price": "50",
+    "stackable": true,
     "types": ["RESOURCE"]
   },
   {
     "id": 7,
-    "weight": "300",
+    "weight": "1000",
+    "volume": "1000",
+    "price": "3000",
+    "stackable": true,
     "types": ["BOOK"]
   },
   {
     "id": 8,
-    "weight": "300",
+    "weight": "20",
+    "volume": "5",
+    "price": "6000",
+    "stackable": true,
     "types": ["TREASURE"]
   },
   {
     "id": 9,
-    "weight": "300",
+    "weight": "20",
+    "volume": "5",
+    "price": "8000",
+    "stackable": true,
     "types": ["TREASURE"]
   },
   {
     "id": 10,
-    "weight": "300",
+    "weight": "50",
+    "volume": "100",
+    "price": "5",
+    "stackable": true,
     "types": ["INGREDIENT"]
   },
   {
     "id": 11,
-    "weight": "300",
+    "weight": "5",
+    "volume": "10",
+    "price": "20",
+    "stackable": true,
     "types": ["INGREDIENT"]
   },
   {
     "id": 12,
     "weight": "300",
+    "volume": "200",
+    "price": "500",
+    "stackable": true,
     "types": ["POTION"]
   },
   {
     "id": 13,
     "weight": "300",
+    "volume": "200",
+    "price": "700",
+    "stackable": true,
     "types": ["POTION"]
   },
   {
     "id": 14,
-    "weight": "300",
+    "weight": "200",
+    "volume": "500",
+    "price": "80",
+    "stackable": true,
     "types": ["COMMON"]
   },
   {
     "id": 15,
     "weight": "300",
+    "volume": "1500",
+    "price": "120",
+    "stackable": true,
     "types": ["COMMON"]
   },
   {
     "id": 16,
-    "weight": "300",
+    "weight": "50",
+    "volume": "100",
+    "price": "0",
+    "stackable": true,
     "types": ["TRASH"]
   },
   {
     "id": 17,
-    "weight": "300",
+    "weight": "20",
+    "volume": "5",
+    "price": "1",
+    "stackable": true,
     "types": ["TRASH"]
   },
   {
     "id": 18,
-    "weight": "300",
+    "weight": "1000",
+    "volume": "1000",
+    "price": "3500",
+    "stackable": true,
     "types": ["BOOK"]
   },
   {
     "id": 19,
-    "weight": "300",
+    "weight": "500",
+    "volume": "600",
+    "price": "1000",
+    "stackable": false,
     "types": ["WEAPON"]
   },
   {
     "id": 20,
-    "weight": "300",
+    "weight": "600",
+    "volume": "2000",
+    "price": "400",
+    "stackable": false,
     "types": ["CLOTHES"]
   }
 ]
