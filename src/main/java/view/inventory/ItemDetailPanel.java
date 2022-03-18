@@ -8,9 +8,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import lombok.Getter;
-import model.editor.items.ItemInfo;
 import model.entity.map.Items;
-import view.Game;
 
 /*
  * Панель детальной информации о предмете

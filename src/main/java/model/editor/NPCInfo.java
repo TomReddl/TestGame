@@ -16,4 +16,8 @@ public class NPCInfo implements Serializable {
     private int imageId;
     @JsonIgnore
     private ImageView image;
+    @JsonIgnore
+    private String name;
+    @JsonIgnore
+    private String desc;
 }

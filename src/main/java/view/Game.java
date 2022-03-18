@@ -25,18 +25,30 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class Game {
+    @Getter
+    private static Properties properties = new Properties();
+    private static Properties itemsProperties = new Properties();
+    private static Properties tiles1Properties = new Properties();
+    private static Properties tiles2Properties = new Properties();
+    private static Properties NPCProperties = new Properties();
+    private static Properties creaturesProperties = new Properties();
+
+    @Getter
+    private static final Label warningLabel = new Label("");
+    @Getter
+    private static final Group root = new Group();
+
     static {
+        warningLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        warningLabel.setLayoutX(50);
+        warningLabel.setLayoutY(610);
+        warningLabel.setVisible(Boolean.FALSE);
+        warningLabel.setTextFill(Color.web("#FF0000"));
+        root.getChildren().add(warningLabel);
+
         loadTranslations();
     }
 
-    @Getter
-    private static Properties properties;
-    private static Properties itemsProperties;
-    private static Properties tiles1Properties;
-    private static Properties tiles2Properties;
-
-    @Getter
-    private static final Group root = new Group();
     @Getter
     private static final Editor editor = new Editor(root);
     @Getter
@@ -54,17 +66,7 @@ public class Game {
     private static GameModeEnum gameMode = GameModeEnum.MAIN_MENU;
     @Getter
     private static final ImageView stopTestGameImage = new ImageView("/graphics/gui/StopTestGame.png");
-    @Getter
-    private static final Label warningLabel = new Label("");
 
-    static {
-        warningLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        warningLabel.setLayoutX(50);
-        warningLabel.setLayoutY(610);
-        warningLabel.setVisible(Boolean.FALSE);
-        warningLabel.setTextFill(Color.web("#FF0000"));
-        root.getChildren().add(warningLabel);
-    }
 
     public static void setGameMode(GameModeEnum mode) {
         gameMode = mode;
@@ -107,10 +109,6 @@ public class Game {
     }
 
     public static void loadTranslations() {
-        properties = new Properties();
-        itemsProperties = new Properties();
-        tiles1Properties = new Properties();
-        tiles2Properties = new Properties();
         try {
             InputStream in = new FileInputStream("src/main/resources/text/editor_" +
                     GameParams.lang.toString().toLowerCase() + ".properties");
@@ -130,6 +128,16 @@ public class Game {
             in = new FileInputStream("src/main/resources/text/tiles2_" +
                     GameParams.lang.toString().toLowerCase() + ".properties");
             tiles2Properties.load(in);
+            in.close();
+
+            in = new FileInputStream("src/main/resources/text/NPC_" +
+                    GameParams.lang.toString().toLowerCase() + ".properties");
+            NPCProperties.load(in);
+            in.close();
+
+            in = new FileInputStream("src/main/resources/text/creatures_" +
+                    GameParams.lang.toString().toLowerCase() + ".properties");
+            creaturesProperties.load(in);
             in.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -195,6 +203,14 @@ public class Game {
 
     public static String getTiles2Text(String strId) {
         return tiles2Properties.getProperty(strId);
+    }
+
+    public static String getCreaturesText(String strId) {
+        return creaturesProperties.getProperty(strId);
+    }
+
+    public static String getNPCText(String strId) {
+        return NPCProperties.getProperty(strId);
     }
 
     public static void showMessage(String message) {

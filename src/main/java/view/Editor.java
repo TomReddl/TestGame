@@ -91,6 +91,9 @@ public class Editor {
             tile.setX(5 + (i / 13) * (tileSize + 5));
             tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
+            int finalI = i;
+            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getTiles1Text(finalI + "NAME"), tile));
+            tile.setOnMouseExited(event -> Popover.hidePopover());
             tile.setOnMouseClicked(event -> {
                 setBorder(pane1);
                 selectTile = tiles1.get(Integer.parseInt(tile.getId())).getId();
@@ -108,6 +111,7 @@ public class Editor {
         border.setX(tiles1.get(0).getImage().getX() - 1);
         border.setY(tiles1.get(0).getImage().getY() - 1);
         pane1.getChildren().add(border);
+        pane1.setOnMouseEntered(event -> Popover.setPane(pane1));
         scrollPane.setContent(pane1);
         tabPane.getTabs().get(0).setContent(scrollPane);
 
@@ -120,6 +124,9 @@ public class Editor {
             tile.setX(5 + (i / 13) * (tileSize + 5));
             tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
+            int finalI = i;
+            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getTiles2Text(finalI + "NAME"), tile));
+            tile.setOnMouseExited(event -> Popover.hidePopover());
             tile.setOnMouseClicked(event -> {
                 setBorder(pane2);
                 selectTile = tiles2.get(Integer.parseInt(tile.getId())).getId();
@@ -138,6 +145,7 @@ public class Editor {
             }
             pane2.getChildren().add(tile);
         }
+        pane2.setOnMouseEntered(event -> Popover.setPane(pane2));
         scrollPane2.setContent(pane2);
         tabPane.getTabs().get(1).setContent(scrollPane2);
 
@@ -155,6 +163,9 @@ public class Editor {
             tile.setX(5 + (i / 13) * (tileSize + 5));
             tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
+            int finalI = i;
+            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getNPCText(finalI + "NAME"), tile));
+            tile.setOnMouseExited(event -> Popover.hidePopover());
             tile.setOnMouseClicked(event -> {
                 setBorder(pane3);
                 selectTile = npcs.get(Integer.parseInt(tile.getId())).getImageId();
@@ -164,8 +175,11 @@ public class Editor {
             });
 
             npcs.get(i).setImage(tile);
+            npcs.get(i).setName(Game.getNPCText(i + "NAME"));
+            npcs.get(i).setDesc(Game.getNPCText(i + "DESC"));
             pane3.getChildren().add(tile);
         }
+        pane3.setOnMouseEntered(event -> Popover.setPane(pane3));
         scrollPane3.setContent(pane3);
         tabPane.getTabs().get(2).setContent(scrollPane3);
 
@@ -188,6 +202,9 @@ public class Editor {
             tile.setX(5 + (i / 13) * (tileSize + 5));
             tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
+            int finalI = i;
+            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getCreaturesText(finalI + "NAME"), tile));
+            tile.setOnMouseExited(event -> Popover.hidePopover());
             tile.setOnMouseClicked(event -> {
                 setBorder(pane4);
                 selectTile = creatures.get(Integer.parseInt(tile.getId())).getImageId();
@@ -197,8 +214,13 @@ public class Editor {
             });
 
             creatures.get(i).setImage(tile);
+
+            creatures.get(i).setName(Game.getCreaturesText(i + "NAME"));
+            creatures.get(i).setDesc(Game.getCreaturesText(i + "DESC"));
+
             pane4.getChildren().add(tile);
         }
+        pane4.setOnMouseEntered(event -> Popover.setPane(pane4));
         scrollPane4.setContent(pane4);
         tabPane.getTabs().get(3).setContent(scrollPane4);
 
@@ -247,6 +269,9 @@ public class Editor {
             tile.setX(5 + (i / 11) * (tileSize + 5));
             tile.setY(5 + (i) * (tileSize + 5) - (i / 11) * 495);
             tile.setId(String.valueOf(i));
+            int finalI = i;
+            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getItemsText(finalI + "NAME"), tile));
+            tile.setOnMouseExited(event -> Popover.hidePopover());
             tile.setOnMouseClicked(event -> {
                 setBorder(itemsPane);
                 selectTile = items.get(Integer.parseInt(tile.getId())).getId();
@@ -274,6 +299,7 @@ public class Editor {
             itemsPane.getChildren().add(items.get(i).getNameLabel());
 
         }
+        itemsPane.setOnMouseEntered(event -> Popover.setPane(itemsPane));
         scrollPane5.setContent(pane5);
         tabPane.getTabs().get(4).setContent(scrollPane5);
 
