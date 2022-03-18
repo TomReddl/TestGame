@@ -1,7 +1,5 @@
 package view.params;
 
-import model.entity.player.Parameter;
-import view.Game;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
@@ -14,6 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import lombok.Getter;
+import model.entity.player.Parameter;
+import view.Game;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +23,11 @@ import java.util.List;
  */
 public class ParamPanel {
     @Getter
-    private final Pane pane = new Pane();
-    private final ScrollPane scrollPane = new ScrollPane();
-    private final Pane skillsPane = new Pane();
+    private static final Pane pane = new Pane();
+    @Getter
+    private static final ScrollPane scrollPane = new ScrollPane();
+    @Getter
+    private static final Pane skillsPane = new Pane();
     @Getter
     private final Label legacyLabel = new Label(Game.getText("LEGACY"));
     @Getter
@@ -93,14 +95,13 @@ public class ParamPanel {
         pane.setLayoutY(40);
         pane.setPrefSize(400, 270);
         pane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
-        pane.setVisible(Boolean.FALSE);
 
         legacyLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
         legacyLabel.setLayoutX(5);
         legacyLabel.setLayoutY(5);
         pane.getChildren().add(legacyLabel);
 
-        int i = 0;
+        var i = 0;
         for (Parameter legacyParam : Game.getMap().getPlayer().getLegacies()) {
             var paramRecord = new ParamRecord(legacyParam, i, legacy);
             paramRecord.getBox().setLayoutY(20 + (i++) * 18);
@@ -126,6 +127,8 @@ public class ParamPanel {
         scrollPane.setLayoutX(190);
         scrollPane.setLayoutY(20);
         scrollPane.setPrefSize(200, 240);
+        scrollPane.setVmin(0);
+        scrollPane.setVmax(240);
         scrollPane.setContent(skillsPane);
 
         skillsLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
@@ -134,7 +137,7 @@ public class ParamPanel {
         pane.getChildren().add(skillsLabel);
 
         i = 0;
-        int j = 0;
+        var j = 0;
         for (Parameter skillParam : Game.getMap().getPlayer().getSkills()) {
             if (i % 4 == 0) {
                 var label = new Label(Game.getText(ParamPanel.getCharacteristicsNames().get(i / 4) + "_PARAM_NAME"));
@@ -152,5 +155,9 @@ public class ParamPanel {
 
         pane.getChildren().add(scrollPane);
         root.getChildren().add(pane);
+    }
+
+    public void show(Boolean show) {
+        //TODO обновлять отображение параметров
     }
 }

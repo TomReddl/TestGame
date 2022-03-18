@@ -1,7 +1,6 @@
 package view;
 
-import model.editor.*;
-import model.entity.ItemTypeEnum;
+import controller.utils.JsonUtils;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
@@ -12,7 +11,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import lombok.Getter;
 import lombok.Setter;
-import controller.utils.JsonUtils;
+import model.editor.*;
+import model.editor.items.ItemInfo;
+import model.entity.ItemTypeEnum;
 
 import java.util.List;
 
@@ -216,7 +217,7 @@ public class Editor {
 
         itemsTabPane.setLayoutX(5);
         itemsTabPane.setLayoutY(35);
-        itemsTabPane.setPrefSize(430, 620);
+        itemsTabPane.setPrefSize(430, 530);
         for (ItemTypeEnum itemType : ItemTypeEnum.values()) {
             Tab tab = new Tab(itemType.getDesc());
             tab.setClosable(Boolean.FALSE);
@@ -243,8 +244,8 @@ public class Editor {
             tile.setPreserveRatio(true);
             tile.setSmooth(true);
             tile.setCache(true);
-            tile.setX(5 + (i / 13) * (tileSize + 5));
-            tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
+            tile.setX(5 + (i / 11) * (tileSize + 5));
+            tile.setY(5 + (i) * (tileSize + 5) - (i / 11) * 495);
             tile.setId(String.valueOf(i));
             tile.setOnMouseClicked(event -> {
                 setBorder(itemsPane);

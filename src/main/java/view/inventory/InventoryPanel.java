@@ -1,10 +1,5 @@
 package view.inventory;
 
-import model.editor.ItemInfo;
-import model.entity.ItemTypeEnum;
-import model.entity.map.Items;
-import model.entity.player.Player;
-import view.Game;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
@@ -21,10 +16,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import lombok.Getter;
+import model.entity.ItemTypeEnum;
+import model.entity.map.Items;
+import view.Game;
 
-import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static view.params.GameParams.tileSize;
 
@@ -34,40 +33,48 @@ import static view.params.GameParams.tileSize;
 public class InventoryPanel {
     @Getter
     private final TabPane tabPane = new TabPane();
+    private final Map<String, Tab> tabHolder = new HashMap<>();
     private final ScrollPane scrollPane = new ScrollPane();
     private final Pane pane = new Pane();
     private final Pane outerPane = new Pane();
     private final Label itemNameLabel = new Label(Game.getText("NAME"));
     private final ImageView sortImage = new ImageView("/graphics/gui/Sort1.png");
-    private final Label typeLabel = new Label(Game.getText("TYPE"));
-    private final Label weightLabel = new Label(Game.getText("WEIGHT"));
-    private final Label volumeLabel = new Label(Game.getText("VOLUME"));
-    private final Label priceLabel = new Label(Game.getText("PRICE"));
-    private final Label totalWeightLabel = new Label(Game.getText("TOTAL_WEIGHT"));
-    private final Label totalVolumeLabel = new Label(Game.getText("TOTAL_VOLUME"));
+    @Getter
+    private static final Label typeLabel = new Label(Game.getText("TYPE"));
+    @Getter
+    private static final Label weightLabel = new Label(Game.getText("WEIGHT") + " " + Game.getText("LITERS"));
+    @Getter
+    private static final Label volumeLabel = new Label(Game.getText("VOLUME") + " " + Game.getText("KG"));
+    @Getter
+    private static final Label priceLabel = new Label(Game.getText("PRICE"));
+    private static final Label totalWeightLabel = new Label(Game.getText("TOTAL_WEIGHT"));
+    private static final Label totalVolumeLabel = new Label(Game.getText("TOTAL_VOLUME"));
 
     private Boolean descending = Boolean.TRUE;
     private List<Items> inventory = Game.getMap().getPlayer().getInventory();
 
-    private final DecimalFormat formatter = new DecimalFormat("###,###.###");
+    private static final DecimalFormat formatter = new DecimalFormat("###,###.###");
 
     public InventoryPanel(Group root) {
-        tabPane.setLayoutX(5);
-        tabPane.setLayoutY(35);
-        tabPane.setPrefSize(490, 455);
-        tabPane.setMinHeight(450);
+        tabPane.setLayoutX(210);
+        tabPane.setLayoutY(5);
+        tabPane.setPrefSize(490, 450);
+        tabPane.setMinHeight(350);
         tabPane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
+
         for (ItemTypeEnum itemType : ItemTypeEnum.values()) {
-            Tab tab = new Tab(itemType.getDesc());
+            var tab = new Tab(itemType.getDesc());
             tab.setClosable(Boolean.FALSE);
-            tabPane.getTabs().add(tab);
+            tabHolder.put(itemType.getDesc(), tab);
         }
+
+        filterInventoryTabs(tabPane.getSelectionModel().getSelectedItem());
 
         pane.setLayoutX(190);
         pane.setPrefSize(480, 350);
 
         outerPane.setLayoutX(190);
-        outerPane.setPrefSize(480, 350);
+        outerPane.setPrefSize(480, 50);
 
         itemNameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
         itemNameLabel.setLayoutX(tileSize + 5);
@@ -86,17 +93,17 @@ public class InventoryPanel {
         pane.getChildren().add(sortImage);
 
         typeLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
-        typeLabel.setLayoutX(230);
+        typeLabel.setLayoutX(210);
         typeLabel.setLayoutY(10);
         pane.getChildren().add(typeLabel);
 
         weightLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
-        weightLabel.setLayoutX(350);
+        weightLabel.setLayoutX(330);
         weightLabel.setLayoutY(10);
         pane.getChildren().add(weightLabel);
 
         volumeLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
-        volumeLabel.setLayoutX(400);
+        volumeLabel.setLayoutX(380);
         volumeLabel.setLayoutY(10);
         pane.getChildren().add(volumeLabel);
 
@@ -104,8 +111,6 @@ public class InventoryPanel {
         priceLabel.setLayoutX(450);
         priceLabel.setLayoutY(10);
         pane.getChildren().add(priceLabel);
-
-        drawItems(descending, tabPane.getSelectionModel().getSelectedItem().getText());
 
         scrollPane.setPrefSize(400, 400);
         scrollPane.setMaxHeight(400);
@@ -128,61 +133,94 @@ public class InventoryPanel {
         outerPane.getChildren().add(totalVolumeLabel);
 
         tabPane.getTabs().get(0).setContent(outerPane);
-        tabPane.setVisible(Boolean.FALSE);
 
         tabPane.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue, tab1, tab2) -> {
-                    tab1.setContent(null);
-                    tab2.setContent(outerPane);
-                    drawItems(descending, tabPane.getSelectionModel().getSelectedItem().getText());
+                    if (tab1 != null) {
+                        tab1.setContent(null);
+                    }
+                    if (tab2 != null) {
+                        tab2.setContent(outerPane);
+                        drawItems(descending, tabPane.getSelectionModel().getSelectedItem().getText());
+                    }
                 }
         );
 
-        root.getChildren().add(tabPane);
+        root.getChildren().add(ItemDetailPanel.getPane());
+        root.getChildren().add(PlayerStatsPanel.getPane());
+
+        drawItems(descending, tabPane.getSelectionModel().getSelectedItem().getText());
     }
 
-    private void setWeightText() {
-        BigDecimal currentWeight = Player.getCurrentWeight(inventory);
-        BigDecimal maxWeight = Player.getMaxWeight(Game.getMap().getPlayer().getCharacteristics().get(0));
-        totalWeightLabel.setTextFill(currentWeight.compareTo(maxWeight) > 0 ? Color.web("#FF0000") : Color.web("#000000") );
+    public static void setWeightText() {
+        var currentWeight = Game.getMap().getPlayer().getCurrentWeight();
+        var maxWeight = Game.getMap().getPlayer().getMaxWeight();
+        totalWeightLabel.setTextFill(currentWeight.compareTo(maxWeight) > 0 ? Color.web("#FF0000") : Color.web("#000000"));
         totalWeightLabel.setText(Game.getText("TOTAL_WEIGHT") + " " + formatter.format(currentWeight) + "/" +
                 formatter.format(maxWeight) + " " +
                 Game.getText("KG"));
     }
 
-    private void setVolumeText() {
-        BigDecimal currentVolume = Player.getCurrentVolume(inventory);
-        BigDecimal maxVolume = Player.getMaxVolume();
-        totalVolumeLabel.setTextFill(currentVolume.compareTo(maxVolume) > 0 ? Color.web("#FF0000") : Color.web("#000000") );
+    public static void setVolumeText() {
+        var currentVolume = Game.getMap().getPlayer().getCurrentVolume();
+        var maxVolume = Game.getMap().getPlayer().getMaxVolume();
+        totalVolumeLabel.setTextFill(currentVolume.compareTo(maxVolume) > 0 ? Color.web("#FF0000") : Color.web("#000000"));
         totalVolumeLabel.setText(Game.getText("TOTAL_VOLUME") + " " + formatter.format(currentVolume) + "/" +
                 formatter.format(maxVolume) + " " +
                 Game.getText("LITERS"));
     }
 
-    public void drawItems(Boolean descending, String itemType) {
-        ItemTypeEnum type = ItemTypeEnum.getItemTypeByCode(itemType);
+    public void drawItems(Boolean descending, String selectType) {
+        ItemTypeEnum type = ItemTypeEnum.getItemTypeByCode(selectType);
         pane.getChildren().remove(6, pane.getChildren().size());
         int i = 0;
         inventory.sort(
                 descending ? Items.compareByName : Items.compareByName.reversed());
         for (Items items : inventory) {
-            ItemInfo itemInfo = Game.getEditor().getItems().get(items.getTypeId());
-            List<ItemTypeEnum> types = itemInfo.getTypes();
+            List<ItemTypeEnum> types = items.getInfo().getTypes();
             if (types != null && (types.contains(type) || ItemTypeEnum.ALL.equals(type))) {
-                var itemRecord = new ItemRecord(i++, items);
-                itemRecord.getPane().setLayoutY(i * tileSize);
+                var itemRecord = new ItemRecord(items);
+                itemRecord.getPane().setLayoutY(++i * tileSize);
                 pane.getChildren().add(itemRecord.getPane());
             }
         }
+        pane.setMinHeight(40 * inventory.size());
     }
 
-    public void showInventory() {
-        Game.getInventory().getTabPane().setVisible(
-                !Game.getInventory().getTabPane().isVisible());
+    public void show(Boolean show) {
         Game.getInventory().drawItems(Boolean.FALSE,
                 Game.getInventory().getTabPane().getSelectionModel().getSelectedItem().getText());
 
         setWeightText();
         setVolumeText();
+
+        PlayerStatsPanel.getPane().setVisible(show);
+    }
+
+    /*
+     * Скрывает вкладки типов предметов в инвентаре, если у персонажа нет предметов данного типа
+     */
+    public void filterInventoryTabs(Tab selectTab) {
+        tabPane.getTabs().clear();
+
+        for (ItemTypeEnum itemType : ItemTypeEnum.values()) {
+            boolean found = Boolean.FALSE;
+            for (Items items : inventory) {
+                List<ItemTypeEnum> types = items.getInfo().getTypes();
+                if (types != null && (types.contains(itemType) || ItemTypeEnum.ALL.equals(itemType))) {
+                    found = Boolean.TRUE;
+                    break;
+                }
+            }
+
+            if (found) {
+                tabPane.getTabs().add(tabHolder.get(itemType.getDesc()));
+            }
+        }
+        if (tabPane.getTabs().contains(selectTab)) {
+            tabPane.getSelectionModel().select(selectTab);
+        } else {
+            tabPane.getSelectionModel().select(0);
+        }
     }
 }

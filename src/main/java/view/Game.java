@@ -1,11 +1,16 @@
 package view;
 
-import model.editor.ItemInfo;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import model.editor.items.ItemInfo;
 import model.editor.TileInfo;
 import model.entity.GameModeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.map.Map;
 import view.inventory.InventoryPanel;
+import view.menu.GameMenuPanel;
 import view.params.ParamPanel;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
@@ -42,11 +47,24 @@ public class Game {
     @Getter
     private static final ParamPanel params = new ParamPanel(root);
     @Getter
+    private static final GameMenuPanel gameMenu = new GameMenuPanel(root);
+    @Getter
     private static final MainMenu mainMenu = new MainMenu(root);
     @Getter
     private static GameModeEnum gameMode = GameModeEnum.MAIN_MENU;
     @Getter
     private static final ImageView stopTestGameImage = new ImageView("/graphics/gui/StopTestGame.png");
+    @Getter
+    private static final Label warningLabel = new Label("");
+
+    static {
+        warningLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        warningLabel.setLayoutX(50);
+        warningLabel.setLayoutY(610);
+        warningLabel.setVisible(Boolean.FALSE);
+        warningLabel.setTextFill(Color.web("#FF0000"));
+        root.getChildren().add(warningLabel);
+    }
 
     public static void setGameMode(GameModeEnum mode) {
         gameMode = mode;
@@ -66,6 +84,8 @@ public class Game {
                 stopTestGameImage.setVisible(Boolean.FALSE);
                 MainMenu.getPane().setVisible(Boolean.FALSE);
                 editor.getMapInfoLabel().setVisible(Boolean.TRUE);
+                Game.getInventory().show(Boolean.FALSE);
+                GameMenuPanel.getPane().setVisible(Boolean.FALSE);
                 break;
             }
             case GAME: {
@@ -175,5 +195,14 @@ public class Game {
 
     public static String getTiles2Text(String strId) {
         return tiles2Properties.getProperty(strId);
+    }
+
+    public static void showMessage(String message) {
+        warningLabel.setVisible(Boolean.TRUE);
+        warningLabel.setText(message);
+    }
+
+    public static void hideMessage() {
+        warningLabel.setVisible(Boolean.FALSE);
     }
 }

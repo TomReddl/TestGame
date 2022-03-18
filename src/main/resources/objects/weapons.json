@@ -1,0 +1,50 @@
+[
+  {
+    "id": 3,
+    "weight": "5000",
+    "volume": "3000",
+    "price": "10000",
+    "stackable": false,
+    "damage": 15,
+    "maxStrength": 100,
+    "skill": 3,
+    "oneHand": true,
+    "types": ["WEAPON"]
+  },
+  {
+    "id": 19,
+    "weight": "500",
+    "volume": "600",
+    "price": "1000",
+    "stackable": false,
+    "damage": 5,
+    "maxStrength": 70,
+    "skill": 3,
+    "oneHand": true,
+    "types": ["WEAPON"]
+  },
+  {
+    "id": 24,
+    "weight": "500",
+    "volume": "600",
+    "price": "1000",
+    "stackable": false,
+    "damage": 25,
+    "maxStrength": 160,
+    "skill": 3,
+    "oneHand": false,
+    "types": ["WEAPON"]
+  },
+  {
+    "id": 30,
+    "weight": "500",
+    "volume": "600",
+    "price": "1000",
+    "stackable": false,
+    "damage": 25,
+    "maxStrength": 160,
+    "skill": 3,
+    "oneHand": false,
+    "types": ["WEAPON"]
+  }
+]

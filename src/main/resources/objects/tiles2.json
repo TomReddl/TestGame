@@ -62,26 +62,31 @@
   {
     "id": 12,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 13,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 14,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 15,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 16,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
@@ -112,11 +117,13 @@
   {
     "id": 22,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 23,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
@@ -157,16 +164,19 @@
   {
     "id": 31,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": true
   },
   {
     "id": 32,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": true
   },
   {
     "id": 33,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": true
   },
   {
@@ -212,6 +222,7 @@
   {
     "id": 42,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
@@ -222,6 +233,7 @@
   {
     "id": 44,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
@@ -292,91 +304,109 @@
   {
     "id": 58,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 59,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 60,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 61,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 62,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 63,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 64,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 65,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 66,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 67,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 68,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 69,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 70,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 71,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 72,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 73,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 74,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
     "id": 75,
     "strength": 0,
+    "type": "CONTAINER",
     "passability": false
   },
   {
@@ -402,31 +432,39 @@
   {
     "id": 80,
     "strength": 0,
+    "type": "DOOR",
+    "params": ["92"],
     "passability": false
   },
   {
     "id": 81,
     "strength": 0,
+    "type": "DOOR",
+    "params": ["91"],
     "passability": false
   },
   {
     "id": 82,
     "strength": 0,
+    "type": "DOOR",
     "passability": false
   },
   {
     "id": 83,
     "strength": 0,
+    "type": "DOOR",
     "passability": false
   },
   {
     "id": 84,
     "strength": 0,
+    "type": "DOOR",
     "passability": false
   },
   {
     "id": 85,
     "strength": 0,
+    "type": "DOOR",
     "passability": false
   },
   {
@@ -457,5 +495,21 @@
     "strength": 0,
     "passability": true,
     "twoLayer": true
+  },
+  {
+    "id": 91,
+    "strength": 0,
+    "passability": true,
+    "type": "DOOR",
+    "params": ["81"],
+    "twoLayer": false
+  },
+  {
+    "id": 92,
+    "strength": 0,
+    "passability": true,
+    "type": "DOOR",
+    "params": ["80"],
+    "twoLayer": false
   }
 ]

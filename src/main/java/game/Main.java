@@ -10,10 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.robot.Robot;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import model.editor.ItemInfo;
 import model.entity.DirectionEnum;
 import model.entity.GameModeEnum;
 import model.entity.map.Creature;
@@ -29,7 +26,6 @@ import java.util.List;
 import static view.params.GameParams.*;
 
 public class Main extends Application {
-    public static Game game = new Game();
 
     public static void main(String[] args) {
         launch(args);
@@ -50,21 +46,38 @@ public class Main extends Application {
             KeyCode code = event.getCode();
             switch (Game.getGameMode()) {
                 case GAME: {
+                    Game.hideMessage();
                     switch (code) {
                         case D: {
-                            heroMoveRight(player);
+                            if (player.isOverloaded()) {
+                                Game.showMessage(Game.getText("ERROR_OVERLOADED"));
+                            } else {
+                                heroMoveRight(player);
+                            }
                             break;
                         }
                         case A: {
-                            heroMoveLeft(player);
+                            if (player.isOverloaded()) {
+                                Game.showMessage(Game.getText("ERROR_OVERLOADED"));
+                            } else {
+                                heroMoveLeft(player);
+                            }
                             break;
                         }
                         case S: {
-                            heroMoveDown(player);
+                            if (player.isOverloaded()) {
+                                Game.showMessage(Game.getText("ERROR_OVERLOADED"));
+                            } else {
+                                heroMoveDown(player);
+                            }
                             break;
                         }
                         case W: {
-                            heroMoveUp(player);
+                            if (player.isOverloaded()) {
+                                Game.showMessage(Game.getText("ERROR_OVERLOADED"));
+                            } else {
+                                heroMoveUp(player);
+                            }
                             break;
                         }
                         case ESCAPE: {
@@ -73,31 +86,45 @@ public class Main extends Application {
                             break;
                         }
                         case I: {
-                            Game.getInventory().showInventory();
+                            Game.getGameMenu().showGameMenuPanel("0");
+                            break;
+                        }
+                        case C: {
+                            player.dropSelectItems();
                             break;
                         }
                         case P: {
-                            Game.getParams().getPane().setVisible(
-                                    !Game.getParams().getPane().isVisible()
-                            );
+                            Game.getGameMenu().showGameMenuPanel("1");
                             break;
                         }
                         case E: {
                             Robot robot = new Robot();
                             int x = ((int) (robot.getMousePosition().getX() - primaryStage.getX()) / tileSize);
                             int y = ((int) (robot.getMousePosition().getY() - primaryStage.getY() - headerSize) / tileSize);
-                            if ((Math.abs(player.getXPosition() - (player.getXMapPos() + x)) < 2) &&
-                                    (Math.abs(player.getYPosition() - (player.getYMapPos() + y)) < 2)) {
+                            if (isReachable(player, x, y)) {
                                 List<Items> itemsList = Game.getMap().getTiles()[player.getXMapPos() + x]
                                         [player.getYMapPos() + y].getItems();
                                 if (itemsList != null) {
+                                    List<Items> removeList = new ArrayList<>();
                                     for (Items items : itemsList) {
-                                        Player.addItem(items, player.getInventory());
+                                        if (Game.getMap().getPlayer().addItem(items)) {
+                                            removeList.add(items);
+                                        } else {
+                                            break;
+                                        }
                                     }
                                     Game.getMap().getTiles()[player.getXMapPos() + x]
-                                            [player.getYMapPos() + y].setItems(null);
-                                    Game.getMap().drawTile(player.getXMapPos(), player.getYMapPos(),
-                                            x, y, Game.getEditor());
+                                            [player.getYMapPos() + y].getItems().removeAll(removeList);
+                                    if (Game.getMap().getTiles()[player.getXMapPos() + x]
+                                            [player.getYMapPos() + y].getItems().size() == 0) {
+                                        Game.getMap().getTiles()[player.getXMapPos() + x]
+                                                [player.getYMapPos() + y].setItems(null);
+                                    } else {
+                                        Game.showMessage(Game.getText("ERROR_INVENTORY_SPACE"));
+                                    }
+                                    Game.getMap().drawTile(player.getXMapPos(), player.getYMapPos(), x, y);
+                                } else {
+                                    Game.getMap().interactionWithMap(player.getXMapPos(), player.getYMapPos(), x, y);
                                 }
                             }
                         }
@@ -188,7 +215,6 @@ public class Main extends Application {
         Game.getStopTestGameImage().setLayoutY(610);
         Game.getStopTestGameImage().setOnMousePressed(event -> Game.setGameMode(GameModeEnum.EDITOR));
         Game.getStopTestGameImage().setVisible(Boolean.FALSE);
-        Game.getStopTestGameImage().setId("Game.getStopTestGameImage()");
         Game.getRoot().getChildren().add(Game.getStopTestGameImage());
 
         Game.getRoot().setOnMousePressed(event -> drawTileOnMap(event.getX(), event.getY(), Game.getEditor().getCanvas()));
@@ -197,6 +223,11 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         Game.getEditor().getCanvas().requestFocus();
+    }
+
+    private Boolean isReachable(Player player, double x, double y) {
+        return (Math.abs(player.getXPosition() - (player.getXMapPos() + x)) < 2) &&
+                (Math.abs(player.getYPosition() - (player.getYMapPos() + y)) < 2);
     }
 
     private void heroMoveUp(Player player) {
@@ -214,9 +245,9 @@ public class Main extends Application {
             } else {
                 player.setYViewPos(player.getYViewPos() - 1);
                 Game.getMap().drawTile(player.getXMapPos(), player.getYMapPos(),
-                        player.getXViewPos(), player.getYViewPos() + 1, Game.getEditor());
+                        player.getXViewPos(), player.getYViewPos() + 1);
                 Game.getMap().drawTile(player.getXMapPos(), player.getYMapPos(),
-                        player.getXViewPos(), player.getYViewPos(), Game.getEditor());
+                        player.getXViewPos(), player.getYViewPos());
             }
         }
     }
@@ -236,9 +267,9 @@ public class Main extends Application {
             } else {
                 player.setYViewPos(player.getYViewPos() + 1);
                 Game.getMap().drawTile(player.getXMapPos(), player.getYMapPos(),
-                        player.getXViewPos(), player.getYViewPos() - 1, Game.getEditor());
+                        player.getXViewPos(), player.getYViewPos() - 1);
                 Game.getMap().drawTile(player.getXMapPos(), player.getYMapPos(),
-                        player.getXViewPos(), player.getYViewPos(), Game.getEditor());
+                        player.getXViewPos(), player.getYViewPos());
             }
         }
     }
@@ -258,9 +289,9 @@ public class Main extends Application {
             } else {
                 player.setXViewPos(player.getXViewPos() - 1);
                 Game.getMap().drawTile(player.getXMapPos(), player.getYMapPos(),
-                        player.getXViewPos() + 1, player.getYViewPos(), Game.getEditor());
+                        player.getXViewPos() + 1, player.getYViewPos());
                 Game.getMap().drawTile(player.getXMapPos(), player.getYMapPos(),
-                        player.getXViewPos(), player.getYViewPos(), Game.getEditor());
+                        player.getXViewPos(), player.getYViewPos());
             }
         }
     }
@@ -282,9 +313,9 @@ public class Main extends Application {
             } else {
                 player.setXViewPos(player.getXViewPos() + 1);
                 Game.getMap().drawTile(player.getXMapPos(), player.getYMapPos(),
-                        player.getXViewPos() - 1, player.getYViewPos(), Game.getEditor());
+                        player.getXViewPos() - 1, player.getYViewPos());
                 Game.getMap().drawTile(player.getXMapPos(), player.getYMapPos(),
-                        player.getXViewPos(), player.getYViewPos(), Game.getEditor());
+                        player.getXViewPos(), player.getYViewPos());
             }
         }
     }
@@ -305,96 +336,77 @@ public class Main extends Application {
     }
 
     public void drawTileOnMap(double x, double y, Canvas canvas) {
-        var player = Game.getMap().getPlayer();
-        if (x < viewSize * tileSize && y < viewSize * tileSize) {
-            switch (Game.getEditor().getSelectedType()) {
-                case GROUND: {
-                    Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                            [player.getYMapPos() + ((((int) y)) / tileSize)].setTile1Id(Game.getEditor().getSelectTile());
-                    break;
-                }
-                case OBJECT: {
-                    Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                            [player.getYMapPos() + ((((int) y)) / tileSize)].setTile2Id(Game.getEditor().getSelectTile());
-                    break;
-                }
-                case NPC: {
-                    if (Game.getEditor().getSelectTile() == 0) {
-                        Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                                [player.getYMapPos() + ((((int) y)) / tileSize)].setNpcId(null);
-                    } else if (Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                            [player.getYMapPos() + ((((int) y)) / tileSize)].getNpcId() == null) {
-                        Game.getMap().getNpcList().add(new NPC(Game.getEditor().getSelectTile(), Game.getMap().getNpcList().size(),
-                                player.getXMapPos() + ((((int) x)) / tileSize),
-                                player.getYMapPos() + ((((int) y)) / tileSize)));
-                        Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                                [player.getYMapPos() + ((((int) y)) / tileSize)].
-                                setNpcId(Game.getMap().getNpcList().get(Game.getMap().getNpcList().size() - 1).getId());
+        if (Game.getGameMode().equals(GameModeEnum.EDITOR)) {
+            var player = Game.getMap().getPlayer();
+            if (x < viewSize * tileSize && y < viewSize * tileSize) {
+                var tileX = (((int) x) / tileSize);
+                var tileY = (((int) y) / tileSize);
+                switch (Game.getEditor().getSelectedType()) {
+                    case GROUND: {
+                        Game.getMap().getTiles()[player.getXMapPos() + tileX]
+                                [player.getYMapPos() + tileY].setTile1Id(Game.getEditor().getSelectTile());
+                        break;
                     }
-                    break;
-                }
-                case CREATURE: {
-                    if (Game.getEditor().getSelectTile() == 0) {
-                        Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                                [player.getYMapPos() + ((((int) y)) / tileSize)].setCreatureId(null);
-                    } else if (Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                            [player.getYMapPos() + ((((int) y)) / tileSize)].getCreatureId() == null) {
-                        Game.getMap().getCreaturesList().add(new Creature(Game.getEditor().getSelectTile(), Game.getMap().getCreaturesList().size(),
-                                player.getXMapPos() + ((((int) x)) / tileSize),
-                                player.getYMapPos() + ((((int) y)) / tileSize)));
+                    case OBJECT: {
+                        Game.getMap().getTiles()[player.getXMapPos() + tileX]
+                                [player.getYMapPos() + tileY].setTile2Id(Game.getEditor().getSelectTile());
+                        break;
+                    }
+                    case NPC: {
+                        if (Game.getEditor().getSelectTile() == 0) {
+                            Game.getMap().getTiles()[player.getXMapPos() + tileX]
+                                    [player.getYMapPos() + tileY].setNpcId(null);
+                        } else if (Game.getMap().getTiles()[player.getXMapPos() + tileX]
+                                [player.getYMapPos() + tileY].getNpcId() == null) {
+                            Game.getMap().getNpcList().add(new NPC(Game.getEditor().getSelectTile(), Game.getMap().getNpcList().size(),
+                                    player.getXMapPos() + tileX,
+                                    player.getYMapPos() + tileY));
+                            Game.getMap().getTiles()[player.getXMapPos() + tileX]
+                                    [player.getYMapPos() + tileY].
+                                    setNpcId(Game.getMap().getNpcList().get(Game.getMap().getNpcList().size() - 1).getId());
+                        }
+                        break;
+                    }
+                    case CREATURE: {
+                        if (Game.getEditor().getSelectTile() == 0) {
+                            Game.getMap().getTiles()[player.getXMapPos() + tileX]
+                                    [player.getYMapPos() + tileY].setCreatureId(null);
+                        } else if (Game.getMap().getTiles()[player.getXMapPos() + tileX]
+                                [player.getYMapPos() + tileY].getCreatureId() == null) {
+                            Game.getMap().getCreaturesList().add(new Creature(Game.getEditor().getSelectTile(), Game.getMap().getCreaturesList().size(),
+                                    player.getXMapPos() + tileX,
+                                    player.getYMapPos() + tileY));
 
-                        Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                                [player.getYMapPos() + ((((int) y)) / tileSize)].
-                                setCreatureId(Game.getMap().getCreaturesList().get(Game.getMap().getCreaturesList().size() - 1).getId());
-                    }
-                    break;
-                }
-                case ITEM: {
-                    if (Game.getEditor().getSelectTile() == 0) {
-                        Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                                [player.getYMapPos() + ((((int) y)) / tileSize)].setItems(null);
-                    } else if (Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                            [player.getYMapPos() + ((((int) y)) / tileSize)].getItems() == null) {
-                        Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                                [player.getYMapPos() + ((((int) y)) / tileSize)].setItems(new ArrayList<>());
-                        Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                                [player.getYMapPos() + ((((int) y)) / tileSize)].getItems().add(new Items(Game.getEditor().getSelectTile(), 1));
-                    } else {
-                        ItemInfo itemInfo = Game.getEditor().getItems().get(Game.getEditor().getSelectTile());
-                        boolean found = false;
-                        if (itemInfo.getStackable()) {
-                            for (Items items : Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                                    [player.getYMapPos() + ((((int) y)) / tileSize)].getItems()) {
-                                if (items.getTypeId() == Game.getEditor().getSelectTile()) {
-                                    items.setCount(items.getCount() + 1);
-                                    found = true;
-                                    break;
-                                }
-                            }
+                            Game.getMap().getTiles()[player.getXMapPos() + tileX]
+                                    [player.getYMapPos() + tileY].
+                                    setCreatureId(Game.getMap().getCreaturesList().get(Game.getMap().getCreaturesList().size() - 1).getId());
                         }
-                        if (!found) {
-                            Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                                    [player.getYMapPos() + ((((int) y)) / tileSize)].getItems().add(new Items(Game.getEditor().getSelectTile(), 1));
-                        }
+                        break;
                     }
-                    break;
+                    case ITEM: {
+                        Game.getMap().addItemOnMap(
+                                player.getXMapPos() + tileX,
+                                player.getYMapPos() + tileY,
+                                new Items(Game.getEditor().getSelectTile(), 1));
+                        break;
+                    }
+                    case POLLUTION: {
+                        Game.getMap().getTiles()[player.getXMapPos() + tileX]
+                                [player.getYMapPos() + tileY].setPollutionId(Game.getEditor().getSelectTile());
+                        break;
+                    }
+                    case ZONE: {
+                        Game.getMap().getTiles()[player.getXMapPos() + tileX]
+                                [player.getYMapPos() + tileY].setZoneId(Game.getEditor().getSelectTile());
+                        break;
+                    }
                 }
-                case POLLUTION: {
-                    Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                            [player.getYMapPos() + ((((int) y)) / tileSize)].setPollutionId(Game.getEditor().getSelectTile());
-                    break;
-                }
-                case ZONE: {
-                    Game.getMap().getTiles()[player.getXMapPos() + ((((int) x)) / tileSize)]
-                            [player.getYMapPos() + ((((int) y)) / tileSize)].setZoneId(Game.getEditor().getSelectTile());
-                    break;
-                }
+
+                Game.getMap().drawTile(player.getXMapPos(), player.getYMapPos(), tileX, tileY);
+
+                Game.getRoot().getChildren().set(0, canvas);
+                canvas.requestFocus();
             }
-
-            Game.getMap().drawTile(player.getXMapPos(), player.getYMapPos(), ((((int) x)) / tileSize), ((((int) y)) / tileSize), Game.getEditor());
-
-            Game.getRoot().getChildren().set(0, canvas);
-            canvas.requestFocus();
         }
     }
 }

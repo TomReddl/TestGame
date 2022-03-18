@@ -17,7 +17,7 @@ public class Creature implements Serializable {
     @JsonProperty("id")
     private int id; // идентификатор данного конкретного существа
     @JsonProperty("creatureTypeId")
-    private int creatureTypeId; // идентификатор данных о существе из списка CreatureList
+    private int creatureTypeId; // идентификатор типа существа
     @JsonProperty("xPos")
     private int xPos;
     @JsonProperty("yPos")

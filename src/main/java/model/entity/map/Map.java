@@ -1,15 +1,17 @@
 package model.entity.map;
 
-import javafx.scene.image.ImageView;
-import view.Editor;
-import model.entity.DirectionEnum;
-import model.entity.GameModeEnum;
-import model.entity.player.Player;
-import view.Game;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import model.editor.TileInfo;
+import model.editor.TileTypeEnum;
+import model.editor.items.ItemInfo;
+import model.entity.GameModeEnum;
+import model.entity.player.Player;
+import view.Editor;
+import view.Game;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -50,28 +52,70 @@ public class Map implements Serializable {
     public void drawMap(int Xpos, int YPos) {
         for (int x = 0; x < viewSize; x++) {
             for (int y = 0; y < viewSize; y++) {
-                drawBottomLayer(Game.getEditor(), Xpos, YPos, x, y);
+                drawBottomLayer(Xpos, YPos, x, y);
             }
         }
 
         for (int x = 0; x < viewSize; x++) { // NPC и существа рисуются в отдельном цикле, чтобы быть поверх уже отрисованной карты
             for (int y = 0; y < viewSize; y++) {
-                drawUpperLayer(Game.getEditor(), Xpos, YPos, x, y);
+                drawUpperLayer(Xpos, YPos, x, y);
             }
         }
     }
 
-    public void drawTile(int Xpos, int YPos, int x, int y, Editor editor) {
-        drawBottomLayer(editor, Xpos, YPos, x, y);
-        drawUpperLayer(editor, Xpos, YPos, x, y);
+    public void drawTile(int Xpos, int YPos, int x, int y) {
+        drawBottomLayer(Xpos, YPos, x, y);
+        drawUpperLayer(Xpos, YPos, x, y);
+    }
+
+    public void addItemOnMap(int x, int y, Items addedItems) {
+        if (addedItems.getTypeId() == 0) {
+            Game.getMap().getTiles()[x][y].setItems(null);
+        } else if (Game.getMap().getTiles()[x][y].getItems() == null) {
+            Game.getMap().getTiles()[x][y].setItems(new ArrayList<>());
+            Game.getMap().getTiles()[x][y].getItems().add(addedItems);
+        } else {
+            boolean found = false;
+            if (addedItems.getInfo().getStackable()) {
+                for (Items items : Game.getMap().getTiles()[x][y].getItems()) {
+                    if (items.getTypeId() == addedItems.getTypeId()) {
+                        items.setCount(items.getCount() + 1);
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            if (!found) {
+                Game.getMap().getTiles()[x][y].getItems().add(addedItems);
+            }
+        }
+    }
+
+    public void interactionWithMap(int Xpos, int YPos, int x, int y) {
+        Editor editor = Game.getEditor();
+        TileInfo tileInfo = editor.getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id());
+        if (tileInfo.getType() != null) {
+            switch (TileTypeEnum.valueOf(tileInfo.getType())) {
+                case DOOR: {
+                    tiles[Xpos + x][YPos + y].setTile2Id(Integer.parseInt(tileInfo.getParams().get(0)));
+                    break;
+                }
+            }
+            Game.getMap().drawTile(Xpos, YPos, x, y);
+        }
     }
 
     // отрисовка нижнего уровня тайла
-    private void drawBottomLayer(Editor editor, int Xpos, int YPos, int x, int y) {
+    private void drawBottomLayer(int Xpos, int YPos, int x, int y) {
+        Editor editor = Game.getEditor();
         GraphicsContext gc = editor.getCanvas().getGraphicsContext2D();
-        gc.drawImage(editor.getTiles1().get(tiles[Xpos + x][YPos + y].getTile1Id()).getImage().getImage(),
+
+        var tileInfo1 = editor.getTiles1().get(tiles[Xpos + x][YPos + y].getTile1Id());
+        var tileInfo2 = editor.getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id());
+
+        gc.drawImage(tileInfo1.getImage().getImage(),
                 x * tileSize, y * tileSize);
-        gc.drawImage(editor.getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id()).getImage().getImage(),
+        gc.drawImage(tileInfo2.getImage().getImage(),
                 x * tileSize, y * tileSize);
 
         // загрязнение на тайле
@@ -80,49 +124,45 @@ public class Map implements Serializable {
                     x * tileSize, y * tileSize);
         }
 
-        if (tiles[Xpos + x][YPos + y].getItems() != null) {
-            if (tiles[Xpos + x][YPos + y].getItems().size() == 1) {
-                gc.drawImage(editor.getItems().get(
-                        tiles[Xpos + x][YPos + y].getItems().get(0).getTypeId()).getImage().getImage(),
-                        x * tileSize, y * tileSize);
-            } else { // если на тайле больше 1 предмета, рисуем мешок
-                gc.drawImage(bag.getImage(),
-                        x * tileSize, y * tileSize);
+        // предметы
+        if (tileInfo2.getType() == null || !(tileInfo2.getType().equals(TileTypeEnum.CONTAINER.toString()))) {
+            if (tiles[Xpos + x][YPos + y].getItems() != null) {
+                if (tiles[Xpos + x][YPos + y].getItems().size() == 1) {
+                    gc.drawImage(editor.getItems().get(
+                            tiles[Xpos + x][YPos + y].getItems().get(0).getTypeId()).getImage().getImage(),
+                            x * tileSize, y * tileSize);
+                } else { // если на тайле больше 1 предмета, рисуем мешок
+                    gc.drawImage(bag.getImage(),
+                            x * tileSize, y * tileSize);
+                }
             }
         }
     }
 
     // отрисовка верхнего уровня тайла
-    private void drawUpperLayer(Editor editor, int Xpos, int YPos, int x, int y) {
+    private void drawUpperLayer(int Xpos, int YPos, int x, int y) {
+        Editor editor = Game.getEditor();
         GraphicsContext gc = editor.getCanvas().getGraphicsContext2D();
+
+        // NPC
         if (tiles[Xpos + x][YPos + y].getNpcId() != null) {
             gc.drawImage(editor.getNpcs().get(npcList.get(
                     tiles[Xpos + x][YPos + y].getNpcId()).getNpcTypeId()).getImage().getImage(),
                     x * tileSize, y * tileSize);
         }
+
+        // существа
         if (tiles[Xpos + x][YPos + y].getCreatureId() != null) {
             gc.drawImage(editor.getCreatures().get(
                     creaturesList.get(tiles[Xpos + x][YPos + y].getCreatureId()).getCreatureTypeId()).getImage().getImage(),
                     x * tileSize, y * tileSize);
         }
 
+        // персонаж игрока
         if ((Game.getGameMode().equals(GameModeEnum.GAME) ||
                 Game.getGameMode().equals(GameModeEnum.GAME_MENU)) &&
                 (player.getXViewPos() == x) && (player.getYViewPos() == y)) {
-            var img = player.getImage().getImage();
-            double width = img.getWidth();
-            double height = img.getHeight();
-            if (player.getDirection().equals(DirectionEnum.LEFT) ||
-                    player.getDirection().equals(DirectionEnum.UP)) {
-                gc.drawImage(img,
-                        0, 0, tileSize, tileSize,
-                        player.getXViewPos() * tileSize+tileSize,
-                        player.getYViewPos() * tileSize,
-                        -width, height);
-            } else {
-                gc.drawImage(player.getImage().getImage(),
-                        player.getXViewPos() * tileSize, player.getYViewPos() * tileSize);
-            }
+            Player.drawPlayerImage(player);
         }
 
         // если у тайла есть верхний уровень, рисуем его поверх персонажа или NPC

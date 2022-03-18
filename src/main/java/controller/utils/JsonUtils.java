@@ -6,12 +6,19 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.InstantDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
 import model.editor.*;
+import model.editor.items.ClothesInfo;
+import model.editor.items.ItemInfo;
+import model.editor.items.WeaponInfo;
+import model.entity.map.Items;
 import model.entity.map.Map;
 import lombok.experimental.UtilityClass;
+import view.Game;
 
 import java.io.File;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Matcher;
 
@@ -73,13 +80,24 @@ public class JsonUtils {
     }
 
     public static List<ItemInfo> getItems() {
+        List<ItemInfo> items = new ArrayList<>();
         try {
             var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/items.json";
-            return objectMapper.readValue(new File(path), new TypeReference<>() {
-            });
+            items.addAll(objectMapper.readValue(new File(path), new TypeReference<>() {
+            }));
+
+            path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/weapons.json";
+            items.addAll(objectMapper.readValue(new File(path), new TypeReference<List<WeaponInfo>>() {
+            }));
+
+            path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/clothes.json";
+            items.addAll(objectMapper.readValue(new File(path), new TypeReference<List<ClothesInfo>>() {
+            }));
         } catch (Exception ex) {
             throw new RuntimeException("can not read 'items.json', cause=%s" + ex.getMessage());
         }
+        items.sort(Comparator.comparing(ItemInfo::getId));
+        return items;
     }
 
     public static List<PollutionInfo> getPollutions() {

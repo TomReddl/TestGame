@@ -1,4 +1,4 @@
-package model.editor;
+package model.editor.items;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import model.entity.ItemTypeEnum;
@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @Getter
 public class ItemInfo {
-    private int id;
+    private Integer id;
     @JsonIgnore
     private String name;
     @JsonIgnore
@@ -31,4 +31,5 @@ public class ItemInfo {
     private ImageView icon;
     @JsonIgnore
     private Label nameLabel;
+    private List<String> params; // дополнительные параметры предмета
 }

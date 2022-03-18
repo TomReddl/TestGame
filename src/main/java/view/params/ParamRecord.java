@@ -1,10 +1,10 @@
 package view.params;
 
-import model.entity.player.Parameter;
-import view.Game;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import lombok.Getter;
+import model.entity.player.Parameter;
+import view.Game;
 
 /*
  * Строка с информацией о параметре персонажа
@@ -20,19 +20,26 @@ public class ParamRecord {
         box.setSpacing(10);
         box.setLayoutX(10);
 
-        String labelText = "";
+        var labelText = "";
+        var labelDesc = "";
         if (ParamPanel.getLegacy().equals(paramType)) {
             labelText = Game.getText(ParamPanel.getLegacyNames().get(index) + "_PARAM_NAME");
+            labelDesc = Game.getText(ParamPanel.getLegacyNames().get(index) + "_PARAM_DESC");
         } else if (ParamPanel.getCharacteristic().equals(paramType)) {
             labelText = Game.getText(ParamPanel.getCharacteristicsNames().get(index) + "_PARAM_NAME");
+            labelDesc = Game.getText(ParamPanel.getCharacteristicsNames().get(index) + "_PARAM_DESC");
         } else if (ParamPanel.getSkill().equals(paramType)) {
             labelText = Game.getText(ParamPanel.getSkillsNames().get(index) + "_PARAM_NAME");
+            labelDesc = Game.getText(ParamPanel.getSkillsNames().get(index) + "_PARAM_DESC");
         }
 
         nameLabel = new Label(labelText);
         nameLabel.setLayoutX(5);
         nameLabel.setLayoutY(5);
         nameLabel.setMinWidth(150);
+        var desc = labelDesc;
+        nameLabel.setOnMouseEntered(event -> ParamDescPanel.showDetailPanel(desc, box));
+        nameLabel.setOnMouseExited(event -> ParamDescPanel.hideDetailPanel());
         box.getChildren().add(nameLabel);
 
         valueLabel = new Label(parameter.getCurrentValue().toString());
