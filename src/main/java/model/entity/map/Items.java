@@ -6,10 +6,12 @@ import view.Game;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import view.inventory.InventoryPanel;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Comparator;
+import java.util.HashMap;
 
 /*
 * * Информация о предмете
@@ -33,7 +35,22 @@ public class Items {
         this.count = 1;
     }
 
-    public static Comparator<Items> compareByName = Comparator.comparing(o -> o.getInfo().getName());
+    private static Comparator<Items> compareByName = Comparator.comparing(o -> o.getInfo().getName());
+
+    private static Comparator<Items> compareByWeight = Comparator.comparing(o -> o.getInfo().getWeight());
+
+    private static Comparator<Items> compareByVolume = Comparator.comparing(o -> o.getInfo().getVolume());
+
+    private static Comparator<Items> compareByPrice = Comparator.comparing(o -> o.getInfo().getPrice());
+
+    public static HashMap<InventoryPanel.SortType, Comparator<Items>> comparators = new HashMap<>();
+
+    static {
+        comparators.put(InventoryPanel.SortType.NAME, compareByName);
+        comparators.put(InventoryPanel.SortType.WEIGHT, compareByWeight);
+        comparators.put(InventoryPanel.SortType.VOLUME, compareByVolume);
+        comparators.put(InventoryPanel.SortType.PRICE, compareByPrice);
+    }
 
     public ItemInfo getInfo() {
         return Game.getEditor().getItems().get(getTypeId());

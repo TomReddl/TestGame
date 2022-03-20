@@ -511,5 +511,90 @@
     "type": "DOOR",
     "params": ["80"],
     "twoLayer": false
+  },
+  {
+    "id": 93,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 94,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 95,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 96,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 97,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 98,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 99,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 100,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 101,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 102,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 103,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 104,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 105,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 106,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 107,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 108,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 109,
+    "strength": 0,
+    "passability": true
   }
 ]

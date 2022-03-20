@@ -25,18 +25,18 @@ public class GameMenuPanel {
     private static final ImageView closeMenuButton = new ImageView("/graphics/gui/Close.png");
 
     public GameMenuPanel(Group root) {
-        pane.setPrefSize(490, 455);
+        pane.setPrefSize(550, 455);
         pane.setLayoutX(210);
         pane.setLayoutY(5);
         pane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
         pane.setVisible(Boolean.FALSE);
 
-        closeMenuButton.setLayoutX(490);
+        closeMenuButton.setLayoutX(550);
         closeMenuButton.setOnMousePressed(event -> setPanelsVisible(Boolean.FALSE));
         closeMenuButton.setVisible(Boolean.TRUE);
         pane.getChildren().add(closeMenuButton);
 
-        tabPane.setPrefSize(490, 490);
+        tabPane.setPrefSize(550, 490);
         tabPane.setMinHeight(450);
         tabPane.setLayoutX(0);
         tabPane.setLayoutY(0);

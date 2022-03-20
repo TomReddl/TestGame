@@ -15,4 +15,5 @@ public class ClothesInfo extends ItemInfo {
     private String bodyPart; // часть тела, на которую надевается одежда
     private Integer covering; // уровень покрытия тела
     private String style; // стиль одежды (нужен для маскировки путем переодевания в одежду определенного стиля)
+    private String gender; // для какого пола подходит этот элемент одежды
 }

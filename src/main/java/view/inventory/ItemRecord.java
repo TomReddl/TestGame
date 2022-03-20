@@ -31,7 +31,7 @@ public class ItemRecord {
     public ItemRecord(Items items) {
         ItemInfo itemInfo = items.getInfo();
         pane = new Pane();
-        pane.setPrefSize(480, 40);
+        pane.setPrefSize(550, 40);
         pane.setBackground(new Background(new BackgroundFill(
                 ((items.isEquipment()) ? Color.GAINSBORO : Color.WHITESMOKE), CornerRadii.EMPTY, Insets.EMPTY)));
 

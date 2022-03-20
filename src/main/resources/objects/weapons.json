@@ -7,7 +7,7 @@
     "stackable": false,
     "damage": 15,
     "maxStrength": 100,
-    "skill": 3,
+    "skill": 8,
     "oneHand": true,
     "types": ["WEAPON"]
   },
@@ -19,7 +19,7 @@
     "stackable": false,
     "damage": 5,
     "maxStrength": 70,
-    "skill": 3,
+    "skill": 8,
     "oneHand": true,
     "types": ["WEAPON"]
   },
@@ -31,7 +31,7 @@
     "stackable": false,
     "damage": 25,
     "maxStrength": 160,
-    "skill": 3,
+    "skill": 0,
     "oneHand": false,
     "types": ["WEAPON"]
   },
@@ -43,7 +43,7 @@
     "stackable": false,
     "damage": 25,
     "maxStrength": 160,
-    "skill": 3,
+    "skill": 0,
     "oneHand": false,
     "types": ["WEAPON"]
   }

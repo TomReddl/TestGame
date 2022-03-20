@@ -18,6 +18,7 @@ import model.entity.map.Items;
 import model.entity.map.NPC;
 import model.entity.player.Player;
 import view.Game;
+import view.inventory.PlayerStatsPanel;
 import view.menu.MainMenu;
 
 import java.util.ArrayList;
@@ -40,6 +41,11 @@ public class Main extends Application {
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/graphics/gui/Icon.png")));
 
         var player = Game.getMap().getPlayer();
+
+        setPlayerStartItems(player);
+
+        Game.getInventory().filterInventoryTabs(Game.getInventory().getTabPane().getSelectionModel().getSelectedItem());
+
         Game.getMap().drawCurrentMap();
 
         scene.setOnKeyReleased(event -> {
@@ -158,6 +164,12 @@ public class Main extends Application {
                             Game.setGameMode(GameModeEnum.GAME_MENU);
                             break;
                         }
+                        case Z: {
+                            Game.getEditor().setShowZones(!Game.getEditor().isShowZones());
+                            Game.getEditor().getShowZonesCheckBox().setSelected(Game.getEditor().isShowZones());
+                            Game.getMap().drawCurrentMap();
+                            break;
+                        }
                     }
                     break;
                 }
@@ -223,6 +235,61 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         Game.getEditor().getCanvas().requestFocus();
+    }
+
+    private void setPlayerStartItems(Player player) {
+        var items = new Items();
+        items.setTypeId(1);
+        items.setCount(3);
+        player.getInventory().add(items);
+
+        var items2 = new Items();
+        items2.setTypeId(3);
+        items2.setCount(1);
+        player.getInventory().add(items2);
+
+        var items3 = new Items();
+        items3.setTypeId(11);
+        items3.setCount(10);
+        player.getInventory().add(items3);
+
+        var items4 = new Items();
+        items4.setTypeId(20);
+        items4.setCount(1);
+        player.getInventory().add(items4);
+        player.equipItem(items4);
+
+        var items5 = new Items();
+        items5.setTypeId(21);
+        items5.setCount(1);
+        player.getInventory().add(items5);
+        player.equipItem(items5);
+
+        var items6 = new Items();
+        items6.setTypeId(22);
+        items6.setCount(1);
+        player.getInventory().add(items6);
+        player.equipItem(items6);
+
+        var items7 = new Items();
+        items7.setTypeId(23);
+        items7.setCount(1);
+        player.getInventory().add(items7);
+        player.equipItem(items7);
+
+        var items8 = new Items();
+        items8.setTypeId(25);
+        items8.setCount(1);
+        player.getInventory().add(items8);
+        player.equipItem(items8);
+
+        var items9 = new Items();
+        items9.setTypeId(26);
+        items9.setCount(1);
+        player.getInventory().add(items9);
+        player.equipItem(items9);
+
+        PlayerStatsPanel.setClothesStyle(player.getWearingItems());
     }
 
     private Boolean isReachable(Player player, double x, double y) {
@@ -404,7 +471,6 @@ public class Main extends Application {
 
                 Game.getMap().drawTile(player.getXMapPos(), player.getYMapPos(), tileX, tileY);
 
-                Game.getRoot().getChildren().set(0, canvas);
                 canvas.requestFocus();
             }
         }

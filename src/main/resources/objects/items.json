@@ -150,5 +150,13 @@
     "price": "600",
     "stackable": true,
     "types": ["RESOURCE"]
+  },
+  {
+    "id": 34,
+    "weight": "1500",
+    "volume": "2000",
+    "price": "300",
+    "stackable": true,
+    "types": ["EAT", "INGREDIENT"]
   }
 ]

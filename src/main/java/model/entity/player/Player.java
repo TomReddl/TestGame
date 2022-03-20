@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import model.editor.items.BodyPartEnum;
 import model.editor.items.ClothesInfo;
+import model.editor.items.ClothesStyleEnum;
 import model.editor.items.WeaponInfo;
 import model.entity.DirectionEnum;
 import model.entity.ItemTypeEnum;
@@ -70,26 +71,12 @@ public class Player implements Serializable {
     private BigDecimal maxWeight;
     @JsonIgnore
     private BigDecimal currentWeight;
+    private ClothesStyleEnum style;
 
     public Player() {
         image = new ImageView("/graphics/characters/32.png");
         image.setVisible(Boolean.FALSE);
         direction = DirectionEnum.RIGHT;
-
-        Items items = new Items();
-        items.setTypeId(1);
-        items.setCount(3);
-        inventory.add(items);
-
-        Items items2 = new Items();
-        items2.setTypeId(3);
-        items2.setCount(1);
-        inventory.add(items2);
-
-        Items items3 = new Items();
-        items3.setTypeId(11);
-        items3.setCount(10);
-        inventory.add(items3);
 
         for (int i = 0; i < 6; i++) {
             Parameter legacy = new Parameter();
@@ -271,7 +258,7 @@ public class Player implements Serializable {
             }
         }
 
-        Game.getInventory().drawItems(Boolean.FALSE,
+        Game.getInventory().drawItems(InventoryPanel.SortType.NAME, Boolean.FALSE,
                 Game.getInventory().getTabPane().getSelectionModel().getSelectedItem().getText());
 
         drawPlayerImage(Game.getMap().getPlayer());
@@ -341,7 +328,7 @@ public class Player implements Serializable {
 
             Game.getMap().getPlayer().getInventory().remove(ItemDetailPanel.getSelectItem());
 
-            Game.getInventory().drawItems(Boolean.FALSE,
+            Game.getInventory().drawItems(InventoryPanel.SortType.NAME, Boolean.FALSE,
                     Game.getInventory().getTabPane().getSelectionModel().getSelectedItem().getText());
 
             currentVolume = getCurrVolume(this.inventory);

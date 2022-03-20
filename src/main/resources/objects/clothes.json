@@ -6,10 +6,11 @@
   "stackable": false,
   "armor": 5,
   "maxStrength": 50,
-  "skill": 0,
+  "skill": 10,
   "bodyPart": "TORS",
   "covering": 30,
-  "style": "common",
+  "style": "COMMON",
+  "gender": "MALE",
   "types": ["CLOTHES"]
 },
   {
@@ -20,10 +21,11 @@
     "stackable": false,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 0,
+    "skill": 10,
     "bodyPart": "HEAD",
     "covering": 20,
-    "style": "western",
+    "style": "FRONTIER",
+    "gender": "UNISEX",
     "types": ["CLOTHES"]
   },
   {
@@ -34,10 +36,11 @@
     "stackable": false,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 0,
+    "skill": 10,
     "bodyPart": "TORSO",
     "covering": 20,
-    "style": "western",
+    "style": "FRONTIER",
+    "gender": "MALE",
     "types": ["CLOTHES"]
   },
   {
@@ -48,10 +51,11 @@
     "stackable": false,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 0,
+    "skill": 10,
     "bodyPart": "LEGS",
     "covering": 20,
-    "style": "western",
+    "style": "FRONTIER",
+    "gender": "MALE",
     "types": ["CLOTHES"]
   },
   {
@@ -62,10 +66,11 @@
     "stackable": false,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 0,
+    "skill": 10,
     "bodyPart": "SHOES",
     "covering": 20,
-    "style": "western",
+    "style": "FRONTIER",
+    "gender": "MALE",
     "types": ["CLOTHES"]
   },
   {
@@ -76,10 +81,11 @@
     "stackable": false,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 0,
+    "skill": 10,
     "bodyPart": "UNDERWEAR",
     "covering": 20,
-    "style": "common",
+    "style": "COMMON",
+    "gender": "MALE",
     "types": ["CLOTHES"]
   },
   {
@@ -90,10 +96,11 @@
     "stackable": false,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 0,
+    "skill": 10,
     "bodyPart": "SHIRT",
     "covering": 20,
-    "style": "common",
+    "style": "COMMON",
+    "gender": "MALE",
     "types": ["CLOTHES"]
   },
   {
@@ -104,10 +111,11 @@
     "stackable": false,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 0,
+    "skill": 10,
     "bodyPart": "BACKPACK",
     "covering": 20,
-    "style": "common",
+    "style": "COMMON",
+    "gender": "UNISEX",
     "params": ["40000"],
     "types": ["CLOTHES"]
   },
@@ -119,10 +127,11 @@
     "stackable": false,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 0,
+    "skill": 10,
     "bodyPart": "BELT",
     "covering": 20,
-    "style": "common",
+    "style": "COMMON",
+    "gender": "UNISEX",
     "params": ["5000"],
     "types": ["CLOTHES"]
   },
@@ -134,10 +143,11 @@
     "stackable": false,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 0,
+    "skill": 10,
     "bodyPart": "TORSO",
     "covering": 20,
-    "style": "western",
+    "style": "FRONTIER",
+    "gender": "MALE",
     "types": ["CLOTHES"]
   },
   {
@@ -148,10 +158,11 @@
     "stackable": false,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 0,
+    "skill": 10,
     "bodyPart": "BACKPACK",
     "covering": 20,
-    "style": "common",
+    "style": "COMMON",
+    "gender": "UNISEX",
     "params": ["80000"],
     "types": ["CLOTHES"]
   }

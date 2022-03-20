@@ -14,6 +14,9 @@ import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
 
+/*
+ * Главное меню
+ */
 @Setter
 @Getter
 public class MainMenu {

@@ -38,6 +38,7 @@ public class Editor {
     private final Label showZonesLabel = new Label(Game.getText("SHOW_ZONES"));
     private int selectTile = 0;
     private boolean showZones = false;
+    private CheckBox showZonesCheckBox = new CheckBox();
     private EditorObjectType selectedType = EditorObjectType.GROUND;
     private List<TileInfo> tiles1 = JsonUtils.getTiles1();
     private List<TileInfo> tiles2 = JsonUtils.getTiles2();
@@ -339,7 +340,6 @@ public class Editor {
         scrollPane7.setLayoutX(190);
         scrollPane7.setPrefSize(180, 600);
 
-        CheckBox showZonesCheckBox = new CheckBox();
         showZonesCheckBox.setLayoutX(5);
         showZonesCheckBox.setLayoutY(5);
         showZonesCheckBox.setOnAction(event -> changeShowZones());
