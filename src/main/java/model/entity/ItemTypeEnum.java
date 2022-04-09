@@ -34,6 +34,6 @@ public enum ItemTypeEnum {
         return item;
       }
     }
-    throw new IllegalArgumentException("Некорректный тип предмета: " + desc);
+    return null;
   }
 }

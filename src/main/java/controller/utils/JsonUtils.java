@@ -7,6 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.InstantDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
 import model.editor.*;
 import model.editor.items.ClothesInfo;
+import model.editor.items.EdibleInfo;
 import model.editor.items.ItemInfo;
 import model.editor.items.WeaponInfo;
 import model.entity.map.Items;
@@ -92,6 +93,10 @@ public class JsonUtils {
 
             path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/clothes.json";
             items.addAll(objectMapper.readValue(new File(path), new TypeReference<List<ClothesInfo>>() {
+            }));
+
+            path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/edible.json";
+            items.addAll(objectMapper.readValue(new File(path), new TypeReference<List<EdibleInfo>>() {
             }));
         } catch (Exception ex) {
             throw new RuntimeException("can not read 'items.json', cause=%s" + ex.getMessage());

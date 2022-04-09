@@ -1,11 +1,13 @@
 package model.entity.map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import model.editor.items.ItemInfo;
-import view.Game;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import model.editor.items.ClothesInfo;
+import model.editor.items.ItemInfo;
+import model.editor.items.WeaponInfo;
+import view.Game;
 import view.inventory.InventoryPanel;
 
 import java.math.BigDecimal;
@@ -14,8 +16,8 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 /*
-* * Информация о предмете
-*/
+ * * Информация о предмете
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,11 +30,17 @@ public class Items {
     private int count; // количество предметов в стеке
     @JsonProperty("equipment")
     private boolean equipment; // признак экипированного предмета
+    private Integer currentStrength; // Текущая прочность
 
-    public Items(int typeId, int id) {
+    public Items(int typeId, int count) {
         this.typeId = typeId;
-        this.id = id;
-        this.count = 1;
+        this.count = count;
+
+        if (this.getInfo() instanceof WeaponInfo) {
+            this.setCurrentStrength(((WeaponInfo) this.getInfo()).getMaxStrength());
+        } else if (this.getInfo() instanceof ClothesInfo) {
+            this.setCurrentStrength(((ClothesInfo) this.getInfo()).getMaxStrength());
+        }
     }
 
     private static Comparator<Items> compareByName = Comparator.comparing(o -> o.getInfo().getName());

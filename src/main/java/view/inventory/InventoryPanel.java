@@ -46,9 +46,9 @@ public class InventoryPanel {
     @Getter
     private static final Label typeLabel = new Label(Game.getText("TYPE"));
     @Getter
-    private static final Label weightLabel = new Label(Game.getText("WEIGHT") + " " + Game.getText("LITERS"));
+    private static final Label weightLabel = new Label(Game.getText("WEIGHT") + " " + Game.getText("KG"));
     @Getter
-    private static final Label volumeLabel = new Label(Game.getText("VOLUME") + " " + Game.getText("KG"));
+    private static final Label volumeLabel = new Label(Game.getText("VOLUME") + " " + Game.getText("LITERS"));
     @Getter
     private static final Label priceLabel = new Label(Game.getText("PRICE"));
     private static final Label totalWeightLabel = new Label(Game.getText("TOTAL_WEIGHT"));
@@ -149,11 +149,11 @@ public class InventoryPanel {
         pane.getChildren().add(sortVolumeImage);
 
         priceLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
-        priceLabel.setLayoutX(500);
+        priceLabel.setLayoutX(485);
         priceLabel.setLayoutY(10);
         pane.getChildren().add(priceLabel);
 
-        sortPriceImage.setX(530);
+        sortPriceImage.setX(515);
         sortPriceImage.setY(10);
         sortPriceImage.setOnMouseClicked(event -> {
             descending = !descending;
@@ -174,13 +174,11 @@ public class InventoryPanel {
         totalWeightLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
         totalWeightLabel.setLayoutY(405);
         totalWeightLabel.setLayoutX(10);
-        setWeightText();
         outerPane.getChildren().add(totalWeightLabel);
 
         totalVolumeLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
         totalVolumeLabel.setLayoutY(405);
         totalVolumeLabel.setLayoutX(180);
-        setVolumeText();
         outerPane.getChildren().add(totalVolumeLabel);
 
         tabPane.getTabs().get(0).setContent(outerPane);
@@ -206,52 +204,55 @@ public class InventoryPanel {
     public static void setWeightText() {
         var currentWeight = Game.getMap().getPlayer().getCurrentWeight();
         var maxWeight = Game.getMap().getPlayer().getMaxWeight();
-        totalWeightLabel.setTextFill(currentWeight.compareTo(maxWeight) > 0 ? Color.web("#FF0000") : Color.web("#000000"));
-        totalWeightLabel.setText(Game.getText("TOTAL_WEIGHT") + " " + formatter.format(currentWeight) + "/" +
-                formatter.format(maxWeight) + " " +
-                Game.getText("KG"));
+        if (currentWeight != null && maxWeight != null) {
+            totalWeightLabel.setTextFill(currentWeight.compareTo(maxWeight) > 0 ? Color.web("#FF0000") : Color.web("#000000"));
+            totalWeightLabel.setText(Game.getText("TOTAL_WEIGHT") + " " + formatter.format(currentWeight) + "/" +
+                    formatter.format(maxWeight) + " " +
+                    Game.getText("KG"));
+        }
     }
 
     public static void setVolumeText() {
         var currentVolume = Game.getMap().getPlayer().getCurrentVolume();
         var maxVolume = Game.getMap().getPlayer().getMaxVolume();
-        totalVolumeLabel.setTextFill(currentVolume.compareTo(maxVolume) > 0 ? Color.web("#FF0000") : Color.web("#000000"));
-        totalVolumeLabel.setText(Game.getText("TOTAL_VOLUME") + " " + formatter.format(currentVolume) + "/" +
-                formatter.format(maxVolume) + " " +
-                Game.getText("LITERS"));
+        if (currentVolume != null && maxVolume != null) {
+            totalVolumeLabel.setTextFill(currentVolume.compareTo(maxVolume) > 0 ? Color.web("#FF0000") : Color.web("#000000"));
+            totalVolumeLabel.setText(Game.getText("TOTAL_VOLUME") + " " + formatter.format(currentVolume) + "/" +
+                    formatter.format(maxVolume) + " " +
+                    Game.getText("LITERS"));
+        }
     }
 
     public void drawItems(SortType sort, Boolean descending, String selectType) {
         var comparator = Items.comparators.get(sort);
+        int i = 0;
         if (Game.getText("EQUIPPED").equals(selectType)) {
             pane.getChildren().remove(pane.getChildren().indexOf(sortPriceImage) + 1, pane.getChildren().size());
-            int i = 0;
 
-            var wearingItems = inventory.stream().filter(t -> t.isEquipment()).collect(Collectors.toList());
-            wearingItems.sort(
-                    descending ? comparator : comparator.reversed());
+            var wearingItems = inventory.stream()
+                    .filter(Items::isEquipment).sorted(descending ? comparator : comparator.reversed())
+                    .collect(Collectors.toList());
             for (Items items : wearingItems) {
-                var itemRecord = new ItemRecord(items);
+                var itemRecord = new ItemRecord(items, selectType);
                 itemRecord.getPane().setLayoutY(++i * tileSize);
                 pane.getChildren().add(itemRecord.getPane());
             }
         } else {
             ItemTypeEnum type = ItemTypeEnum.getItemTypeByCode(selectType);
             pane.getChildren().remove(pane.getChildren().indexOf(sortPriceImage) + 1, pane.getChildren().size());
-            int i = 0;
 
             inventory.sort(
                     descending ? comparator : comparator.reversed());
             for (Items items : inventory) {
                 List<ItemTypeEnum> types = items.getInfo().getTypes();
                 if (types != null && (types.contains(type) || ItemTypeEnum.ALL.equals(type))) {
-                    var itemRecord = new ItemRecord(items);
+                    var itemRecord = new ItemRecord(items, selectType);
                     itemRecord.getPane().setLayoutY(++i * tileSize);
                     pane.getChildren().add(itemRecord.getPane());
                 }
             }
         }
-        pane.setMinHeight(40 * inventory.size());
+        pane.setMinHeight(40 * (i+1));
     }
 
     public void show(Boolean show) {

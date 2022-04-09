@@ -26,12 +26,13 @@ import java.util.Properties;
 
 public class Game {
     @Getter
-    private static Properties properties = new Properties();
-    private static Properties itemsProperties = new Properties();
-    private static Properties tiles1Properties = new Properties();
-    private static Properties tiles2Properties = new Properties();
-    private static Properties NPCProperties = new Properties();
-    private static Properties creaturesProperties = new Properties();
+    private static final Properties properties = new Properties();
+    private static final Properties itemsProperties = new Properties();
+    private static final Properties tiles1Properties = new Properties();
+    private static final Properties tiles2Properties = new Properties();
+    private static final Properties NPCProperties = new Properties();
+    private static final Properties creaturesProperties = new Properties();
+    private static final Properties effectsProperties = new Properties();
 
     @Getter
     private static final Label warningLabel = new Label("");
@@ -139,6 +140,11 @@ public class Game {
                     GameParams.lang.toString().toLowerCase() + ".properties");
             creaturesProperties.load(in);
             in.close();
+
+            in = new FileInputStream("src/main/resources/text/effects_" +
+                    GameParams.lang.toString().toLowerCase() + ".properties");
+            effectsProperties.load(in);
+            in.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -172,9 +178,6 @@ public class Game {
         for (ItemInfo itemInfo : editor.getItems()) {
             itemInfo.setName(Game.getItemsText(itemInfo.getId() + "NAME"));
             itemInfo.setDesc(Game.getItemsText(itemInfo.getId() + "DESC"));
-            var itemName = itemInfo.getName();
-            itemName = itemName.length() > 8 ? itemName.substring(0, 8) : itemName;
-            itemInfo.getNameLabel().setText(itemName);
         }
 
         mainMenu.getSettingsPanel().getLangLabel().setText(Game.getText("LANG"));
@@ -211,6 +214,10 @@ public class Game {
 
     public static String getNPCText(String strId) {
         return NPCProperties.getProperty(strId);
+    }
+
+    public static String getEffectText(String strId) {
+        return effectsProperties.getProperty(strId);
     }
 
     public static void showMessage(String message) {

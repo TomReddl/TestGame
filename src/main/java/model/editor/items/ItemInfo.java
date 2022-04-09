@@ -1,17 +1,16 @@
 package model.editor.items;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import model.entity.ItemTypeEnum;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
+import model.entity.ItemTypeEnum;
 
 import java.util.List;
 
 /*
-* Данные типа предмета в редакторе
-* */
+ * Данные типа предмета в редакторе
+ * */
 @Setter
 @Getter
 public class ItemInfo {
@@ -29,7 +28,5 @@ public class ItemInfo {
     private ImageView image;
     @JsonIgnore
     private ImageView icon;
-    @JsonIgnore
-    private Label nameLabel;
     private List<String> params; // дополнительные параметры предмета
 }

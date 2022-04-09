@@ -183,5 +183,10 @@
     "id": 36,
     "strength": 0,
     "passability": true
+  },
+  {
+    "id": 37,
+    "strength": 0,
+    "passability": true
   }
 ]

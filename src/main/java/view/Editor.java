@@ -288,17 +288,6 @@ public class Editor {
                 items.get(i).setImage(new ImageView("/graphics/items/" + i + ".png"));
             }
             itemsPane.getChildren().add(items.get(i).getIcon());
-
-            var itemName = items.get(i).getName();
-            itemName = itemName.length() > 8 ? itemName.substring(0, 8) : itemName;
-            Label itemNameLabel = new Label(itemName);
-            itemNameLabel.setFont(Font.font("Arial", FontWeight.BOLD, 8));
-            itemNameLabel.setLayoutX(tile.getX());
-            itemNameLabel.setLayoutY(tile.getY() + tileSize - 8);
-            itemNameLabel.setId(String.valueOf(i));
-            items.get(i).setNameLabel(itemNameLabel);
-            itemsPane.getChildren().add(items.get(i).getNameLabel());
-
         }
         itemsPane.setOnMouseEntered(event -> Popover.setPane(itemsPane));
         scrollPane5.setContent(pane5);
@@ -410,7 +399,7 @@ public class Editor {
     private void filterItems(String itemType, String searchString) {
         ItemTypeEnum type = ItemTypeEnum.getItemTypeByCode(itemType);
         int i = 1;
-        boolean visible = false;
+        boolean visible;
         for (ItemInfo itemInfo : items) {
             ImageView itemTile = itemInfo.getIcon();
             List<ItemTypeEnum> types = itemInfo.getTypes();
@@ -425,10 +414,6 @@ public class Editor {
                     i++;
                 }
             }
-            Label label = itemInfo.getNameLabel();
-            label.setVisible(visible);
-            label.setLayoutX(itemTile.getX());
-            label.setLayoutY(itemTile.getY() + tileSize - 8);
         }
     }
 

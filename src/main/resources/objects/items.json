@@ -8,22 +8,6 @@
     "types": null
   },
   {
-    "id": 1,
-    "weight": "200",
-    "volume": "250",
-    "price": "20",
-    "stackable": true,
-    "types": ["EAT", "INGREDIENT"]
-  },
-  {
-    "id": 2,
-    "weight": "400",
-    "volume": "1000",
-    "price": "10",
-    "stackable": true,
-    "types": ["EAT"]
-  },
-  {
     "id": 5,
     "weight": "10000",
     "volume": "20000",
@@ -62,38 +46,6 @@
     "price": "8000",
     "stackable": true,
     "types": ["TREASURE"]
-  },
-  {
-    "id": 10,
-    "weight": "50",
-    "volume": "100",
-    "price": "5",
-    "stackable": true,
-    "types": ["INGREDIENT"]
-  },
-  {
-    "id": 11,
-    "weight": "5",
-    "volume": "10",
-    "price": "20",
-    "stackable": true,
-    "types": ["INGREDIENT"]
-  },
-  {
-    "id": 12,
-    "weight": "300",
-    "volume": "200",
-    "price": "500",
-    "stackable": true,
-    "types": ["POTION"]
-  },
-  {
-    "id": 13,
-    "weight": "300",
-    "volume": "200",
-    "price": "700",
-    "stackable": true,
-    "types": ["POTION"]
   },
   {
     "id": 14,
@@ -150,13 +102,5 @@
     "price": "600",
     "stackable": true,
     "types": ["RESOURCE"]
-  },
-  {
-    "id": 34,
-    "weight": "1500",
-    "volume": "2000",
-    "price": "300",
-    "stackable": true,
-    "types": ["EAT", "INGREDIENT"]
   }
 ]

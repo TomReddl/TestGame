@@ -9,7 +9,10 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import lombok.Getter;
+import model.editor.items.ClothesInfo;
 import model.editor.items.ItemInfo;
+import model.editor.items.WeaponInfo;
+import model.entity.ItemTypeEnum;
 import model.entity.map.Items;
 import view.Game;
 
@@ -22,13 +25,14 @@ public class ItemRecord {
     @Getter
     private Pane pane;
     private ImageView icon;
+    private ImageView brokenItemIcon; // иконка сломанного предмета
     private Label nameLabel;
     private Label typeLabel;
     private Label weightLabel;
     private Label volumeLabel;
     private Label priceLabel;
 
-    public ItemRecord(Items items) {
+    public ItemRecord(Items items, String selectType) {
         ItemInfo itemInfo = items.getInfo();
         pane = new Pane();
         pane.setPrefSize(550, 40);
@@ -38,6 +42,14 @@ public class ItemRecord {
         icon = new ImageView(itemInfo.getIcon().getImage());
         pane.getChildren().add(icon);
 
+        if ((itemInfo.getTypes().contains(ItemTypeEnum.WEAPON) || itemInfo.getTypes().contains(ItemTypeEnum.CLOTHES))
+                && items.getCurrentStrength() ==0) {
+            brokenItemIcon = new ImageView("/graphics/gui/BrokenItem.png");
+            brokenItemIcon.setX(25);
+            brokenItemIcon.setY(25);
+            pane.getChildren().add(brokenItemIcon);
+        }
+
         var nameText = items.getCount() > 1 ?
                 (itemInfo.getName() + " (" + items.getCount() + ")") :
                 itemInfo.getName();
@@ -46,7 +58,16 @@ public class ItemRecord {
         nameLabel.setLayoutY(10);
         pane.getChildren().add(nameLabel);
 
-        typeLabel = new Label(itemInfo.getTypes().get(0).getDesc());
+        if (ItemTypeEnum.WEAPON.equals(ItemTypeEnum.getItemTypeByCode(selectType))) {
+            typeLabel = new Label(((WeaponInfo) itemInfo).getDamage().toString());
+            InventoryPanel.getTypeLabel().setText(Game.getText("DAMAGE"));
+        } else if (ItemTypeEnum.CLOTHES.equals(ItemTypeEnum.getItemTypeByCode(selectType))) {
+            typeLabel = new Label(((ClothesInfo) itemInfo).getArmor().toString());
+            InventoryPanel.getTypeLabel().setText(Game.getText("ARMOR"));
+        } else {
+            typeLabel = new Label(itemInfo.getTypes().get(0).getDesc());
+            InventoryPanel.getTypeLabel().setText(Game.getText("TYPE"));
+        }
         typeLabel.setLayoutX(InventoryPanel.getTypeLabel().getLayoutX());
         typeLabel.setLayoutY(10);
         pane.getChildren().add(typeLabel);

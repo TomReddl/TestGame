@@ -18,6 +18,7 @@ import model.entity.map.Items;
 import view.Game;
 import view.inventory.InventoryPanel;
 import view.inventory.ItemDetailPanel;
+import view.inventory.PlayerStatsPanel;
 import view.menu.GameMenuPanel;
 
 import java.io.File;
@@ -100,16 +101,11 @@ public class Player implements Serializable {
         for (BodyPartEnum partEnum : BodyPartEnum.values()) {
             wearingItems.add(new Pair<>(partEnum, null));
         }
-
-        maxVolume = getMaximumVolume();
-        currentVolume = getCurrVolume(this.inventory);
-        maxWeight = getMaximumWeight();
-        currentWeight = getCurrWeight();
     }
 
-    private BigDecimal getCurrWeight() {
+    private BigDecimal getCurrWeight(List<Items> inventory) {
         int totalWeight = 0;
-        for (Items item : this.getInventory()) {
+        for (Items item : inventory) {
             totalWeight += item.getInfo().getWeight() * item.getCount();
         }
         return BigDecimal.valueOf(totalWeight).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
@@ -141,6 +137,9 @@ public class Player implements Serializable {
         return BigDecimal.valueOf(maxVol).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
     }
 
+    /*
+     * Добавить предмет в инвентарь игроку
+     */
     public Boolean addItem(Items item) {
         if (!canAddItem(item)) {
             return Boolean.FALSE;
@@ -157,7 +156,7 @@ public class Player implements Serializable {
             inventory.add(item);
         }
         currentVolume = getCurrVolume(this.inventory);
-        currentWeight = getCurrWeight();
+        currentWeight = getCurrWeight(this.inventory);
 
         InventoryPanel.setWeightText();
         InventoryPanel.setVolumeText();
@@ -207,68 +206,73 @@ public class Player implements Serializable {
     }
 
     /*
-     * экипирует wearingItem на персонажа
+     * экипирует/снимает wearingItem
      */
     public boolean equipItem(Items wearingItem) {
-        if (wearingItem.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES)) {
-            var index = BodyPartEnum.valueOf(((ClothesInfo) wearingItem.getInfo()).getBodyPart()).ordinal();
-            var bodyPart = wearingItems.get(index);
-            if (canEquipItem(wearingItem, bodyPart)) {
-                wearingItem.setEquipment(!wearingItem.isEquipment());
+        if (wearingItem.getCurrentStrength() > 0) {
+            if (wearingItem.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES)) {
+                var index = BodyPartEnum.valueOf(((ClothesInfo) wearingItem.getInfo()).getBodyPart()).ordinal();
+                var bodyPart = wearingItems.get(index);
+                if (canEquipItem(wearingItem, bodyPart)) {
+                    wearingItem.setEquipment(!wearingItem.isEquipment());
 
+                    if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {
+                        wearingItems.set(index, new Pair<>(bodyPart.getKey(), null));
+                    } else {
+                        if (bodyPart.getValue() != null) {
+                            bodyPart.getValue().setEquipment(Boolean.FALSE);
+                        }
+                        wearingItems.set(index, new Pair<>(bodyPart.getKey(), wearingItem));
+                    }
+                } else {
+                    Game.showMessage(Game.getText("ERROR_CANT_REMOVE_ITEM"));
+                    return Boolean.FALSE;
+                }
+            } else if (wearingItem.getInfo().getTypes().contains(ItemTypeEnum.WEAPON)) {
+                var weapon = (WeaponInfo) wearingItem.getInfo();
+                wearingItem.setEquipment(!wearingItem.isEquipment());
+                var bodyPart = wearingItems.get(BodyPartEnum.RIGHT_ARM.ordinal());
                 if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {
-                    wearingItems.set(index, new Pair<>(bodyPart.getKey(), null));
+                    wearingItems.set(BodyPartEnum.RIGHT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), null));
                 } else {
                     if (bodyPart.getValue() != null) {
                         bodyPart.getValue().setEquipment(Boolean.FALSE);
                     }
-                    wearingItems.set(index, new Pair<>(bodyPart.getKey(), wearingItem));
+                    wearingItems.set(BodyPartEnum.RIGHT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), wearingItem));
                 }
-            } else {
-                Game.showMessage(Game.getText("ERROR_CANT_REMOVE_ITEM"));
-                return Boolean.FALSE;
-            }
-        } else if (wearingItem.getInfo().getTypes().contains(ItemTypeEnum.WEAPON)) {
-            var weapon = (WeaponInfo) wearingItem.getInfo();
-            wearingItem.setEquipment(!wearingItem.isEquipment());
-            var bodyPart = wearingItems.get(BodyPartEnum.RIGHT_ARM.ordinal());
-            if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {
-                wearingItems.set(BodyPartEnum.RIGHT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), null));
-            } else {
-                if (bodyPart.getValue() != null) {
-                    bodyPart.getValue().setEquipment(Boolean.FALSE);
+
+                bodyPart = wearingItems.get(BodyPartEnum.LEFT_ARM.ordinal());
+                if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {
+                    wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), null));
+                } else {
+                    if (bodyPart.getValue() != null) {
+                        if (!((WeaponInfo) bodyPart.getValue().getInfo()).getOneHand()) {
+                            bodyPart.getValue().setEquipment(Boolean.FALSE);
+                        }
+                        if (!weapon.getOneHand()) {
+                            wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), wearingItem));
+                        } else {
+                            wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), null));
+                        }
+                    }
                 }
-                wearingItems.set(BodyPartEnum.RIGHT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), wearingItem));
             }
 
-            bodyPart = wearingItems.get(BodyPartEnum.LEFT_ARM.ordinal());
-            if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {
-                wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), null));
-            } else {
-                if (bodyPart.getValue() != null) {
-                    if (!((WeaponInfo) bodyPart.getValue().getInfo()).getOneHand()) {
-                        bodyPart.getValue().setEquipment(Boolean.FALSE);
-                    }
-                    if (!weapon.getOneHand()) {
-                        wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), wearingItem));
-                    } else {
-                        wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), null));
-                    }
-                }
-            }
+            Game.getInventory().drawItems(InventoryPanel.SortType.NAME, Boolean.FALSE,
+                    Game.getInventory().getTabPane().getSelectionModel().getSelectedItem().getText());
+
+            drawPlayerImage(Game.getMap().getPlayer());
+
+            currentVolume = getCurrVolume(this.inventory);
+            maxVolume = getMaximumVolume();
+
+            InventoryPanel.setVolumeText();
+
+            return Boolean.TRUE;
+        } else {
+            Game.showMessage(Game.getText("ERROR_CANT_EQUIP_BROKEN_ITEM"));
+            return Boolean.FALSE;
         }
-
-        Game.getInventory().drawItems(InventoryPanel.SortType.NAME, Boolean.FALSE,
-                Game.getInventory().getTabPane().getSelectionModel().getSelectedItem().getText());
-
-        drawPlayerImage(Game.getMap().getPlayer());
-
-        currentVolume = getCurrVolume(this.inventory);
-        maxVolume = getMaximumVolume();
-
-        InventoryPanel.setVolumeText();
-
-        return Boolean.TRUE;
     }
 
     /*
@@ -321,18 +325,21 @@ public class Player implements Serializable {
      * Выкинуть выбранный предмет из инвентаря на карту
      */
     public void dropSelectItems() {
+        var selectedItem = ItemDetailPanel.getSelectItem();
         if (GameMenuPanel.getPane().isVisible()) {
-            ItemDetailPanel.getSelectItem().setEquipment(Boolean.FALSE);
+            if (selectedItem.isEquipment()) {
+                equipItem(selectedItem);
+            }
 
-            Game.getMap().addItemOnMap(Game.getMap().getPlayer().getXPosition(), Game.getMap().getPlayer().getYPosition(), ItemDetailPanel.getSelectItem());
+            Game.getMap().addItemOnMap(Game.getMap().getPlayer().getXPosition(), Game.getMap().getPlayer().getYPosition(), selectedItem);
 
-            Game.getMap().getPlayer().getInventory().remove(ItemDetailPanel.getSelectItem());
+            Game.getMap().getPlayer().getInventory().remove(selectedItem);
 
             Game.getInventory().drawItems(InventoryPanel.SortType.NAME, Boolean.FALSE,
                     Game.getInventory().getTabPane().getSelectionModel().getSelectedItem().getText());
 
             currentVolume = getCurrVolume(this.inventory);
-            currentWeight = getCurrWeight();
+            currentWeight = getCurrWeight(this.inventory);
 
             InventoryPanel.setWeightText();
             InventoryPanel.setVolumeText();
@@ -346,5 +353,53 @@ public class Player implements Serializable {
      */
     public Boolean isOverloaded() {
         return currentWeight.compareTo(maxWeight) > 0;
+    }
+
+    /*
+     * Добавить в инвентарь персонажа стартовые предметы
+     */
+    public void setPlayerStartItems(Player player) {
+        player.addItem(new Items(1, 2));
+        player.addItem(new Items(3, 1));
+        player.addItem(new Items(11, 10));
+        player.addItem(new Items(10, 1));
+
+        var items = new Items(23, 1);
+        player.addItem(items);
+        player.equipItem(items);
+
+        var items2 = new Items(25, 1);
+        player.addItem(items2);
+        player.equipItem(items2);
+
+        var items3 = new Items(26, 1);
+        player.addItem(items3);
+        player.equipItem(items3);
+
+        var items4 = new Items(20, 1);
+        player.addItem(items4);
+        player.equipItem(items4);
+
+        var items5 = new Items(21, 1);
+        player.addItem(items5);
+        player.equipItem(items5);
+
+        var items6 = new Items(22, 1);
+        player.addItem(items6);
+        player.equipItem(items6);
+
+        var items7 = new Items(30, 1);
+        items7.setCurrentStrength(0);
+        player.addItem(items7);
+
+        PlayerStatsPanel.setClothesStyle(player.getWearingItems());
+
+        maxVolume = getMaximumVolume();
+        currentVolume = getCurrVolume(this.inventory);
+        maxWeight = getMaximumWeight();
+        currentWeight = getCurrWeight(this.inventory);
+
+        InventoryPanel.setWeightText();
+        InventoryPanel.setVolumeText();
     }
 }

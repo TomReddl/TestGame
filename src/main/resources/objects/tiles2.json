@@ -596,5 +596,250 @@
     "id": 109,
     "strength": 0,
     "passability": true
+  },
+  {
+    "id": 110,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 111,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 112,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 113,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 114,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 115,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 116,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 117,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 118,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 119,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 120,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 121,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 122,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 123,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 124,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 125,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 126,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 127,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 128,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 129,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 130,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 131,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 132,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 133,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 134,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 135,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 136,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 137,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 138,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 139,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 140,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 141,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 142,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 143,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 144,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 145,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 146,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 147,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 148,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 149,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 150,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 151,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 152,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 153,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 154,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 155,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 156,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 157,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 158,
+    "strength": 0,
+    "passability": false
   }
 ]
