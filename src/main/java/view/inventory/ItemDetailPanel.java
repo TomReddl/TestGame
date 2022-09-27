@@ -14,6 +14,9 @@ import model.entity.map.Items;
 import view.Game;
 import view.params.ParamPanel;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /*
  * Панель детальной информации о предмете
  */
@@ -62,6 +65,14 @@ public class ItemDetailPanel {
             descLabel.setText(descLabel.getText() + "\n\n" +
                     Game.getText("ARMOR") + ": " + clothesInfo.getArmor() + "\n" +
                     Game.getText("COVERING") + ": " + clothesInfo.getCovering() + "\n" +
+
+                    ((clothesInfo.getBodyPart().equals(BodyPartEnum.BACKPACK.name()) ||
+                            clothesInfo.getBodyPart().equals(BodyPartEnum.BELT.name()))?
+                            Game.getText("ADD_VOLUME") + " " +
+                                    BigDecimal.valueOf(Long.parseLong(clothesInfo.getParams().get(0))).
+                                            divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP)
+                            : "") + "\n" +
+
                     Game.getText("STRENGTH") + ": " + item.getCurrentStrength() + "/" + clothesInfo.getMaxStrength() + "\n" +
                     Game.getText(ParamPanel.getSkillsNames().get(clothesInfo.getSkill()) + "_PARAM_NAME") + "\n" + "\n" +
 

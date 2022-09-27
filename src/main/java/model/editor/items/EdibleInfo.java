@@ -16,4 +16,5 @@ public class EdibleInfo extends ItemInfo {
     private Integer taste; // вкус
     private Integer hunger; // сколько голода восстанавливает
     private Integer thirst; // сколько жажды восстанавливает
+    private Integer remainder; // остаток после съедения предмета
 }

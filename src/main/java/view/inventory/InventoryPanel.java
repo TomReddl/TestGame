@@ -197,6 +197,7 @@ public class InventoryPanel {
 
         root.getChildren().add(ItemDetailPanel.getPane());
         root.getChildren().add(PlayerStatsPanel.getPane());
+        root.getChildren().add(BookPanel.getPane());
 
         drawItems(SortType.NAME, descending, tabPane.getSelectionModel().getSelectedItem().getText());
     }

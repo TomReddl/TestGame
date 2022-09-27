@@ -102,7 +102,7 @@ public class ParamPanel {
         pane.getChildren().add(legacyLabel);
 
         var i = 0;
-        for (Parameter legacyParam : Game.getMap().getPlayer().getLegacies()) {
+        for (Parameter legacyParam : Game.getMap().getPlayer().getParams().getLegacy()) {
             var paramRecord = new ParamRecord(legacyParam, i, legacy);
             paramRecord.getBox().setLayoutY(20 + (i++) * 18);
             pane.getChildren().add(paramRecord.getBox());
@@ -114,7 +114,7 @@ public class ParamPanel {
         pane.getChildren().add(characteristicsLabel);
 
         i = 0;
-        for (Parameter getCharacteristicParam : Game.getMap().getPlayer().getCharacteristics()) {
+        for (Parameter getCharacteristicParam : Game.getMap().getPlayer().getParams().getCharacteristics()) {
             var paramRecord = new ParamRecord(getCharacteristicParam, i, characteristic);
             paramRecord.getBox().setLayoutY(150 + (i++) * 18);
             pane.getChildren().add(paramRecord.getBox());
@@ -138,7 +138,7 @@ public class ParamPanel {
 
         i = 0;
         var j = 0;
-        for (Parameter skillParam : Game.getMap().getPlayer().getSkills()) {
+        for (Parameter skillParam : Game.getMap().getPlayer().getParams().getSkills()) {
             if (i % 4 == 0) {
                 var label = new Label(Game.getText(ParamPanel.getCharacteristicsNames().get(i / 4) + "_PARAM_NAME"));
                 label.setFont(Font.font("Arial", FontWeight.BOLD, 12));

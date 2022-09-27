@@ -108,7 +108,7 @@ public class Editor {
             tiles1.get(i).setDesc(Game.getTiles1Text(i + "DESC"));
             pane1.getChildren().add(tile);
         }
-        border = new javafx.scene.image.ImageView("/graphics/gui/Border.png");
+        border = new ImageView("/graphics/gui/Border.png");
         border.setX(tiles1.get(0).getImage().getX() - 1);
         border.setY(tiles1.get(0).getImage().getY() - 1);
         pane1.getChildren().add(border);

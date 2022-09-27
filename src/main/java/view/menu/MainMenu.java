@@ -14,6 +14,8 @@ import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
 
+import static view.params.GameParams.*;
+
 /*
  * Главное меню
  */
@@ -35,6 +37,8 @@ public class MainMenu {
     private final int gameMenuPosY = 200;
 
     public MainMenu(Group root) {
+        backgroundImage.setFitWidth(screenSizeX);
+        backgroundImage.setFitHeight(screenSizeY);
         pane.getChildren().add(backgroundImage);
         pane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
 

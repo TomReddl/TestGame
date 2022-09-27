@@ -18,7 +18,6 @@ import model.entity.map.Items;
 import model.entity.map.NPC;
 import model.entity.player.Player;
 import view.Game;
-import view.inventory.PlayerStatsPanel;
 import view.menu.MainMenu;
 
 import java.util.ArrayList;

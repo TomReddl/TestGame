@@ -89,6 +89,6 @@ public class ItemRecord {
 
         pane.setOnMouseEntered(event -> ItemDetailPanel.showDetailPanel(items, pane.getLayoutY()));
         pane.setOnMouseExited(event -> ItemDetailPanel.hideDetailPanel());
-        pane.setOnMouseClicked(event -> Game.getMap().getPlayer().equipItem(items));
+        pane.setOnMouseClicked(event -> Game.getMap().getPlayer().useItem(items));
     }
 }

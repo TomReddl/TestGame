@@ -8,6 +8,7 @@
     "taste": 10,
     "hunger": 10,
     "thirst": 1,
+    "remainder": 16,
     "types": [
       "EAT",
       "INGREDIENT"
@@ -98,5 +99,16 @@
       "EAT",
       "INGREDIENT"
     ]
+  },
+  {
+  "id": 46,
+  "weight": "200",
+  "volume": "250",
+  "price": "200",
+  "stackable": true,
+  "taste": 50,
+  "hunger": 50,
+  "thirst": 0,
+  "types": ["EAT"]
   }
 ]

@@ -8,14 +8,12 @@ import javafx.scene.image.ImageView;
 import javafx.util.Pair;
 import lombok.Getter;
 import lombok.Setter;
-import model.editor.items.BodyPartEnum;
-import model.editor.items.ClothesInfo;
-import model.editor.items.ClothesStyleEnum;
-import model.editor.items.WeaponInfo;
+import model.editor.items.*;
 import model.entity.DirectionEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.map.Items;
 import view.Game;
+import view.inventory.BookPanel;
 import view.inventory.InventoryPanel;
 import view.inventory.ItemDetailPanel;
 import view.inventory.PlayerStatsPanel;
@@ -50,12 +48,8 @@ public class Player implements Serializable {
     @JsonProperty("direction")
     private DirectionEnum direction; // направление движения персонажа
 
-    @JsonProperty("legacy")
-    private List<Parameter> legacies = new ArrayList<>(); // наследия персонажа
-    @JsonProperty("characteristics")
-    private List<Parameter> characteristics = new ArrayList<>(); // характеристики персонажа
-    @JsonProperty("skills")
-    private List<Parameter> skills = new ArrayList<>(); // навыки персонажа
+    @JsonProperty("params")
+    private ParamsInfo params = new ParamsInfo(); // параметры персонажа
 
     @JsonProperty("inventory")
     private List<Items> inventory = new ArrayList<>(); // вещи в рюкзаке персонажа
@@ -79,25 +73,6 @@ public class Player implements Serializable {
         image.setVisible(Boolean.FALSE);
         direction = DirectionEnum.RIGHT;
 
-        for (int i = 0; i < 6; i++) {
-            Parameter legacy = new Parameter();
-            legacy.setCurrentValue(16);
-            legacy.setRealValue(16);
-            legacies.add(legacy);
-
-            Parameter characteristic = new Parameter();
-            characteristic.setCurrentValue(50);
-            characteristic.setRealValue(50);
-            characteristics.add(characteristic);
-        }
-
-        for (int i = 0; i < 24; i++) {
-            Parameter skill = new Parameter();
-            skill.setCurrentValue(10);
-            skill.setRealValue(10);
-            skills.add(skill);
-        }
-
         for (BodyPartEnum partEnum : BodyPartEnum.values()) {
             wearingItems.add(new Pair<>(partEnum, null));
         }
@@ -112,7 +87,7 @@ public class Player implements Serializable {
     }
 
     private BigDecimal getMaximumWeight() {
-        return BigDecimal.valueOf(this.getCharacteristics().get(3).getCurrentValue() * 3);
+        return BigDecimal.valueOf(params.getCharacteristics().get(3).getCurrentValue() * 3);
     }
 
     private BigDecimal getCurrVolume(List<Items> inventory) {
@@ -167,6 +142,40 @@ public class Player implements Serializable {
     }
 
     /*
+     * удалить item из инвентаря персонажа.
+     * если count = 0, удалить все предметы
+     */
+    public Boolean deleteItem(Items item, int count) {
+        boolean found = false;
+        for (Items i : this.inventory) {
+            if (item.getTypeId() == i.getTypeId()) {
+                if (item.getInfo().getStackable() && count > 0) {
+                    i.setCount(i.getCount() - count);
+                    if (i.getCount() <= 0) {
+                        this.inventory.remove(i);
+                    }
+                } else {
+                    this.inventory.remove(i);
+                }
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            return false;
+        }
+        currentVolume = getCurrVolume(this.inventory);
+        currentWeight = getCurrWeight(this.inventory);
+
+        InventoryPanel.setWeightText();
+        InventoryPanel.setVolumeText();
+
+        Game.getInventory().filterInventoryTabs(Game.getInventory().getTabPane().getSelectionModel().getSelectedItem());
+
+        return true;
+    }
+
+    /*
      * Хватит ли объема в инвентаре, чтобы добавить новый предмет
      */
     private Boolean canAddItem(Items item) {
@@ -203,6 +212,51 @@ public class Player implements Serializable {
                 .compareTo(getMaximumVolume()
                         .add(itemAddVolume)
                         .add(equipItemAddVolume.negate())) < 1);
+    }
+
+    /*
+     * применить предмет item
+     */
+    public void useItem(Items item) {
+        if (item.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES) ||
+                item.getInfo().getTypes().contains(ItemTypeEnum.WEAPON)) {
+            equipItem(item);
+        } else if (item.getInfo().getTypes().contains(ItemTypeEnum.EAT) ||
+                item.getInfo().getTypes().contains(ItemTypeEnum.POTION) ||
+                item.getInfo().getTypes().contains(ItemTypeEnum.INGREDIENT)) {
+            eatItem(item);
+        } else if (item.getInfo().getTypes().contains(ItemTypeEnum.BOOK)) {
+            BookPanel.showBookPanel(item.getTypeId());
+        }
+    }
+
+    /*
+     * съесть item
+     */
+    public void eatItem(Items item) {
+        if ((((EdibleInfo) item.getInfo()).getHunger().compareTo(params.getIndicators().get(2).getMaxValue() - params.getIndicators().get(2).getCurrentValue()) < 0) &&
+                (((EdibleInfo) item.getInfo()).getThirst().compareTo(params.getIndicators().get(3).getMaxValue() - params.getIndicators().get(3).getCurrentValue()) < 0)) {
+            params.getIndicators().get(2).setCurrentValue(params.getIndicators().get(2).getCurrentValue() + ((EdibleInfo) item.getInfo()).getHunger());
+            if (params.getIndicators().get(2).getCurrentValue() > params.getIndicators().get(2).getMaxValue()) {
+                params.getIndicators().get(2).setCurrentValue(params.getIndicators().get(2).getMaxValue());
+            }
+            PlayerStatsPanel.getHungerValueLabel().setText(params.getIndicators().get(2).getCurrentValue()  + "/" + params.getIndicators().get(2).getMaxValue());
+
+            params.getIndicators().get(3).setCurrentValue(params.getIndicators().get(3).getCurrentValue() + ((EdibleInfo) item.getInfo()).getThirst());
+            if (params.getIndicators().get(3).getCurrentValue() > params.getIndicators().get(3).getMaxValue()) {
+                params.getIndicators().get(3).setCurrentValue(params.getIndicators().get(3).getMaxValue());
+            }
+            PlayerStatsPanel.getThirstValueLabel().setText(params.getIndicators().get(3).getCurrentValue()  + "/" + params.getIndicators().get(3).getMaxValue());
+
+            deleteItem(item, 1);
+
+            //если после съедения предмета что-то остается, добавляем это в инвентарь
+            if (((EdibleInfo) item.getInfo()).getRemainder() != null) {
+                addItem(new Items(((EdibleInfo) item.getInfo()).getRemainder(), 1));
+            }
+        } else {
+            Game.showMessage(Game.getText("ERROR_CANT_EAT_ITEM"));
+        }
     }
 
     /*

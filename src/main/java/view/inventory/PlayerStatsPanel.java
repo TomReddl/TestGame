@@ -38,15 +38,15 @@ public class PlayerStatsPanel {
     private static final Label styleLabel = new Label(Game.getText("STYLE")); // чистота
 
     @Getter
-    private static final Label healthValueLabel = new Label("100/100"); // здоровье
+    private static final Label healthValueLabel = new Label("50/100"); // здоровье
     @Getter
-    private static final Label staminaValueLabel = new Label("100/100"); // выносливость
+    private static final Label staminaValueLabel = new Label("50/100"); // выносливость
     @Getter
-    private static final Label hungerValueLabel = new Label("100/100"); // голод
+    private static final Label hungerValueLabel = new Label("50/100"); // голод
     @Getter
-    private static final Label thirstValueLabel = new Label("100/100"); // жажда
+    private static final Label thirstValueLabel = new Label("50/100"); // жажда
     @Getter
-    private static final Label cleannessValueLabel = new Label("100/100"); // чистота
+    private static final Label cleannessValueLabel = new Label("50/100"); // чистота
 
     static {
         pane = new Pane();
