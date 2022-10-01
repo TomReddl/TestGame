@@ -1,6 +1,10 @@
 package model.entity.player;
 
+import javafx.scene.paint.Color;
 import lombok.Getter;
+import model.entity.WorldLangEnum;
+import view.Game;
+import view.params.ParamPanel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,7 +13,6 @@ import java.util.List;
 /*
  * Все параметры персонажа
  */
-
 public class ParamsInfo implements Serializable {
     @Getter
     private final List<Parameter> legacy = new ArrayList<>(); // наследия персонажа
@@ -47,5 +50,23 @@ public class ParamsInfo implements Serializable {
             skill.setRealValue(10);
             skills.add(skill);
         }
+    }
+
+    // увеличить навык
+    public void increaseSkill(int skillId, int points) {
+        skills.get(skillId).setCurrentValue(skills.get(skillId).getCurrentValue() + points);
+        if (skills.get(skillId).getCurrentValue() > 100) {
+            skills.get(skillId).setCurrentValue(100);
+        }
+        skills.get(skillId).setRealValue(skills.get(skillId).getRealValue() + points);
+        if (skills.get(skillId).getRealValue() > 100) {
+            skills.get(skillId).setRealValue(100);
+        }
+        ParamPanel.getSkillsLabels().get(skillId).setText(skills.get(skillId).getCurrentValue().toString());
+        Game.showMessage(String.format(
+                Game.getText("INCREASE_SKILL_MESSAGE"),
+                Game.getText(ParamPanel.getSkillsNames().get(skillId) + "_PARAM_NAME"),
+                skills.get(skillId).getCurrentValue().toString()),
+                Color.GREEN);
     }
 }

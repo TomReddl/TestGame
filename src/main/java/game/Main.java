@@ -18,6 +18,7 @@ import model.entity.map.Items;
 import model.entity.map.NPC;
 import model.entity.player.Player;
 import view.Game;
+import view.inventory.BookPanel;
 import view.menu.MainMenu;
 
 import java.util.ArrayList;
@@ -54,18 +55,26 @@ public class Main extends Application {
                     Game.hideMessage();
                     switch (code) {
                         case D: {
-                            if (player.isOverloaded()) {
-                                Game.showMessage(Game.getText("ERROR_OVERLOADED"));
+                            if (BookPanel.getPane().isVisible()) {
+                                BookPanel.showNextPage();
                             } else {
-                                heroMoveRight(player);
+                                if (player.isOverloaded()) {
+                                    Game.showMessage(Game.getText("ERROR_OVERLOADED"));
+                                } else {
+                                    heroMoveRight(player);
+                                }
                             }
                             break;
                         }
                         case A: {
-                            if (player.isOverloaded()) {
-                                Game.showMessage(Game.getText("ERROR_OVERLOADED"));
+                            if (BookPanel.getPane().isVisible()) {
+                                BookPanel.showPreviousPage();
                             } else {
-                                heroMoveLeft(player);
+                                if (player.isOverloaded()) {
+                                    Game.showMessage(Game.getText("ERROR_OVERLOADED"));
+                                } else {
+                                    heroMoveLeft(player);
+                                }
                             }
                             break;
                         }
@@ -92,6 +101,7 @@ public class Main extends Application {
                         }
                         case I: {
                             Game.getGameMenu().showGameMenuPanel("0");
+                            BookPanel.closeBookPanel();
                             break;
                         }
                         case C: {
@@ -100,36 +110,41 @@ public class Main extends Application {
                         }
                         case P: {
                             Game.getGameMenu().showGameMenuPanel("1");
+                            BookPanel.closeBookPanel();
                             break;
                         }
                         case E: {
-                            Robot robot = new Robot();
-                            int x = ((int) (robot.getMousePosition().getX() - primaryStage.getX()) / tileSize);
-                            int y = ((int) (robot.getMousePosition().getY() - primaryStage.getY() - headerSize) / tileSize);
-                            if (isReachable(player, x, y)) {
-                                List<Items> itemsList = Game.getMap().getTiles()[player.getXMapPos() + x]
-                                        [player.getYMapPos() + y].getItems();
-                                if (itemsList != null) {
-                                    List<Items> removeList = new ArrayList<>();
-                                    for (Items items : itemsList) {
-                                        if (Game.getMap().getPlayer().addItem(items)) {
-                                            removeList.add(items);
-                                        } else {
-                                            break;
+                            if (BookPanel.getPane().isVisible()) {
+                                BookPanel.closeBookPanel();
+                            } else {
+                                Robot robot = new Robot();
+                                int x = ((int) (robot.getMousePosition().getX() - primaryStage.getX()) / tileSize);
+                                int y = ((int) (robot.getMousePosition().getY() - primaryStage.getY() - headerSize) / tileSize);
+                                if (isReachable(player, x, y)) {
+                                    List<Items> itemsList = Game.getMap().getTiles()[player.getXMapPos() + x]
+                                            [player.getYMapPos() + y].getItems();
+                                    if (itemsList != null) {
+                                        List<Items> removeList = new ArrayList<>();
+                                        for (Items items : itemsList) {
+                                            if (Game.getMap().getPlayer().addItem(items)) {
+                                                removeList.add(items);
+                                            } else {
+                                                break;
+                                            }
                                         }
-                                    }
-                                    Game.getMap().getTiles()[player.getXMapPos() + x]
-                                            [player.getYMapPos() + y].getItems().removeAll(removeList);
-                                    if (Game.getMap().getTiles()[player.getXMapPos() + x]
-                                            [player.getYMapPos() + y].getItems().size() == 0) {
                                         Game.getMap().getTiles()[player.getXMapPos() + x]
-                                                [player.getYMapPos() + y].setItems(null);
+                                                [player.getYMapPos() + y].getItems().removeAll(removeList);
+                                        if (Game.getMap().getTiles()[player.getXMapPos() + x]
+                                                [player.getYMapPos() + y].getItems().size() == 0) {
+                                            Game.getMap().getTiles()[player.getXMapPos() + x]
+                                                    [player.getYMapPos() + y].setItems(null);
+                                        } else {
+                                            Game.showMessage(Game.getText("ERROR_INVENTORY_SPACE"));
+                                        }
+                                        Game.getMap().drawTile(player.getXMapPos(), player.getYMapPos(), x, y);
                                     } else {
-                                        Game.showMessage(Game.getText("ERROR_INVENTORY_SPACE"));
+                                        Game.getMap().interactionWithMap(player.getXMapPos(), player.getYMapPos(), x, y);
                                     }
-                                    Game.getMap().drawTile(player.getXMapPos(), player.getYMapPos(), x, y);
-                                } else {
-                                    Game.getMap().interactionWithMap(player.getXMapPos(), player.getYMapPos(), x, y);
                                 }
                             }
                         }

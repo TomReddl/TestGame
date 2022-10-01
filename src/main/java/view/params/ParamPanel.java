@@ -48,6 +48,12 @@ public class ParamPanel {
     private static final List<String> characteristicsNames = new ArrayList<>();
     @Getter
     private static final List<String> skillsNames = new ArrayList<>();
+    @Getter
+    private static final List<Label> legacyLabels = new ArrayList<>();
+    @Getter
+    private static final List<Label> characteristicsLabels = new ArrayList<>();
+    @Getter
+    private static final List<Label> skillsLabels = new ArrayList<>();
 
     static {
         legacyNames.add("HAN");
@@ -149,6 +155,7 @@ public class ParamPanel {
                 j += 18;
             }
             var paramRecord = new ParamRecord(skillParam, i, skill);
+            skillsLabels.add((Label) paramRecord.getBox().getChildrenUnmodifiable().get(1));
             paramRecord.getBox().setLayoutY((i++) * 18 + j);
             skillsPane.getChildren().add(paramRecord.getBox());
         }

@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import lombok.Getter;
 import view.Game;
+import view.inventory.BookPanel;
 import view.params.ParamPanel;
 
 /*

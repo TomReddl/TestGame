@@ -49,7 +49,12 @@ public class Player implements Serializable {
     private DirectionEnum direction; // направление движения персонажа
 
     @JsonProperty("params")
+    @Getter
     private ParamsInfo params = new ParamsInfo(); // параметры персонажа
+
+    @JsonProperty("params")
+    @Getter
+    private KnowledgeInfo knowledgeInfo = new KnowledgeInfo(); // Известная персонажу информация
 
     @JsonProperty("inventory")
     private List<Items> inventory = new ArrayList<>(); // вещи в рюкзаке персонажа
@@ -312,8 +317,10 @@ public class Player implements Serializable {
                 }
             }
 
-            Game.getInventory().drawItems(InventoryPanel.SortType.NAME, Boolean.FALSE,
-                    Game.getInventory().getTabPane().getSelectionModel().getSelectedItem().getText());
+            if (GameMenuPanel.getPane().isVisible()) {
+                Game.getInventory().drawItems(InventoryPanel.SortType.NAME, Boolean.FALSE,
+                        Game.getInventory().getTabPane().getSelectionModel().getSelectedItem().getText());
+            }
 
             drawPlayerImage(Game.getMap().getPlayer());
 

@@ -50,9 +50,9 @@ public class ItemRecord {
             pane.getChildren().add(brokenItemIcon);
         }
 
+        var cutName = itemInfo.getName().length() > 28 ? itemInfo.getName().substring(0, 25).concat("... ") : itemInfo.getName();
         var nameText = items.getCount() > 1 ?
-                (itemInfo.getName() + " (" + items.getCount() + ")") :
-                itemInfo.getName();
+                (cutName + " (" + items.getCount() + ")") : cutName;
         nameLabel = new Label(nameText);
         nameLabel.setLayoutX(tileSize + 5);
         nameLabel.setLayoutY(10);

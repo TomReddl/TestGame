@@ -198,8 +198,6 @@ public class InventoryPanel {
         root.getChildren().add(ItemDetailPanel.getPane());
         root.getChildren().add(PlayerStatsPanel.getPane());
         root.getChildren().add(BookPanel.getPane());
-
-        drawItems(SortType.NAME, descending, tabPane.getSelectionModel().getSelectedItem().getText());
     }
 
     public static void setWeightText() {
@@ -257,8 +255,8 @@ public class InventoryPanel {
     }
 
     public void show(Boolean show) {
-        Game.getInventory().drawItems(SortType.NAME, Boolean.FALSE,
-                Game.getInventory().getTabPane().getSelectionModel().getSelectedItem().getText());
+        drawItems(SortType.NAME, Boolean.FALSE,
+                tabPane.getSelectionModel().getSelectedItem().getText());
 
         setWeightText();
         setVolumeText();

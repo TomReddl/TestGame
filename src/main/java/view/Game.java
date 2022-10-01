@@ -44,7 +44,7 @@ public class Game {
         warningLabel.setLayoutX(50);
         warningLabel.setLayoutY(610);
         warningLabel.setVisible(Boolean.FALSE);
-        warningLabel.setTextFill(Color.web("#FF0000"));
+        warningLabel.setTextFill(Color.RED);
         root.getChildren().add(warningLabel);
 
         loadTranslations();
@@ -220,7 +220,12 @@ public class Game {
         return effectsProperties.getProperty(strId);
     }
 
-    public static void showMessage(String message) {
+    public static void showMessage(String message, Color... color) {
+        if (color.length > 0) {
+            warningLabel.setTextFill(color[0]);
+        } else {
+            warningLabel.setTextFill(Color.RED);
+        }
         warningLabel.setVisible(Boolean.TRUE);
         warningLabel.setText(message);
     }
