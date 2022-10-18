@@ -2,6 +2,9 @@ package model.editor.items;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
  * Список частей тела, на которые можно надеть какую-то одежду
  */
@@ -25,5 +28,13 @@ public enum BodyPartEnum {
 
     BodyPartEnum(String desc) {
         this.desc = desc;
+    }
+
+    public static List<String> getCodes() {
+        List<String> codes = new ArrayList<>();
+        for (BodyPartEnum value : BodyPartEnum.values()) {
+            codes.add(value.name());
+        }
+        return codes;
     }
 }

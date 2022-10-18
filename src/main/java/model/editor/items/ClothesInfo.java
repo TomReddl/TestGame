@@ -13,7 +13,6 @@ import java.util.List;
 @Getter
 public class ClothesInfo extends ItemInfo {
     private Integer armor; // базовая броня
-    private Integer maxStrength; // Максимальная прочность
     private Integer skill; // навык, отвечающий за ношение данной одежды
     private String bodyPart; // часть тела, на которую надевается одежда
     private Integer covering; // уровень покрытия тела

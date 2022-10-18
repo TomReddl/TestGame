@@ -10,10 +10,8 @@ import model.editor.items.ClothesInfo;
 import model.editor.items.EdibleInfo;
 import model.editor.items.ItemInfo;
 import model.editor.items.WeaponInfo;
-import model.entity.map.Items;
 import model.entity.map.Map;
 import lombok.experimental.UtilityClass;
-import view.Game;
 
 import java.io.File;
 import java.time.ZonedDateTime;

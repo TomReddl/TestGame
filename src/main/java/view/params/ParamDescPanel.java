@@ -21,13 +21,13 @@ public class ParamDescPanel {
         pane.setLayoutX(705);
         pane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
         pane.setStyle("-fx-border-color:black;");
-        pane.setVisible(Boolean.FALSE);
+        pane.setVisible(false);
 
         descLabel = new Label();
         descLabel.setLayoutX(5);
         descLabel.setLayoutY(5);
         descLabel.setMaxWidth(140);
-        descLabel.setWrapText(Boolean.TRUE);
+        descLabel.setWrapText(true);
         pane.getChildren().add(descLabel);
         ParamPanel.getPane().getChildren().add(pane);
     }
@@ -43,10 +43,10 @@ public class ParamDescPanel {
             pane.setLayoutX(box.getLayoutX());
         }
         pane.setMaxHeight(descLabel.getHeight() + 10);
-        pane.setVisible(Boolean.TRUE);
+        pane.setVisible(true);
     }
 
     public static void hideDetailPanel() {
-        pane.setVisible(Boolean.FALSE);
+        pane.setVisible(false);
     }
 }

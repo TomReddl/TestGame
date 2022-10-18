@@ -188,5 +188,335 @@
     "id": 37,
     "strength": 0,
     "passability": true
+  },
+  {
+    "id": 38,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 39,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 40,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 41,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 42,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 43,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 44,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 45,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 46,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 47,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 48,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 49,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 50,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 51,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 52,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 53,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 54,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 55,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 56,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 57,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 58,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 59,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 60,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 61,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 62,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 63,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 64,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 65,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 66,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 67,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 68,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 69,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 70,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 71,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 72,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 73,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 74,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 75,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 76,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 77,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 78,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 79,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 80,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 81,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 82,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 83,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 84,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 85,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 86,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 87,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 88,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 89,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 90,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 91,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 92,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 93,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 94,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 95,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 96,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 97,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 98,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 99,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 100,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 101,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 102,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 103,
+    "strength": 0,
+    "passability": true
   }
 ]

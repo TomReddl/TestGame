@@ -87,6 +87,20 @@
     ]
   },
   {
+    "id": 16,
+    "weight": "50",
+    "volume": "100",
+    "price": "0",
+    "stackable": true,
+    "taste": 1,
+    "hunger": 1,
+    "thirst": 0,
+    "types": [
+      "EAT",
+      "TRASH"
+    ]
+  },
+  {
     "id": 34,
     "weight": "1500",
     "volume": "2000",

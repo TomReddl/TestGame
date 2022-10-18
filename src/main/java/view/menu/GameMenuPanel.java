@@ -11,9 +11,11 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import lombok.Getter;
+import model.entity.map.Items;
 import view.Game;
-import view.inventory.BookPanel;
 import view.params.ParamPanel;
+
+import java.util.List;
 
 /*
  * Панель игрового меню, объединяет панели инвентаря и параметров персонажа
@@ -30,11 +32,11 @@ public class GameMenuPanel {
         pane.setLayoutX(210);
         pane.setLayoutY(5);
         pane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
-        pane.setVisible(Boolean.FALSE);
+        pane.setVisible(false);
 
         closeMenuButton.setLayoutX(550);
-        closeMenuButton.setOnMousePressed(event -> setPanelsVisible(Boolean.FALSE));
-        closeMenuButton.setVisible(Boolean.TRUE);
+        closeMenuButton.setOnMousePressed(event -> setPanelsVisible(false));
+        closeMenuButton.setVisible(true);
         pane.getChildren().add(closeMenuButton);
 
         tabPane.setPrefSize(550, 490);
@@ -44,13 +46,13 @@ public class GameMenuPanel {
         tabPane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
 
         var tab = new Tab(Game.getText("INVENTORY"));
-        tab.setClosable(Boolean.FALSE);
+        tab.setClosable(false);
         tab.setContent(Game.getInventory().getTabPane());
         tab.setId("0");
         tabPane.getTabs().add(tab);
 
         tab = new Tab(Game.getText("PARAMS"));
-        tab.setClosable(Boolean.FALSE);
+        tab.setClosable(false);
         tab.setContent(ParamPanel.getPane());
         tab.setId("1");
         tabPane.getTabs().add(tab);
@@ -59,18 +61,29 @@ public class GameMenuPanel {
         root.getChildren().add(pane);
     }
 
+    // Показать панель внутриигрового меню (инвентарь, параметры, индикаторы персонажа)
     public void showGameMenuPanel(String tabName) {
         if (!GameMenuPanel.getPane().isVisible()) {
-            setPanelsVisible(Boolean.TRUE);
+            setPanelsVisible(true);
         } else if (GameMenuPanel.getTabPane().getSelectionModel().getSelectedItem().getId().equals(tabName)) {
-            setPanelsVisible(Boolean.FALSE);
+            setPanelsVisible(false);
         }
         GameMenuPanel.getTabPane().getSelectionModel().select(Integer.parseInt(tabName));
     }
 
+    public void showContainerInventory(List<Items> itemsList, int x, int y) {
+        showGameMenuPanel("0");
+        Game.getContainerInventory().show(itemsList, x, y);
+    }
+
     private void setPanelsVisible(Boolean show) {
         GameMenuPanel.getPane().setVisible(show);
-        Game.getInventory().show(show);
-        Game.getParams().show(show);
+        if (show) {
+            Game.getInventory().show(Game.getMap().getPlayer().getInventory(), 0, 0);
+            Game.getParams().refreshParamsValueViews();
+        } else {
+            Game.getInventory().hide();
+            Game.getContainerInventory().hide();
+        }
     }
 }

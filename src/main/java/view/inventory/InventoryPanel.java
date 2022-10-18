@@ -1,11 +1,8 @@
 package view.inventory;
 
+import controller.ItemsController;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -16,6 +13,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import lombok.Getter;
+import model.editor.items.BodyPartEnum;
+import model.editor.items.ClothesInfo;
 import model.entity.ItemTypeEnum;
 import model.entity.map.Items;
 import view.Game;
@@ -26,39 +25,20 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static view.params.GameParams.tileSize;
+import static game.GameParams.tileSize;
 
 /*
- * Инвентарь
+ * Панель инвентаря
  */
 public class InventoryPanel {
-    @Getter
-    private final TabPane tabPane = new TabPane();
-    private final Map<String, Tab> tabHolder = new HashMap<>();
-    private final ScrollPane scrollPane = new ScrollPane();
-    private final Pane pane = new Pane();
-    private final Pane outerPane = new Pane();
-    private final Label itemNameLabel = new Label(Game.getText("NAME"));
-    private final ImageView sortNameImage = new ImageView("/graphics/gui/Sort1.png");
-    private final ImageView sortWeightImage = new ImageView("/graphics/gui/Sort1.png");
-    private final ImageView sortVolumeImage = new ImageView("/graphics/gui/Sort1.png");
-    private final ImageView sortPriceImage = new ImageView("/graphics/gui/Sort1.png");
-    @Getter
-    private static final Label typeLabel = new Label(Game.getText("TYPE"));
-    @Getter
-    private static final Label weightLabel = new Label(Game.getText("WEIGHT") + " " + Game.getText("KG"));
-    @Getter
-    private static final Label volumeLabel = new Label(Game.getText("VOLUME") + " " + Game.getText("LITERS"));
-    @Getter
-    private static final Label priceLabel = new Label(Game.getText("PRICE"));
-    private static final Label totalWeightLabel = new Label(Game.getText("TOTAL_WEIGHT"));
-    private static final Label totalVolumeLabel = new Label(Game.getText("TOTAL_VOLUME"));
 
-    private Boolean descending = Boolean.TRUE;
-    private List<Items> inventory = Game.getMap().getPlayer().getInventory();
+    // Тип инвентаря
+    public enum InventoryTypeEnum {
+        PLAYER, // инвентарь персонажа игрока
+        CONTAINER; // инвентарь контейнера или торговца
+    }
 
-    private static final DecimalFormat formatter = new DecimalFormat("###,###.###");
-
+    // Тип сортировки
     public enum SortType {
         NAME("Имя"),
         PRICE("Цена"),
@@ -73,22 +53,59 @@ public class InventoryPanel {
         }
     }
 
-    public InventoryPanel(Group root) {
-        tabPane.setLayoutX(210);
+    @Getter
+    private final TabPane tabPane = new TabPane();
+    private final Map<String, Tab> tabHolder = new HashMap<>();
+    private final ScrollPane scrollPane = new ScrollPane();
+    private final Pane pane = new Pane();
+    private final Pane outerPane = new Pane();
+    private final Label itemNameLabel = new Label(Game.getText("NAME"));
+    private final ImageView sortNameImage = new ImageView("/graphics/gui/Sort2.png");
+    private final ImageView sortWeightImage = new ImageView("/graphics/gui/Sort1.png");
+    private final ImageView sortVolumeImage = new ImageView("/graphics/gui/Sort1.png");
+    private final ImageView sortPriceImage = new ImageView("/graphics/gui/Sort1.png");
+    private final Button takeAllButton = new Button(Game.getText("TAKE_ALL"));
+    @Getter
+    private static final Label typeLabel = new Label(Game.getText("TYPE"));
+    @Getter
+    private static final Label weightLabel = new Label(Game.getText("WEIGHT") + " " + Game.getText("KG"));
+    @Getter
+    private static final Label volumeLabel = new Label(Game.getText("VOLUME") + " " + Game.getText("LITERS"));
+    @Getter
+    private static final Label priceLabel = new Label(Game.getText("PRICE"));
+    private static final Label totalWeightLabel = new Label(Game.getText("TOTAL_WEIGHT"));
+    private static final Label totalVolumeLabel = new Label(Game.getText("TOTAL_VOLUME"));
+
+    private Boolean descending = Boolean.FALSE;
+    @Getter
+    private List<Items> items = Game.getMap().getPlayer().getInventory();
+    @Getter
+    private int x; // координаты нужны для панели инвентаря контейнера, чтобы перерисовывать тайл, если игрок забирает с него все предметы
+    @Getter
+    private int y;
+    private InventoryTypeEnum inventoryType; // текущий тип инвентаря
+
+    private static final DecimalFormat formatter = new DecimalFormat("###,###.###");
+
+    public InventoryPanel(double XPos, InventoryTypeEnum type) {
+        inventoryType = type;
+        tabPane.setLayoutX(XPos);
         tabPane.setLayoutY(5);
         tabPane.setPrefSize(550, 450);
         tabPane.setMinHeight(350);
         tabPane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        for (ItemTypeEnum itemType : ItemTypeEnum.values()) {
+        for (ItemTypeEnum itemType : ItemTypeEnum.getItemTypesForFilter()) {
             var tab = new Tab(itemType.getDesc());
-            tab.setClosable(Boolean.FALSE);
+            tab.setClosable(false);
             tabHolder.put(itemType.getDesc(), tab);
         }
 
-        var tab = new Tab(Game.getText("EQUIPPED"));
-        tab.setClosable(Boolean.FALSE);
-        tabHolder.put(Game.getText("EQUIPPED"), tab);
+        if (inventoryType.equals(InventoryTypeEnum.PLAYER)) {
+            var tab = new Tab(Game.getText("EQUIPPED"));
+            tab.setClosable(false);
+            tabHolder.put(Game.getText("EQUIPPED"), tab);
+        }
 
         filterInventoryTabs(tabPane.getSelectionModel().getSelectedItem());
 
@@ -171,15 +188,23 @@ public class InventoryPanel {
 
         outerPane.getChildren().add(scrollPane);
 
-        totalWeightLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
-        totalWeightLabel.setLayoutY(405);
-        totalWeightLabel.setLayoutX(10);
-        outerPane.getChildren().add(totalWeightLabel);
+        if (inventoryType.equals(InventoryTypeEnum.PLAYER)) {
+            totalWeightLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+            totalWeightLabel.setLayoutY(405);
+            totalWeightLabel.setLayoutX(10);
+            outerPane.getChildren().add(totalWeightLabel);
 
-        totalVolumeLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
-        totalVolumeLabel.setLayoutY(405);
-        totalVolumeLabel.setLayoutX(180);
-        outerPane.getChildren().add(totalVolumeLabel);
+            totalVolumeLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+            totalVolumeLabel.setLayoutY(405);
+            totalVolumeLabel.setLayoutX(180);
+            outerPane.getChildren().add(totalVolumeLabel);
+        } else {
+            scrollPane.setMaxHeight(380);
+            takeAllButton.setLayoutX(10);
+            takeAllButton.setLayoutY(395);
+            takeAllButton.setOnAction(event -> ItemsController.takeAllItems());
+            outerPane.getChildren().add(takeAllButton);
+        }
 
         tabPane.getTabs().get(0).setContent(outerPane);
 
@@ -195,9 +220,10 @@ public class InventoryPanel {
                 }
         );
 
-        root.getChildren().add(ItemDetailPanel.getPane());
-        root.getChildren().add(PlayerStatsPanel.getPane());
-        root.getChildren().add(BookPanel.getPane());
+        if (inventoryType.equals(InventoryTypeEnum.CONTAINER)) {
+            tabPane.setVisible(false);
+            Game.getRoot().getChildren().add(tabPane);
+        }
     }
 
     public static void setWeightText() {
@@ -228,11 +254,19 @@ public class InventoryPanel {
         if (Game.getText("EQUIPPED").equals(selectType)) {
             pane.getChildren().remove(pane.getChildren().indexOf(sortPriceImage) + 1, pane.getChildren().size());
 
-            var wearingItems = inventory.stream()
-                    .filter(Items::isEquipment).sorted(descending ? comparator : comparator.reversed())
+            var wearingItems = items.stream()
+                    .filter(Items::isEquipment).sorted(descending ? comparator.reversed() : comparator)
                     .collect(Collectors.toList());
+            List<String> nudeBodyParts = BodyPartEnum.getCodes();
             for (Items items : wearingItems) {
+                nudeBodyParts.remove(((ClothesInfo) items.getInfo()).getBodyPart());
                 var itemRecord = new ItemRecord(items, selectType);
+                itemRecord.getPane().setLayoutY(++i * tileSize);
+                pane.getChildren().add(itemRecord.getPane());
+            }
+
+            for (String bodyPart : nudeBodyParts) {
+                var itemRecord = new ItemRecord(bodyPart);
                 itemRecord.getPane().setLayoutY(++i * tileSize);
                 pane.getChildren().add(itemRecord.getPane());
             }
@@ -240,9 +274,9 @@ public class InventoryPanel {
             ItemTypeEnum type = ItemTypeEnum.getItemTypeByCode(selectType);
             pane.getChildren().remove(pane.getChildren().indexOf(sortPriceImage) + 1, pane.getChildren().size());
 
-            inventory.sort(
-                    descending ? comparator : comparator.reversed());
-            for (Items items : inventory) {
+            items.sort(
+                    descending ? comparator.reversed() : comparator);
+            for (Items items : items) {
                 List<ItemTypeEnum> types = items.getInfo().getTypes();
                 if (types != null && (types.contains(type) || ItemTypeEnum.ALL.equals(type))) {
                     var itemRecord = new ItemRecord(items, selectType);
@@ -251,17 +285,28 @@ public class InventoryPanel {
                 }
             }
         }
-        pane.setMinHeight(40 * (i+1));
+        pane.setMinHeight(40 * (i + 1));
     }
 
-    public void show(Boolean show) {
-        drawItems(SortType.NAME, Boolean.FALSE,
+    private void refreshInventory() {
+        drawItems(SortType.NAME, false,
                 tabPane.getSelectionModel().getSelectedItem().getText());
-
         setWeightText();
         setVolumeText();
+    }
 
-        PlayerStatsPanel.getPane().setVisible(show);
+    public void show(List<Items> itemsList, int x, int y) {
+        this.x = x;
+        this.y = y;
+        items = itemsList;
+        refreshInventory();
+        tabPane.setVisible(true);
+        PlayerIndicatorsPanel.showPanel(true);
+    }
+
+    public void hide() {
+        tabPane.setVisible(false);
+        PlayerIndicatorsPanel.showPanel(false);
     }
 
     /*
@@ -270,12 +315,12 @@ public class InventoryPanel {
     public void filterInventoryTabs(Tab selectTab) {
         tabPane.getTabs().clear();
 
-        for (ItemTypeEnum itemType : ItemTypeEnum.values()) {
-            boolean found = Boolean.FALSE;
-            for (Items items : inventory) {
+        for (ItemTypeEnum itemType : ItemTypeEnum.getItemTypesForFilter()) {
+            var found = false;
+            for (Items items : items) {
                 List<ItemTypeEnum> types = items.getInfo().getTypes();
                 if (types != null && (types.contains(itemType) || ItemTypeEnum.ALL.equals(itemType))) {
-                    found = Boolean.TRUE;
+                    found = true;
                     break;
                 }
             }
@@ -287,7 +332,9 @@ public class InventoryPanel {
         if (tabPane.getTabs().isEmpty()) {
             tabPane.getTabs().add(0, tabHolder.get(ItemTypeEnum.ALL.getDesc()));
         }
-        tabPane.getTabs().add(1, tabHolder.get(Game.getText("EQUIPPED")));
+        if (inventoryType.equals(InventoryTypeEnum.PLAYER)) {
+            tabPane.getTabs().add(1, tabHolder.get(Game.getText("EQUIPPED")));
+        }
         if (tabPane.getTabs().contains(selectTab)) {
             tabPane.getSelectionModel().select(selectTab);
         } else {

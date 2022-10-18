@@ -5,9 +5,7 @@ import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
-import model.editor.TileInfo;
 import model.editor.TileTypeEnum;
-import model.editor.items.ItemInfo;
 import model.entity.GameModeEnum;
 import model.entity.player.Player;
 import view.Editor;
@@ -17,7 +15,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static view.params.GameParams.*;
+import static game.GameParams.*;
 
 /*
  * Карта мира со всеми персонажами и предметами на ней
@@ -63,9 +61,14 @@ public class Map implements Serializable {
         }
     }
 
-    public void drawTile(int Xpos, int YPos, int x, int y) {
-        drawBottomLayer(Xpos, YPos, x, y);
-        drawUpperLayer(Xpos, YPos, x, y);
+    /** Нарисовать тайл
+     *
+     * @param x -координата тайла по горизонтали
+     * @param y -координата тайла по вертикали
+     */
+    public void drawTile(Player player, int x, int y) {
+        drawBottomLayer(player.getXMapPos(), player.getYMapPos(), x, y);
+        drawUpperLayer(player.getXMapPos(), player.getYMapPos(), x, y);
     }
 
     public void addItemOnMap(int x, int y, Items addedItems) {
@@ -91,27 +94,14 @@ public class Map implements Serializable {
         }
     }
 
-    public void interactionWithMap(int Xpos, int YPos, int x, int y) {
-        Editor editor = Game.getEditor();
-        TileInfo tileInfo = editor.getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id());
-        if (tileInfo.getType() != null) {
-            switch (TileTypeEnum.valueOf(tileInfo.getType())) {
-                case DOOR: {
-                    tiles[Xpos + x][YPos + y].setTile2Id(Integer.parseInt(tileInfo.getParams().get(0)));
-                    break;
-                }
-            }
-            Game.getMap().drawTile(Xpos, YPos, x, y);
-        }
-    }
-
     // отрисовка нижнего уровня тайла
     private void drawBottomLayer(int Xpos, int YPos, int x, int y) {
         Editor editor = Game.getEditor();
         GraphicsContext gc = editor.getCanvas().getGraphicsContext2D();
+        var mapCellInfo = tiles[Xpos + x][YPos + y];
 
-        var tileInfo1 = editor.getTiles1().get(tiles[Xpos + x][YPos + y].getTile1Id());
-        var tileInfo2 = editor.getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id());
+        var tileInfo1 = editor.getTiles1().get(mapCellInfo.getTile1Id());
+        var tileInfo2 = editor.getTiles2().get(mapCellInfo.getTile2Id());
 
         gc.drawImage(tileInfo1.getImage().getImage(),
                 x * tileSize, y * tileSize);
@@ -119,17 +109,17 @@ public class Map implements Serializable {
                 x * tileSize, y * tileSize);
 
         // загрязнение на тайле
-        if (tiles[Xpos + x][YPos + y].getPollutionId() != 0) {
-            gc.drawImage(editor.getPollutions().get(tiles[Xpos + x][YPos + y].getPollutionId()).getImage().getImage(),
+        if (mapCellInfo.getPollutionId() != 0) {
+            gc.drawImage(editor.getPollutions().get(mapCellInfo.getPollutionId()).getImage().getImage(),
                     x * tileSize, y * tileSize);
         }
 
         // предметы
         if (tileInfo2.getType() == null || !(tileInfo2.getType().equals(TileTypeEnum.CONTAINER.toString()))) {
-            if (tiles[Xpos + x][YPos + y].getItems() != null) {
-                if (tiles[Xpos + x][YPos + y].getItems().size() == 1) {
+            if (mapCellInfo.getItems() != null) {
+                if (mapCellInfo.getItems().size() == 1) {
                     gc.drawImage(editor.getItems().get(
-                            tiles[Xpos + x][YPos + y].getItems().get(0).getTypeId()).getImage().getImage(),
+                            mapCellInfo.getItems().get(0).getTypeId()).getImage().getImage(),
                             x * tileSize, y * tileSize);
                 } else { // если на тайле больше 1 предмета, рисуем мешок
                     gc.drawImage(bag.getImage(),
@@ -143,18 +133,19 @@ public class Map implements Serializable {
     private void drawUpperLayer(int Xpos, int YPos, int x, int y) {
         Editor editor = Game.getEditor();
         GraphicsContext gc = editor.getCanvas().getGraphicsContext2D();
+        var mapCellInfo = tiles[Xpos + x][YPos + y];
 
         // NPC
-        if (tiles[Xpos + x][YPos + y].getNpcId() != null) {
+        if (mapCellInfo.getNpcId() != null) {
             gc.drawImage(editor.getNpcs().get(npcList.get(
-                    tiles[Xpos + x][YPos + y].getNpcId()).getNpcTypeId()).getImage().getImage(),
+                    mapCellInfo.getNpcId()).getNpcTypeId()).getImage().getImage(),
                     x * tileSize, y * tileSize);
         }
 
         // существа
-        if (tiles[Xpos + x][YPos + y].getCreatureId() != null) {
+        if (mapCellInfo.getCreatureId() != null) {
             gc.drawImage(editor.getCreatures().get(
-                    creaturesList.get(tiles[Xpos + x][YPos + y].getCreatureId()).getCreatureTypeId()).getImage().getImage(),
+                    creaturesList.get(mapCellInfo.getCreatureId()).getCreatureTypeId()).getImage().getImage(),
                     x * tileSize, y * tileSize);
         }
 
@@ -166,16 +157,16 @@ public class Map implements Serializable {
         }
 
         // если у тайла есть верхний уровень, рисуем его поверх персонажа или NPC
-        if (editor.getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id()).isTwoLayer()) {
-            gc.drawImage(editor.getTiles2().get(tiles[Xpos + x][YPos + y].getTile2Id()).getUpLayerImage().getImage(),
+        if (editor.getTiles2().get(mapCellInfo.getTile2Id()).isTwoLayer()) {
+            gc.drawImage(editor.getTiles2().get(mapCellInfo.getTile2Id()).getUpLayerImage().getImage(),
                     x * tileSize, y * tileSize);
         }
 
         // Если включено отображение зон, то рисуем их поверх всего
         if (Game.getGameMode().equals(GameModeEnum.EDITOR) &&
                 editor.isShowZones() &&
-                (tiles[Xpos + x][YPos + y].getZoneId() != 0)) {
-            gc.drawImage(editor.getZones().get(tiles[Xpos + x][YPos + y].getZoneId()).getImage().getImage(),
+                (mapCellInfo.getZoneId() != 0)) {
+            gc.drawImage(editor.getZones().get(mapCellInfo.getZoneId()).getImage().getImage(),
                     x * tileSize, y * tileSize);
         }
     }

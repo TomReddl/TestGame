@@ -13,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import lombok.Getter;
 import model.entity.player.Parameter;
+import model.entity.player.ParamsInfo;
 import view.Game;
 
 import java.util.ArrayList;
@@ -110,6 +111,7 @@ public class ParamPanel {
         var i = 0;
         for (Parameter legacyParam : Game.getMap().getPlayer().getParams().getLegacy()) {
             var paramRecord = new ParamRecord(legacyParam, i, legacy);
+            legacyLabels.add((Label) paramRecord.getBox().getChildrenUnmodifiable().get(1));
             paramRecord.getBox().setLayoutY(20 + (i++) * 18);
             pane.getChildren().add(paramRecord.getBox());
         }
@@ -122,6 +124,7 @@ public class ParamPanel {
         i = 0;
         for (Parameter getCharacteristicParam : Game.getMap().getPlayer().getParams().getCharacteristics()) {
             var paramRecord = new ParamRecord(getCharacteristicParam, i, characteristic);
+            characteristicsLabels.add((Label) paramRecord.getBox().getChildrenUnmodifiable().get(1));
             paramRecord.getBox().setLayoutY(150 + (i++) * 18);
             pane.getChildren().add(paramRecord.getBox());
         }
@@ -164,7 +167,17 @@ public class ParamPanel {
         root.getChildren().add(pane);
     }
 
-    public void show(Boolean show) {
-        //TODO обновлять отображение параметров
+    // обновить показываемые значения параметров персонажа
+    public void refreshParamsValueViews() {
+        ParamsInfo paramsInfo = Game.getMap().getPlayer().getParams();
+        for (int i = 0; i < 6; i++) {
+            legacyLabels.get(i).setText(paramsInfo.getLegacy().get(i).getCurrentValue().toString());
+        }
+        for (int i = 0; i < 6; i++) {
+            characteristicsLabels.get(i).setText(paramsInfo.getCharacteristics().get(i).getCurrentValue().toString());
+        }
+        for (int i = 0; i < 24; i++) {
+            skillsLabels.get(i).setText(paramsInfo.getSkills().get(i).getCurrentValue().toString());
+        }
     }
 }

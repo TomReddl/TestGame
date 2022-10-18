@@ -1,5 +1,6 @@
 package view.inventory;
 
+import controller.CharactersController;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -13,7 +14,7 @@ import model.entity.WorldLangEnum;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import view.Game;
-import view.params.GameParams;
+import game.GameParams;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -121,17 +122,19 @@ public class BookPanel {
         closeLabel.setOnMouseClicked(event -> closeBookPanelAndShowInvent());
         closeLabel.setTextFill(Color.BLACK);
         pane.getChildren().add(closeLabel);
+
+        Game.getRoot().getChildren().add(pane);
     }
 
     public static void showBookPanel(int bookTypeId) {
         currentPageNumber = 1;
-        BookPanel.getPane().setVisible(true);
+        pane.setVisible(true);
         Game.getGameMenu().showGameMenuPanel("0");
         loadBook(bookTypeId);
     }
 
     public static void closeBookPanelAndShowInvent() {
-        BookPanel.getPane().setVisible(false);
+        pane.setVisible(false);
         Game.getGameMenu().showGameMenuPanel("0");
         Game.hideMessage();
     }
@@ -162,7 +165,7 @@ public class BookPanel {
                     var increaseSkill = document.getElementsByTagName("increaseSkill").item(0);
                     if (increaseSkill != null &&
                             !Game.getMap().getPlayer().getKnowledgeInfo().getReadBooks().contains(bookTypeId)) {
-                        Game.getMap().getPlayer().getParams().increaseSkill(Integer.parseInt(increaseSkill.getTextContent()), 1);
+                        CharactersController.increaseSkill(Integer.parseInt(increaseSkill.getTextContent()), 1);
                     }
 
                     // добавляем книгу в список прочтенных

@@ -1,39 +1,70 @@
 package model.entity;
 
-import view.Game;
 import lombok.Getter;
 import lombok.Setter;
+import view.Game;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /*
-* Тип предмета
-* */
+ * Тип предмета
+ * */
 public enum ItemTypeEnum {
-  ALL(Game.getText("ALL")),
-  EAT(Game.getText("EAT")),
-  CLOTHES(Game.getText("CLOTHES")),
-  WEAPON(Game.getText("WEAPON")),
-  RESOURCE(Game.getText("RESOURCE")),
-  BOOK(Game.getText("BOOK")),
-  TREASURE(Game.getText("TREASURE")),
-  INGREDIENT(Game.getText("INGREDIENT")),
-  POTION(Game.getText("POTION")),
-  COMMON(Game.getText("COMMON")),
-  TRASH(Game.getText("TRASH"));
+    ALL(Game.getText("ALL")), // Все
+    EAT(Game.getText("EAT")), // Еда
+    CLOTHES(Game.getText("CLOTHES")), // Одежда
+    WEAPON(Game.getText("WEAPON")), // Оружие
+    RESOURCE(Game.getText("RESOURCE")), // Русурсы
+    BOOK(Game.getText("BOOK")), // Книги
+    TREASURE(Game.getText("TREASURE")), // Сокровища
+    INGREDIENT(Game.getText("INGREDIENT")), // Ингридиенты
+    POTION(Game.getText("POTION")), // Зелья
+    COMMON(Game.getText("COMMON")), // Обычные
+    KEY(Game.getText("KEY")), // Ключи
+    TOOL(Game.getText("TOOL")), // Инструменты
+    TRASH(Game.getText("TRASH")), // Мусор
+    PICKLOCK(Game.getText("PICKLOCK")), // Отмычки
+    SAPPER_TOOL(Game.getText("SAPPER_TOOL")), // Инструменты для обезвреживания ловушек
+    BUILDING_TOOL(Game.getText("BUILDING_TOOL")), // Строительные инструменты
+    PICKAXE(Game.getText("PICKAXE")), // Кирки
+    AXE(Game.getText("AXE")), // Топоры
+    SHOVEL(Game.getText("SHOVEL")), // Лопаты
+    SCYTHE(Game.getText("SCYTHE")), // Косы
+    BROOM(Game.getText("BROOM")); // Метла
 
-  @Getter
-  @Setter
-  private String desc;
+    @Getter
+    @Setter
+    private String desc;
 
-  ItemTypeEnum(String desc) {
-    this.desc = desc;
-  }
-
-  public static ItemTypeEnum getItemTypeByCode(String desc) {
-    for (ItemTypeEnum item : ItemTypeEnum.values()) {
-      if (item.getDesc().equals(desc)) {
-        return item;
-      }
+    ItemTypeEnum(String desc) {
+        this.desc = desc;
     }
-    return null;
-  }
+
+    public static ItemTypeEnum getItemTypeByCode(String desc) {
+        for (ItemTypeEnum item : ItemTypeEnum.values()) {
+            if (item.getDesc().equals(desc)) {
+                return item;
+            }
+        }
+        return null;
+    }
+
+    // получить список типов предметов, используемых в фильтре инвентаря
+    public static List<ItemTypeEnum> getItemTypesForFilter() {
+      List<ItemTypeEnum> list = new ArrayList<>();
+      list.add(ItemTypeEnum.ALL);
+      list.add(ItemTypeEnum.EAT);
+      list.add(ItemTypeEnum.CLOTHES);
+      list.add(ItemTypeEnum.WEAPON);
+      list.add(ItemTypeEnum.RESOURCE);
+      list.add(ItemTypeEnum.BOOK);
+      list.add(ItemTypeEnum.TREASURE);
+      list.add(ItemTypeEnum.INGREDIENT);
+      list.add(ItemTypeEnum.POTION);
+      list.add(ItemTypeEnum.KEY);
+      list.add(ItemTypeEnum.TOOL);
+      list.add(ItemTypeEnum.TRASH);
+      return list;
+    }
 }

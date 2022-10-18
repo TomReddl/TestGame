@@ -12,7 +12,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import lombok.Getter;
-import view.params.GameParams;
+import game.GameParams;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -62,15 +62,15 @@ public class GameSettingsPanel {
         pane.setLayoutX(200);
         pane.setLayoutY(200);
         pane.setPrefSize(140, 210);
-        pane.setVisible(Boolean.FALSE);
+        pane.setVisible(false);
         pane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
 
         Game.getRoot().getChildren().add(pane);
     }
 
     private void closeSettingsPanel() {
-        pane.setVisible(Boolean.FALSE);
-        MainMenu.getPane().setVisible(Boolean.TRUE);
+        pane.setVisible(false);
+        MainMenu.getPane().setVisible(true);
     }
 
     private void saveLang(GameLangEnum lang) {
@@ -94,9 +94,9 @@ public class GameSettingsPanel {
     }
 
     public void viewSettingsPanel() {
-        MainMenu.getPane().setVisible(Boolean.FALSE);
+        MainMenu.getPane().setVisible(false);
 
         langCB.getSelectionModel().select(GameParams.lang.getDesc());
-        pane.setVisible(Boolean.TRUE);
+        pane.setVisible(true);
     }
 }

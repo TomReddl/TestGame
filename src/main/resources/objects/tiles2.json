@@ -846,5 +846,113 @@
     "id": 159,
     "strength": 0,
     "passability": false
+  },
+  {
+    "id": 160,
+    "strength": 0,
+    "passability": false,
+    "type": "DOOR"
+  },
+  {
+    "id": 161,
+    "strength": 0,
+    "passability": true,
+    "type": "DOOR"
+  },
+  {
+    "id": 162,
+    "strength": 0,
+    "passability": false,
+    "type": "DOOR"
+  },
+  {
+    "id": 163,
+    "strength": 0,
+    "passability": true,
+    "type": "DOOR"
+  },
+  {
+    "id": 164,
+    "strength": 0,
+    "passability": false,
+    "type": "DOOR"
+  },
+  {
+    "id": 165,
+    "strength": 0,
+    "passability": true,
+    "type": "DOOR"
+  },
+  {
+    "id": 166,
+    "strength": 0,
+    "passability": false,
+    "type": "DOOR"
+  },
+  {
+    "id": 167,
+    "strength": 0,
+    "passability": true,
+    "type": "DOOR"
+  },
+  {
+    "id": 168,
+    "strength": 0,
+    "passability": false,
+    "type": "DOOR"
+  },
+  {
+    "id": 169,
+    "strength": 0,
+    "passability": true,
+    "type": "DOOR"
+  },
+  {
+    "id": 170,
+    "strength": 0,
+    "passability": false,
+    "type": "DOOR"
+  },
+  {
+    "id": 171,
+    "strength": 0,
+    "passability": true,
+    "type": "DOOR"
+  },
+  {
+    "id": 172,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 173,
+    "strength": 0,
+    "passability": false,
+    "type": "MOVABLE"
+  },
+  {
+    "id": 174,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 175,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 176,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 177,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 178,
+    "strength": 0,
+    "passability": false
   }
 ]

@@ -10,6 +10,7 @@ import model.entity.GameModeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.map.Map;
 import view.inventory.InventoryPanel;
+import view.inventory.PlayerIndicatorsPanel;
 import view.menu.GameMenuPanel;
 import view.params.ParamPanel;
 import javafx.scene.Group;
@@ -17,11 +18,13 @@ import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 import view.menu.MainMenu;
-import view.params.GameParams;
+import game.GameParams;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class Game {
@@ -35,17 +38,22 @@ public class Game {
     private static final Properties effectsProperties = new Properties();
 
     @Getter
-    private static final Label warningLabel = new Label("");
+    private static final List<Label> messageLabels = new ArrayList<>();
     @Getter
     private static final Group root = new Group();
 
     static {
-        warningLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        warningLabel.setLayoutX(50);
-        warningLabel.setLayoutY(610);
-        warningLabel.setVisible(Boolean.FALSE);
-        warningLabel.setTextFill(Color.RED);
-        root.getChildren().add(warningLabel);
+        for (int i = 0; i<4; i++) {
+            Label label = new Label("");
+            label.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+            label.setLayoutX(50);
+            label.setLayoutY(610);
+            label.setVisible(false);
+            label.setTextFill(Color.RED);
+
+            messageLabels.add(label);
+            root.getChildren().add(label);
+        }
 
         loadTranslations();
     }
@@ -56,7 +64,9 @@ public class Game {
     @Setter
     private static Map map = new Map();
     @Getter
-    private static final InventoryPanel inventory = new InventoryPanel(root);
+    private static final InventoryPanel inventory = new InventoryPanel(210, InventoryPanel.InventoryTypeEnum.PLAYER);
+    @Getter
+    private static final InventoryPanel containerInventory = new InventoryPanel(800, InventoryPanel.InventoryTypeEnum.CONTAINER);
     @Getter
     private static final ParamPanel params = new ParamPanel(root);
     @Getter
@@ -73,37 +83,37 @@ public class Game {
         gameMode = mode;
         switch (gameMode) {
             case MAIN_MENU: {
-                MainMenu.getPane().setVisible(Boolean.TRUE);
+                MainMenu.getPane().setVisible(true);
                 MainMenu.getPane().setLayoutX(0);
                 MainMenu.getPane().setLayoutY(0);
-                mainMenu.getBackgroundImage().setVisible(Boolean.TRUE);
-                editor.getMapInfoLabel().setVisible(Boolean.FALSE);
+                mainMenu.getBackgroundImage().setVisible(true);
+                editor.getMapInfoLabel().setVisible(false);
                 break;
             }
             case EDITOR: {
                 map.drawCurrentMap();
-                editor.getTabPane().setVisible(Boolean.TRUE);
-                editor.getButtonsPane().setVisible(Boolean.TRUE);
-                stopTestGameImage.setVisible(Boolean.FALSE);
-                MainMenu.getPane().setVisible(Boolean.FALSE);
-                editor.getMapInfoLabel().setVisible(Boolean.TRUE);
-                Game.getInventory().show(Boolean.FALSE);
-                GameMenuPanel.getPane().setVisible(Boolean.FALSE);
+                editor.getTabPane().setVisible(true);
+                editor.getButtonsPane().setVisible(true);
+                stopTestGameImage.setVisible(false);
+                MainMenu.getPane().setVisible(false);
+                editor.getMapInfoLabel().setVisible(true);
+                PlayerIndicatorsPanel.showPanel(false);
+                GameMenuPanel.getPane().setVisible(false);
                 break;
             }
             case GAME: {
                 map.drawCurrentMap();
-                editor.getTabPane().setVisible(Boolean.FALSE);
-                editor.getButtonsPane().setVisible(Boolean.FALSE);
-                stopTestGameImage.setVisible(Boolean.TRUE);
-                MainMenu.getPane().setVisible(Boolean.FALSE);
-                editor.getMapInfoLabel().setVisible(Boolean.TRUE);
+                editor.getTabPane().setVisible(false);
+                editor.getButtonsPane().setVisible(false);
+                stopTestGameImage.setVisible(true);
+                MainMenu.getPane().setVisible(false);
+                editor.getMapInfoLabel().setVisible(true);
                 break;
             }
             case GAME_MENU: {
                 MainMenu.getPane().setLayoutX(mainMenu.getGameMenuPosX());
                 MainMenu.getPane().setLayoutY(mainMenu.getGameMenuPosY());
-                mainMenu.getBackgroundImage().setVisible(Boolean.FALSE);
+                mainMenu.getBackgroundImage().setVisible(false);
                 break;
             }
         }
@@ -162,7 +172,7 @@ public class Game {
         editor.getShowZonesLabel().setText(Game.getText("SHOW_ZONES"));
 
         int i = 0;
-        for (ItemTypeEnum itemType : ItemTypeEnum.values()) {
+        for (ItemTypeEnum itemType : ItemTypeEnum.getItemTypesForFilter()) {
             itemType.setDesc(Game.getText(itemType.name()));
             editor.getItemsTabPane().getTabs().get(i++).setText(itemType.getDesc());
         }
@@ -220,17 +230,31 @@ public class Game {
         return effectsProperties.getProperty(strId);
     }
 
+    // отобразить сообщение игроку
     public static void showMessage(String message, Color... color) {
-        if (color.length > 0) {
-            warningLabel.setTextFill(color[0]);
-        } else {
-            warningLabel.setTextFill(Color.RED);
+        Label messageLabel = null;
+        int i = -1;
+        for (Label label : messageLabels) {
+            i++;
+            if (!label.isVisible()) {
+                messageLabel = label;
+
+                break;
+            }
         }
-        warningLabel.setVisible(Boolean.TRUE);
-        warningLabel.setText(message);
+        if (color.length > 0) {
+            messageLabel.setTextFill(color[0]);
+        } else {
+            messageLabel.setTextFill(Color.RED);
+        }
+        messageLabel.setLayoutY(610 + i*20);
+        messageLabel.setVisible(true);
+        messageLabel.setText(message);
     }
 
     public static void hideMessage() {
-        warningLabel.setVisible(Boolean.FALSE);
+        for (Label label : messageLabels) {
+            label.setVisible(false);
+        }
     }
 }

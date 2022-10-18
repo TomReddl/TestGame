@@ -17,7 +17,7 @@ import model.entity.ItemTypeEnum;
 
 import java.util.List;
 
-import static view.params.GameParams.*;
+import static game.GameParams.*;
 
 @Setter
 @Getter
@@ -64,7 +64,7 @@ public class Editor {
         mapInfoLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         mapInfoLabel.setLayoutX(380);
         mapInfoLabel.setLayoutY(610);
-        mapInfoLabel.setVisible(Boolean.FALSE);
+        mapInfoLabel.setVisible(false);
         root.getChildren().add(mapInfoLabel);
 
         tabPane.setLayoutX(630);
@@ -93,7 +93,7 @@ public class Editor {
             tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             int finalI = i;
-            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getTiles1Text(finalI + "NAME"), tile));
+            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getTiles1Text(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
             tile.setOnMouseExited(event -> Popover.hidePopover());
             tile.setOnMouseClicked(event -> {
                 setBorder(pane1);
@@ -126,7 +126,7 @@ public class Editor {
             tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             int finalI = i;
-            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getTiles2Text(finalI + "NAME"), tile));
+            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getTiles2Text(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
             tile.setOnMouseExited(event -> Popover.hidePopover());
             tile.setOnMouseClicked(event -> {
                 setBorder(pane2);
@@ -165,7 +165,7 @@ public class Editor {
             tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             int finalI = i;
-            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getNPCText(finalI + "NAME"), tile));
+            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getNPCText(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
             tile.setOnMouseExited(event -> Popover.hidePopover());
             tile.setOnMouseClicked(event -> {
                 setBorder(pane3);
@@ -204,7 +204,7 @@ public class Editor {
             tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             int finalI = i;
-            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getCreaturesText(finalI + "NAME"), tile));
+            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getCreaturesText(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
             tile.setOnMouseExited(event -> Popover.hidePopover());
             tile.setOnMouseClicked(event -> {
                 setBorder(pane4);
@@ -241,9 +241,9 @@ public class Editor {
         itemsTabPane.setLayoutX(5);
         itemsTabPane.setLayoutY(35);
         itemsTabPane.setPrefSize(430, 530);
-        for (ItemTypeEnum itemType : ItemTypeEnum.values()) {
+        for (ItemTypeEnum itemType : ItemTypeEnum.getItemTypesForFilter()) {
             Tab tab = new Tab(itemType.getDesc());
-            tab.setClosable(Boolean.FALSE);
+            tab.setClosable(false);
             itemsTabPane.getTabs().add(tab);
         }
         itemsTabPane.getTabs().get(0).setContent(itemsPane);
@@ -271,7 +271,7 @@ public class Editor {
             tile.setY(5 + (i) * (tileSize + 5) - (i / 11) * 495);
             tile.setId(String.valueOf(i));
             int finalI = i;
-            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getItemsText(finalI + "NAME"), tile));
+            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getItemsText(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
             tile.setOnMouseExited(event -> Popover.hidePopover());
             tile.setOnMouseClicked(event -> {
                 setBorder(itemsPane);

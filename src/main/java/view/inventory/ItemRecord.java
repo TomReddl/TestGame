@@ -1,5 +1,6 @@
 package view.inventory;
 
+import controller.ItemsController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -9,6 +10,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import lombok.Getter;
+import model.editor.items.BodyPartEnum;
 import model.editor.items.ClothesInfo;
 import model.editor.items.ItemInfo;
 import model.editor.items.WeaponInfo;
@@ -16,7 +18,7 @@ import model.entity.ItemTypeEnum;
 import model.entity.map.Items;
 import view.Game;
 
-import static view.params.GameParams.tileSize;
+import static game.GameParams.tileSize;
 
 /*
  * Строка с информацией о предмете для отображения в инвентаре
@@ -31,6 +33,18 @@ public class ItemRecord {
     private Label weightLabel;
     private Label volumeLabel;
     private Label priceLabel;
+
+    public ItemRecord(String bodyPart) {
+        pane = new Pane();
+        pane.setPrefSize(550, 40);
+        pane.setBackground(new Background(new BackgroundFill((Color.WHITESMOKE), CornerRadii.EMPTY, Insets.EMPTY)));
+
+        nameLabel = new Label(String.format(Game.getText("EMPTY_BODY_SLOT"), BodyPartEnum.valueOf(bodyPart).getDesc()));
+        nameLabel.setTextFill(Color.web("#6c6c6c"));
+        nameLabel.setLayoutX(tileSize + 5);
+        nameLabel.setLayoutY(10);
+        pane.getChildren().add(nameLabel);
+    }
 
     public ItemRecord(Items items, String selectType) {
         ItemInfo itemInfo = items.getInfo();
@@ -50,7 +64,7 @@ public class ItemRecord {
             pane.getChildren().add(brokenItemIcon);
         }
 
-        var cutName = itemInfo.getName().length() > 28 ? itemInfo.getName().substring(0, 25).concat("... ") : itemInfo.getName();
+        var cutName = itemInfo.getName().length() > 25 ? itemInfo.getName().substring(0, 22).concat("... ") : itemInfo.getName();
         var nameText = items.getCount() > 1 ?
                 (cutName + " (" + items.getCount() + ")") : cutName;
         nameLabel = new Label(nameText);
@@ -89,6 +103,6 @@ public class ItemRecord {
 
         pane.setOnMouseEntered(event -> ItemDetailPanel.showDetailPanel(items, pane.getLayoutY()));
         pane.setOnMouseExited(event -> ItemDetailPanel.hideDetailPanel());
-        pane.setOnMouseClicked(event -> Game.getMap().getPlayer().useItem(items));
+        pane.setOnMouseClicked(event -> ItemsController.clickItem(items, Game.getMap().getPlayer()));
     }
 }

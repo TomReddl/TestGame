@@ -45,6 +45,13 @@ public class ParamRecord {
         valueLabel = new Label(parameter.getCurrentValue().toString());
         valueLabel.setLayoutX(150);
         valueLabel.setLayoutY(5);
+        valueLabel.setOnMouseEntered(event -> ParamDescPanel.showDetailPanel(
+                String.format(
+                        Game.getText("EXP_FOR_SKILL"),
+                        parameter.getExperience(),
+                        parameter.getRealValue()*10),
+                box));
+        valueLabel.setOnMouseExited(event -> ParamDescPanel.hideDetailPanel());
         box.getChildren().add(valueLabel);
     }
 }

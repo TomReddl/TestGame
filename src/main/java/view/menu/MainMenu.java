@@ -14,7 +14,7 @@ import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
 
-import static view.params.GameParams.*;
+import static game.GameParams.*;
 
 /*
  * Главное меню

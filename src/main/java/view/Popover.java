@@ -2,15 +2,12 @@ package view;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import lombok.Getter;
-
-import static view.params.GameParams.tileSize;
 
 /*
  * Кастомное всплывающее окно с текстом для элементов javaFX, не поддерживающих подсказки
@@ -26,29 +23,30 @@ public class Popover {
         pane.setPrefSize(100, 20);
         pane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
         pane.setStyle("-fx-border-color:black;");
-        pane.setVisible(Boolean.FALSE);
+        pane.setVisible(false);
 
         textLabel = new Label();
         textLabel.setMaxWidth(90);
         textLabel.setLayoutX(5);
-        textLabel.setWrapText(Boolean.TRUE);
+        textLabel.setWrapText(true);
         pane.getChildren().add(textLabel);
         Game.getEditor().getItemsPane().getChildren().add(pane);
     }
 
-    public static void showPopover(String text, ImageView imageView) {
+    public static void showPopover(String text, double XPos, double Ypos) {
         if (!pane.isVisible()) {
             textLabel.setText(text);
-            pane.setLayoutY(imageView.getY() + tileSize);
-            pane.setLayoutX(imageView.getX());
+            pane.setLayoutX(XPos);
+            pane.setLayoutY(Ypos);
 
+            //TODO исправить установку высоты поповера
             pane.setPrefSize(100, textLabel.getHeight());
-            pane.setVisible(Boolean.TRUE);
+            pane.setVisible(true);
         }
     }
 
     public static void hidePopover() {
-        pane.setVisible(Boolean.FALSE);
+        pane.setVisible(false);
     }
 
     /*
