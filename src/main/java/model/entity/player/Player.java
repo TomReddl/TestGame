@@ -49,7 +49,7 @@ public class Player implements Serializable {
     @Getter
     private ParamsInfo params = new ParamsInfo(); // параметры персонажа
 
-    @JsonProperty("params")
+    @JsonProperty("knowledgeInfo")
     @Getter
     private KnowledgeInfo knowledgeInfo = new KnowledgeInfo(); // Известная персонажу информация
 

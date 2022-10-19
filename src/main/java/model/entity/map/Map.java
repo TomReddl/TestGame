@@ -1,5 +1,6 @@
 package model.entity.map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
@@ -29,6 +30,7 @@ public class Map implements Serializable {
     List<Creature> creaturesList = new ArrayList<>();
     private String mapName;
     private Player player = new Player();
+    @JsonIgnore
     private ImageView bag = new ImageView("/graphics/items/bag.png");
 
     public Map() {

@@ -66,17 +66,17 @@ public class InventoryPanel {
     private final ImageView sortPriceImage = new ImageView("/graphics/gui/Sort1.png");
     private final Button takeAllButton = new Button(Game.getText("TAKE_ALL"));
     @Getter
-    private static final Label typeLabel = new Label(Game.getText("TYPE"));
+    private final Label typeLabel = new Label(Game.getText("TYPE"));
     @Getter
-    private static final Label weightLabel = new Label(Game.getText("WEIGHT") + " " + Game.getText("KG"));
+    private final Label weightLabel = new Label(Game.getText("WEIGHT") + " " + Game.getText("KG"));
     @Getter
-    private static final Label volumeLabel = new Label(Game.getText("VOLUME") + " " + Game.getText("LITERS"));
+    private final Label volumeLabel = new Label(Game.getText("VOLUME") + " " + Game.getText("LITERS"));
     @Getter
-    private static final Label priceLabel = new Label(Game.getText("PRICE"));
+    private final Label priceLabel = new Label(Game.getText("PRICE"));
     private static final Label totalWeightLabel = new Label(Game.getText("TOTAL_WEIGHT"));
     private static final Label totalVolumeLabel = new Label(Game.getText("TOTAL_VOLUME"));
 
-    private Boolean descending = Boolean.FALSE;
+    private boolean descending = false;
     @Getter
     private List<Items> items = Game.getMap().getPlayer().getInventory();
     @Getter
@@ -260,7 +260,7 @@ public class InventoryPanel {
             List<String> nudeBodyParts = BodyPartEnum.getCodes();
             for (Items items : wearingItems) {
                 nudeBodyParts.remove(((ClothesInfo) items.getInfo()).getBodyPart());
-                var itemRecord = new ItemRecord(items, selectType);
+                var itemRecord = new ItemRecord(items, selectType, this);
                 itemRecord.getPane().setLayoutY(++i * tileSize);
                 pane.getChildren().add(itemRecord.getPane());
             }
@@ -279,7 +279,7 @@ public class InventoryPanel {
             for (Items items : items) {
                 List<ItemTypeEnum> types = items.getInfo().getTypes();
                 if (types != null && (types.contains(type) || ItemTypeEnum.ALL.equals(type))) {
-                    var itemRecord = new ItemRecord(items, selectType);
+                    var itemRecord = new ItemRecord(items, selectType, this);
                     itemRecord.getPane().setLayoutY(++i * tileSize);
                     pane.getChildren().add(itemRecord.getPane());
                 }

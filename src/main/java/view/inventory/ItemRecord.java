@@ -46,7 +46,7 @@ public class ItemRecord {
         pane.getChildren().add(nameLabel);
     }
 
-    public ItemRecord(Items items, String selectType) {
+    public ItemRecord(Items items, String selectType, InventoryPanel inventoryPanel) {
         ItemInfo itemInfo = items.getInfo();
         pane = new Pane();
         pane.setPrefSize(550, 40);
@@ -74,30 +74,30 @@ public class ItemRecord {
 
         if (ItemTypeEnum.WEAPON.equals(ItemTypeEnum.getItemTypeByCode(selectType))) {
             typeLabel = new Label(((WeaponInfo) itemInfo).getDamage().toString());
-            InventoryPanel.getTypeLabel().setText(Game.getText("DAMAGE"));
+            inventoryPanel.getTypeLabel().setText(Game.getText("DAMAGE_INVENTORY"));
         } else if (ItemTypeEnum.CLOTHES.equals(ItemTypeEnum.getItemTypeByCode(selectType))) {
             typeLabel = new Label(((ClothesInfo) itemInfo).getArmor().toString());
-            InventoryPanel.getTypeLabel().setText(Game.getText("ARMOR"));
+            inventoryPanel.getTypeLabel().setText(Game.getText("ARMOR_INVENTORY"));
         } else {
             typeLabel = new Label(itemInfo.getTypes().get(0).getDesc());
-            InventoryPanel.getTypeLabel().setText(Game.getText("TYPE"));
+            inventoryPanel.getTypeLabel().setText(Game.getText("TYPE"));
         }
-        typeLabel.setLayoutX(InventoryPanel.getTypeLabel().getLayoutX());
+        typeLabel.setLayoutX(inventoryPanel.getTypeLabel().getLayoutX());
         typeLabel.setLayoutY(10);
         pane.getChildren().add(typeLabel);
 
         weightLabel = new Label(Items.getFormatedItemValue(itemInfo.getWeight()).toString());
-        weightLabel.setLayoutX(InventoryPanel.getWeightLabel().getLayoutX());
+        weightLabel.setLayoutX(inventoryPanel.getWeightLabel().getLayoutX());
         weightLabel.setLayoutY(10);
         pane.getChildren().add(weightLabel);
 
         volumeLabel = new Label(Items.getFormatedItemValue(itemInfo.getVolume()).toString());
-        volumeLabel.setLayoutX(InventoryPanel.getVolumeLabel().getLayoutX());
+        volumeLabel.setLayoutX(inventoryPanel.getVolumeLabel().getLayoutX());
         volumeLabel.setLayoutY(10);
         pane.getChildren().add(volumeLabel);
 
         priceLabel = new Label(itemInfo.getPrice().toString());
-        priceLabel.setLayoutX(InventoryPanel.getPriceLabel().getLayoutX());
+        priceLabel.setLayoutX(inventoryPanel.getPriceLabel().getLayoutX());
         priceLabel.setLayoutY(10);
         pane.getChildren().add(priceLabel);
 

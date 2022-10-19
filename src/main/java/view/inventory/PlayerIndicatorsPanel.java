@@ -91,7 +91,7 @@ public class PlayerIndicatorsPanel {
         staminaPB.setLayoutY(85);
         staminaPB.setPrefWidth(190);
         staminaPB.setPrefHeight(20);
-        staminaPB.setStyle("fx-accent: #18c314;");
+        staminaPB.setStyle("-fx-accent: #18c314;");
         pane.getChildren().add(staminaPB);
 
         staminaLabel.setLayoutX(10);
@@ -102,7 +102,7 @@ public class PlayerIndicatorsPanel {
         hungerPB.setLayoutY(105);
         hungerPB.setPrefWidth(190);
         hungerPB.setPrefHeight(20);
-        hungerPB.setStyle("fx-accent: #18c314;");
+        hungerPB.setStyle("-fx-accent: #18c314;");
         pane.getChildren().add(hungerPB);
 
         hungerLabel.setLayoutX(10);
@@ -113,7 +113,7 @@ public class PlayerIndicatorsPanel {
         thirstPB.setLayoutY(125);
         thirstPB.setPrefWidth(190);
         thirstPB.setPrefHeight(20);
-        thirstPB.setStyle("fx-accent: #18c314;");
+        thirstPB.setStyle("-fx-accent: #18c314;");
         pane.getChildren().add(thirstPB);
 
         thirstLabel.setLayoutX(10);
@@ -124,7 +124,7 @@ public class PlayerIndicatorsPanel {
         cleannessPB.setLayoutY(145);
         cleannessPB.setPrefWidth(190);
         cleannessPB.setPrefHeight(20);
-        cleannessPB.setStyle("fx-accent: #18c314;");
+        cleannessPB.setStyle("-fx-accent: #18c314;");
         pane.getChildren().add(cleannessPB);
 
         cleannessLabel.setLayoutX(10);

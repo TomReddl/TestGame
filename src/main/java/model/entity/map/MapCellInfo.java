@@ -1,5 +1,6 @@
 package model.entity.map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,21 +37,25 @@ public class MapCellInfo implements Serializable {
     }
 
     // получить тип нижнего тайла
+    @JsonIgnore
     public TileTypeEnum getTile1Type() {
         return TileTypeEnum.valueOf(getTile1Info().getType());
     }
 
     // получить тип верхнего тайла
+    @JsonIgnore
     public TileTypeEnum getTile2Type() {
         return TileTypeEnum.valueOf(getTile2Info().getType());
     }
 
     // получить информацию о нижнем тайле
+    @JsonIgnore
     public TileInfo getTile1Info() {
         return Game.getEditor().getTiles1().get(tile1Id);
     }
 
     // получить информацию о верхнем тайле
+    @JsonIgnore
     public TileInfo getTile2Info() {
         return Game.getEditor().getTiles2().get(tile2Id);
     }
