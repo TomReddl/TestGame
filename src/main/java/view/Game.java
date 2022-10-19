@@ -77,7 +77,12 @@ public class Game {
     private static GameModeEnum gameMode = GameModeEnum.MAIN_MENU;
     @Getter
     private static final ImageView stopTestGameImage = new ImageView("/graphics/gui/StopTestGame.png");
-
+    @Getter
+    @Setter
+    private static int xMapInfoPos; // координата текущей точки карты, инофрмация о которой отображается в информационном лэйбле
+    @Getter
+    @Setter
+    private static int yMapInfoPos;
 
     public static void setGameMode(GameModeEnum mode) {
         gameMode = mode;

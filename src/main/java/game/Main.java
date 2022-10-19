@@ -271,26 +271,30 @@ public class Main extends Application {
         if (x < viewSize * tileSize && y < viewSize * tileSize) {
             int xPos = player.getXMapPos() + (((int) x) / tileSize);
             int yPos = player.getYMapPos() + (((int) y) / tileSize);
-            var mapCellInfo = Game.getMap().getTiles()[xPos][yPos];
-            mapInfoLabel.setText(
-                    "X: " + xPos + ", Y: " + yPos + ". " +
-                            mapCellInfo.getTile1Info().getDesc() +
-                            (mapCellInfo.getTile2Id() == 0 ? "" : ", " +
-                                    mapCellInfo.getTile2Info().getDesc().toLowerCase()) +
-                            (mapCellInfo.getDesc() != null ? "\n" + mapCellInfo.getDesc() : ""));
+            if (xPos != Game.getXMapInfoPos() || yPos != Game.getYMapInfoPos()) {
+                Game.setXMapInfoPos(xPos);
+                Game.setYMapInfoPos(yPos);
+                var mapCellInfo = Game.getMap().getTiles()[xPos][yPos];
+                mapInfoLabel.setText(
+                        "X: " + xPos + ", Y: " + yPos + ". " +
+                                mapCellInfo.getTile1Info().getDesc() +
+                                (mapCellInfo.getTile2Id() == 0 ? "" : ", " +
+                                        mapCellInfo.getTile2Info().getDesc().toLowerCase()) +
+                                (mapCellInfo.getDesc() != null ? "\n" + mapCellInfo.getDesc() : ""));
 
-            if (mapCellInfo instanceof ClosableCellInfo) {
-                var closableCellInfo = (ClosableCellInfo) mapCellInfo;
-                if (closableCellInfo.isLocked()) {
-                    if (closableCellInfo.isCodeLock()) {
-                        mapInfoLabel.setText(mapInfoLabel.getText() + "\n" + Game.getText("IS_LOCKED"));
-                    } else {
-                        mapInfoLabel.setText(mapInfoLabel.getText() + "\n" +
-                                String.format(Game.getText("LOCKED"), closableCellInfo.getLockLevel()));
+                if (mapCellInfo instanceof ClosableCellInfo) {
+                    var closableCellInfo = (ClosableCellInfo) mapCellInfo;
+                    if (closableCellInfo.isLocked()) {
+                        if (closableCellInfo.isCodeLock()) {
+                            mapInfoLabel.setText(mapInfoLabel.getText() + "\n" + Game.getText("IS_LOCKED"));
+                        } else {
+                            mapInfoLabel.setText(mapInfoLabel.getText() + "\n" +
+                                    String.format(Game.getText("LOCKED"), closableCellInfo.getLockLevel()));
+                        }
                     }
-                }
-                if (closableCellInfo.isTrap()) {
-                    mapInfoLabel.setText(mapInfoLabel.getText() + "\n" + Game.getText("TRAPPED"));
+                    if (closableCellInfo.isTrap()) {
+                        mapInfoLabel.setText(mapInfoLabel.getText() + "\n" + Game.getText("TRAPPED"));
+                    }
                 }
             }
         } else {
