@@ -93,7 +93,7 @@ public class Editor {
             tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             int finalI = i;
-            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getTiles1Text(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
+            tile.setOnMouseEntered(event -> Popover.showPopover(finalI + " " + Game.getTiles1Text(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
             tile.setOnMouseExited(event -> Popover.hidePopover());
             tile.setOnMouseClicked(event -> {
                 setBorder(pane1);
@@ -126,7 +126,7 @@ public class Editor {
             tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             int finalI = i;
-            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getTiles2Text(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
+            tile.setOnMouseEntered(event -> Popover.showPopover(finalI + " " + Game.getTiles2Text(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
             tile.setOnMouseExited(event -> Popover.hidePopover());
             tile.setOnMouseClicked(event -> {
                 setBorder(pane2);
@@ -165,7 +165,7 @@ public class Editor {
             tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             int finalI = i;
-            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getNPCText(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
+            tile.setOnMouseEntered(event -> Popover.showPopover(finalI + " " + Game.getNPCText(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
             tile.setOnMouseExited(event -> Popover.hidePopover());
             tile.setOnMouseClicked(event -> {
                 setBorder(pane3);
@@ -204,7 +204,7 @@ public class Editor {
             tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
             tile.setId(String.valueOf(i));
             int finalI = i;
-            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getCreaturesText(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
+            tile.setOnMouseEntered(event -> Popover.showPopover(finalI + " " + Game.getCreaturesText(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
             tile.setOnMouseExited(event -> Popover.hidePopover());
             tile.setOnMouseClicked(event -> {
                 setBorder(pane4);
@@ -271,7 +271,7 @@ public class Editor {
             tile.setY(5 + (i) * (tileSize + 5) - (i / 11) * 495);
             tile.setId(String.valueOf(i));
             int finalI = i;
-            tile.setOnMouseEntered(event -> Popover.showPopover(Game.getItemsText(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
+            tile.setOnMouseEntered(event -> Popover.showPopover(finalI + " " + Game.getItemsText(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
             tile.setOnMouseExited(event -> Popover.hidePopover());
             tile.setOnMouseClicked(event -> {
                 setBorder(itemsPane);
