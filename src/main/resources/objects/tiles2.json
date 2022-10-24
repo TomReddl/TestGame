@@ -954,5 +954,46 @@
     "id": 178,
     "strength": 0,
     "passability": false
+  },
+  {
+    "id": 179,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 180,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 181,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 182,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 183,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 184,
+    "strength": 0,
+    "passability": false
+  }
+,
+  {
+    "id": 185,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 186,
+    "strength": 0,
+    "passability": false
   }
 ]
