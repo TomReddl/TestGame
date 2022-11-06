@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import lombok.Getter;
 
-/*
+/**
  * Кастомное всплывающее окно с текстом для элементов javaFX, не поддерживающих подсказки
  */
 public class Popover {
@@ -33,6 +33,9 @@ public class Popover {
         Game.getEditor().getItemsPane().getChildren().add(pane);
     }
 
+    /**
+     * Показать окно всплывающей подсказки
+     */
     public static void showPopover(String text, double XPos, double Ypos) {
         if (!pane.isVisible()) {
             textLabel.setText(text);
@@ -49,7 +52,7 @@ public class Popover {
         pane.setVisible(false);
     }
 
-    /*
+    /**
      * Установить родительскую панель
      */
     public static void setPane(Pane parentPane) {

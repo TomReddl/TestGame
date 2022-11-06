@@ -2,12 +2,10 @@ package view.inventory;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import lombok.Getter;
+import lombok.Setter;
 import model.editor.items.*;
 import model.entity.ItemTypeEnum;
 import model.entity.effects.EffectParams;
@@ -17,8 +15,9 @@ import view.params.ParamPanel;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
-/*
+/**
  * Панель детальной информации о предмете
  */
 public class ItemDetailPanel {
@@ -27,6 +26,7 @@ public class ItemDetailPanel {
     @Getter
     private static final Label descLabel;
     @Getter
+    @Setter
     private static Items selectItem;
 
     static {
@@ -34,6 +34,7 @@ public class ItemDetailPanel {
         pane.setPrefSize(300, 300);
         pane.setLayoutX(765);
         pane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
+        pane.setStyle("-fx-border-color:gray;");
         pane.setVisible(false);
 
         descLabel = new Label();
@@ -48,6 +49,10 @@ public class ItemDetailPanel {
 
     public static void showDetailPanel(Items item, double y) {
         selectItem = item;
+        List<Items> containerInventory = Game.getInventory().getItems();
+        pane.setLayoutX(containerInventory.contains(selectItem) ? 765 : 490);
+        pane.setLayoutY(y + 65);
+        pane.setVisible(true);
         descLabel.setText(item.getInfo().getDesc());
         if (item.getInfo() instanceof WeaponInfo) {
             var weaponInfo = (WeaponInfo) item.getInfo();
@@ -117,8 +122,6 @@ public class ItemDetailPanel {
                             item.getInfo().getParams().get(0),
                             toolSkill));
         }
-        pane.setLayoutY(y + 65);
-        pane.setVisible(true);
     }
 
     public static void hideDetailPanel() {

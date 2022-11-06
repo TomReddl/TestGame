@@ -1,5 +1,6 @@
 package view;
 
+import controller.MapController;
 import controller.utils.JsonUtils;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
@@ -33,6 +34,10 @@ public class Editor {
     private final Pane pane6 = new Pane();
     private final Pane pane7 = new Pane();
     private final Pane itemsPane = new Pane();
+    private final TextField searchTile1TF = new TextField();
+    private final TextField searchTile2TF = new TextField();
+    private final TextField searchNPCTF = new TextField();
+    private final TextField searchCreatureTF = new TextField();
     private final TextField searchItemTF = new TextField();
     private final TabPane itemsTabPane = new TabPane();
     private final Label showZonesLabel = new Label(Game.getText("SHOW_ZONES"));
@@ -54,7 +59,6 @@ public class Editor {
         root.getChildren().add(canvas);
         drawTiles(root);
     }
-
 
     private void drawTiles(Group root) {
         buttonsPane.setLayoutX(5);
@@ -87,10 +91,17 @@ public class Editor {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setLayoutX(5);
         scrollPane.setPrefSize(180, 600);
+
+        searchTile1TF.setLayoutX(5);
+        searchTile1TF.setLayoutY(5);
+        searchTile1TF.setPromptText(Game.getText("TILE_NAME"));
+        searchTile1TF.setOnAction(event -> filterTiles(searchTile1TF.getText(), tiles1));
+        pane1.getChildren().add(searchTile1TF);
+
         for (int i = 0; i < tiles1.size(); i++) {
             ImageView tile = new ImageView("/graphics/tiles/" + i + ".png");
-            tile.setX(5 + (i / 13) * (tileSize + 5));
-            tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
+            tile.setX(5 + (i / 12) * (tileSize + 5));
+            tile.setY(35 + (i) * (tileSize + 5) - (i / 12) * 540);
             tile.setId(String.valueOf(i));
             int finalI = i;
             tile.setOnMouseEntered(event -> Popover.showPopover(finalI + " " + Game.getTiles1Text(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
@@ -120,10 +131,21 @@ public class Editor {
         scrollPane2.setLayoutX(190);
         scrollPane2.setPrefSize(180, 600);
 
+        searchTile2TF.setLayoutX(5);
+        searchTile2TF.setLayoutY(5);
+        searchTile2TF.setPromptText(Game.getText("TILE_NAME"));
+        searchTile2TF.setOnAction(event -> filterTiles(searchTile2TF.getText(), tiles2));
+        pane2.getChildren().add(searchTile2TF);
+
         for (int i = 0; i < tiles2.size(); i++) {
             ImageView tile = new ImageView("/graphics/tiles2/" + i + ".png");
-            tile.setX(5 + (i / 13) * (tileSize + 5));
-            tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
+            tile.setFitWidth(tileSize);
+            tile.setFitHeight(tileSize);
+            tile.setPreserveRatio(true);
+            tile.setSmooth(true);
+            tile.setCache(true);
+            tile.setX(5 + (i / 12) * (tileSize + 5));
+            tile.setY(35 + (i) * (tileSize + 5) - (i / 12) * 540);
             tile.setId(String.valueOf(i));
             int finalI = i;
             tile.setOnMouseEntered(event -> Popover.showPopover(finalI + " " + Game.getTiles2Text(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
@@ -141,8 +163,7 @@ public class Editor {
             tiles2.get(i).setDesc(Game.getTiles2Text(i + "DESC"));
 
             if (tiles2.get(i).isTwoLayer()) {
-                ImageView upTile = new ImageView("/graphics/tiles2/" + i + ".up.png");
-                tiles2.get(i).setUpLayerImage(upTile);
+                tiles2.get(i).setUpLayerImage(tile);
             }
             pane2.getChildren().add(tile);
         }
@@ -154,6 +175,12 @@ public class Editor {
         scrollPane3.setLayoutX(190);
         scrollPane3.setPrefSize(180, 600);
 
+        searchNPCTF.setLayoutX(5);
+        searchNPCTF.setLayoutY(5);
+        searchNPCTF.setPromptText(Game.getText("NPC_NAME"));
+        searchNPCTF.setOnAction(event -> filterNPC(searchNPCTF.getText()));
+        pane3.getChildren().add(searchNPCTF);
+
         for (int i = 0; i < npcs.size(); i++) {
             ImageView tile;
             if (i == 0) {
@@ -161,8 +188,8 @@ public class Editor {
             } else {
                 tile = new ImageView("/graphics/characters/" + i + ".png");
             }
-            tile.setX(5 + (i / 13) * (tileSize + 5));
-            tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
+            tile.setX(5 + (i / 12) * (tileSize + 5));
+            tile.setY(35 + (i) * (tileSize + 5) - (i / 12) * 540);
             tile.setId(String.valueOf(i));
             int finalI = i;
             tile.setOnMouseEntered(event -> Popover.showPopover(finalI + " " + Game.getNPCText(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
@@ -188,6 +215,12 @@ public class Editor {
         scrollPane4.setLayoutX(190);
         scrollPane4.setPrefSize(180, 600);
 
+        searchCreatureTF.setLayoutX(5);
+        searchCreatureTF.setLayoutY(5);
+        searchCreatureTF.setPromptText(Game.getText("CREATURE_NAME"));
+        searchCreatureTF.setOnAction(event -> filterCreatures(searchCreatureTF.getText()));
+        pane4.getChildren().add(searchCreatureTF);
+
         for (int i = 0; i < creatures.size(); i++) {
             ImageView tile;
             if (i == 0) {
@@ -200,8 +233,8 @@ public class Editor {
             tile.setPreserveRatio(true);
             tile.setSmooth(true);
             tile.setCache(true);
-            tile.setX(5 + (i / 13) * (tileSize + 5));
-            tile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
+            tile.setX(5 + (i / 12) * (tileSize + 5));
+            tile.setY(35 + (i) * (tileSize + 5) - (i / 12) * 540);
             tile.setId(String.valueOf(i));
             int finalI = i;
             tile.setOnMouseEntered(event -> Popover.showPopover(finalI + " " + Game.getCreaturesText(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
@@ -374,7 +407,7 @@ public class Editor {
 
     private void changeShowZones() {
         showZones = !showZones;
-        Game.getMap().drawCurrentMap();
+        MapController.drawCurrentMap();
     }
 
     private void setBorder(Pane pane) {
@@ -396,6 +429,7 @@ public class Editor {
         pane.getChildren().add(border);
     }
 
+    // Фильтрует предметы в редакторе при поиске по названию
     private void filterItems(String itemType, String searchString) {
         ItemTypeEnum type = ItemTypeEnum.getItemTypeByCode(itemType);
         int i = 1;
@@ -413,6 +447,57 @@ public class Editor {
                     itemTile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
                     i++;
                 }
+            }
+        }
+    }
+
+    // Фильтрует тайлы в редакторе при поиске по названию
+    private void filterTiles(String searchString, List<TileInfo> tiles) {
+        int i = 0;
+        boolean visible;
+        for (TileInfo tileInfo : tiles) {
+            ImageView tile = tileInfo.getImage();
+            visible = ((tileInfo.getDesc().toLowerCase().contains(searchString.toLowerCase())) ||
+                    (tileInfo.getName().toLowerCase().contains(searchString.toLowerCase())));
+            tile.setVisible(visible);
+            if (tile.isVisible()) {
+                tile.setX(5 + (i / 12) * (tileSize + 5));
+                tile.setY(35 + (i) * (tileSize + 5) - (i / 12) * 540);
+                i++;
+            }
+        }
+    }
+
+    // Фильтрует персонажей в редакторе при поиске по имени
+    private void filterNPC(String searchString) {
+        int i = 0;
+        boolean visible;
+        for (NPCInfo npcInfo : npcs) {
+            ImageView npcTile = npcInfo.getImage();
+            visible = (npcInfo.getImageId() == 0 || (npcInfo.getDesc().toLowerCase().contains(searchString.toLowerCase())) ||
+                    (npcInfo.getName().toLowerCase().contains(searchString.toLowerCase())));
+            npcTile.setVisible(visible);
+            if (npcTile.isVisible()) {
+                npcTile.setX(5 + (i / 12) * (tileSize + 5));
+                npcTile.setY(35 + (i) * (tileSize + 5) - (i / 12) * 540);
+                i++;
+            }
+        }
+    }
+
+    // Фильтрует существ в редакторе при поиске по имени
+    private void filterCreatures(String searchString) {
+        int i = 0;
+        boolean visible;
+        for (CreatureInfo creatureInfo : creatures) {
+            ImageView creatureTile = creatureInfo.getImage();
+            visible = (creatureInfo.getImageId() == 0 || (creatureInfo.getDesc().toLowerCase().contains(searchString.toLowerCase())) ||
+                    (creatureInfo.getName().toLowerCase().contains(searchString.toLowerCase())));
+            creatureTile.setVisible(visible);
+            if (creatureTile.isVisible()) {
+                creatureTile.setX(5 + (i / 12) * (tileSize + 5));
+                creatureTile.setY(35 + (i) * (tileSize + 5) - (i / 12) * 540);
+                i++;
             }
         }
     }

@@ -1,5 +1,6 @@
 package view;
 
+import controller.MapController;
 import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -27,6 +28,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * Класс, в котором хранится основная игровая информация
+ */
 public class Game {
     @Getter
     private static final Properties properties = new Properties();
@@ -64,9 +68,9 @@ public class Game {
     @Setter
     private static Map map = new Map();
     @Getter
-    private static final InventoryPanel inventory = new InventoryPanel(210, InventoryPanel.InventoryTypeEnum.PLAYER);
+    private static final InventoryPanel inventory = new InventoryPanel(210, 5, InventoryPanel.InventoryTypeEnum.PLAYER);
     @Getter
-    private static final InventoryPanel containerInventory = new InventoryPanel(800, InventoryPanel.InventoryTypeEnum.CONTAINER);
+    private static final InventoryPanel containerInventory = new InventoryPanel(800, 35, InventoryPanel.InventoryTypeEnum.CONTAINER);
     @Getter
     private static final ParamPanel params = new ParamPanel(root);
     @Getter
@@ -83,6 +87,12 @@ public class Game {
     @Getter
     @Setter
     private static int yMapInfoPos;
+    @Getter
+    @Setter
+    private static boolean isDrawingMap;
+    @Getter
+    @Setter
+    private static boolean isShiftPressed; // нажата клавиша shift
 
     public static void setGameMode(GameModeEnum mode) {
         gameMode = mode;
@@ -96,7 +106,7 @@ public class Game {
                 break;
             }
             case EDITOR: {
-                map.drawCurrentMap();
+                MapController.drawCurrentMap();
                 editor.getTabPane().setVisible(true);
                 editor.getButtonsPane().setVisible(true);
                 stopTestGameImage.setVisible(false);
@@ -107,7 +117,7 @@ public class Game {
                 break;
             }
             case GAME: {
-                map.drawCurrentMap();
+                MapController.drawCurrentMap();
                 editor.getTabPane().setVisible(false);
                 editor.getButtonsPane().setVisible(false);
                 stopTestGameImage.setVisible(true);

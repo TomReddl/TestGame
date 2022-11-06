@@ -11,10 +11,12 @@ import view.Game;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Данные о точке на карте мира
+ */
 @Getter
 @Setter
 @NoArgsConstructor
-// Данные о точке на карте мира
 public class MapCellInfo implements Serializable {
     private int tile1Id;
     private int tile2Id;
@@ -39,13 +41,13 @@ public class MapCellInfo implements Serializable {
     // получить тип нижнего тайла
     @JsonIgnore
     public TileTypeEnum getTile1Type() {
-        return TileTypeEnum.valueOf(getTile1Info().getType());
+        return getTile1Info().getType() == null ? TileTypeEnum.NONE : TileTypeEnum.valueOf(getTile1Info().getType());
     }
 
     // получить тип верхнего тайла
     @JsonIgnore
     public TileTypeEnum getTile2Type() {
-        return TileTypeEnum.valueOf(getTile2Info().getType());
+        return getTile2Info().getType() == null ? TileTypeEnum.NONE : TileTypeEnum.valueOf(getTile2Info().getType());
     }
 
     // получить информацию о нижнем тайле

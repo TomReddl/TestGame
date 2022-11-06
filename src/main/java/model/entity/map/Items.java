@@ -13,8 +13,8 @@ import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.HashMap;
 
-/*
- * * Информация о предмете
+/**
+ * Информация о предмете
  */
 @Getter
 @Setter
@@ -35,6 +35,14 @@ public class Items {
         this.typeId = typeId;
         this.count = count;
         this.setCurrentStrength(this.getInfo().getMaxStrength());
+    }
+
+    public Items(Items anotherItem, int count) {
+        this.id = anotherItem.getId();
+        this.typeId = anotherItem.getTypeId();
+        this.count = count;
+        this.equipment = anotherItem.isEquipment();
+        this.currentStrength = anotherItem.getCurrentStrength();
     }
 
     private static Comparator<Items> compareByName = Comparator.comparing(o -> o.getInfo().getName());

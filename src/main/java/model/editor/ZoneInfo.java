@@ -7,9 +7,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-/*
-* Данные зоны в редакторе
-* */
+/**
+ * Данные зоны в редакторе
+ */
 @Getter
 @Setter
 public class ZoneInfo implements Serializable {

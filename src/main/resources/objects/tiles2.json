@@ -995,5 +995,15 @@
     "id": 186,
     "strength": 0,
     "passability": false
+  },
+  {
+    "id": 187,
+    "strength": 0,
+    "passability": false
+  },
+  {
+    "id": 188,
+    "strength": 0,
+    "passability": false
   }
 ]

@@ -144,27 +144,39 @@ public class Player implements Serializable {
 
         var items = new Items(23, 1);
         ItemsController.addItem(items, player.getInventory(), player);
-        ItemsController.equipItem(items, player);
+        ItemsController.equipItem(
+                ItemsController.findItemInInventory(items.getTypeId(), player.getInventory()),
+                player);
 
         var items2 = new Items(25, 1);
         ItemsController.addItem(items2, player.getInventory(), player);
-        ItemsController.equipItem(items2, player);
+        ItemsController.equipItem(
+                ItemsController.findItemInInventory(items2.getTypeId(), player.getInventory()),
+                player);
 
         var items3 = new Items(26, 1);
         ItemsController.addItem(items3, player.getInventory(), player);
-        ItemsController.equipItem(items3, player);
+        ItemsController.equipItem(
+                ItemsController.findItemInInventory(items3.getTypeId(), player.getInventory()),
+                player);
 
         var items4 = new Items(20, 1);
         ItemsController.addItem(items4, player.getInventory(), player);
-        ItemsController.equipItem(items4, player);
+        ItemsController.equipItem(
+                ItemsController.findItemInInventory(items4.getTypeId(), player.getInventory()),
+                player);
 
         var items5 = new Items(21, 1);
         ItemsController.addItem(items5, player.getInventory(), player);
-        ItemsController.equipItem(items5, player);
+        ItemsController.equipItem(
+                ItemsController.findItemInInventory(items5.getTypeId(), player.getInventory()),
+                player);
 
         var items6 = new Items(22, 1);
         ItemsController.addItem(items6, player.getInventory(), player);
-        ItemsController.equipItem(items6, player);
+        ItemsController.equipItem(
+                ItemsController.findItemInInventory(items6.getTypeId(), player.getInventory()),
+                player);
 
         var items7 = new Items(30, 1);
         items7.setCurrentStrength(0);

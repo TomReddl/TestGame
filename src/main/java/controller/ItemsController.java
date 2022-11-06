@@ -1,6 +1,7 @@
 package controller;
 
 import javafx.util.Pair;
+import lombok.Getter;
 import model.editor.items.BodyPartEnum;
 import model.editor.items.ClothesInfo;
 import model.editor.items.EdibleInfo;
@@ -10,26 +11,40 @@ import model.entity.map.Items;
 import model.entity.player.ParamsInfo;
 import model.entity.player.Player;
 import view.Game;
-import view.inventory.BookPanel;
-import view.inventory.InventoryPanel;
-import view.inventory.ItemDetailPanel;
-import view.inventory.PlayerIndicatorsPanel;
+import view.inventory.*;
 import view.menu.GameMenuPanel;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.List;
 
-/*
+/**
  * Действия с предметами
  */
 public class ItemsController {
+
+    // Действия с предметами
+    public enum ItemActionType {
+        TO_PLAYER("Переместить предметы в инвентарь игрока"),
+        TO_CONTAINER("Переместить предметы в контейнер"),
+        DROP("Выбросить предметы изх инвентаря персонажа");
+
+        @Getter
+        private final String desc;
+
+        ItemActionType(String desc) {
+            this.desc = desc;
+        }
+    }
 
     /**
      * Повредить предмет. Если предмет хрупкий, то он уничтожается при 0 прочности
      *
      * @param item         - повреждаемый предмет
      * @param damagePoints - сила повреждения
+     * @param inventory    - инвентарь, в котором лежит предмет
+     * @param player       - персонаж
      */
     public static void damageItem(Items item, int damagePoints, List<Items> inventory, Player player) {
         item.setCurrentStrength(item.getCurrentStrength() - damagePoints);
@@ -44,11 +59,17 @@ public class ItemsController {
         }
     }
 
-    // найти предмет в инвентаре по itemTypeId
-    public static Items findItemInInventory(Integer itemId, List<Items> inventory) {
-        if (itemId != null) {
+    /**
+     * Найти предмет в инвентаре по itemTypeId
+     *
+     * @param itemTypeId - идентификатор типа предмета
+     * @param inventory  - инвентарь, в котором ищется предмет
+     * @return           - найденный предмет, или null
+     */
+    public static Items findItemInInventory(Integer itemTypeId, List<Items> inventory) {
+        if (itemTypeId != null) {
             for (Items i : inventory) {
-                if (i.getTypeId() == itemId) {
+                if (i.getTypeId() == itemTypeId) {
                     return i;
                 }
             }
@@ -56,7 +77,12 @@ public class ItemsController {
         return null;
     }
 
-    // найти лучшие инструменты для взлома в инвентаре
+    /**
+     * Найти лучшие инструменты для взлома в инвентаре
+     *
+     * @param inventory  - инвентарь, в котором ищется предмет
+     * @return           - найденный предмет, или null
+     */
     public static Items findPicklockInInventory(List<Items> inventory) {
         Items pickLock = null;
         for (Items i : inventory) {
@@ -71,7 +97,12 @@ public class ItemsController {
         return pickLock;
     }
 
-    // найти лучшие сапёрные инструменты в инвентаре
+    /**
+     * Найти лучшие сапёрные инструменты в инвентаре
+     *
+     * @param inventory  - инвентарь, в котором ищется предмет
+     * @return           - найденный предмет, или null
+     */
     public static Items findSapperToolsInInventory(List<Items> inventory) {
         Items sapperTool = null;
         for (Items i : inventory) {
@@ -86,10 +117,27 @@ public class ItemsController {
         return sapperTool;
     }
 
-    /*
+    /**
      * Добавить предмет в инвентарь
+     *
+     * @param item       - добавляемый предмет
+     * @param inventory  - инвентарь, в который добавляем
+     * @param player     - персонаж
      */
     public static Boolean addItem(Items item, List<Items> inventory, Player player) {
+        return addItem(item, item.getCount(), inventory, player);
+    }
+
+    /**
+     * Добавить указанное количество предметов в инвентарь
+     *
+     * @param item       - добавляемый предмет
+     * @param count      - количество добавляемых предметов
+     * @param inventory  - инвентарь, в который добавляем
+     * @param player     - персонаж
+     */
+    public static Boolean addItem(Items item, int count, List<Items> inventory, Player player) {
+        item = new Items(item, count);
         if (!canAddItem(item, inventory, player)) {
             return false;
         }
@@ -117,25 +165,28 @@ public class ItemsController {
         return true;
     }
 
-    /*
+    /**
      * Добавить все предметы из инвентаря контейнера в инвентарь персонажа (кнопка "Взять всё")
      */
     public static void takeAllItems() {
-        List<Items> inventory = Game.getMap().getPlayer().getInventory();
         List<Items> containerInventory = Game.getContainerInventory().getItems();
         while (containerInventory.size() > 0) {
             Items item = containerInventory.get(0);
-            if (addItem(item, inventory, Game.getMap().getPlayer())) {
-                deleteItem(item, item.getCount(), containerInventory, null);
-            } else {
+            if (!addItemsToPlayerFromContainer(item, item.getCount(), containerInventory)) {
                 break;
             }
         }
     }
 
-    /*
-     * удалить item из инвентаря персонажа.
+    /**
+     * Удалить item из инвентаря
      * если count = 0, удалить все предметы
+     *
+     * @param item      - предмет, который необходимо удалить
+     * @param count     - количество удаляемых предметов
+     * @param inventory - инвентарь, из которого удаляем
+     * @param player    - персонаж
+     * @return true, если предмет удален
      */
     public static Boolean deleteItem(Items item, int count, List<Items> inventory, Player player) {
         boolean found = false;
@@ -170,35 +221,57 @@ public class ItemsController {
         return true;
     }
 
-    /*
-     * Выкинуть выбранный предмет из инвентаря на карту
+    /**
+     * Выкинуть выбранный предмет из инвентаря на карту, или выбрать количество предметов для выбрасывания
+     *
+     * @param player - персонаж, из чьего инвентаря выбрасывается предмет
      */
     public static void dropSelectItems(Player player) {
-        var selectedItem = ItemDetailPanel.getSelectItem();
-        if (GameMenuPanel.getPane().isVisible() && player.getInventory().contains(selectedItem)) {
-            if (selectedItem.isEquipment()) {
-                ItemsController.equipItem(selectedItem, player);
+        if (!ItemCountPanel.getPane().isVisible()) {
+            var selectedItem = ItemDetailPanel.getSelectItem();
+            if (GameMenuPanel.getPane().isVisible() && player.getInventory().contains(selectedItem)) {
+                if (selectedItem.getCount() == 1 || Game.isShiftPressed()) {
+                    dropItems(player, selectedItem.getCount());
+                } else {
+                    ItemCountPanel.show(selectedItem.getCount(), ItemActionType.DROP, selectedItem);
+                }
             }
-
-            Game.getMap().addItemOnMap(Game.getMap().getPlayer().getXPosition(), Game.getMap().getPlayer().getYPosition(), selectedItem);
-
-            Game.getMap().getPlayer().getInventory().remove(selectedItem);
-
-            Game.getInventory().drawItems(InventoryPanel.SortType.NAME, false,
-                    Game.getInventory().getTabPane().getSelectionModel().getSelectedItem().getText());
-
-            player.setCurrentVolume(getCurrVolume(player.getInventory()));
-            player.setCurrentWeight(getCurrWeight(player.getInventory()));
-
-            InventoryPanel.setWeightText();
-            InventoryPanel.setVolumeText();
-
-            Game.getInventory().filterInventoryTabs(Game.getInventory().getTabPane().getSelectionModel().getSelectedItem());
         }
     }
 
-    /*
+    /**
+     * Выкинуть указанное число предметов из инвентаря на карту
+     *
+     * @param player - персонаж, из чьего инвентаря выбрасывается предмет
+     * @param count - количество предметов, которые нужно выкинуть
+     */
+    public static void dropItems(Player player, int count) {
+        var selectedItem = ItemDetailPanel.getSelectItem();
+        if (selectedItem.isEquipment()) {
+            ItemsController.equipItem(selectedItem, player);
+        }
+
+        var x = player.getXPosition();
+        var y = player.getYPosition();
+        List<Items> containerInventory;
+        if (Game.getMap().getTiles()[x][y].getItems() == null) {
+            containerInventory = new ArrayList<>();
+            Game.getMap().getTiles()[x][y].setItems(containerInventory);
+        } else {
+            containerInventory = Game.getMap().getTiles()[x][y].getItems();
+        }
+
+        addItemsToContainerFromPlayer(selectedItem, count, containerInventory);
+    }
+
+    /**
      * Хватит ли объема в инвентаре, чтобы добавить новый предмет
+     *
+     * @param item       - предмет, для которого проводится проверка
+     * @param inventory  - инвентарь, для которого проводится проверка
+     * @param player     - персонаж
+     *
+     * @return true, если в инвентаре персонажа достаточно объема, чтобы добавить новый предмет
      */
     private static Boolean canAddItem(Items item, List<Items> inventory, Player player) {
         return player == null || (getCurrVolume(inventory).
@@ -206,10 +279,16 @@ public class ItemsController {
                 .compareTo(getMaximumVolume(player)) < 1;
     }
 
-    /*
+    /**
      * Хватит ли объема в инвентаре, чтобы экипировать/снять предмет
+     *
+     * @param item     - предмет
+     * @param bodyPart - часть тела, на которую экипируется предмет
+     * @param player   - персонаж
+     *
+     * @return true, если в инвентаре персонажа достаточно объема, чтобы экипировать/снять предмет
      */
-    private static Boolean canEquipItem(Items item, Pair<BodyPartEnum, Items> bodyPart, List<Items> inventory, Player player) {
+    private static Boolean canEquipItem(Items item, Pair<BodyPartEnum, Items> bodyPart, Player player) {
         var itemVolume = BigDecimal.valueOf(item.getInfo().getVolume()).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
         var itemAddVolume = BigDecimal.ZERO;
 
@@ -228,7 +307,7 @@ public class ItemsController {
             }
         }
 
-        return (getCurrVolume(inventory)
+        return (getCurrVolume(player.getInventory())
                 .add(itemVolume.negate())
                 .add(equipItemVolume)
                 .compareTo(getMaximumVolume(player)
@@ -236,67 +315,110 @@ public class ItemsController {
                         .add(equipItemAddVolume.negate())) < 1);
     }
 
-    /*
-     * клик на предмет item
+    /**
+     * Клик на предмет item
+     *
+     * @param item - предмет
+     * @param player - персонаж
      */
     public static void clickItem(Items item, Player player) {
-        if (Game.getContainerInventory().getTabPane().isVisible()) {
-            shiftItem(item);
-        } else {
-            useItem(item, player);
+        if (!ItemCountPanel.getPane().isVisible()) {
+            if (Game.getContainerInventory().getTabPane().isVisible()) {
+                shiftItem(item);
+            } else {
+                useItem(item, player);
+            }
         }
     }
 
-    //переместить предмет
+    /**
+     * Переместить предмет из инвентаря персонажа в контейнер, или обратно
+     *
+     * @param item - предмет
+     */
     private static void shiftItem(Items item) {
-        var player = Game.getMap().getPlayer();
-        List<Items> inventory = player.getInventory();
         List<Items> containerInventory = Game.getContainerInventory().getItems();
-        if (item.getCount() == 1) {
+        if (item.getCount() == 1 || Game.isShiftPressed()) {
             if (containerInventory.contains(item)) {
-                if (addItem(item, inventory, Game.getMap().getPlayer())) {
-                    deleteItem(item, 1, containerInventory, null);
-                    // если остался 1 или 0 предметов, перерисовываем тайл карты
-                    if (containerInventory.size() <= 1) {
-                        int x = Game.getContainerInventory().getX();
-                        int y = Game.getContainerInventory().getY();
-                        if (containerInventory.size() == 0) {
-                            Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y].setItems(null);
-                        }
-                        Game.getMap().drawTile(player, x, y);
-                    }
-                }
+                addItemsToPlayerFromContainer(item, item.getCount(), containerInventory);
             } else {
-                if (addItem(item, containerInventory, null)) {
-                    deleteItem(item, 1, inventory, Game.getMap().getPlayer());
-                }
+                addItemsToContainerFromPlayer(item, item.getCount(), containerInventory);
             }
         } else {
-
+            ItemActionType action = containerInventory.contains(item) ? ItemActionType.TO_PLAYER : ItemActionType.TO_CONTAINER;
+            ItemCountPanel.show(item.getCount(), action, item);
         }
     }
 
-    /*
-     * применить предмет item
+    /**
+     * Переместить предметы из контейнера в инвентарь персонажа
+     *
+     * @param item               - предмет, который нужно переместить
+     * @param count              - количество перемещаемых предметов
+     * @param containerInventory - инвентарь, из которого перемещаются предметы
+     * @return true, если удалось переместить предметы
+     */
+    public static boolean addItemsToPlayerFromContainer(Items item, int count, List<Items> containerInventory) {
+        var player = Game.getMap().getPlayer();
+        List<Items> inventory = player.getInventory();
+        if (addItem(item, count, inventory, Game.getMap().getPlayer())) {
+            deleteItem(item, count, containerInventory, null);
+            // если остался 1 или 0 предметов, перерисовываем тайл карты
+            if (containerInventory.size() <= 1) {
+                int x = Game.getContainerInventory().getX();
+                int y = Game.getContainerInventory().getY();
+                if (containerInventory.size() == 0) {
+                    Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y].setItems(null);
+                }
+                MapController.drawTile(player, x, y);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Переместить предметы из инвентаря персонажа в контейнер
+     *
+     * @param item               - предмет, который нужно переместить
+     * @param count              - количество перемещаемых предметов
+     * @param containerInventory - инвентарь, в который перемещаются предметы
+     */
+    public static void addItemsToContainerFromPlayer(Items item, int count, List<Items> containerInventory) {
+        List<Items> inventory = Game.getMap().getPlayer().getInventory();
+        if (addItem(item, count, containerInventory, null)) {
+            deleteItem(item, count, inventory, Game.getMap().getPlayer());
+        }
+    }
+
+    /**
+     * Применить предмет item
+     *
+     * @param item   - применяемый предмет
+     * @param player - персонаж
      */
     private static void useItem(Items item, Player player) {
-        List<Items> inventory = player.getInventory();
         if (item.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES) ||
                 item.getInfo().getTypes().contains(ItemTypeEnum.WEAPON)) {
             equipItem(item, player);
         } else if (item.getInfo().getTypes().contains(ItemTypeEnum.EAT) ||
                 item.getInfo().getTypes().contains(ItemTypeEnum.POTION) ||
                 item.getInfo().getTypes().contains(ItemTypeEnum.INGREDIENT)) {
-            eatItem(item, inventory, player);
+            eatItem(item, player);
         } else if (item.getInfo().getTypes().contains(ItemTypeEnum.BOOK)) {
             BookPanel.showBookPanel(item.getTypeId());
         }
     }
 
-    /*
-     * съесть item
+    /**
+     * Cъесть предмет
+     *
+     * @param item   - предмет, который персонаж собирается съесть
+     * @param player - персонаж
      */
-    public static void eatItem(Items item, List<Items> inventory, Player player) {
+    public static void eatItem(Items item, Player player) {
+        var inventory = player.getInventory();
         ParamsInfo params = player.getParams();
         if ((((EdibleInfo) item.getInfo()).getHunger().compareTo(params.getIndicators().get(2).getMaxValue() - params.getIndicators().get(2).getCurrentValue()) < 0) &&
                 (((EdibleInfo) item.getInfo()).getThirst().compareTo(params.getIndicators().get(3).getMaxValue() - params.getIndicators().get(3).getCurrentValue()) < 0)) {
@@ -315,17 +437,21 @@ public class ItemsController {
         }
     }
 
-    /*
-     * экипирует/снимает wearingItem
+    /**
+     * Экипирует/снимает предмет
+     *
+     * @param wearingItem - экипируемый предмет
+     * @param player      - персонаж
+     *
+     * @return true, если удалось экипировать/снять предмет
      */
     public static boolean equipItem(Items wearingItem, Player player) {
         List<Pair<BodyPartEnum, Items>> wearingItems = player.getWearingItems();
-        List<Items> inventory = player.getInventory();
         if (wearingItem.getCurrentStrength() > 0) {
             if (wearingItem.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES)) {
                 var index = BodyPartEnum.valueOf(((ClothesInfo) wearingItem.getInfo()).getBodyPart()).ordinal();
                 var bodyPart = wearingItems.get(index);
-                if (canEquipItem(wearingItem, bodyPart, inventory, player)) {
+                if (canEquipItem(wearingItem, bodyPart, player)) {
                     wearingItem.setEquipment(!wearingItem.isEquipment());
 
                     if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {
@@ -376,7 +502,7 @@ public class ItemsController {
             }
 
             // перерисовываем весь тайл с персонажем, чтобы не оставалось артефактов от снятых предметов одежды
-            Game.getMap().drawTile(player, player.getXViewPos(), player.getYViewPos());
+            MapController.drawTile(player, player.getXViewPos(), player.getYViewPos());
 
             player.setCurrentVolume(getCurrVolume(player.getInventory()));
             player.setCurrentWeight(getCurrWeight(player.getInventory()));
@@ -412,8 +538,12 @@ public class ItemsController {
         return BigDecimal.valueOf(totalVolume).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
     }
 
-    /*
+    /**
      * Получить максимальный объем переносимых персонажем вещей. Рюкзак и пояс увеличивают макс. объем
+     *
+     * @param player - персонаж
+     *
+     * @return максимальный переносимый персонажем объем предметов
      */
     public static BigDecimal getMaximumVolume(Player player) {
         var belt = player.getWearingItems().get(BodyPartEnum.BELT.ordinal()).getValue();

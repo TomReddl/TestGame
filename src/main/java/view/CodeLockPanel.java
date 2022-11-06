@@ -17,7 +17,7 @@ import model.entity.map.ClosableCellInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
+/**
  * Панель открытия кодового замка
  */
 public class CodeLockPanel {

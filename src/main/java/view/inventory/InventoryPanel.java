@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 
 import static game.GameParams.tileSize;
 
-/*
+/**
  * Панель инвентаря
  */
 public class InventoryPanel {
@@ -87,13 +87,14 @@ public class InventoryPanel {
 
     private static final DecimalFormat formatter = new DecimalFormat("###,###.###");
 
-    public InventoryPanel(double XPos, InventoryTypeEnum type) {
+    public InventoryPanel(double XPos, double YPos, InventoryTypeEnum type) {
         inventoryType = type;
         tabPane.setLayoutX(XPos);
-        tabPane.setLayoutY(5);
+        tabPane.setLayoutY(YPos);
         tabPane.setPrefSize(550, 450);
         tabPane.setMinHeight(350);
         tabPane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
+        tabPane.setVisible(false);
 
         for (ItemTypeEnum itemType : ItemTypeEnum.getItemTypesForFilter()) {
             var tab = new Tab(itemType.getDesc());
