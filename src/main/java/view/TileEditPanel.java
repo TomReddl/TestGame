@@ -172,8 +172,8 @@ public class TileEditPanel {
         var imageFind = false;
         if (!isCodeLockCB.isSelected() && !keyIdTF.getText().isEmpty() && !keyIdTF.getText().equals("0")) {
             var itemId = Integer.parseInt(keyIdTF.getText());
-            if (itemId < Game.getEditor().getItems().size()) {
-                var item = Game.getEditor().getItems().get(itemId);
+            if (itemId < Editor.getItems().size()) {
+                var item = Editor.getItems().get(itemId);
                 if (item != null && item.getTypes().contains(ItemTypeEnum.KEY)) {
                     keyImage.setImage(item.getImage().getImage());
                     imageFind = true;

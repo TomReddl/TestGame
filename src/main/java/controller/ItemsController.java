@@ -243,7 +243,7 @@ public class ItemsController {
                 if (selectedItem.getCount() == 1 || Game.isShiftPressed()) {
                     dropItems(player, selectedItem.getCount());
                 } else {
-                    ItemCountPanel.show(selectedItem.getCount(), ItemActionType.DROP, selectedItem);
+                    ItemCountPanel.show(ItemActionType.DROP, selectedItem);
                 }
             }
         }
@@ -356,7 +356,7 @@ public class ItemsController {
             }
         } else {
             ItemActionType action = containerInventory.contains(item) ? ItemActionType.TO_PLAYER : ItemActionType.TO_CONTAINER;
-            ItemCountPanel.show(item.getCount(), action, item);
+            ItemCountPanel.show(action, item);
         }
     }
 

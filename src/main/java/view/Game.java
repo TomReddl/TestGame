@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 import model.editor.items.ItemInfo;
 import model.editor.TileInfo;
 import model.entity.GameModeEnum;
@@ -45,6 +46,9 @@ public class Game {
     private static final List<Label> messageLabels = new ArrayList<>();
     @Getter
     private static final Group root = new Group();
+    @Getter
+    @Setter
+    public static Stage stage;
 
     static {
         for (int i = 0; i<4; i++) {
@@ -63,9 +67,14 @@ public class Game {
     }
 
     @Getter
+    private static final ImageView stopTestGameImage = new ImageView("/graphics/gui/StopTestGame.png");
+    @Getter
     @Setter
     private static Map map = new Map();
-
+    @Getter
+    private static final Editor editor = new Editor();
+    @Getter
+    private static final MainMenu mainMenu = new MainMenu();
     @Getter
     private static final InventoryPanel inventory = new InventoryPanel(210, 5, InventoryPanel.InventoryTypeEnum.PLAYER);
     @Getter
@@ -76,14 +85,6 @@ public class Game {
     private static final GameMenuPanel gameMenu = new GameMenuPanel(root);
     @Getter
     private static GameModeEnum gameMode = GameModeEnum.MAIN_MENU;
-    @Getter
-    private static final ImageView stopTestGameImage = new ImageView("/graphics/gui/StopTestGame.png");
-
-    @Getter
-    private static final Editor editor = new Editor();
-
-    @Getter
-    private static final MainMenu mainMenu = new MainMenu();
     @Getter
     @Setter
     private static int xMapInfoPos; // координата текущей точки карты, инофрмация о которой отображается в информационном лэйбле

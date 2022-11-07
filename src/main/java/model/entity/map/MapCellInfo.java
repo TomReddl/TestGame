@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import model.editor.TileInfo;
 import model.editor.TileTypeEnum;
-import view.Game;
+import view.Editor;
 
 import java.io.Serializable;
 import java.util.List;
@@ -53,12 +53,12 @@ public class MapCellInfo implements Serializable {
     // получить информацию о нижнем тайле
     @JsonIgnore
     public TileInfo getTile1Info() {
-        return Game.getEditor().getTiles1().get(tile1Id);
+        return Editor.getTiles1().get(tile1Id);
     }
 
     // получить информацию о верхнем тайле
     @JsonIgnore
     public TileInfo getTile2Info() {
-        return Game.getEditor().getTiles2().get(tile2Id);
+        return Editor.getTiles2().get(tile2Id);
     }
 }

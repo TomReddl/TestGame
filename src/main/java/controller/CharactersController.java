@@ -412,7 +412,7 @@ public class CharactersController {
      * @param player - персонаж
      */
     public static void drawPlayerImage(Player player) {
-        GraphicsContext gc = Game.getEditor().getCanvas().getGraphicsContext2D();
+        GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
         var img = player.getImage().getImage();
         double width = img.getWidth();
         double height = img.getHeight();

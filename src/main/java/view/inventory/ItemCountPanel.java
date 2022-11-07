@@ -10,9 +10,13 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.robot.Robot;
 import lombok.Getter;
 import model.entity.map.Items;
 import view.Game;
+
+import static game.GameParams.headerSize;
+import static game.GameParams.screenSizeX;
 
 /**
  * Панель выбора количества предметов
@@ -20,9 +24,7 @@ import view.Game;
 public class ItemCountPanel {
     @Getter
     private static final Pane pane;
-
     private static final Slider slider;
-    @Getter
     private static final Button selectButton;
     @Getter
     private static final Button backButton;
@@ -69,10 +71,23 @@ public class ItemCountPanel {
         pane.getChildren().add(backButton);
     }
 
-    public static void show(int count, ItemsController.ItemActionType action, Items item) {
+    /**
+     * Показать панель выбора количества предметов
+     *
+     * @param action - действие с предметом
+     * @param item   - предмет
+     */
+    public static void show(ItemsController.ItemActionType action, Items item) {
+        Robot robot = new Robot();
+        double x = robot.getMousePosition().getX() - Game.getStage().getX();
+        if (x + pane.getWidth() > screenSizeX) {
+            x = screenSizeX - pane.getWidth();
+        }
+        pane.setLayoutX(x);
+        pane.setLayoutY(robot.getMousePosition().getY() - Game.getStage().getY() - headerSize);
         currentItem = item;
         currentAction = action;
-        slider.setMax(count);
+        slider.setMax(item.getCount());
         slider.setValue(1);
         pane.setVisible(true);
     }

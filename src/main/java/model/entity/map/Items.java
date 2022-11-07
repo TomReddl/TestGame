@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import model.editor.items.ItemInfo;
-import view.Game;
+import view.Editor;
 import view.inventory.InventoryPanel;
 
 import java.math.BigDecimal;
@@ -63,7 +63,7 @@ public class Items {
     }
 
     public ItemInfo getInfo() {
-        return Game.getEditor().getItems().get(getTypeId());
+        return Editor.getItems().get(getTypeId());
     }
 
     public static BigDecimal getFormatedItemValue(Long value) {

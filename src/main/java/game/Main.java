@@ -22,6 +22,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Game.setStage(primaryStage);
         Scene scene = new Scene(Game.getRoot());
         primaryStage.setTitle("Game");
         primaryStage.setResizable(false);
@@ -34,7 +35,7 @@ public class Main extends Application {
 
         MapController.drawCurrentMap();
 
-        scene.setOnKeyReleased(event -> MapController.onKeyReleased(event.getCode(), primaryStage));
+        scene.setOnKeyReleased(event -> MapController.onKeyReleased(event.getCode()));
         scene.setOnKeyPressed(event -> MapController.onKeyTyped(event.getCode()));
 
         Game.getRoot().setOnMousePressed(event -> MapController.drawMapStart(event.getX(), event.getY(), event.getButton() == MouseButton.SECONDARY));

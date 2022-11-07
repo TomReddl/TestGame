@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * Данные о запираемой (контейнер или дверь) точке на карте мира
+ * Данные о запираемой точке на карте (контейнер или дверь)
  */
 @Getter
 @Setter

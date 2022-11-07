@@ -30,7 +30,7 @@ public class Popover {
         textLabel.setLayoutX(5);
         textLabel.setWrapText(true);
         pane.getChildren().add(textLabel);
-        Game.getEditor().getItemsPane().getChildren().add(pane);
+        Editor.getItemsPane().getChildren().add(pane);
     }
 
     /**
