@@ -6,7 +6,7 @@ import lombok.Getter;
 import model.entity.player.Parameter;
 import view.Game;
 
-/*
+/**
  * Строка с информацией о параметре персонажа
  */
 public class ParamRecord {

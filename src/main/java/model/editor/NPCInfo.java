@@ -7,9 +7,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-/*
-* Данные типа NPC в редакторе
-* */
+/**
+ * Данные типа NPC в редакторе
+ */
 @Getter
 @Setter
 public class NPCInfo implements Serializable {

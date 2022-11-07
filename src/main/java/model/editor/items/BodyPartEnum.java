@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
+/**
  * Список частей тела, на которые можно надеть какую-то одежду
  */
 public enum BodyPartEnum {

@@ -2,6 +2,9 @@ package model.entity;
 
 import lombok.Getter;
 
+/**
+ * Языки игры
+ */
 public enum GameLangEnum {
     RU("Русский"),
     EN("English");

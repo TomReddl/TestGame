@@ -7,8 +7,8 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-/*
- * * Информация о существе
+/**
+ * Информация о существе
  */
 @Getter
 @Setter

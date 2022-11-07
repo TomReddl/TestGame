@@ -23,6 +23,9 @@ import java.util.Properties;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Панель игровых настроек
+ */
 public class GameSettingsPanel {
     private final Pane pane = new Pane();
     @Getter

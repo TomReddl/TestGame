@@ -6,9 +6,9 @@ import model.entity.effects.EffectParams;
 
 import java.util.List;
 
-/*
+/**
  * Информация об одежде
- * */
+ */
 @Setter
 @Getter
 public class ClothesInfo extends ItemInfo {

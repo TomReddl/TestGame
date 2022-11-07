@@ -16,7 +16,7 @@ import model.entity.ItemTypeEnum;
 import model.entity.map.ClosableCellInfo;
 import model.entity.map.MapCellInfo;
 
-/*
+/**
  * Панель настройки параметров тайла
  */
 public class TileEditPanel {

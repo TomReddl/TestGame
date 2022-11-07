@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import view.Game;
 
-/*
+/**
  * Принадлежность одежды к полу
  */
 public enum ClothesGenderEnum {

@@ -2,7 +2,7 @@ package model.entity;
 
 import lombok.Getter;
 
-/*
+/**
  * Режимы игры
  */
 public enum GameModeEnum {

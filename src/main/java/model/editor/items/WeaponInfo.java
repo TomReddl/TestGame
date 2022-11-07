@@ -6,9 +6,9 @@ import model.entity.effects.EffectParams;
 
 import java.util.List;
 
-/*
+/**
  * Информация об оружии
- * */
+ */
 @Setter
 @Getter
 public class WeaponInfo extends ItemInfo {

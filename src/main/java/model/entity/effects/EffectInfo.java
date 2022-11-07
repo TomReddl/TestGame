@@ -3,8 +3,8 @@ package model.entity.effects;
 import lombok.Getter;
 import lombok.Setter;
 
-/*
- * Эффект
+/**
+ * Информация об эффекте
  */
 @Getter
 @Setter

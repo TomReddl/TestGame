@@ -17,7 +17,7 @@ import view.params.ParamPanel;
 
 import java.util.List;
 
-/*
+/**
  * Панель игрового меню, объединяет панели инвентаря и параметров персонажа
  */
 public class GameMenuPanel {

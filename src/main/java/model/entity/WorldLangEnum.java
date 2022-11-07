@@ -3,7 +3,7 @@ package model.entity;
 import lombok.Getter;
 import view.Game;
 
-/*
+/**
  * Языки, существующие в мире игры
  */
 public enum WorldLangEnum {

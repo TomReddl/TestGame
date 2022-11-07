@@ -20,7 +20,7 @@ import view.Game;
 
 import static game.GameParams.tileSize;
 
-/*
+/**
  * Строка с информацией о предмете для отображения в инвентаре
  */
 public class ItemRecord {

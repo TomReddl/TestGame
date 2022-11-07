@@ -14,53 +14,133 @@ import lombok.Getter;
 import lombok.Setter;
 import model.editor.*;
 import model.editor.items.ItemInfo;
+import model.entity.GameModeEnum;
 import model.entity.ItemTypeEnum;
 
 import java.util.List;
 
 import static game.GameParams.*;
 
-@Setter
-@Getter
+/**
+ * Игровой редактор
+ */
 public class Editor {
-    private final TabPane tabPane = new TabPane();
-    private final Pane buttonsPane = new Pane();
-    private ImageView border;
-    private final Pane pane1 = new Pane();
-    private final Pane pane2 = new Pane();
-    private final Pane pane3 = new Pane();
-    private final Pane pane4 = new Pane();
-    private final Pane pane5 = new Pane();
-    private final Pane pane6 = new Pane();
-    private final Pane pane7 = new Pane();
-    private final Pane itemsPane = new Pane();
-    private final TextField searchTile1TF = new TextField();
-    private final TextField searchTile2TF = new TextField();
-    private final TextField searchNPCTF = new TextField();
-    private final TextField searchCreatureTF = new TextField();
-    private final TextField searchItemTF = new TextField();
-    private final TabPane itemsTabPane = new TabPane();
-    private final Label showZonesLabel = new Label(Game.getText("SHOW_ZONES"));
-    private int selectTile = 0;
-    private boolean showZones = false;
-    private CheckBox showZonesCheckBox = new CheckBox();
-    private EditorObjectType selectedType = EditorObjectType.GROUND;
-    private List<TileInfo> tiles1 = JsonUtils.getTiles1();
-    private List<TileInfo> tiles2 = JsonUtils.getTiles2();
-    private List<NPCInfo> npcs = JsonUtils.getNPC();
-    private List<CreatureInfo> creatures = JsonUtils.getCreatures();
-    private List<ItemInfo> items = JsonUtils.getItems();
-    private List<PollutionInfo> pollutions = JsonUtils.getPollutions();
-    private List<ZoneInfo> zones = JsonUtils.getZones();
-    private Canvas canvas = new Canvas(screenSizeX, screenSizeY); // размеры игрового окна
-    private Label mapInfoLabel = new Label("");
+    @Getter
+    private static final TabPane tabPane = new TabPane();
+    @Getter
+    private static final Pane buttonsPane = new Pane();
+    private static ImageView border;
+    private static final Pane pane1 = new Pane();
+    private static final Pane pane2 = new Pane();
+    private static final Pane pane3 = new Pane();
+    private static final Pane pane4 = new Pane();
+    private static final Pane pane5 = new Pane();
+    private static final Pane pane6 = new Pane();
+    private static final Pane pane7 = new Pane();
+    @Getter
+    private static final Pane itemsPane = new Pane();
+    private static final TextField searchTile1TF = new TextField();
+    private static final TextField searchTile2TF = new TextField();
+    private static final TextField searchNPCTF = new TextField();
+    private static final TextField searchCreatureTF = new TextField();
+    @Getter
+    private static final TextField searchItemTF = new TextField();
+    @Getter
+    private static final TabPane itemsTabPane = new TabPane();
+    @Getter
+    private static final Label showZonesLabel = new Label(Game.getText("SHOW_ZONES"));
+    @Getter
+    private static int selectTile = 0;
+    @Getter
+    @Setter
+    private static boolean showZones = false;
+    @Setter
+    @Getter
+    private static CheckBox showZonesCheckBox = new CheckBox();
+    @Getter
+    private static EditorObjectType selectedType = EditorObjectType.GROUND;
+    @Setter
+    @Getter
+    private static List<TileInfo> tiles1 = JsonUtils.getTiles1();
+    @Setter
+    @Getter
+    private static List<TileInfo> tiles2 = JsonUtils.getTiles2();
+    @Setter
+    @Getter
+    private static List<NPCInfo> npcs = JsonUtils.getNPC();
+    @Setter
+    @Getter
+    private static List<CreatureInfo> creatures = JsonUtils.getCreatures();
+    @Setter
+    @Getter
+    private static List<ItemInfo> items = JsonUtils.getItems();
+    @Setter
+    @Getter
+    private static List<PollutionInfo> pollutions = JsonUtils.getPollutions();
+    @Setter
+    @Getter
+    private static List<ZoneInfo> zones = JsonUtils.getZones();
+    @Setter
+    @Getter
+    private static Canvas canvas = new Canvas(screenSizeX, screenSizeY); // размеры игрового окна
+    @Setter
+    @Getter
+    private static Label mapInfoLabel = new Label("");
 
-    public Editor(Group root) {
-        root.getChildren().add(canvas);
-        drawTiles(root);
+    public Editor() {
+        Game.getRoot().getChildren().add(canvas);
+        drawTiles();
+        drawEditorButtons();
     }
 
-    private void drawTiles(Group root) {
+    private void drawEditorButtons() {
+        Label mapNameLabel = new Label(Game.getText("MAP_NAME"));
+        mapNameLabel.setLayoutX(5);
+        mapNameLabel.setLayoutY(10);
+        buttonsPane.getChildren().add(mapNameLabel);
+
+        TextField mapNameTextField = new TextField();
+        mapNameTextField.setLayoutX(105);
+        mapNameTextField.setLayoutY(5);
+        mapNameTextField.setText(Game.getMap().getMapName());
+        mapNameTextField.setFocusTraversable(false);
+        mapNameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d|\\.*")) {
+                mapNameTextField.setText(newValue.replaceAll("[^\\d|.]", ""));
+            }
+        });
+        buttonsPane.getChildren().add(mapNameTextField);
+
+        ImageView saveMapImage = new ImageView("/graphics/gui/SaveMap.png");
+        saveMapImage.setLayoutX(260);
+        saveMapImage.setLayoutY(5);
+        saveMapImage.setOnMousePressed(event -> JsonUtils.saveMap(mapNameTextField.getText(), Game.getMap()));
+        buttonsPane.getChildren().add(saveMapImage);
+
+        ImageView loadMapImage = new ImageView("/graphics/gui/LoadMap.png");
+        loadMapImage.setLayoutX(295);
+        loadMapImage.setLayoutY(5);
+        loadMapImage.setOnMousePressed(event -> {
+            Game.setMap(JsonUtils.loadMap(mapNameTextField.getText()));
+            MapController.drawCurrentMap();
+        });
+        buttonsPane.getChildren().add(loadMapImage);
+
+        ImageView startTestGameImage = new ImageView("/graphics/gui/StartTestGame.png");
+        startTestGameImage.setLayoutX(330);
+        startTestGameImage.setLayoutY(5);
+        startTestGameImage.setOnMousePressed(event -> Game.setGameMode(GameModeEnum.GAME));
+        buttonsPane.getChildren().add(startTestGameImage);
+
+        Game.getStopTestGameImage().setLayoutX(5);
+        Game.getStopTestGameImage().setLayoutY(610);
+        Game.getStopTestGameImage().setOnMousePressed(event -> Game.setGameMode(GameModeEnum.EDITOR));
+        Game.getStopTestGameImage().setVisible(false);
+        Game.getRoot().getChildren().add(Game.getStopTestGameImage());
+    }
+
+    private void drawTiles() {
+        Group root = Game.getRoot();
         buttonsPane.setLayoutX(5);
         buttonsPane.setLayoutY(610);
         root.getChildren().add(buttonsPane);

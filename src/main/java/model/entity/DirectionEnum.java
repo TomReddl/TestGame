@@ -2,7 +2,7 @@ package model.entity;
 
 import lombok.Getter;
 
-/*
+/**
  * Направления движения персонажа
  */
 public enum DirectionEnum {

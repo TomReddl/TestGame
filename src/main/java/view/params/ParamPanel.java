@@ -19,7 +19,7 @@ import view.Game;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
+/**
  * Панель параметров персонажа
  */
 public class ParamPanel {

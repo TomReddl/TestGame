@@ -24,7 +24,7 @@ import java.util.List;
  */
 public class ItemsController {
 
-    // Действия с предметами
+    // Виды действий с предметами
     public enum ItemActionType {
         TO_PLAYER("Переместить предметы в инвентарь игрока"),
         TO_CONTAINER("Переместить предметы в контейнер"),
@@ -64,7 +64,8 @@ public class ItemsController {
      *
      * @param itemTypeId - идентификатор типа предмета
      * @param inventory  - инвентарь, в котором ищется предмет
-     * @return           - найденный предмет, или null
+     *
+     * @return найденный предмет, или null
      */
     public static Items findItemInInventory(Integer itemTypeId, List<Items> inventory) {
         if (itemTypeId != null) {
@@ -81,7 +82,8 @@ public class ItemsController {
      * Найти лучшие инструменты для взлома в инвентаре
      *
      * @param inventory  - инвентарь, в котором ищется предмет
-     * @return           - найденный предмет, или null
+     *
+     * @return найденный предмет, или null
      */
     public static Items findPicklockInInventory(List<Items> inventory) {
         Items pickLock = null;
@@ -101,6 +103,7 @@ public class ItemsController {
      * Найти лучшие сапёрные инструменты в инвентаре
      *
      * @param inventory  - инвентарь, в котором ищется предмет
+     *
      * @return           - найденный предмет, или null
      */
     public static Items findSapperToolsInInventory(List<Items> inventory) {
@@ -119,27 +122,33 @@ public class ItemsController {
 
     /**
      * Добавить предмет в инвентарь
+     * ВАЖНО: метод создает новый объект items, а не добавляет в инвентарь переданный ему объект!
      *
      * @param item       - добавляемый предмет
      * @param inventory  - инвентарь, в который добавляем
      * @param player     - персонаж
+     *
+     * @return добавленный предмет, если удалось добавить, null, если не удалось добавить
      */
-    public static Boolean addItem(Items item, List<Items> inventory, Player player) {
+    public static Items addItem(Items item, List<Items> inventory, Player player) {
         return addItem(item, item.getCount(), inventory, player);
     }
 
     /**
      * Добавить указанное количество предметов в инвентарь
+     * ВАЖНО: метод создает новый объект items, а не добавляет в инвентарь переданный ему объект!
      *
      * @param item       - добавляемый предмет
      * @param count      - количество добавляемых предметов
      * @param inventory  - инвентарь, в который добавляем
      * @param player     - персонаж
+     *
+     * @return добавленный предмет, если удалось добавить, null, если не удалось добавить
      */
-    public static Boolean addItem(Items item, int count, List<Items> inventory, Player player) {
+    public static Items addItem(Items item, int count, List<Items> inventory, Player player) {
         item = new Items(item, count);
         if (!canAddItem(item, inventory, player)) {
-            return false;
+            return null;
         }
         boolean found = false;
         Items i = findItemInInventory(item.getTypeId(), inventory);
@@ -162,7 +171,7 @@ public class ItemsController {
         InventoryPanel inventoryPanel = player != null ? Game.getInventory() : Game.getContainerInventory();
         inventoryPanel.filterInventoryTabs(inventoryPanel.getTabPane().getSelectionModel().getSelectedItem());
 
-        return true;
+        return item;
     }
 
     /**
@@ -186,6 +195,7 @@ public class ItemsController {
      * @param count     - количество удаляемых предметов
      * @param inventory - инвентарь, из которого удаляем
      * @param player    - персонаж
+     *
      * @return true, если предмет удален
      */
     public static Boolean deleteItem(Items item, int count, List<Items> inventory, Player player) {
@@ -356,12 +366,13 @@ public class ItemsController {
      * @param item               - предмет, который нужно переместить
      * @param count              - количество перемещаемых предметов
      * @param containerInventory - инвентарь, из которого перемещаются предметы
+     *
      * @return true, если удалось переместить предметы
      */
     public static boolean addItemsToPlayerFromContainer(Items item, int count, List<Items> containerInventory) {
         var player = Game.getMap().getPlayer();
         List<Items> inventory = player.getInventory();
-        if (addItem(item, count, inventory, Game.getMap().getPlayer())) {
+        if (addItem(item, count, inventory, Game.getMap().getPlayer()) != null) {
             deleteItem(item, count, containerInventory, null);
             // если остался 1 или 0 предметов, перерисовываем тайл карты
             if (containerInventory.size() <= 1) {
@@ -387,7 +398,7 @@ public class ItemsController {
      */
     public static void addItemsToContainerFromPlayer(Items item, int count, List<Items> containerInventory) {
         List<Items> inventory = Game.getMap().getPlayer().getInventory();
-        if (addItem(item, count, containerInventory, null)) {
+        if (addItem(item, count, containerInventory, null) != null) {
             deleteItem(item, count, inventory, Game.getMap().getPlayer());
         }
     }
@@ -516,6 +527,13 @@ public class ItemsController {
         }
     }
 
+    /**
+     * Получить суммарный вес предметов в инвентаре
+     *
+     * @param inventory - инвентарь
+     *
+     * @return суммарный вес всех предметов в инвентаре
+     */
     public static BigDecimal getCurrWeight(List<Items> inventory) {
         int totalWeight = 0;
         for (Items item : inventory) {
@@ -524,10 +542,24 @@ public class ItemsController {
         return BigDecimal.valueOf(totalWeight).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
     }
 
+    /**
+     * Получить максимальный переносимый персонажем вес
+     *
+     * @param player - персонаж
+     *
+     * @return максимальная масса, которую может переносить персонаж
+     */
     public static BigDecimal getMaximumWeight(Player player) {
         return BigDecimal.valueOf(player.getParams().getCharacteristics().get(3).getCurrentValue() * 3);
     }
 
+    /**
+     * Получить заполненный объем в инвентаре
+     *
+     * @param inventory - инвентарь
+     *
+     * @return заполненный объем инвентаря
+     */
     public static BigDecimal getCurrVolume(List<Items> inventory) {
         int totalVolume = 0;
         for (Items item : inventory) {

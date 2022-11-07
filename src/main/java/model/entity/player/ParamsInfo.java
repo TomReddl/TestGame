@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
+/**
  * Все параметры персонажа
  */
 public class ParamsInfo implements Serializable {

@@ -6,7 +6,7 @@ import model.entity.effects.EffectParams;
 
 import java.util.List;
 
-/*
+/**
  * Данные о съедобном предмете: ингридиенте, зелье или еде
  */
 @Setter

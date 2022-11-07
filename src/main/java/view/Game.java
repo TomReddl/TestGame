@@ -63,10 +63,9 @@ public class Game {
     }
 
     @Getter
-    private static final Editor editor = new Editor(root);
-    @Getter
     @Setter
     private static Map map = new Map();
+
     @Getter
     private static final InventoryPanel inventory = new InventoryPanel(210, 5, InventoryPanel.InventoryTypeEnum.PLAYER);
     @Getter
@@ -76,11 +75,15 @@ public class Game {
     @Getter
     private static final GameMenuPanel gameMenu = new GameMenuPanel(root);
     @Getter
-    private static final MainMenu mainMenu = new MainMenu(root);
-    @Getter
     private static GameModeEnum gameMode = GameModeEnum.MAIN_MENU;
     @Getter
     private static final ImageView stopTestGameImage = new ImageView("/graphics/gui/StopTestGame.png");
+
+    @Getter
+    private static final Editor editor = new Editor();
+
+    @Getter
+    private static final MainMenu mainMenu = new MainMenu();
     @Getter
     @Setter
     private static int xMapInfoPos; // координата текущей точки карты, инофрмация о которой отображается в информационном лэйбле
@@ -101,7 +104,7 @@ public class Game {
                 MainMenu.getPane().setVisible(true);
                 MainMenu.getPane().setLayoutX(0);
                 MainMenu.getPane().setLayoutY(0);
-                mainMenu.getBackgroundImage().setVisible(true);
+                MainMenu.getBackgroundImage().setVisible(true);
                 editor.getMapInfoLabel().setVisible(false);
                 break;
             }
@@ -126,9 +129,9 @@ public class Game {
                 break;
             }
             case GAME_MENU: {
-                MainMenu.getPane().setLayoutX(mainMenu.getGameMenuPosX());
-                MainMenu.getPane().setLayoutY(mainMenu.getGameMenuPosY());
-                mainMenu.getBackgroundImage().setVisible(false);
+                MainMenu.getPane().setLayoutX(MainMenu.getGameMenuPosX());
+                MainMenu.getPane().setLayoutY(MainMenu.getGameMenuPosY());
+                MainMenu.getBackgroundImage().setVisible(false);
                 break;
             }
         }
@@ -205,16 +208,16 @@ public class Game {
             itemInfo.setDesc(Game.getItemsText(itemInfo.getId() + "DESC"));
         }
 
-        mainMenu.getSettingsPanel().getLangLabel().setText(Game.getText("LANG"));
-        mainMenu.getSettingsPanel().getSaveButton().setText(Game.getText("SAVE"));
-        mainMenu.getSettingsPanel().getBackButton().setText(Game.getText("BACK"));
+        MainMenu.getSettingsPanel().getLangLabel().setText(Game.getText("LANG"));
+        MainMenu.getSettingsPanel().getSaveButton().setText(Game.getText("SAVE"));
+        MainMenu.getSettingsPanel().getBackButton().setText(Game.getText("BACK"));
 
-        mainMenu.getContinueButton().setText(Game.getText("CONTINUE"));
-        mainMenu.getNewGameButton().setText(Game.getText("NEW_GAME"));
-        mainMenu.getLoadGameButton().setText(Game.getText("LOAD_GAME"));
-        mainMenu.getEditorButton().setText(Game.getText("EDITOR"));
-        mainMenu.getSettingsButton().setText(Game.getText("SETTINGS"));
-        mainMenu.getExitButton().setText(Game.getText("EXIT"));
+        MainMenu.getContinueButton().setText(Game.getText("CONTINUE"));
+        MainMenu.getNewGameButton().setText(Game.getText("NEW_GAME"));
+        MainMenu.getLoadGameButton().setText(Game.getText("LOAD_GAME"));
+        MainMenu.getEditorButton().setText(Game.getText("EDITOR"));
+        MainMenu.getSettingsButton().setText(Game.getText("SETTINGS"));
+        MainMenu.getExitButton().setText(Game.getText("EXIT"));
     }
 
     public static String getText(String strId) {

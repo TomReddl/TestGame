@@ -7,9 +7,9 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-/*
-* Данные типа загрязнения в редакторе
-* */
+/**
+ * Данные типа загрязнения в редакторе
+ */
 @Getter
 @Setter
 public class PollutionInfo implements Serializable {

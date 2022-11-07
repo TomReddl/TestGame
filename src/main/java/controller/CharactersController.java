@@ -1,8 +1,12 @@
 package controller;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import javafx.util.Pair;
 import model.editor.TileInfo;
 import model.editor.TileTypeEnum;
+import model.editor.items.BodyPartEnum;
 import model.entity.DirectionEnum;
 import model.entity.map.ClosableCellInfo;
 import model.entity.map.Items;
@@ -11,13 +15,17 @@ import model.entity.player.Player;
 import view.CodeLockPanel;
 import view.Editor;
 import view.Game;
+import view.inventory.InventoryPanel;
+import view.inventory.PlayerIndicatorsPanel;
 import view.params.ParamPanel;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import static game.GameParams.mapSize;
+import static game.GameParams.tileSize;
 
 /**
  * Действия персонажей
@@ -83,7 +91,7 @@ public class CharactersController {
             } else {
                 List<Items> removeList = new ArrayList<>();
                 for (Items items : itemsList) {
-                    if (ItemsController.addItem(items, player.getInventory(), player)) {
+                    if (ItemsController.addItem(items, player.getInventory(), player) != null) {
                         removeList.add(items);
                     } else {
                         break;
@@ -104,6 +112,7 @@ public class CharactersController {
      * Тайл карты является запертым контейнером, или контейнером с ловушкой
      *
      * @param mapCellInfo - точка на карте
+     *
      * @return true, если точка является запертым контейнером
      */
     private static boolean isClosedCell(MapCellInfo mapCellInfo) {
@@ -125,9 +134,8 @@ public class CharactersController {
         var player = Game.getMap().getPlayer();
         int Xpos = player.getXMapPos();
         int YPos = player.getYMapPos();
-        Editor editor = Game.getEditor();
         var mapCellInfo = Game.getMap().getTiles()[Xpos + x][YPos + y];
-        TileInfo tileInfo = editor.getTiles2().get(mapCellInfo.getTile2Id());
+        TileInfo tileInfo = Editor.getTiles2().get(mapCellInfo.getTile2Id());
         if (tileInfo.getType() != null) {
             switch (TileTypeEnum.valueOf(tileInfo.getType())) {
                 case DOOR:
@@ -396,5 +404,124 @@ public class CharactersController {
                 MapController.drawCurrentMap();
             }
         }
+    }
+
+    /**
+     * Нарисовать персонажа игрока и все экипированные на нем предметы
+     *
+     * @param player - персонаж
+     */
+    public static void drawPlayerImage(Player player) {
+        GraphicsContext gc = Game.getEditor().getCanvas().getGraphicsContext2D();
+        var img = player.getImage().getImage();
+        double width = img.getWidth();
+        double height = img.getHeight();
+
+        var isLeft = player.getDirection().equals(DirectionEnum.LEFT) ||
+                player.getDirection().equals(DirectionEnum.UP);
+        if (isLeft) {
+            gc.drawImage(img,
+                    0, 0, tileSize, tileSize,
+                    player.getXViewPos() * tileSize + tileSize,
+                    player.getYViewPos() * tileSize,
+                    -width, height);
+        } else {
+            gc.drawImage(img,
+                    player.getXViewPos() * tileSize, player.getYViewPos() * tileSize);
+        }
+
+        for (Pair<BodyPartEnum, Items> bodyPart : player.getWearingItems()) {
+            if (bodyPart.getValue() != null) {
+                var path = "/graphics/items/" + bodyPart.getValue().getTypeId() + "doll.png";
+                var f = new File("/" + Player.class.getProtectionDomain().getCodeSource().getLocation().getPath() + path);
+                if (f.exists()) {
+                    var image = new Image(path);
+                    if (isLeft) {
+                        gc.drawImage(image,
+                                0, 0, tileSize, tileSize,
+                                player.getXViewPos() * tileSize + tileSize,
+                                player.getYViewPos() * tileSize,
+                                -width, height);
+                    } else {
+                        gc.drawImage(image,
+                                player.getXViewPos() * tileSize, player.getYViewPos() * tileSize);
+                    }
+                }
+            }
+        }
+        /*var sp = new SnapshotParameters();
+        WritableImage writableImage = new WritableImage(40, 40);
+        writableImage = gc.getCanvas().snapshot(sp, writableImage);*/
+    }
+
+    /**
+     * Перегружен ли персонаж
+     *
+     * @return true, если персонаж перегружен
+     */
+    public static Boolean isOverloaded(Player player) {
+        return player.getCurrentWeight().compareTo(player.getMaxWeight()) > 0;
+    }
+
+    /**
+     * Добавить в инвентарь персонажа стартовые предметы
+     *
+     * @param player - персонаж
+     */
+    public static void setPlayerStartItems(Player player) {
+        ItemsController.addItem(new Items(1, 2), player.getInventory(), player);
+        ItemsController.addItem(new Items(3, 1), player.getInventory(), player);
+        ItemsController.addItem(new Items(11, 10), player.getInventory(), player);
+        ItemsController.addItem(new Items(10, 1), player.getInventory(), player);
+
+        ItemsController.equipItem(
+                ItemsController.addItem(new Items(23, 1),
+                        player.getInventory(),
+                        player),
+                player);
+
+        ItemsController.equipItem(
+                ItemsController.addItem(new Items(25, 1),
+                        player.getInventory(),
+                        player),
+                player);
+
+        ItemsController.equipItem(
+                ItemsController.addItem(new Items(26, 1),
+                        player.getInventory(),
+                        player),
+                player);
+
+        ItemsController.equipItem(
+                ItemsController.addItem(new Items(20, 1),
+                        player.getInventory(),
+                        player),
+                player);
+
+        ItemsController.equipItem(
+                ItemsController.addItem(new Items(21, 1),
+                        player.getInventory(),
+                        player),
+                player);
+
+        var items6 = new Items(22, 1);
+        ItemsController.addItem(items6, player.getInventory(), player);
+        ItemsController.equipItem(
+                ItemsController.findItemInInventory(items6.getTypeId(), player.getInventory()),
+                player);
+
+        var items7 = new Items(30, 1);
+        items7.setCurrentStrength(0);
+        ItemsController.addItem(items7, player.getInventory(), player);
+
+        PlayerIndicatorsPanel.setClothesStyle(player.getWearingItems());
+
+        player.setMaxVolume(ItemsController.getMaximumVolume(player));
+        player.setCurrentVolume(ItemsController.getCurrVolume(player.getInventory()));
+        player.setMaxWeight(ItemsController.getMaximumWeight(player));
+        player.setCurrentWeight(ItemsController.getCurrWeight(player.getInventory()));
+
+        InventoryPanel.setWeightText();
+        InventoryPanel.setVolumeText();
     }
 }

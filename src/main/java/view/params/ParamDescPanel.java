@@ -6,7 +6,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import lombok.Getter;
 
-/*
+/**
  * Панель детальной информации о параметре
  */
 public class ParamDescPanel {

@@ -23,7 +23,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-/*
+/**
  * Панель чтения книг/списков/записок
  */
 public class BookPanel {

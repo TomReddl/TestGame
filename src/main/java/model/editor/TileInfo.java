@@ -7,9 +7,9 @@ import lombok.Setter;
 
 import java.util.List;
 
-/*
+/**
  * Данные тайла в редакторе
- * */
+ */
 @Getter
 @Setter
 public class TileInfo {

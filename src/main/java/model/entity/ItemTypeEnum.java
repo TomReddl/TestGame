@@ -7,9 +7,9 @@ import view.Game;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
+/**
  * Тип предмета
- * */
+ */
 public enum ItemTypeEnum {
     ALL(Game.getText("ALL")), // Все
     EAT(Game.getText("EAT")), // Еда

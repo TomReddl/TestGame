@@ -5,7 +5,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-/*
+/**
  * Показатель персонажа
  */
 @Getter

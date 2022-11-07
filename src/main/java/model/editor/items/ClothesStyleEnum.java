@@ -4,6 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 import view.Game;
 
+/**
+ * Стили одежды
+ */
 public enum ClothesStyleEnum {
     COMMON(Game.getText("COMMON_STYLE")),       // обычный
     FRONTIER(Game.getText("FRONTIER_STYLE")),   // фронтир

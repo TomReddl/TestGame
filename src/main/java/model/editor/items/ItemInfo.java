@@ -8,9 +8,9 @@ import model.entity.ItemTypeEnum;
 
 import java.util.List;
 
-/*
+/**
  * Данные типа предмета в редакторе
- * */
+ */
 @Setter
 @Getter
 public class ItemInfo {

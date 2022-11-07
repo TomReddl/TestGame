@@ -453,7 +453,7 @@ public class MapController {
                 if (BookPanel.getPane().isVisible()) {
                     BookPanel.showNextPage();
                 } else {
-                    if (player.isOverloaded()) {
+                    if (CharactersController.isOverloaded(player)) {
                         Game.showMessage(Game.getText("ERROR_OVERLOADED"));
                     } else {
                         CharactersController.heroMoveRight(player);
@@ -465,7 +465,7 @@ public class MapController {
                 if (BookPanel.getPane().isVisible()) {
                     BookPanel.showPreviousPage();
                 } else {
-                    if (player.isOverloaded()) {
+                    if (CharactersController.isOverloaded(player)) {
                         Game.showMessage(Game.getText("ERROR_OVERLOADED"));
                     } else {
                         CharactersController.heroMoveLeft(player);
@@ -474,7 +474,7 @@ public class MapController {
                 break;
             }
             case S: {
-                if (player.isOverloaded()) {
+                if (CharactersController.isOverloaded(player)) {
                     Game.showMessage(Game.getText("ERROR_OVERLOADED"));
                 } else {
                     CharactersController.heroMoveDown(player);
@@ -482,7 +482,7 @@ public class MapController {
                 break;
             }
             case W: {
-                if (player.isOverloaded()) {
+                if (CharactersController.isOverloaded(player)) {
                     Game.showMessage(Game.getText("ERROR_OVERLOADED"));
                 } else {
                     CharactersController.heroMoveUp(player);
@@ -694,7 +694,7 @@ public class MapController {
         if ((Game.getGameMode().equals(GameModeEnum.GAME) ||
                 Game.getGameMode().equals(GameModeEnum.GAME_MENU)) &&
                 (player.getXViewPos() == x) && (player.getYViewPos() == y)) {
-            Player.drawPlayerImage(player);
+            CharactersController.drawPlayerImage(player);
         }
 
         // если у тайла есть верхний уровень или его высота больше размера тайла, рисуем его поверх персонажа или NPC

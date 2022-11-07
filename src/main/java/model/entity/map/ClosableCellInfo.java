@@ -4,10 +4,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Данные о запираемой (контейнер или дверь) точке на карте мира
+ */
 @Getter
 @Setter
 @NoArgsConstructor
-// Данные о запираемой (контейнер или дверь) точке на карте мира
 public class ClosableCellInfo extends MapCellInfo {
     private boolean isLocked; // признак запертой двери или контейнера
     private Integer keyId; // идентификатор ключа (для дверей или контейнеров)

@@ -3,7 +3,6 @@ package view.menu;
 import model.entity.GameModeEnum;
 import view.Game;
 import javafx.geometry.Insets;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -12,31 +11,37 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import lombok.Getter;
-import lombok.Setter;
 
 import static game.GameParams.*;
 
-/*
+/**
  * Главное меню
  */
-@Setter
-@Getter
 public class MainMenu {
     @Getter
     private static final Pane pane = new Pane();
-    private final ImageView backgroundImage = new ImageView("/graphics/gui/Background.png");
-    private final Button continueButton = new Button(Game.getText("CONTINUE"));
-    private final Button newGameButton = new Button(Game.getText("NEW_GAME"));
-    private final Button loadGameButton = new Button(Game.getText("LOAD_GAME"));
-    private final Button editorButton = new Button(Game.getText("EDITOR"));
-    private final Button settingsButton = new Button(Game.getText("SETTINGS"));
-    private final Button exitButton = new Button(Game.getText("EXIT"));
-    private final GameSettingsPanel settingsPanel = new GameSettingsPanel();
+    @Getter
+    private static final ImageView backgroundImage = new ImageView("/graphics/gui/Background.png");
+    @Getter
+    private static final Button continueButton = new Button(Game.getText("CONTINUE"));
+    @Getter
+    private static final Button newGameButton = new Button(Game.getText("NEW_GAME"));
+    @Getter
+    private static final Button loadGameButton = new Button(Game.getText("LOAD_GAME"));
+    @Getter
+    private static final Button editorButton = new Button(Game.getText("EDITOR"));
+    @Getter
+    private static final Button settingsButton = new Button(Game.getText("SETTINGS"));
+    @Getter
+    private static final Button exitButton = new Button(Game.getText("EXIT"));
+    @Getter
+    private static final GameSettingsPanel settingsPanel = new GameSettingsPanel();
+    @Getter
+    private static final int gameMenuPosX = 230;
+    @Getter
+    private static final int gameMenuPosY = 200;
 
-    private final int gameMenuPosX = 230;
-    private final int gameMenuPosY = 200;
-
-    public MainMenu(Group root) {
+    public MainMenu() {
         backgroundImage.setFitWidth(screenSizeX);
         backgroundImage.setFitHeight(screenSizeY);
         pane.getChildren().add(backgroundImage);
@@ -79,10 +84,10 @@ public class MainMenu {
         pane.setLayoutY(0);
         pane.setPrefSize(140, 210);
 
-        root.getChildren().add(pane);
+        Game.getRoot().getChildren().add(pane);
     }
 
-    public void closeGame() {
+    public static void closeGame() {
         System.exit(0);
     }
 }

@@ -7,7 +7,7 @@ import view.Game;
 import java.util.HashMap;
 import java.util.Map;
 
-/*
+/**
  * Класс для хранения и работы с эффектами
  */
 public class EffectUtils {

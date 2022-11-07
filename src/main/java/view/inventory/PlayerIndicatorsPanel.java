@@ -19,7 +19,7 @@ import view.Game;
 
 import java.util.*;
 
-/*
+/**
  * Панель жизненных параметров персонажа
  */
 public class PlayerIndicatorsPanel {
