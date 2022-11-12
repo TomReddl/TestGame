@@ -77,7 +77,7 @@ public class ItemDetailPanel {
                     ((clothesInfo.getBodyPart().equals(BodyPartEnum.BACKPACK.name()) ||
                             clothesInfo.getBodyPart().equals(BodyPartEnum.BELT.name()))?
                             Game.getText("ADD_VOLUME") + " " +
-                                    BigDecimal.valueOf(Long.parseLong(clothesInfo.getParams().get(0))).
+                                    BigDecimal.valueOf(Long.parseLong(clothesInfo.getParams().get("addVolume"))).
                                             divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP)
                             : "") + "\n" +
 
@@ -119,7 +119,7 @@ public class ItemDetailPanel {
                             Game.getText("CHARGES"),
                             item.getCurrentStrength(),
                             item.getInfo().getMaxStrength(),
-                            item.getInfo().getParams().get(0),
+                            item.getInfo().getParams().get("skillBonus"),
                             toolSkill));
         }
     }

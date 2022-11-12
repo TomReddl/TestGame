@@ -116,7 +116,7 @@
     "covering": 20,
     "style": "COMMON",
     "gender": "UNISEX",
-    "params": ["40000"],
+    "params": {"addVolume" : "40000"},
     "types": ["CLOTHES"]
   },
   {
@@ -132,7 +132,7 @@
     "covering": 20,
     "style": "COMMON",
     "gender": "UNISEX",
-    "params": ["5000"],
+    "params": {"addVolume" : "5000"},
     "types": ["CLOTHES"]
   },
   {
@@ -163,7 +163,7 @@
     "covering": 20,
     "style": "COMMON",
     "gender": "UNISEX",
-    "params": ["80000"],
+    "params": {"addVolume" : "80000"},
     "types": ["CLOTHES"]
   },
   {

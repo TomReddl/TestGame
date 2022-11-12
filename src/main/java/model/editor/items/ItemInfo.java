@@ -7,6 +7,7 @@ import lombok.Setter;
 import model.entity.ItemTypeEnum;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Данные типа предмета в редакторе
@@ -30,5 +31,5 @@ public class ItemInfo {
     private ImageView image;
     @JsonIgnore
     private ImageView icon;
-    private List<String> params; // дополнительные параметры предмета
+    private Map<String, String> params; // дополнительные параметры предмета, мапа формата <Название параметра, значение>
 }

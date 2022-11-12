@@ -8,13 +8,17 @@ import model.editor.TileInfo;
 import model.editor.TileTypeEnum;
 import model.editor.items.BodyPartEnum;
 import model.entity.DirectionEnum;
+import model.entity.ItemTypeEnum;
 import model.entity.map.ClosableCellInfo;
 import model.entity.map.Items;
 import model.entity.map.MapCellInfo;
+import model.entity.player.GenderEnum;
+import model.entity.player.ParamsInfo;
 import model.entity.player.Player;
 import view.CodeLockPanel;
 import view.Editor;
 import view.Game;
+import view.SelectTimePanel;
 import view.inventory.InventoryPanel;
 import view.inventory.PlayerIndicatorsPanel;
 import view.params.ParamPanel;
@@ -32,6 +36,53 @@ import static game.GameParams.tileSize;
  */
 public class CharactersController {
     private static final Random random = new Random();
+
+    /**
+     * Рост волос
+     */
+    public static void growingHair() {
+        var hairLength = Game.getMap().getPlayer().getHairLength();
+        if (hairLength < 3) {
+            Game.getMap().getPlayer().setHairLength(hairLength + 1);
+        }
+        if (Game.getMap().getPlayer().getGender().equals(GenderEnum.MALE)) { // борода растет только у мужчин
+            var beardLength = Game.getMap().getPlayer().getBeardLength();
+            if (beardLength < 3) {
+                Game.getMap().getPlayer().setBeardLength(beardLength + 1);
+            }
+        }
+    }
+
+    /**
+     * Нажатие на карту в игре
+     *
+     * @param x            - координата X места нажатия
+     * @param y            - координата Y места нажатия
+     * @param isRightMouse - признак нажатия ПКМ
+     */
+    public static void gameMapClick(double x, double y, boolean isRightMouse) {
+        var tileX = (((int) x) / tileSize);
+        var tileY = (((int) y) / tileSize);
+        var player = Game.getMap().getPlayer();
+        if (MapController.isReachable(player, tileX, tileY)) {
+            var itemInRightHand = player.getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).getValue();
+            if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.TOOL)) {
+                MapCellInfo mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + tileX]
+                        [player.getYMapPos() + tileY];
+
+                switch (itemInRightHand.getTypeId()) {
+                    case 91: { // если в руках лейка
+                        if (mapCellInfo.getTile1Id() == MapController.getDugUpGroundId() ||
+                                mapCellInfo.getTile1Id() == MapController.getDryGround()) {
+                            mapCellInfo.setTile1Id(MapController.getWetGround());
+                        }
+                        break;
+                    }
+                }
+                MapController.drawTile(player, tileX, tileY);
+            }
+        }
+    }
 
     /**
      * Увеличить навык
@@ -79,6 +130,7 @@ public class CharactersController {
      * @param y         - координата y предметов на карте
      */
     public static void pickUpItems(List<Items> itemsList, int x, int y) {
+        TimeController.tic(true);
         var player = Game.getMap().getPlayer();
         var mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y];
 
@@ -112,7 +164,6 @@ public class CharactersController {
      * Тайл карты является запертым контейнером, или контейнером с ловушкой
      *
      * @param mapCellInfo - точка на карте
-     *
      * @return true, если точка является запертым контейнером
      */
     private static boolean isClosedCell(MapCellInfo mapCellInfo) {
@@ -131,6 +182,7 @@ public class CharactersController {
      * @param y - координата y предметов на карте
      */
     public static void interactionWithMap(int x, int y) {
+        TimeController.tic(true);
         var player = Game.getMap().getPlayer();
         int Xpos = player.getXMapPos();
         int YPos = player.getYMapPos();
@@ -143,9 +195,37 @@ public class CharactersController {
                     closableInteract(mapCellInfo);
                     break;
                 }
+                case CLOCK: {
+                    Game.getTimeLabel().setText(TimeController.getCurrentDataStr(true));
+                    break;
+                }
+                case BED: {
+                    SelectTimePanel.show(SelectTimePanel.TimeSkipType.SLEEP);
+                    break;
+                }
+                case PLANT: {
+                    harvest(mapCellInfo);
+                    break;
+                }
             }
             MapController.drawTile(player, x, y);
         }
+    }
+
+    /**
+     * Сбор урожая с тайла
+     *
+     * @param mapCellInfo - точка на карте
+     */
+    public static void harvest(MapCellInfo mapCellInfo) {
+        var player = Game.getMap().getPlayer();
+        int harvestCount = mapCellInfo.getTile2Info().getParams().get("harvestCount") != null ?
+                Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("harvestCount")) : 1;
+        ItemsController.addItem(
+                new Items(Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("harvestId")), harvestCount),
+                player.getInventory(),
+                player);
+        mapCellInfo.setTile2Id(Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("harvestedId")));
     }
 
     /**
@@ -163,7 +243,7 @@ public class CharactersController {
             } else {
                 var doorKey = ItemsController.findItemInInventory(closableCellInfo.getKeyId(), player.getInventory());
                 if (doorKey != null) {
-                    closableCellInfo.setTile2Id(Integer.parseInt(tileInfo.getParams().get(0)));
+                    closableCellInfo.setTile2Id(Integer.parseInt(tileInfo.getParams().get("anotherDoorState")));
                     closableCellInfo.setLocked(false);
                     Game.showMessage(
                             String.format(Game.getText("OPENED"), doorKey.getInfo().getName()),
@@ -189,7 +269,7 @@ public class CharactersController {
                 }
             } else {
                 if (tileInfo.getParams() != null) {
-                    closableCellInfo.setTile2Id(Integer.parseInt(tileInfo.getParams().get(0)));
+                    closableCellInfo.setTile2Id(Integer.parseInt(tileInfo.getParams().get("anotherDoorState")));
                 }
             }
         }
@@ -204,9 +284,9 @@ public class CharactersController {
     private static void hackLock(ClosableCellInfo closableCellInfo, Items hackingTools) {
         var hackingSkill = Game.getMap().getPlayer().getParams().getSkills().get(11).getCurrentValue(); // уровень навыка
         var dexterity = Game.getMap().getPlayer().getParams().getCharacteristics().get(2).getCurrentValue(); // уровень ловкости
-        var hackingToolsLevel = Integer.parseInt(hackingTools.getInfo().getParams().get(0)); // уровень инструментов
+        var skillBonus = Integer.parseInt(hackingTools.getInfo().getParams().get("skillBonus")); // бонус к навыку от инструментов инструментов
         var lockLevel = closableCellInfo.getLockLevel(); // уровень замка
-        var hackChance = hackingSkill * 1.5 + dexterity * 0.25 + hackingToolsLevel * 1.5 - lockLevel; // формула рассчета вероятности взлома замка
+        var hackChance = hackingSkill * 1.5 + dexterity * 0.25 + skillBonus * 1.5 - lockLevel; // формула рассчета вероятности взлома замка
         if (hackChance < 0) {
             Game.showMessage(Game.getText("CANT_HACK")); // если шанс взлома меньше 0, вообще не пытаемся взломать
         } else {
@@ -234,9 +314,9 @@ public class CharactersController {
     private static void trapDeactivation(ClosableCellInfo closableCellInfo, Items sapperTools) {
         var hackingSkill = Game.getMap().getPlayer().getParams().getSkills().get(11).getCurrentValue(); // уровень навыка
         var dexterity = Game.getMap().getPlayer().getParams().getCharacteristics().get(2).getCurrentValue(); // уровень ловкости
-        var hackingToolsLevel = Integer.parseInt(sapperTools.getInfo().getParams().get(0)); // уровень инструментов
+        var skillBonus = Integer.parseInt(sapperTools.getInfo().getParams().get("skillBonus")); // бонус инструментов
         var trapLevel = closableCellInfo.getTrapLevel(); // уровень замка
-        var defuseChance = hackingSkill * 1.5 + dexterity * 0.25 + hackingToolsLevel * 1.5 - trapLevel; // формула рассчета вероятности взлома замка
+        var defuseChance = hackingSkill * 1.5 + dexterity * 0.25 + skillBonus * 1.5 - trapLevel; // формула рассчета вероятности взлома замка
         if (defuseChance < 0) {
             Game.showMessage(Game.getText("CANT_DEFUSE")); // если шанс взлома меньше 0, вообще не пытаемся взломать
         } else {
@@ -304,7 +384,7 @@ public class CharactersController {
             Game.getMap().getTiles()[x + xPlus][y + yPlus].setTile2Id(Game.getMap().getTiles()[x][y].getTile2Id());
             Game.getMap().getTiles()[x][y].setTile2Id(0);
             MapController.drawTile(player,
-                    player.getXViewPos() + xPlus*2, player.getYViewPos() + yPlus*2);
+                    player.getXViewPos() + xPlus * 2, player.getYViewPos() + yPlus * 2);
         }
         return canMove;
     }
@@ -320,6 +400,7 @@ public class CharactersController {
                 (Game.getMap().getTiles()
                         [player.getXPosition()][player.getYPosition() - 1].getTile2Info().isPassability() ||
                         canMoveTile2())) {
+            TimeController.tic(true);
             if (player.getYPosition() > 0) {
                 player.setYPosition(player.getYPosition() - 1);
             }
@@ -340,10 +421,11 @@ public class CharactersController {
      */
     public static void heroMoveDown(Player player) {
         player.setDirection(DirectionEnum.DOWN);
-        if (player.getYPosition() < (mapSize-1) && (Game.getMap().getTiles()[player.getXPosition()][player.getYPosition() + 1].getTile1Info().isPassability()) &&
+        if (player.getYPosition() < (mapSize - 1) && (Game.getMap().getTiles()[player.getXPosition()][player.getYPosition() + 1].getTile1Info().isPassability()) &&
                 (Game.getMap().getTiles()
                         [player.getXPosition()][player.getYPosition() + 1].getTile2Info().isPassability() ||
                         canMoveTile2())) {
+            TimeController.tic(true);
             if (player.getYPosition() < mapSize) {
                 player.setYPosition(player.getYPosition() + 1);
             }
@@ -368,6 +450,7 @@ public class CharactersController {
                 (Game.getMap().getTiles()
                         [player.getXPosition() - 1][player.getYPosition()].getTile2Info().isPassability() ||
                         canMoveTile2())) {
+            TimeController.tic(true);
             if (player.getXPosition() > 0) {
                 player.setXPosition(player.getXPosition() - 1);
             }
@@ -388,11 +471,12 @@ public class CharactersController {
      */
     public static void heroMoveRight(Player player) {
         player.setDirection(DirectionEnum.RIGHT);
-        if (player.getXPosition() < (mapSize-1) && Game.getMap().getTiles()
+        if (player.getXPosition() < (mapSize - 1) && Game.getMap().getTiles()
                 [player.getXPosition() + 1][player.getYPosition()].getTile1Info().isPassability() &&
                 (Game.getMap().getTiles()
                         [player.getXPosition() + 1][player.getYPosition()].getTile2Info().isPassability() ||
                         canMoveTile2())) {
+            TimeController.tic(true);
             if (player.getXPosition() < mapSize) {
                 player.setXPosition(player.getXPosition() + 1);
             }
@@ -412,14 +496,42 @@ public class CharactersController {
      * @param player - персонаж
      */
     public static void drawPlayerImage(Player player) {
-        GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
-        var img = player.getImage().getImage();
-        double width = img.getWidth();
-        double height = img.getHeight();
+        var playerImage = player.getImage().getImage();
 
         var isLeft = player.getDirection().equals(DirectionEnum.LEFT) ||
                 player.getDirection().equals(DirectionEnum.UP);
+        drawImg(player, playerImage, isLeft);
+        if (player.getGender().equals(GenderEnum.MALE)) {
+            if (player.getBeardLength() > 0) { // рисуем бороду персонажа
+                var image = new Image("/graphics/characters/body/beard" + player.getHairColor() + player.getBeardLength() + ".png");
+                drawImg(player, image, isLeft);
+            }
+        }
+        if (player.getHairLength() > 0) { // рисуем волосы персонажа
+            var image = new Image("/graphics/characters/body/hair" + player.getHairColor() + player.getHairLength() + ".png");
+            drawImg(player, image, isLeft);
+        }
+
+        for (Pair<BodyPartEnum, Items> bodyPart : player.getWearingItems()) {
+            if (bodyPart.getValue() != null) {
+                var path = "/graphics/items/" + bodyPart.getValue().getTypeId() + "doll.png";
+                var f = new File("/" + Player.class.getProtectionDomain().getCodeSource().getLocation().getPath() + path);
+                if (f.exists()) {
+                    var image = new Image(path);
+                    drawImg(player, image, isLeft);
+                }
+            }
+        }
+        /*var sp = new SnapshotParameters();
+        WritableImage writableImage = new WritableImage(40, 40);
+        writableImage = gc.getCanvas().snapshot(sp, writableImage);*/
+    }
+
+    private static void drawImg(Player player, Image img, boolean isLeft) {
+        GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
         if (isLeft) {
+            double width = img.getWidth();
+            double height = img.getHeight();
             gc.drawImage(img,
                     0, 0, tileSize, tileSize,
                     player.getXViewPos() * tileSize + tileSize,
@@ -429,29 +541,6 @@ public class CharactersController {
             gc.drawImage(img,
                     player.getXViewPos() * tileSize, player.getYViewPos() * tileSize);
         }
-
-        for (Pair<BodyPartEnum, Items> bodyPart : player.getWearingItems()) {
-            if (bodyPart.getValue() != null) {
-                var path = "/graphics/items/" + bodyPart.getValue().getTypeId() + "doll.png";
-                var f = new File("/" + Player.class.getProtectionDomain().getCodeSource().getLocation().getPath() + path);
-                if (f.exists()) {
-                    var image = new Image(path);
-                    if (isLeft) {
-                        gc.drawImage(image,
-                                0, 0, tileSize, tileSize,
-                                player.getXViewPos() * tileSize + tileSize,
-                                player.getYViewPos() * tileSize,
-                                -width, height);
-                    } else {
-                        gc.drawImage(image,
-                                player.getXViewPos() * tileSize, player.getYViewPos() * tileSize);
-                    }
-                }
-            }
-        }
-        /*var sp = new SnapshotParameters();
-        WritableImage writableImage = new WritableImage(40, 40);
-        writableImage = gc.getCanvas().snapshot(sp, writableImage);*/
     }
 
     /**
@@ -523,5 +612,26 @@ public class CharactersController {
 
         InventoryPanel.setWeightText();
         InventoryPanel.setVolumeText();
+    }
+
+    /**
+     * Изменение голода и жажды персонажа с течением времени
+     *
+     * @param player - персонаж
+     */
+    public static void changeHungerAndThirst(Player player) {
+        ParamsInfo params = player.getParams();
+        PlayerIndicatorsPanel.setIndicatorValue(2, params.getIndicators().get(2).getCurrentValue() - 5);
+        PlayerIndicatorsPanel.setIndicatorValue(3, params.getIndicators().get(3).getCurrentValue() - 5);
+    }
+
+    /**
+     * Изменение чистоты персонажа с течением времени
+     *
+     * @param player - персонаж
+     */
+    public static void changeCleanness(Player player) {
+        ParamsInfo params = player.getParams();
+        PlayerIndicatorsPanel.setIndicatorValue(4, params.getIndicators().get(4).getCurrentValue() - 5);
     }
 }

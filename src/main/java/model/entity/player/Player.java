@@ -38,6 +38,14 @@ public class Player implements Serializable {
     private int yViewPos;
     @JsonProperty("direction")
     private DirectionEnum direction; // направление движения персонажа
+    @JsonProperty("gender")
+    private GenderEnum gender; // пол
+    @JsonProperty("hairColor")
+    private String hairColor; // цвет волос
+    @JsonProperty("hairLength")
+    private int hairLength; // длина волос
+    @JsonProperty("beardLength")
+    private int beardLength; // длина бороды
 
     @JsonProperty("params")
     @Getter
@@ -72,6 +80,10 @@ public class Player implements Serializable {
         image = new ImageView("/graphics/characters/32.png");
         image.setVisible(false);
         direction = DirectionEnum.RIGHT;
+        hairLength = 1;
+        beardLength = 0;
+        hairColor = "Brown";
+        gender = GenderEnum.MALE;
 
         for (BodyPartEnum partEnum : BodyPartEnum.values()) {
             wearingItems.add(new Pair<>(partEnum, null));

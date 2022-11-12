@@ -12,6 +12,8 @@ public enum  TileTypeEnum {
     MOVABLE("Перемещаемый"), // этот тип тайлов можно толкать
     WALL("Стена"),
     BED("Кровать"),
+    CLOCK("Часы"),
+    PLANT("Растение"),
     CRAFTING_PLACE("Место для крафта");
 
     @Getter

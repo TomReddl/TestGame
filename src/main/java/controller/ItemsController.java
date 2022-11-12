@@ -64,7 +64,6 @@ public class ItemsController {
      *
      * @param itemTypeId - идентификатор типа предмета
      * @param inventory  - инвентарь, в котором ищется предмет
-     *
      * @return найденный предмет, или null
      */
     public static Items findItemInInventory(Integer itemTypeId, List<Items> inventory) {
@@ -81,8 +80,7 @@ public class ItemsController {
     /**
      * Найти лучшие инструменты для взлома в инвентаре
      *
-     * @param inventory  - инвентарь, в котором ищется предмет
-     *
+     * @param inventory - инвентарь, в котором ищется предмет
      * @return найденный предмет, или null
      */
     public static Items findPicklockInInventory(List<Items> inventory) {
@@ -92,7 +90,7 @@ public class ItemsController {
                 if (pickLock == null) {
                     pickLock = i;
                 } else {
-                    pickLock = Integer.parseInt(i.getInfo().getParams().get(0)) > Integer.parseInt(pickLock.getInfo().getParams().get(0)) ? i : pickLock;
+                    pickLock = Integer.parseInt(i.getInfo().getParams().get("skillBonus")) > Integer.parseInt(pickLock.getInfo().getParams().get("skillBonus")) ? i : pickLock;
                 }
             }
         }
@@ -102,9 +100,8 @@ public class ItemsController {
     /**
      * Найти лучшие сапёрные инструменты в инвентаре
      *
-     * @param inventory  - инвентарь, в котором ищется предмет
-     *
-     * @return           - найденный предмет, или null
+     * @param inventory - инвентарь, в котором ищется предмет
+     * @return - найденный предмет, или null
      */
     public static Items findSapperToolsInInventory(List<Items> inventory) {
         Items sapperTool = null;
@@ -113,7 +110,7 @@ public class ItemsController {
                 if (sapperTool == null) {
                     sapperTool = i;
                 } else {
-                    sapperTool = Integer.parseInt(i.getInfo().getParams().get(0)) > Integer.parseInt(sapperTool.getInfo().getParams().get(0)) ? i : sapperTool;
+                    sapperTool = Integer.parseInt(i.getInfo().getParams().get("skillBonus")) > Integer.parseInt(sapperTool.getInfo().getParams().get("skillBonus")) ? i : sapperTool;
                 }
             }
         }
@@ -124,10 +121,9 @@ public class ItemsController {
      * Добавить предмет в инвентарь
      * ВАЖНО: метод создает новый объект items, а не добавляет в инвентарь переданный ему объект!
      *
-     * @param item       - добавляемый предмет
-     * @param inventory  - инвентарь, в который добавляем
-     * @param player     - персонаж
-     *
+     * @param item      - добавляемый предмет
+     * @param inventory - инвентарь, в который добавляем
+     * @param player    - персонаж
      * @return добавленный предмет, если удалось добавить, null, если не удалось добавить
      */
     public static Items addItem(Items item, List<Items> inventory, Player player) {
@@ -138,11 +134,10 @@ public class ItemsController {
      * Добавить указанное количество предметов в инвентарь
      * ВАЖНО: метод создает новый объект items, а не добавляет в инвентарь переданный ему объект!
      *
-     * @param item       - добавляемый предмет
-     * @param count      - количество добавляемых предметов
-     * @param inventory  - инвентарь, в который добавляем
-     * @param player     - персонаж
-     *
+     * @param item      - добавляемый предмет
+     * @param count     - количество добавляемых предметов
+     * @param inventory - инвентарь, в который добавляем
+     * @param player    - персонаж
      * @return добавленный предмет, если удалось добавить, null, если не удалось добавить
      */
     public static Items addItem(Items item, int count, List<Items> inventory, Player player) {
@@ -195,7 +190,6 @@ public class ItemsController {
      * @param count     - количество удаляемых предметов
      * @param inventory - инвентарь, из которого удаляем
      * @param player    - персонаж
-     *
      * @return true, если предмет удален
      */
     public static Boolean deleteItem(Items item, int count, List<Items> inventory, Player player) {
@@ -253,7 +247,7 @@ public class ItemsController {
      * Выкинуть указанное число предметов из инвентаря на карту
      *
      * @param player - персонаж, из чьего инвентаря выбрасывается предмет
-     * @param count - количество предметов, которые нужно выкинуть
+     * @param count  - количество предметов, которые нужно выкинуть
      */
     public static void dropItems(Player player, int count) {
         var selectedItem = ItemDetailPanel.getSelectItem();
@@ -277,10 +271,9 @@ public class ItemsController {
     /**
      * Хватит ли объема в инвентаре, чтобы добавить новый предмет
      *
-     * @param item       - предмет, для которого проводится проверка
-     * @param inventory  - инвентарь, для которого проводится проверка
-     * @param player     - персонаж
-     *
+     * @param item      - предмет, для которого проводится проверка
+     * @param inventory - инвентарь, для которого проводится проверка
+     * @param player    - персонаж
      * @return true, если в инвентаре персонажа достаточно объема, чтобы добавить новый предмет
      */
     private static Boolean canAddItem(Items item, List<Items> inventory, Player player) {
@@ -295,7 +288,6 @@ public class ItemsController {
      * @param item     - предмет
      * @param bodyPart - часть тела, на которую экипируется предмет
      * @param player   - персонаж
-     *
      * @return true, если в инвентаре персонажа достаточно объема, чтобы экипировать/снять предмет
      */
     private static Boolean canEquipItem(Items item, Pair<BodyPartEnum, Items> bodyPart, Player player) {
@@ -307,13 +299,13 @@ public class ItemsController {
 
         if (((ClothesInfo) item.getInfo()).getBodyPart().equals(BodyPartEnum.BACKPACK.name()) ||
                 ((ClothesInfo) item.getInfo()).getBodyPart().equals(BodyPartEnum.BELT.name())) {
-            itemAddVolume = BigDecimal.valueOf(Long.parseLong(item.getInfo().getParams().get(0))).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
+            itemAddVolume = BigDecimal.valueOf(Long.parseLong(item.getInfo().getParams().get("addVolume"))).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
         }
         if (bodyPart.getValue() != null) {
             equipItemVolume = BigDecimal.valueOf(item.getInfo().getVolume()).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
             if (bodyPart.getKey().equals(BodyPartEnum.BACKPACK) ||
                     bodyPart.getKey().equals(BodyPartEnum.BELT)) {
-                equipItemAddVolume = BigDecimal.valueOf(Long.parseLong(bodyPart.getValue().getInfo().getParams().get(0))).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
+                equipItemAddVolume = BigDecimal.valueOf(Long.parseLong(bodyPart.getValue().getInfo().getParams().get("addVolume"))).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
             }
         }
 
@@ -328,7 +320,7 @@ public class ItemsController {
     /**
      * Клик на предмет item
      *
-     * @param item - предмет
+     * @param item   - предмет
      * @param player - персонаж
      */
     public static void clickItem(Items item, Player player) {
@@ -366,7 +358,6 @@ public class ItemsController {
      * @param item               - предмет, который нужно переместить
      * @param count              - количество перемещаемых предметов
      * @param containerInventory - инвентарь, из которого перемещаются предметы
-     *
      * @return true, если удалось переместить предметы
      */
     public static boolean addItemsToPlayerFromContainer(Items item, int count, List<Items> containerInventory) {
@@ -411,7 +402,8 @@ public class ItemsController {
      */
     private static void useItem(Items item, Player player) {
         if (item.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES) ||
-                item.getInfo().getTypes().contains(ItemTypeEnum.WEAPON)) {
+                item.getInfo().getTypes().contains(ItemTypeEnum.WEAPON) ||
+                item.getInfo().getTypes().contains(ItemTypeEnum.TOOL)) {
             equipItem(item, player);
         } else if (item.getInfo().getTypes().contains(ItemTypeEnum.EAT) ||
                 item.getInfo().getTypes().contains(ItemTypeEnum.POTION) ||
@@ -453,7 +445,6 @@ public class ItemsController {
      *
      * @param wearingItem - экипируемый предмет
      * @param player      - персонаж
-     *
      * @return true, если удалось экипировать/снять предмет
      */
     public static boolean equipItem(Items wearingItem, Player player) {
@@ -505,6 +496,29 @@ public class ItemsController {
                         }
                     }
                 }
+            } else if (wearingItem.getInfo().getTypes().contains(ItemTypeEnum.TOOL)) {
+                wearingItem.setEquipment(!wearingItem.isEquipment());
+                var bodyPart = wearingItems.get(BodyPartEnum.RIGHT_ARM.ordinal());
+                if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {
+                    wearingItems.set(BodyPartEnum.RIGHT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), null));
+                } else {
+                    if (bodyPart.getValue() != null) {
+                        bodyPart.getValue().setEquipment(false);
+                    }
+                    wearingItems.set(BodyPartEnum.RIGHT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), wearingItem));
+                }
+
+                bodyPart = wearingItems.get(BodyPartEnum.LEFT_ARM.ordinal());
+                if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {
+                    wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), null));
+                } else {
+                    if (bodyPart.getValue() != null) {
+                        if (!((WeaponInfo) bodyPart.getValue().getInfo()).getOneHand()) {
+                            bodyPart.getValue().setEquipment(false);
+                        }
+                        wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), null));
+                    }
+                }
             }
 
             if (GameMenuPanel.getPane().isVisible()) {
@@ -531,7 +545,6 @@ public class ItemsController {
      * Получить суммарный вес предметов в инвентаре
      *
      * @param inventory - инвентарь
-     *
      * @return суммарный вес всех предметов в инвентаре
      */
     public static BigDecimal getCurrWeight(List<Items> inventory) {
@@ -546,7 +559,6 @@ public class ItemsController {
      * Получить максимальный переносимый персонажем вес
      *
      * @param player - персонаж
-     *
      * @return максимальная масса, которую может переносить персонаж
      */
     public static BigDecimal getMaximumWeight(Player player) {
@@ -557,7 +569,6 @@ public class ItemsController {
      * Получить заполненный объем в инвентаре
      *
      * @param inventory - инвентарь
-     *
      * @return заполненный объем инвентаря
      */
     public static BigDecimal getCurrVolume(List<Items> inventory) {
@@ -574,15 +585,14 @@ public class ItemsController {
      * Получить максимальный объем переносимых персонажем вещей. Рюкзак и пояс увеличивают макс. объем
      *
      * @param player - персонаж
-     *
      * @return максимальный переносимый персонажем объем предметов
      */
     public static BigDecimal getMaximumVolume(Player player) {
         var belt = player.getWearingItems().get(BodyPartEnum.BELT.ordinal()).getValue();
         var backpack = player.getWearingItems().get(BodyPartEnum.BACKPACK.ordinal()).getValue();
         var maxVol = Player.getBaseVolume() +
-                (belt != null ? Integer.parseInt(belt.getInfo().getParams().get(0)) : 0) +
-                (backpack != null ? Integer.parseInt(backpack.getInfo().getParams().get(0)) : 0);
+                (belt != null ? Integer.parseInt(belt.getInfo().getParams().get("addVolume")) : 0) +
+                (backpack != null ? Integer.parseInt(backpack.getInfo().getParams().get("addVolume")) : 0);
         return BigDecimal.valueOf(maxVol).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
     }
 }

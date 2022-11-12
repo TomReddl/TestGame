@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Данные тайла в редакторе
@@ -22,7 +23,7 @@ public class TileInfo {
     private boolean passability; // проходимость тайла
     private boolean twoLayer; // у тайла есть второй уровень, отрисовывающийся поверх персонажа
     private String type; // тип тайла
-    private List<String> params; // дополнительные параметры тайла
+    private Map<String, String> params; // дополнительные параметры тайла, мапа формата <Название параметра, значение>
     @JsonIgnore
     private ImageView image;
     @JsonIgnore

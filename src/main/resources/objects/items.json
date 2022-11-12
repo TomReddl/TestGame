@@ -170,7 +170,7 @@
       "COMMON",
       "PICKLOCK"
     ],
-    "params": ["10"]
+    "params": {"skillBonus": "10"}
   },
   {
     "id": 53,
@@ -185,7 +185,7 @@
       "COMMON",
       "PICKLOCK"
     ],
-    "params": ["20"]
+    "params": {"skillBonus": "20"}
   },
   {
     "id": 54,
@@ -200,7 +200,7 @@
       "COMMON",
       "PICKLOCK"
     ],
-    "params": ["30"]
+    "params": {"skillBonus": "30"}
   },
   {
     "id": 55,
@@ -215,7 +215,7 @@
       "COMMON",
       "PICKLOCK"
     ],
-    "params": ["45"]
+    "params": {"skillBonus": "45"}
   },
   {
     "id": 56,
@@ -231,7 +231,7 @@
       "TREASURE",
       "PICKLOCK"
     ],
-    "params": ["60"]
+    "params": {"skillBonus": "60"}
   },
   {
     "id": 57,
@@ -246,7 +246,7 @@
       "COMMON",
       "SAPPER_TOOL"
     ],
-    "params": ["10"]
+    "params": {"skillBonus": "10"}
   },
   {
     "id": 58,
@@ -261,7 +261,7 @@
       "COMMON",
       "SAPPER_TOOL"
     ],
-    "params": ["20"]
+    "params": {"skillBonus": "20"}
   },
   {
     "id": 59,
@@ -276,7 +276,7 @@
       "COMMON",
       "SAPPER_TOOL"
     ],
-    "params": ["30"]
+    "params": {"skillBonus": "30"}
   },
   {
     "id": 60,
@@ -291,7 +291,7 @@
       "COMMON",
       "SAPPER_TOOL"
     ],
-    "params": ["45"]
+    "params": {"skillBonus": "45"}
   },
   {
     "id": 61,
@@ -307,7 +307,7 @@
       "TREASURE",
       "SAPPER_TOOL"
     ],
-    "params": ["60"]
+    "params": {"skillBonus": "60"}
   },
   {
     "id": 62,
@@ -322,7 +322,7 @@
       "COMMON",
       "BUILDING_TOOL"
     ],
-    "params": ["10"]
+    "params": {"skillBonus": "10"}
   },
   {
     "id": 63,
@@ -337,7 +337,7 @@
       "COMMON",
       "BUILDING_TOOL"
     ],
-    "params": ["20"]
+    "params": {"skillBonus": "20"}
   },
   {
     "id": 64,
@@ -352,7 +352,7 @@
       "COMMON",
       "BUILDING_TOOL"
     ],
-    "params": ["30"]
+    "params": {"skillBonus": "30"}
   },
   {
     "id": 65,
@@ -367,7 +367,7 @@
       "COMMON",
       "BUILDING_TOOL"
     ],
-    "params": ["45"]
+    "params": {"skillBonus": "45"}
   },
   {
     "id": 66,
@@ -383,7 +383,7 @@
       "TREASURE",
       "BUILDING_TOOL"
     ],
-    "params": ["60"]
+    "params": {"skillBonus": "60"}
   },
   {
     "id": 85,
@@ -394,7 +394,7 @@
     "types": [
       "COMMON"
     ],
-    "params": ["60"]
+    "params": {"skillBonus": "60"}
   },
   {
     "id": 86,
@@ -405,6 +405,19 @@
     "types": [
       "COMMON"
     ],
-    "params": ["60"]
+    "params": {"skillBonus": "60"}
+  },
+  {
+    "id": 91,
+    "weight": "5500",
+    "volume": "10000",
+    "price": "100",
+    "maxStrength": 100,
+    "stackable": false,
+    "types": [
+      "TOOL",
+      "COMMON"
+    ],
+    "params": {"capacity": "5000"}
   }
 ]

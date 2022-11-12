@@ -7,6 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.robot.Robot;
+import lombok.Getter;
 import model.editor.TileInfo;
 import model.editor.TileTypeEnum;
 import model.entity.GameModeEnum;
@@ -14,6 +15,7 @@ import model.entity.map.*;
 import model.entity.player.Player;
 import view.Editor;
 import view.Game;
+import view.SelectTimePanel;
 import view.TileEditPanel;
 import view.inventory.BookPanel;
 import view.inventory.ItemCountPanel;
@@ -29,6 +31,14 @@ import static game.GameParams.*;
  */
 public class MapController {
     private static ImageView bag = new ImageView("/graphics/items/bag.png");
+    @Getter
+    private static final int dugUpGroundId = 109; // вскопанная земля
+    @Getter
+    private static final int wetGround = 110; // увлажнённая земля
+    @Getter
+    private static final int dryGround = 111; // сухая земля
+    @Getter
+    private static final int dryPlant = 206; // сухое растение
 
     /**
      * Движение мыши по карте без нажатых кнопок
@@ -66,6 +76,33 @@ public class MapController {
 
                 Game.setXMapInfoPos(Game.getMap().getPlayer().getXMapPos() + (((int) x) / tileSize));
                 Game.setYMapInfoPos(Game.getMap().getPlayer().getYMapPos() + (((int) y) / tileSize));
+            }
+        }
+    }
+
+    /**
+     * Рост растений на карте мира
+     */
+    public static void plantGrowth() {
+        for (int x = 0; x < mapSize; x++) {
+            for (int y = 0; y < mapSize; y++) {
+                var mapCellInfo = Game.getMap().getTiles()[x][y];
+                if (mapCellInfo.getTile2Type().equals(TileTypeEnum.PLANT)) {
+                    if (mapCellInfo.getTile1Id() == dugUpGroundId || mapCellInfo.getTile1Id() == wetGround) { // растения растут, только если под ними вскопанная или увлажнённая земля
+                        if (mapCellInfo.getTile2Info().getParams().get("nextGrowthStage") != null) {
+                            mapCellInfo.setTile2Id(Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("nextGrowthStage")));
+                        }
+                    } else if (mapCellInfo.getTile1Id() == dryGround) {
+                        mapCellInfo.setTile2Id(dryPlant); // на сухой земле все растения засыхают
+                    }
+                }
+
+                // земля сохнет со временем
+                if (mapCellInfo.getTile1Id() == dugUpGroundId) {
+                    mapCellInfo.setTile1Id(dryGround);
+                } else if (mapCellInfo.getTile1Id() == wetGround) {
+                    mapCellInfo.setTile1Id(dugUpGroundId);
+                }
             }
         }
     }
@@ -277,8 +314,8 @@ public class MapController {
         TileInfo wallTileInfo = Editor.getTiles1().get(Game.getMap().getTiles()[XPos][YPos].getTile1Id());
         for (TileInfo tileInfo : Editor.getTiles1()) {
             if (tileInfo.getType() != null && TileTypeEnum.valueOf(tileInfo.getType()).equals(TileTypeEnum.WALL)) {
-                if ((tileInfo.getParams().get(0).equals(wallTileInfo.getParams().get(0))) &&
-                        (tileInfo.getParams().get(1).equals(variant))) {
+                if ((tileInfo.getParams().get("wallType").equals(wallTileInfo.getParams().get("wallType"))) &&
+                        (tileInfo.getParams().get("wallVariant").equals(variant))) {
                     return tileInfo.getId();
                 }
             }
@@ -500,6 +537,10 @@ public class MapController {
                 BookPanel.closeBookPanel();
                 break;
             }
+            case T: {
+                SelectTimePanel.show(SelectTimePanel.TimeSkipType.WAIT);
+                break;
+            }
             case E: {
                 if (BookPanel.getPane().isVisible()) {
                     BookPanel.closeBookPanel();
@@ -534,12 +575,27 @@ public class MapController {
                 (Math.abs(player.getYPosition() - (player.getYMapPos() + y)) < 2);
     }
 
-    public static void drawMapStart(double x, double y, boolean isRightMouse) {
+    private static void drawMapStart(double x, double y, boolean isRightMouse) {
         if (x < viewSize * tileSize && y < viewSize * tileSize) {
             Game.setDrawingMap(true);
             if (canMouseDraw(x, y)) {
                 MapController.drawTileOnMap(x, y, isRightMouse, Editor.getCanvas());
             }
+        }
+    }
+
+    /**
+     * Нажатие на карту
+     *
+     * @param x - координата X места нажатия
+     * @param y - координата Y места нажатия
+     * @param isRightMouse - признак нажатия ПКМ
+     */
+    public static void mapClick(double x, double y, boolean isRightMouse) {
+        if (Game.getGameMode().equals(GameModeEnum.EDITOR)) {
+            drawMapStart(x, y, isRightMouse);
+        } else if (Game.getGameMode().equals(GameModeEnum.GAME)) {
+            CharactersController.gameMapClick(x, y, isRightMouse);
         }
     }
 
@@ -621,9 +677,8 @@ public class MapController {
 
     // отрисовка нижнего уровня тайла
     private static void drawBottomLayer(int Xpos, int YPos, int x, int y) {
-        MapCellInfo[][] tiles = Game.getMap().getTiles();
         GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
-        var mapCellInfo = tiles[Xpos + x][YPos + y];
+        var mapCellInfo = Game.getMap().getTiles()[Xpos + x][YPos + y];
 
         var tileInfo1 = Editor.getTiles1().get(mapCellInfo.getTile1Id());
         var tileInfo2 = Editor.getTiles2().get(mapCellInfo.getTile2Id());
@@ -656,12 +711,11 @@ public class MapController {
 
     // отрисовка верхнего уровня тайла
     private static void drawUpperLayer(int Xpos, int YPos, int x, int y) {
-        MapCellInfo[][] tiles = Game.getMap().getTiles();
         var player = Game.getMap().getPlayer();
         List<NPC> npcList = Game.getMap().getNpcList();
         List<Creature> creaturesList = Game.getMap().getCreaturesList();
         GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
-        var mapCellInfo = tiles[Xpos + x][YPos + y];
+        var mapCellInfo = Game.getMap().getTiles()[Xpos + x][YPos + y];
 
         var tileInfo2 = Editor.getTiles2().get(mapCellInfo.getTile2Id());
 

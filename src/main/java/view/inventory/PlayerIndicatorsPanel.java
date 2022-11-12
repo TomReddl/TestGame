@@ -224,6 +224,11 @@ public class PlayerIndicatorsPanel {
      * обновить значение индикатора
      *
      * @param indicatorId - идентификатор индикатора
+     *                    0 - здоровье
+     *                    1 - запас сил
+     *                    2 - голод
+     *                    3 - жажда
+     *                    4 - чистота
      * @param value       - новое текущее значение
      */
     public static void setIndicatorValue(int indicatorId, int value) {
@@ -231,6 +236,8 @@ public class PlayerIndicatorsPanel {
         params.getIndicators().get(indicatorId).setCurrentValue(value);
         if (params.getIndicators().get(indicatorId).getCurrentValue() > params.getIndicators().get(indicatorId).getMaxValue()) {
             params.getIndicators().get(indicatorId).setCurrentValue(params.getIndicators().get(indicatorId).getMaxValue());
+        } else if (params.getIndicators().get(indicatorId).getCurrentValue() < params.getIndicators().get(indicatorId).getMinValue()) {
+            params.getIndicators().get(indicatorId).setCurrentValue(params.getIndicators().get(indicatorId).getMinValue());
         }
         var maxValue = Game.getMap().getPlayer().getParams().getIndicators().get(indicatorId).getMaxValue();
         indicatorControls.get(indicatorId).getKey().setText(value + "/" + maxValue);

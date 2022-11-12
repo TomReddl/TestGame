@@ -239,6 +239,7 @@
   {
     "id": 45,
     "strength": 0,
+    "type": "CLOCK",
     "passability": false
   },
   {
@@ -433,14 +434,14 @@
     "id": 80,
     "strength": 0,
     "type": "DOOR",
-    "params": ["92"],
+    "params": {"anotherDoorState": "92"},
     "passability": false
   },
   {
     "id": 81,
     "strength": 0,
     "type": "DOOR",
-    "params": ["91"],
+    "params": {"anotherDoorState": "91"},
     "passability": false
   },
   {
@@ -501,7 +502,7 @@
     "strength": 0,
     "passability": true,
     "type": "DOOR",
-    "params": ["81"],
+    "params": {"anotherDoorState": "81"},
     "twoLayer": false
   },
   {
@@ -509,7 +510,7 @@
     "strength": 0,
     "passability": true,
     "type": "DOOR",
-    "params": ["80"],
+    "params": {"anotherDoorState": "80"},
     "twoLayer": false
   },
   {
@@ -1005,5 +1006,142 @@
     "id": 188,
     "strength": 0,
     "passability": false
+  },
+  {
+    "id": 189,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT",
+    "params": {"nextGrowthStage": "190"}
+  },
+  {
+    "id": 190,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT",
+    "params": {"nextGrowthStage": "191"}
+  },
+  {
+    "id": 191,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT",
+    "params": {
+      "harvestedId": "190",
+      "harvestId":  "92",
+      "nextGrowthStage": "192"}
+  },
+  {
+    "id": 192,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT",
+    "params": {
+      "harvestedId": "190",
+      "harvestId":  "87",
+      "nextGrowthStage": "193"}
+  },
+  {
+    "id": 193,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT"
+  },
+  {
+    "id": 194,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT",
+    "params": {"nextGrowthStage": "195"}
+  },
+  {
+    "id": 195,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT",
+    "params": {"nextGrowthStage": "196"}
+  },
+  {
+    "id": 196,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT",
+    "params": {
+      "harvestedId": "0",
+      "harvestId":  "88",
+      "nextGrowthStage": "197"}
+  },
+  {
+    "id": 197,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT"
+  },
+  {
+    "id": 198,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT",
+    "params": {"nextGrowthStage": "199"}
+  },
+  {
+    "id": 199,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT",
+    "params": {"nextGrowthStage": "200"}
+  },
+  {
+    "id": 200,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT",
+    "params": {
+      "harvestedId": "199",
+      "harvestId":  "89",
+      "harvestCount":  "3",
+      "nextGrowthStage": "201"}
+  },
+  {
+    "id": 201,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT"
+  },
+  {
+    "id": 202,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT",
+    "params": {"nextGrowthStage": "203"}
+  },
+  {
+    "id": 203,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT",
+    "params": {"nextGrowthStage": "204"}
+  },
+  {
+    "id": 204,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT",
+    "params": {
+      "harvestedId": "0",
+      "harvestId":  "90",
+      "nextGrowthStage": "205"}
+  },
+  {
+    "id": 205,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT"
+  },
+  {
+    "id": 206,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT"
   }
 ]

@@ -124,5 +124,74 @@
   "hunger": 50,
   "thirst": 0,
   "types": ["EAT"]
+  },
+  {
+    "id": 87,
+    "weight": "400",
+    "volume": "1000",
+    "price": "40",
+    "stackable": true,
+    "taste": 10,
+    "hunger": 10,
+    "thirst": 1,
+    "types": [
+      "EAT",
+      "INGREDIENT"
+    ]
+  },
+  {
+    "id": 88,
+    "weight": "400",
+    "volume": "1000",
+    "price": "40",
+    "stackable": true,
+    "taste": 10,
+    "hunger": 10,
+    "thirst": 1,
+    "types": [
+      "EAT",
+      "INGREDIENT"
+    ]
+  },
+  {
+    "id": 89,
+    "weight": "400",
+    "volume": "1000",
+    "price": "40",
+    "stackable": true,
+    "taste": 10,
+    "hunger": 10,
+    "thirst": 1,
+    "types": [
+      "EAT",
+      "INGREDIENT"
+    ]
+  },
+  {
+    "id": 90,
+    "weight": "6000",
+    "volume": "10000",
+    "price": "100",
+    "stackable": true,
+    "taste": 10,
+    "hunger": 100,
+    "thirst": 1,
+    "types": [
+      "EAT",
+      "INGREDIENT"
+    ]
+  },
+  {
+    "id": 92,
+    "weight": "100",
+    "volume": "100",
+    "price": "20",
+    "stackable": true,
+    "taste": 1,
+    "hunger": 1,
+    "thirst": 0,
+    "types": [
+      "INGREDIENT"
+    ]
   }
 ]
