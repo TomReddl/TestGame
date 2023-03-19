@@ -1,5 +1,6 @@
 package model.entity.map;
 
+import javafx.util.Pair;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +8,9 @@ import model.entity.player.Player;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static game.GameParams.mapSize;
 
@@ -17,14 +20,18 @@ import static game.GameParams.mapSize;
 @Getter
 @Setter
 @Slf4j
-public class Map implements Serializable {
+public class WorldMap implements Serializable {
     private MapCellInfo[][] tiles = new MapCellInfo[mapSize][mapSize];
     List<NPC> npcList = new ArrayList<>();
     List<Creature> creaturesList = new ArrayList<>();
     private String mapName;
     private Player player = new Player();
+    private Pair<WeatherEnum, Integer> currentWeather; // текущая погода и ее сила
+    private Map<WeatherEnum, Integer> accessibleWeathers = new HashMap<>(); // доступная погода и вероятность ее наступления
 
-    public Map() {
+    public WorldMap() {
+        accessibleWeathers.put(WeatherEnum.CLEAR, 1);
+        currentWeather = new Pair(WeatherEnum.FOG, 6);
         mapName = "1";
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {

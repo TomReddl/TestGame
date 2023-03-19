@@ -86,7 +86,13 @@ public class ItemRecord {
         typeLabel.setLayoutY(10);
         pane.getChildren().add(typeLabel);
 
-        weightLabel = new Label(Items.getFormatedItemValue(itemInfo.getWeight()).toString());
+        Long weight = itemInfo.getWeight();
+        if (items.getInfo().getParams() != null &&
+                items.getInfo().getParams().get("currentCapacity") != null) {
+            // нужно учитывать вес содержимого предметов
+            weight += Integer.parseInt(items.getParams().get("currentCapacity"));
+        }
+        weightLabel = new Label(Items.getFormatedItemValue(weight).toString());
         weightLabel.setLayoutX(inventoryPanel.getWeightLabel().getLayoutX());
         weightLabel.setLayoutY(10);
         pane.getChildren().add(weightLabel);

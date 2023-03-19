@@ -5,7 +5,6 @@ import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -22,6 +21,7 @@ public class TileInfo {
     private Integer strength; // прочность тайла, если 0, он неразрушаем
     private boolean passability; // проходимость тайла
     private boolean twoLayer; // у тайла есть второй уровень, отрисовывающийся поверх персонажа
+    private boolean burn; // может ли тайл сгореть
     private String type; // тип тайла
     private Map<String, String> params; // дополнительные параметры тайла, мапа формата <Название параметра, значение>
     @JsonIgnore

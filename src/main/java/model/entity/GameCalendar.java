@@ -40,23 +40,26 @@ public class GameCalendar {
 
     // Месяцы в игровом календаре
     public enum MonthEnum {
-        TARDAS(Game.getGameText("TARDAS"), 33),
-        FELDAS(Game.getGameText("FELDAS"), 30),
-        MEETDAS(Game.getGameText("MEETDAS"), 31),
-        JARDAS(Game.getGameText("JARDAS"), 30),
-        JAMADAS(Game.getGameText("JAMADAS"), 32),
-        PAAMDAS(Game.getGameText("PAAMDAS"), 30),
-        NORIDAS(Game.getGameText("NORIDAS"), 31),
-        DERDAS(Game.getGameText("DERDAS"), 30);
+        TARDAS(Game.getGameText("TARDAS"), 33, SeasonEnum.SPRING),
+        FELDAS(Game.getGameText("FELDAS"), 30, SeasonEnum.SPRING),
+        MEETDAS(Game.getGameText("MEETDAS"), 31, SeasonEnum.SUMMER),
+        JARDAS(Game.getGameText("JARDAS"), 30, SeasonEnum.SUMMER),
+        JAMADAS(Game.getGameText("JAMADAS"), 32, SeasonEnum.AUTUMN),
+        PAAMDAS(Game.getGameText("PAAMDAS"), 30, SeasonEnum.AUTUMN),
+        NORIDAS(Game.getGameText("NORIDAS"), 31, SeasonEnum.WINTER),
+        DERDAS(Game.getGameText("DERDAS"), 30, SeasonEnum.WINTER);
 
         @Getter
         private final String name; // название месяца
         @Getter
         private final int days; // количество дней в месяце
+        @Getter
+        private final SeasonEnum season; // время года
 
-        MonthEnum(String name, int days) {
+        MonthEnum(String name, int days, SeasonEnum season) {
             this.name = name;
             this.days = days;
+            this.season = season;
         }
 
         /**
@@ -92,6 +95,20 @@ public class GameCalendar {
         private final String name; // название дня недели
 
         DayOfWeekEnum(String name) {
+            this.name = name;
+        }
+    }
+
+    // Времена года
+    public enum SeasonEnum {
+        SPRING(Game.getGameText("SPRING")),
+        SUMMER(Game.getGameText("SUMMER")),
+        AUTUMN(Game.getGameText("AUTUMN")),
+        WINTER(Game.getGameText("WINTER"));
+
+        private final String name; // название сезона
+
+        SeasonEnum(String name) {
             this.name = name;
         }
     }

@@ -9,6 +9,7 @@ import model.editor.TileTypeEnum;
 import model.editor.items.BodyPartEnum;
 import model.entity.DirectionEnum;
 import model.entity.ItemTypeEnum;
+import model.entity.battle.DamageTypeEnum;
 import model.entity.map.ClosableCellInfo;
 import model.entity.map.Items;
 import model.entity.map.MapCellInfo;
@@ -69,19 +70,89 @@ public class CharactersController {
             if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.TOOL)) {
                 MapCellInfo mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + tileX]
                         [player.getYMapPos() + tileY];
-
-                switch (itemInRightHand.getTypeId()) {
-                    case 91: { // если в руках лейка
-                        if (mapCellInfo.getTile1Id() == MapController.getDugUpGroundId() ||
-                                mapCellInfo.getTile1Id() == MapController.getDryGround()) {
-                            mapCellInfo.setTile1Id(MapController.getWetGround());
+                if (itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.WATERING_CAN)) { // если в руках лейка
+                    watering(itemInRightHand, mapCellInfo, tileX, tileY, player);
+                }
+                if (itemInRightHand.getTypeId() == 112) { // если в руках зажигалка
+                    if (mapCellInfo.getFireId() == 0 &&
+                            (mapCellInfo.getTile1Info().isBurn() || mapCellInfo.getTile2Info().isBurn())) {
+                        int fireLevel = mapCellInfo.getFireId() + 1;
+                        if (fireLevel > 3) {
+                            fireLevel = 3;
                         }
-                        break;
+                        mapCellInfo.setFireId(fireLevel);
                     }
                 }
                 MapController.drawTile(player, tileX, tileY);
             }
+            TimeController.tic(true); // нажатие на карту занимает 1 тик
         }
+    }
+
+    /**
+     * Полив
+     *
+     * @param itemInRightHand
+     * @param mapCellInfo
+     * @param tileX
+     * @param tileY
+     * @param player
+     */
+    private static void watering(Items itemInRightHand, MapCellInfo mapCellInfo, int tileX, int tileY, Player player) {
+        wateringMapCell(itemInRightHand, mapCellInfo, player);
+        if (itemInRightHand.getTypeId() == 111) { // Лейка с широкой насадкой поливает сразу 4 тайла
+            try {
+                wateringMapCell(itemInRightHand, Game.getMap().getTiles()[player.getXMapPos() + tileX - 1]
+                        [player.getYMapPos() + tileY], player);
+                MapController.drawTile(player, tileX-1, tileY);
+            } catch (Exception ignored) {
+            }
+            try {
+                wateringMapCell(itemInRightHand, Game.getMap().getTiles()[player.getXMapPos() + tileX]
+                        [player.getYMapPos() + tileY -1], player);
+                MapController.drawTile(player, tileX, tileY-1);
+            } catch (Exception ignored) {
+            }
+            try {
+                wateringMapCell(itemInRightHand, Game.getMap().getTiles()[player.getXMapPos() + tileX - 1]
+                        [player.getYMapPos() + tileY -1], player);
+                MapController.drawTile(player, tileX-1, tileY-1);
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
+    /**
+     * Полив конкретного тайла карты
+     *
+     * @param itemInRightHand - предмет, который персонаж держит в руке
+     * @param mapCellInfo     - точка на карте, которую нужно полить
+     * @param player          - персонаж
+     */
+    private static void wateringMapCell(Items itemInRightHand, MapCellInfo mapCellInfo, Player player) {
+        int currentCapacity = Integer.parseInt(itemInRightHand.getParams().get("currentCapacity"));
+        if (mapCellInfo.getTile1Type().equals(TileTypeEnum.WATER)) {
+            itemInRightHand.getParams().put("currentCapacity", itemInRightHand.getParams().get("capacity"));
+            Game.showMessage(Game.getText("WATERING_CAN_FILLED"), Color.GREEN);
+        } else {
+            int consumption = itemInRightHand.getTypeId() == 110 ? 100 : 500; // расход воды для инженерной лейки ниже
+            if (currentCapacity >= consumption) {
+                if (mapCellInfo.getFireId() != 0) {
+                    mapCellInfo.setFireId(mapCellInfo.getFireId() - 1); // тушим огонь
+                } else if (mapCellInfo.getTile1Type().equals(TileTypeEnum.EARTH)) {
+                    if (mapCellInfo.getTile1Id() == MapController.getDugUpGroundId() ||
+                            mapCellInfo.getTile1Id() == MapController.getDryGround()) {
+                        mapCellInfo.setTile1Id(MapController.getWetGround());
+                    }
+                } else {
+                    mapCellInfo.setPollutionId(2); // если поливаем не землю, образуется лужа
+                }
+                itemInRightHand.getParams().put("currentCapacity", String.valueOf(currentCapacity - consumption));
+            } else {
+                Game.showMessage(Game.getText("ERROR_EMPTY"));
+            }
+        }
+        player.setCurrentWeight(ItemsController.getCurrWeight(player.getInventory())); // обновляем вес лейки
     }
 
     /**
@@ -182,7 +253,6 @@ public class CharactersController {
      * @param y - координата y предметов на карте
      */
     public static void interactionWithMap(int x, int y) {
-        TimeController.tic(true);
         var player = Game.getMap().getPlayer();
         int Xpos = player.getXMapPos();
         int YPos = player.getYMapPos();
@@ -210,6 +280,7 @@ public class CharactersController {
             }
             MapController.drawTile(player, x, y);
         }
+        TimeController.tic(true);
     }
 
     /**
@@ -263,7 +334,7 @@ public class CharactersController {
                 if (sapperTools == null) {
                     closableCellInfo.setTrap(false);
                     Game.showMessage(Game.getText("TRAP_TRIGGERED"));
-                    BattleController.applyDamageToPlayer(closableCellInfo.getTrapLevel());
+                    BattleController.applyDamageToPlayer(closableCellInfo.getTrapLevel(), DamageTypeEnum.PIERCING_DAMAGE);
                 } else {
                     trapDeactivation(closableCellInfo, sapperTools);
                 }
@@ -503,12 +574,12 @@ public class CharactersController {
         drawImg(player, playerImage, isLeft);
         if (player.getGender().equals(GenderEnum.MALE)) {
             if (player.getBeardLength() > 0) { // рисуем бороду персонажа
-                var image = new Image("/graphics/characters/body/beard" + player.getHairColor() + player.getBeardLength() + ".png");
+                var image = new Image("/graphics/characters/body/beard" + player.getHairColor().name() + player.getBeardLength() + ".png");
                 drawImg(player, image, isLeft);
             }
         }
         if (player.getHairLength() > 0) { // рисуем волосы персонажа
-            var image = new Image("/graphics/characters/body/hair" + player.getHairColor() + player.getHairLength() + ".png");
+            var image = new Image("/graphics/characters/body/hair" + player.getHairColor().name() + player.getHairLength() + ".png");
             drawImg(player, image, isLeft);
         }
 

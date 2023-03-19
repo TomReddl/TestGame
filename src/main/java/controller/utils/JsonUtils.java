@@ -10,7 +10,7 @@ import model.editor.items.ClothesInfo;
 import model.editor.items.EdibleInfo;
 import model.editor.items.ItemInfo;
 import model.editor.items.WeaponInfo;
-import model.entity.map.Map;
+import model.entity.map.WorldMap;
 import lombok.experimental.UtilityClass;
 
 import java.io.File;
@@ -123,7 +123,7 @@ public class JsonUtils {
         }
     }
 
-    public void saveMap(String mapName, Map map) {
+    public void saveMap(String mapName, WorldMap map) {
         try {
             var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "world/" + mapName + ".json";
             path = path.replaceAll("/", Matcher.quoteReplacement("\\"));
@@ -133,7 +133,7 @@ public class JsonUtils {
         }
     }
 
-    public static Map loadMap(String mapName) {
+    public static WorldMap loadMap(String mapName) {
         try {
             var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "world/" + mapName + ".json";
             return objectMapper.readValue(new File(path), new TypeReference<>() {

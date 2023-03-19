@@ -1,5 +1,6 @@
 package view;
 
+import controller.MapController;
 import controller.TimeController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -103,6 +104,7 @@ public class SelectTimePanel {
     public static void selectCount() {
         hide();
         TimeController.tic(((int) slider.getValue()) * GameCalendar.getTicsInHour());
+        MapController.drawCurrentMap();
     }
 
     public static void hide() {

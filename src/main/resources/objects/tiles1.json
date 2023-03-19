@@ -2,11 +2,13 @@
   {
     "id": 0,
     "strength": 0,
+    "type": "EARTH",
     "passability": true
   },
   {
     "id": 1,
     "strength": 0,
+    "type": "EARTH",
     "passability": true
   },
   {
@@ -72,143 +74,198 @@
   {
     "id": 14,
     "strength": 0,
+    "type": "EARTH",
     "passability": true
   },
   {
     "id": 15,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "1", "wallVariant":  "1"},
+    "params": {
+      "wallType": "1",
+      "wallVariant": "1"
+    },
     "passability": false
   },
   {
     "id": 16,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "1", "wallVariant":  "2"},
+    "params": {
+      "wallType": "1",
+      "wallVariant": "2"
+    },
     "passability": false
   },
   {
     "id": 17,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "1", "wallVariant":  "3"},
+    "params": {
+      "wallType": "1",
+      "wallVariant": "3"
+    },
     "passability": false
   },
   {
     "id": 18,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "1", "wallVariant":  "4"},
+    "params": {
+      "wallType": "1",
+      "wallVariant": "4"
+    },
     "passability": false
   },
   {
     "id": 19,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "1", "wallVariant":  "5"},
+    "params": {
+      "wallType": "1",
+      "wallVariant": "5"
+    },
     "passability": false
   },
   {
     "id": 20,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "1", "wallVariant":  "6"},
+    "params": {
+      "wallType": "1",
+      "wallVariant": "6"
+    },
     "passability": false
   },
   {
     "id": 21,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "1", "wallVariant":  "7"},
+    "params": {
+      "wallType": "1",
+      "wallVariant": "7"
+    },
     "passability": false
   },
   {
     "id": 22,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "1", "wallVariant":  "8"},
+    "params": {
+      "wallType": "1",
+      "wallVariant": "8"
+    },
     "passability": false
   },
   {
     "id": 23,
     "strength": 0,
+    "burn": true,
     "passability": true
   },
   {
     "id": 24,
     "strength": 0,
+    "burn": true,
     "passability": true
   },
   {
     "id": 25,
     "strength": 0,
+    "burn": true,
     "passability": true
   },
   {
     "id": 26,
     "strength": 0,
+    "burn": true,
     "passability": true
   },
   {
     "id": 27,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "2", "wallVariant":  "1"},
+    "params": {
+      "wallType": "2",
+      "wallVariant": "1"
+    },
     "passability": false
   },
   {
     "id": 28,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "2", "wallVariant":  "2"},
+    "params": {
+      "wallType": "2",
+      "wallVariant": "2"
+    },
     "passability": false
   },
   {
     "id": 29,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "2", "wallVariant":  "3"},
+    "params": {
+      "wallType": "2",
+      "wallVariant": "3"
+    },
     "passability": false
   },
   {
     "id": 30,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "2", "wallVariant":  "4"},
+    "params": {
+      "wallType": "2",
+      "wallVariant": "4"
+    },
     "passability": false
   },
   {
     "id": 31,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "2", "wallVariant":  "5"},
+    "params": {
+      "wallType": "2",
+      "wallVariant": "5"
+    },
     "passability": false
   },
   {
     "id": 32,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "2", "wallVariant":  "6"},
+    "params": {
+      "wallType": "2",
+      "wallVariant": "6"
+    },
     "passability": false
   },
   {
     "id": 33,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "2", "wallVariant":  "7"},
+    "params": {
+      "wallType": "2",
+      "wallVariant": "7"
+    },
     "passability": false
   },
   {
     "id": 34,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "2", "wallVariant":  "8"},
+    "params": {
+      "wallType": "2",
+      "wallVariant": "8"
+    },
     "passability": false
   },
   {
     "id": 35,
     "strength": 0,
+    "type": "EARTH",
+    "burn": true,
     "passability": true
   },
   {
@@ -225,56 +282,80 @@
     "id": 38,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "3", "wallVariant":  "1"},
+    "params": {
+      "wallType": "3",
+      "wallVariant": "1"
+    },
     "passability": false
   },
   {
     "id": 39,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "3", "wallVariant":  "2"},
+    "params": {
+      "wallType": "3",
+      "wallVariant": "2"
+    },
     "passability": false
   },
   {
     "id": 40,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "3", "wallVariant":  "3"},
+    "params": {
+      "wallType": "3",
+      "wallVariant": "3"
+    },
     "passability": false
   },
   {
     "id": 41,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "3", "wallVariant":  "4"},
+    "params": {
+      "wallType": "3",
+      "wallVariant": "4"
+    },
     "passability": false
   },
   {
     "id": 42,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "3", "wallVariant":  "5"},
+    "params": {
+      "wallType": "3",
+      "wallVariant": "5"
+    },
     "passability": false
   },
   {
     "id": 43,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "3", "wallVariant":  "6"},
+    "params": {
+      "wallType": "3",
+      "wallVariant": "6"
+    },
     "passability": false
   },
   {
     "id": 44,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "3", "wallVariant":  "7"},
+    "params": {
+      "wallType": "3",
+      "wallVariant": "7"
+    },
     "passability": false
   },
   {
     "id": 45,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "3", "wallVariant":  "8"},
+    "params": {
+      "wallType": "3",
+      "wallVariant": "8"
+    },
     "passability": false
   },
   {
@@ -296,56 +377,80 @@
     "id": 49,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "4", "wallVariant":  "1"},
+    "params": {
+      "wallType": "4",
+      "wallVariant": "1"
+    },
     "passability": false
   },
   {
     "id": 50,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "4", "wallVariant":  "2"},
+    "params": {
+      "wallType": "4",
+      "wallVariant": "2"
+    },
     "passability": false
   },
   {
     "id": 51,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "4", "wallVariant":  "3"},
+    "params": {
+      "wallType": "4",
+      "wallVariant": "3"
+    },
     "passability": false
   },
   {
     "id": 52,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "4", "wallVariant":  "4"},
+    "params": {
+      "wallType": "4",
+      "wallVariant": "4"
+    },
     "passability": false
   },
   {
     "id": 53,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "4", "wallVariant":  "5"},
+    "params": {
+      "wallType": "4",
+      "wallVariant": "5"
+    },
     "passability": false
   },
   {
     "id": 54,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "4", "wallVariant":  "6"},
+    "params": {
+      "wallType": "4",
+      "wallVariant": "6"
+    },
     "passability": false
   },
   {
     "id": 55,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "4", "wallVariant":  "7"},
+    "params": {
+      "wallType": "4",
+      "wallVariant": "7"
+    },
     "passability": false
   },
   {
     "id": 56,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "4", "wallVariant":  "8"},
+    "params": {
+      "wallType": "4",
+      "wallVariant": "8"
+    },
     "passability": false
   },
   {
@@ -367,56 +472,80 @@
     "id": 60,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "5", "wallVariant":  "1"},
+    "params": {
+      "wallType": "5",
+      "wallVariant": "1"
+    },
     "passability": false
   },
   {
     "id": 61,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "5", "wallVariant":  "2"},
+    "params": {
+      "wallType": "5",
+      "wallVariant": "2"
+    },
     "passability": false
   },
   {
     "id": 62,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "5", "wallVariant":  "3"},
+    "params": {
+      "wallType": "5",
+      "wallVariant": "3"
+    },
     "passability": false
   },
   {
     "id": 63,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "5", "wallVariant":  "4"},
+    "params": {
+      "wallType": "5",
+      "wallVariant": "4"
+    },
     "passability": false
   },
   {
     "id": 64,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "5", "wallVariant":  "5"},
+    "params": {
+      "wallType": "5",
+      "wallVariant": "5"
+    },
     "passability": false
   },
   {
     "id": 65,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "5", "wallVariant":  "6"},
+    "params": {
+      "wallType": "5",
+      "wallVariant": "6"
+    },
     "passability": false
   },
   {
     "id": 66,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "5", "wallVariant":  "7"},
+    "params": {
+      "wallType": "5",
+      "wallVariant": "7"
+    },
     "passability": false
   },
   {
     "id": 67,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "5", "wallVariant":  "8"},
+    "params": {
+      "wallType": "5",
+      "wallVariant": "8"
+    },
     "passability": false
   },
   {
@@ -438,56 +567,80 @@
     "id": 71,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "6", "wallVariant":  "1"},
+    "params": {
+      "wallType": "6",
+      "wallVariant": "1"
+    },
     "passability": false
   },
   {
     "id": 72,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "6", "wallVariant":  "2"},
+    "params": {
+      "wallType": "6",
+      "wallVariant": "2"
+    },
     "passability": false
   },
   {
     "id": 73,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "6", "wallVariant":  "3"},
+    "params": {
+      "wallType": "6",
+      "wallVariant": "3"
+    },
     "passability": false
   },
   {
     "id": 74,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "6", "wallVariant":  "4"},
+    "params": {
+      "wallType": "6",
+      "wallVariant": "4"
+    },
     "passability": false
   },
   {
     "id": 75,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "6", "wallVariant":  "5"},
+    "params": {
+      "wallType": "6",
+      "wallVariant": "5"
+    },
     "passability": false
   },
   {
     "id": 76,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "6", "wallVariant":  "6"},
+    "params": {
+      "wallType": "6",
+      "wallVariant": "6"
+    },
     "passability": false
   },
   {
     "id": 77,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "6", "wallVariant":  "7"},
+    "params": {
+      "wallType": "6",
+      "wallVariant": "7"
+    },
     "passability": false
   },
   {
     "id": 78,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "6", "wallVariant":  "8"},
+    "params": {
+      "wallType": "6",
+      "wallVariant": "8"
+    },
     "passability": false
   },
   {
@@ -509,56 +662,80 @@
     "id": 82,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "7", "wallVariant":  "1"},
+    "params": {
+      "wallType": "7",
+      "wallVariant": "1"
+    },
     "passability": false
   },
   {
     "id": 83,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "7", "wallVariant":  "2"},
+    "params": {
+      "wallType": "7",
+      "wallVariant": "2"
+    },
     "passability": false
   },
   {
     "id": 84,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "7", "wallVariant":  "3"},
+    "params": {
+      "wallType": "7",
+      "wallVariant": "3"
+    },
     "passability": false
   },
   {
     "id": 85,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "7", "wallVariant":  "4"},
+    "params": {
+      "wallType": "7",
+      "wallVariant": "4"
+    },
     "passability": false
   },
   {
     "id": 86,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "7", "wallVariant":  "5"},
+    "params": {
+      "wallType": "7",
+      "wallVariant": "5"
+    },
     "passability": false
   },
   {
     "id": 87,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "7", "wallVariant":  "6"},
+    "params": {
+      "wallType": "7",
+      "wallVariant": "6"
+    },
     "passability": false
   },
   {
     "id": 88,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "7", "wallVariant":  "7"},
+    "params": {
+      "wallType": "7",
+      "wallVariant": "7"
+    },
     "passability": false
   },
   {
     "id": 89,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "7", "wallVariant":  "8"},
+    "params": {
+      "wallType": "7",
+      "wallVariant": "8"
+    },
     "passability": false
   },
   {
@@ -580,56 +757,80 @@
     "id": 93,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "8", "wallVariant":  "1"},
+    "params": {
+      "wallType": "8",
+      "wallVariant": "1"
+    },
     "passability": false
   },
   {
     "id": 94,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "8", "wallVariant":  "2"},
+    "params": {
+      "wallType": "8",
+      "wallVariant": "2"
+    },
     "passability": false
   },
   {
     "id": 95,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "8", "wallVariant":  "3"},
+    "params": {
+      "wallType": "8",
+      "wallVariant": "3"
+    },
     "passability": false
   },
   {
     "id": 96,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "8", "wallVariant":  "4"},
+    "params": {
+      "wallType": "8",
+      "wallVariant": "4"
+    },
     "passability": false
   },
   {
     "id": 97,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "8", "wallVariant":  "5"},
+    "params": {
+      "wallType": "8",
+      "wallVariant": "5"
+    },
     "passability": false
   },
   {
     "id": 98,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "8", "wallVariant":  "6"},
+    "params": {
+      "wallType": "8",
+      "wallVariant": "6"
+    },
     "passability": false
   },
   {
     "id": 99,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "8", "wallVariant":  "7"},
+    "params": {
+      "wallType": "8",
+      "wallVariant": "7"
+    },
     "passability": false
   },
   {
     "id": 100,
     "strength": 0,
     "type": "WALL",
-    "params": {"wallType": "8", "wallVariant":  "8"},
+    "params": {
+      "wallType": "8",
+      "wallVariant": "8"
+    },
     "passability": false
   },
   {
@@ -675,15 +876,69 @@
   {
     "id": 109,
     "strength": 0,
+    "type": "EARTH",
     "passability": true
   },
   {
     "id": 110,
     "strength": 0,
+    "type": "EARTH",
     "passability": true
   },
   {
     "id": 111,
+    "strength": 0,
+    "type": "EARTH",
+    "passability": true
+  },
+  {
+    "id": 112,
+    "strength": 0,
+    "type": "WATER",
+    "passability": false
+  },
+  {
+    "id": 113,
+    "strength": 0,
+    "type": "WATER",
+    "passability": false
+  },
+  {
+    "id": 114,
+    "strength": 0,
+    "type": "WATER",
+    "passability": false
+  },
+  {
+    "id": 115,
+    "strength": 0,
+    "type": "WATER",
+    "passability": false
+  },
+  {
+    "id": 116,
+    "strength": 0,
+    "type": "WATER",
+    "passability": false
+  },
+  {
+    "id": 117,
+    "strength": 0,
+    "burn": true,
+    "passability": true
+  },
+  {
+    "id": 118,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 119,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 120,
     "strength": 0,
     "passability": true
   }

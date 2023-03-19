@@ -14,6 +14,9 @@ public enum  TileTypeEnum {
     BED("Кровать"),
     CLOCK("Часы"),
     PLANT("Растение"),
+    WATER("Вода"),
+    EARTH("Земля"),
+    ORE("Руда"),
     CRAFTING_PLACE("Место для крафта");
 
     @Getter

@@ -10,7 +10,9 @@ import javafx.scene.robot.Robot;
 import lombok.Getter;
 import model.editor.TileInfo;
 import model.editor.TileTypeEnum;
+import model.entity.GameCalendar;
 import model.entity.GameModeEnum;
+import model.entity.battle.DamageTypeEnum;
 import model.entity.map.*;
 import model.entity.player.Player;
 import view.Editor;
@@ -24,13 +26,14 @@ import view.menu.MainMenu;
 import java.util.ArrayList;
 import java.util.List;
 
+import static controller.BattleController.baseFireDamage;
 import static game.GameParams.*;
 
 /**
  * Действия с картой
  */
 public class MapController {
-    private static ImageView bag = new ImageView("/graphics/items/bag.png");
+    private static final ImageView bag = new ImageView("/graphics/items/bag.png");
     @Getter
     private static final int dugUpGroundId = 109; // вскопанная земля
     @Getter
@@ -39,6 +42,10 @@ public class MapController {
     private static final int dryGround = 111; // сухая земля
     @Getter
     private static final int dryPlant = 206; // сухое растение
+    @Getter
+    private static final int moldGround = 117; // плесневелая земля
+    @Getter
+    private static final int burntGround = 118; // горелая земля
 
     /**
      * Движение мыши по карте без нажатых кнопок
@@ -108,6 +115,125 @@ public class MapController {
     }
 
     /**
+     * Распространение огня на карте мира
+     */
+    public static void fireSpread() {
+        boolean[][] fires = new boolean[mapSize][mapSize];
+        for (int x = 0; x < mapSize; x++) {
+            for (int y = 0; y < mapSize; y++) {
+                var mapCellInfo = Game.getMap().getTiles()[x][y];
+                if (mapCellInfo.getFireId() == 2) { // огонь распространяется на соседние тайлы только когда сильно разгорится
+                    try {
+                        fires[x - 1][y] = true;
+                    } catch (Exception ignored) {
+                    }
+                    try {
+                        fires[x - 1][y - 1] = true;
+                    } catch (Exception ignored) {
+                    }
+                    try {
+                        fires[x - 1][y + 1] = true;
+                    } catch (Exception ignored) {
+                    }
+                    try {
+                        fires[x][y + 1] = true;
+                    } catch (Exception ignored) {
+                    }
+                    try {
+                        fires[x][y - 1] = true;
+                    } catch (Exception ignored) {
+                    }
+                    try {
+                        fires[x + 1][y - 1] = true;
+                    } catch (Exception ignored) {
+                    }
+                    try {
+                        fires[x + 1][y + 1] = true;
+                    } catch (Exception ignored) {
+                    }
+                    try {
+                        fires[x + 1][y] = true;
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+        }
+        for (int x = 0; x < mapSize; x++) {
+            for (int y = 0; y < mapSize; y++) {
+                MapCellInfo mapCellInfo = Game.getMap().getTiles()[x][y];
+                if (fires[x][y] && (mapCellInfo.getTile1Info().isBurn() || mapCellInfo.getTile2Info().isBurn()) ||
+                        mapCellInfo.getFireId() != 0) {
+                    int fireLevel = mapCellInfo.getFireId() + 1;
+
+                    BattleController.applyDamageToMapCell(mapCellInfo, baseFireDamage * fireLevel, DamageTypeEnum.FIRE_DAMAGE);
+
+                    if (fireLevel > 3) {
+                        fireLevel = 3;
+                    }
+
+                    if (!mapCellInfo.getTile1Info().isBurn() && !mapCellInfo.getTile2Info().isBurn()) {
+                        fireLevel = 0;
+                    }
+                    mapCellInfo.setFireId(fireLevel);
+                }
+            }
+        }
+    }
+
+    /**
+     * Рост плесени на карте мира
+     */
+    public static void moldGrowth() {
+        boolean[][] moldArray = new boolean[mapSize][mapSize];
+        for (int x = 0; x < mapSize; x++) {
+            for (int y = 0; y < mapSize; y++) {
+                var mapCellInfo = Game.getMap().getTiles()[x][y];
+                if (mapCellInfo.getTile1Id() == moldGround) {
+                    try {
+                        moldArray[x - 1][y] = true;
+                    } catch (Exception ignored) {
+                    }
+                    try {
+                        moldArray[x - 1][y - 1] = true;
+                    } catch (Exception ignored) {
+                    }
+                    try {
+                        moldArray[x - 1][y + 1] = true;
+                    } catch (Exception ignored) {
+                    }
+                    try {
+                        moldArray[x][y + 1] = true;
+                    } catch (Exception ignored) {
+                    }
+                    try {
+                        moldArray[x][y - 1] = true;
+                    } catch (Exception ignored) {
+                    }
+                    try {
+                        moldArray[x + 1][y - 1] = true;
+                    } catch (Exception ignored) {
+                    }
+                    try {
+                        moldArray[x + 1][y + 1] = true;
+                    } catch (Exception ignored) {
+                    }
+                    try {
+                        moldArray[x + 1][y] = true;
+                    } catch (Exception ignored) {
+                    }
+                }
+            }
+        }
+        for (int x = 0; x < mapSize; x++) {
+            for (int y = 0; y < mapSize; y++) {
+                if (moldArray[x][y] && Game.getMap().getTiles()[x][y].getTile1Type().equals(TileTypeEnum.EARTH)) {
+                    Game.getMap().getTiles()[x][y].setTile1Id(moldGround);
+                }
+            }
+        }
+    }
+
+    /**
      * Проверка возможности рисовать карту
      *
      * @param x - координата x
@@ -133,7 +259,7 @@ public class MapController {
      */
     public static void showMapPointInfo(double x, double y, Label mapInfoLabel) {
         var player = Game.getMap().getPlayer();
-        if (x < viewSize * tileSize && y < viewSize * tileSize) {
+        if (x < viewSize * tileSize && y < viewSize * tileSize && needShowPointInfo(x, y)) {
             int xPos = player.getXMapPos() + (((int) x) / tileSize);
             int yPos = player.getYMapPos() + (((int) y) / tileSize);
             var mapCellInfo = Game.getMap().getTiles()[xPos][yPos];
@@ -161,6 +287,13 @@ public class MapController {
         } else {
             mapInfoLabel.setText("");
         }
+    }
+
+    // Нужно ли отображать информацию о точке на карте
+    private static boolean needShowPointInfo(double x, double y) {
+        return Game.getGameMode().equals(GameModeEnum.EDITOR) ||
+                (Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.FOG) &&
+                        tileDistance(Game.getMap().getPlayer(), (((int) x) / tileSize), (((int) y) / tileSize)) < Game.getMap().getCurrentWeather().getValue());
     }
 
     /**
@@ -334,12 +467,14 @@ public class MapController {
         switch (Editor.getSelectedType()) {
             case GROUND: {
                 mapCellInfo.setTile1Id(isRightMouse ? 0 : Editor.getSelectTile());
+                mapCellInfo.setTile1Strength(Editor.getTiles1().get(Editor.getSelectTile()).getStrength());
                 break;
             }
             case OBJECT: {
                 var newType = Editor.getTiles2().get(isRightMouse ? 0 : Editor.getSelectTile()).getType();
                 var oldType = mapCellInfo.getTile2Info().getType();
                 mapCellInfo.setTile2Id(isRightMouse ? 0 : Editor.getSelectTile());
+                mapCellInfo.setTile2Strength(Editor.getTiles2().get(Editor.getSelectTile()).getStrength());
 
                 if (newType == null && (oldType != null)) {
                     mapCellInfo = new MapCellInfo(mapCellInfo);
@@ -587,8 +722,8 @@ public class MapController {
     /**
      * Нажатие на карту
      *
-     * @param x - координата X места нажатия
-     * @param y - координата Y места нажатия
+     * @param x            - координата X места нажатия
+     * @param y            - координата Y места нажатия
      * @param isRightMouse - признак нажатия ПКМ
      */
     public static void mapClick(double x, double y, boolean isRightMouse) {
@@ -746,6 +881,38 @@ public class MapController {
             gc.drawImage(tile2Img, x * tileSize, y * tileSize - (tile2Img.getHeight() - tileSize));
         }
 
+        // если тайл горит, рисуем огонь
+        if (mapCellInfo.getFireId() != 0) {
+            gc.drawImage(Editor.getFires().get(mapCellInfo.getFireId()),
+                    x * tileSize, y * tileSize);
+        }
+
+        // погодные эффекты рисуем только в режиме игры
+        if (Game.getGameMode().equals(GameModeEnum.GAME) && !Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.CLEAR)) {
+            if (Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.FOG)) {
+                if (tileDistance(player, x, y) >= Game.getMap().getCurrentWeather().getValue()) { // рисуем сплошной туман
+                    gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage1(),
+                            x * tileSize, y * tileSize);
+                }
+                if (tileDistance(player, x, y) == Game.getMap().getCurrentWeather().getValue() - 1) { // рисуем полупрозрачный туман
+                    gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage2(),
+                            x * tileSize, y * tileSize);
+                }
+                if (tileDistance(player, x, y) == Game.getMap().getCurrentWeather().getValue() - 2) { // и рисуем едва видимую дымку
+                    gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage3(),
+                            x * tileSize, y * tileSize);
+                }
+            } else {
+                if (GameCalendar.getCurrentDate().getTic() % 2 == 0) {
+                    gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage1(),
+                            x * tileSize, y * tileSize);
+                } else {
+                    gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage2(),
+                            x * tileSize, y * tileSize);
+                }
+            }
+        }
+
         // Если включено отображение зон, то рисуем их поверх всего
         if (Game.getGameMode().equals(GameModeEnum.EDITOR) &&
                 Editor.isShowZones() &&
@@ -753,5 +920,10 @@ public class MapController {
             gc.drawImage(Editor.getZones().get(mapCellInfo.getZoneId()).getImage().getImage(),
                     x * tileSize, y * tileSize);
         }
+    }
+
+    public static int tileDistance(Player player, double x, double y) {
+        return (int) Math.round(Math.sqrt((Math.pow(player.getXPosition() - (player.getXMapPos() + x), 2)) +
+                (Math.pow(player.getYPosition() - (player.getYMapPos() + y), 2))));
     }
 }

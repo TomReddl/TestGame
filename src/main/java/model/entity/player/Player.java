@@ -41,7 +41,7 @@ public class Player implements Serializable {
     @JsonProperty("gender")
     private GenderEnum gender; // пол
     @JsonProperty("hairColor")
-    private String hairColor; // цвет волос
+    private HairColorEnum hairColor; // цвет волос
     @JsonProperty("hairLength")
     private int hairLength; // длина волос
     @JsonProperty("beardLength")
@@ -63,6 +63,9 @@ public class Player implements Serializable {
     @Getter
     private static int baseVolume = 40000;
     @JsonIgnore
+    @Getter
+    private static int baseWeight = 50; // Базовый переносимый вес (кг)
+    @JsonIgnore
     @Setter
     private BigDecimal maxVolume;
     @JsonIgnore
@@ -82,7 +85,7 @@ public class Player implements Serializable {
         direction = DirectionEnum.RIGHT;
         hairLength = 1;
         beardLength = 0;
-        hairColor = "Brown";
+        hairColor = HairColorEnum.Brown;
         gender = GenderEnum.MALE;
 
         for (BodyPartEnum partEnum : BodyPartEnum.values()) {

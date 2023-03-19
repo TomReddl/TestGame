@@ -20,7 +20,10 @@ import java.util.List;
 public class MapCellInfo implements Serializable {
     private int tile1Id;
     private int tile2Id;
+    private int tile1Strength; // текущая прочность нижнего тайла
+    private int tile2Strength; // текущая прочность верхнего тайла
     private int pollutionId; // загрязнение на тайле
+    private int fireId; // огонь на тайле
     private int zoneId; // к какой зоне принадлежит тайл
     private Integer npcId; // если на тайле стоит NPC, здесь отображается его id
     private Integer creatureId; // если на тайле стоит существо, здесь отображается его id
@@ -29,8 +32,11 @@ public class MapCellInfo implements Serializable {
 
     public MapCellInfo(MapCellInfo oldInfo) {
         this.tile1Id = oldInfo.getTile1Id();
+        this.tile1Strength = oldInfo.getTile1Strength();
+        this.tile2Strength = oldInfo.getTile2Strength();
         this.tile2Id = oldInfo.getTile2Id();
-        this.pollutionId = oldInfo.getPollutionId();
+        this.pollutionId = oldInfo.getFireId();
+        this.fireId = oldInfo.getPollutionId();
         this.zoneId = oldInfo.getZoneId();
         this.npcId = oldInfo.getNpcId();
         this.creatureId = oldInfo.getCreatureId();
@@ -38,25 +44,33 @@ public class MapCellInfo implements Serializable {
         this.desc = oldInfo.getDesc();
     }
 
-    // получить тип нижнего тайла
+    /**
+     * Получить тип нижнего тайла
+     */
     @JsonIgnore
     public TileTypeEnum getTile1Type() {
         return getTile1Info().getType() == null ? TileTypeEnum.NONE : TileTypeEnum.valueOf(getTile1Info().getType());
     }
 
-    // получить тип верхнего тайла
+    /**
+     * Получить тип верхнего тайла
+     */
     @JsonIgnore
     public TileTypeEnum getTile2Type() {
         return getTile2Info().getType() == null ? TileTypeEnum.NONE : TileTypeEnum.valueOf(getTile2Info().getType());
     }
 
-    // получить информацию о нижнем тайле
+    /**
+     * Получить информацию о нижнем тайле
+     */
     @JsonIgnore
     public TileInfo getTile1Info() {
         return Editor.getTiles1().get(tile1Id);
     }
 
-    // получить информацию о верхнем тайле
+    /**
+     * Получить информацию о верхнем тайле
+     */
     @JsonIgnore
     public TileInfo getTile2Info() {
         return Editor.getTiles2().get(tile2Id);

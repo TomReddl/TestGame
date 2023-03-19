@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Информация о предмете
@@ -29,12 +30,19 @@ public class Items {
     @JsonProperty("equipment")
     private boolean equipment; // признак экипированного предмета
     @JsonProperty("currentStrength")
-    private Integer currentStrength; // Текущая прочность
+    private int currentStrength; // Текущая прочность
+    @JsonProperty("params")
+    private Map<String, String> params; // дополнительные параметры
 
     public Items(int typeId, int count) {
         this.typeId = typeId;
         this.count = count;
         this.setCurrentStrength(this.getInfo().getMaxStrength());
+        this.setParams(this.getInfo().getParams());
+        if (this.getInfo().getParams() != null &&
+                this.getInfo().getParams().get("capacity") != null) {
+            this.getParams().put("currentCapacity", "0");
+        }
     }
 
     public Items(Items anotherItem, int count) {
@@ -43,6 +51,7 @@ public class Items {
         this.count = count;
         this.equipment = anotherItem.isEquipment();
         this.currentStrength = anotherItem.getCurrentStrength();
+        this.params = anotherItem.getParams();
     }
 
     private static Comparator<Items> compareByName = Comparator.comparing(o -> o.getInfo().getName());

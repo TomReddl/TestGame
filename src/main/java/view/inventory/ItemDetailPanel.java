@@ -2,7 +2,10 @@ package view.inventory;
 
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
@@ -58,7 +61,7 @@ public class ItemDetailPanel {
             var weaponInfo = (WeaponInfo) item.getInfo();
             descLabel.setText(descLabel.getText() + "\n\n" +
                     String.format(Game.getText("DAMAGE"), weaponInfo.getDamage()) + "\n" +
-                    String.format(Game.getText("STRENGTH"),item.getCurrentStrength(), weaponInfo.getMaxStrength()) + "\n" +
+                    String.format(Game.getText("STRENGTH"), item.getCurrentStrength(), weaponInfo.getMaxStrength()) + "\n" +
                     (weaponInfo.getOneHand() ? Game.getText("ONE_HAND") : Game.getText("TWO_HAND")) + "\n" +
                     Game.getText(ParamPanel.getSkillsNames().get(weaponInfo.getSkill()) + "_PARAM_NAME"));
             if (weaponInfo.getEffects() != null) {
@@ -75,7 +78,7 @@ public class ItemDetailPanel {
                     String.format(Game.getText("COVERING"), clothesInfo.getCovering()) + "\n" +
 
                     ((clothesInfo.getBodyPart().equals(BodyPartEnum.BACKPACK.name()) ||
-                            clothesInfo.getBodyPart().equals(BodyPartEnum.BELT.name()))?
+                            clothesInfo.getBodyPart().equals(BodyPartEnum.BELT.name())) ?
                             Game.getText("ADD_VOLUME") + " " +
                                     BigDecimal.valueOf(Long.parseLong(clothesInfo.getParams().get("addVolume"))).
                                             divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP)
@@ -98,7 +101,7 @@ public class ItemDetailPanel {
             descLabel.setText(descLabel.getText() + "\n\n" +
                     String.format(Game.getText("TASTE"), edibleInfo.getTaste()) + "\n" +
                     String.format(Game.getText("HUNGER_RESTORE"), edibleInfo.getHunger()) + "\n" +
-                            String.format(Game.getText("THIRST_RESTORE"), edibleInfo.getThirst()) + "\n" + "\n");
+                    String.format(Game.getText("THIRST_RESTORE"), edibleInfo.getThirst()) + "\n" + "\n");
             if (edibleInfo.getEffects() != null) {
                 for (EffectParams effect : edibleInfo.getEffects()) {
                     descLabel.setText(descLabel.getText() + Game.getEffectText(effect.getStrId()) + " " +
@@ -107,20 +110,30 @@ public class ItemDetailPanel {
                 }
             }
         } else if (item.getInfo().getTypes().contains(ItemTypeEnum.TOOL)) {
-            var toolSkill = "";
-            if (item.getInfo().getTypes().contains(ItemTypeEnum.PICKLOCK) ||
-                    item.getInfo().getTypes().contains(ItemTypeEnum.SAPPER_TOOL)) {
-                toolSkill = Game.getText("BREAKING_LOCKS_PARAM_NAME");
-            } else if (item.getInfo().getTypes().contains(ItemTypeEnum.BUILDING_TOOL)) {
-                toolSkill = Game.getText("CONSTRUCTION_PARAM_NAME");
+            if (item.getInfo().getTypes().contains(ItemTypeEnum.WATERING_CAN)) {
+                descLabel.setText(descLabel.getText() + "\n\n" +
+                        String.format(
+                                Game.getText("CAPACITY"),
+                                item.getParams().get("currentCapacity"),
+                                item.getParams().get("capacity")));
+            } else if (item.getInfo().getTypes().contains(ItemTypeEnum.PICKLOCK) ||
+                    item.getInfo().getTypes().contains(ItemTypeEnum.SAPPER_TOOL) ||
+                    item.getInfo().getTypes().contains(ItemTypeEnum.BUILDING_TOOL)) {
+                var toolSkill = "";
+                if (item.getInfo().getTypes().contains(ItemTypeEnum.PICKLOCK) ||
+                        item.getInfo().getTypes().contains(ItemTypeEnum.SAPPER_TOOL)) {
+                    toolSkill = Game.getText("BREAKING_LOCKS_PARAM_NAME");
+                } else if (item.getInfo().getTypes().contains(ItemTypeEnum.BUILDING_TOOL)) {
+                    toolSkill = Game.getText("CONSTRUCTION_PARAM_NAME");
+                }
+                descLabel.setText(descLabel.getText() + "\n\n" +
+                        String.format(
+                                Game.getText("CHARGES"),
+                                item.getCurrentStrength(),
+                                item.getInfo().getMaxStrength(),
+                                item.getInfo().getParams().get("skillBonus"),
+                                toolSkill));
             }
-            descLabel.setText(descLabel.getText() + "\n\n" +
-                    String.format(
-                            Game.getText("CHARGES"),
-                            item.getCurrentStrength(),
-                            item.getInfo().getMaxStrength(),
-                            item.getInfo().getParams().get("skillBonus"),
-                            toolSkill));
         }
     }
 

@@ -11,7 +11,7 @@ import model.editor.items.ItemInfo;
 import model.editor.TileInfo;
 import model.entity.GameModeEnum;
 import model.entity.ItemTypeEnum;
-import model.entity.map.Map;
+import model.entity.map.WorldMap;
 import view.inventory.InventoryPanel;
 import view.inventory.PlayerIndicatorsPanel;
 import view.menu.GameMenuPanel;
@@ -84,7 +84,7 @@ public class Game {
     private static final ImageView stopTestGameImage = new ImageView("/graphics/gui/StopTestGame.png");
     @Getter
     @Setter
-    private static Map map = new Map();
+    private static WorldMap map = new WorldMap();
     @Getter
     private static final Editor editor = new Editor();
     @Getter

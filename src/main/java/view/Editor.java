@@ -5,19 +5,27 @@ import controller.utils.JsonUtils;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Pair;
 import lombok.Getter;
 import lombok.Setter;
 import model.editor.*;
 import model.editor.items.ItemInfo;
+import model.entity.GameLangEnum;
 import model.entity.GameModeEnum;
 import model.entity.ItemTypeEnum;
+import model.entity.map.WeatherEnum;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static game.GameParams.*;
 
@@ -37,6 +45,7 @@ public class Editor {
     private static final Pane pane5 = new Pane();
     private static final Pane pane6 = new Pane();
     private static final Pane pane7 = new Pane();
+    private static final Pane pane8 = new Pane();
     @Getter
     private static final Pane itemsPane = new Pane();
     private static final TextField searchTile1TF = new TextField();
@@ -86,6 +95,10 @@ public class Editor {
     @Setter
     @Getter
     private static Label mapInfoLabel = new Label("");
+    @Getter
+    private static final List<Image> fires = new ArrayList<>();
+
+    private ComboBox<WeatherEnum> weatherCB = new ComboBox();
 
     public Editor() {
         Game.getRoot().getChildren().add(canvas);
@@ -160,6 +173,7 @@ public class Editor {
         tabPane.getTabs().add(new Tab(Game.getText("ITEMS")));
         tabPane.getTabs().add(new Tab(Game.getText("POLLUTIONS")));
         tabPane.getTabs().add(new Tab(Game.getText("ZONES")));
+        tabPane.getTabs().add(new Tab(Game.getText("WEATHER")));
         tabPane.getTabs().get(0).setClosable(false);
         tabPane.getTabs().get(1).setClosable(false);
         tabPane.getTabs().get(2).setClosable(false);
@@ -167,6 +181,7 @@ public class Editor {
         tabPane.getTabs().get(4).setClosable(false);
         tabPane.getTabs().get(5).setClosable(false);
         tabPane.getTabs().get(6).setClosable(false);
+        tabPane.getTabs().get(7).setClosable(false);
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setLayoutX(5);
@@ -177,6 +192,11 @@ public class Editor {
         searchTile1TF.setPromptText(Game.getText("TILE_NAME"));
         searchTile1TF.setOnAction(event -> filterTiles(searchTile1TF.getText(), tiles1));
         pane1.getChildren().add(searchTile1TF);
+
+        fires.add(new Image("/graphics/tiles2/0.png"));
+        for (int i = 1; i < 4; i++) {
+            fires.add(new Image("/graphics/fire/fire" + i + ".png"));
+        }
 
         for (int i = 0; i < tiles1.size(); i++) {
             ImageView tile = new ImageView("/graphics/tiles/" + i + ".png");
@@ -482,7 +502,77 @@ public class Editor {
         scrollPane7.setContent(pane7);
         tabPane.getTabs().get(6).setContent(scrollPane7);
 
+        Label weathersLabel = new Label(Game.getText("ACCESSIBLE_WEATHER"));
+        weathersLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        weathersLabel.setLayoutX(5);
+        weathersLabel.setLayoutY(5);
+        pane8.getChildren().add(weathersLabel);
+
+        int y = 25;
+        for (WeatherEnum weatherType : WeatherEnum.values()) {
+            CheckBox checkBox = new CheckBox();
+            checkBox.setLayoutX(5);
+            checkBox.setLayoutY(5);
+            checkBox.setId(weatherType.name());
+            checkBox.setOnAction(event -> changeAccessibleWeather(checkBox.getId(), checkBox.isSelected()));
+            checkBox.setSelected(weatherType.equals(WeatherEnum.CLEAR));
+
+            Label label = new Label(weatherType.getDesc());
+            label.setLayoutX(25);
+            label.setLayoutY(y);
+
+            HBox hBox = new HBox();
+            hBox.setLayoutX(5);
+            hBox.setLayoutY(y);
+            hBox.getChildren().addAll(checkBox, label);
+            hBox.setSpacing(5);
+
+            pane8.getChildren().add(hBox);
+            y += 20;
+        }
+
+        Label currentWeathersLabel = new Label(Game.getText("CURRENT_WEATHER"));
+        currentWeathersLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        currentWeathersLabel.setLayoutX(5);
+        currentWeathersLabel.setLayoutY(y);
+        pane8.getChildren().add(currentWeathersLabel);
+
+        y += 20;
+
+        weatherCB.setLayoutX(5);
+        weatherCB.setLayoutY(y);
+        weatherCB.setPrefWidth(200);
+        weatherCB.getItems().addAll(getAccessibleWeathers());
+        weatherCB.setOnAction(event -> setWeather(weatherCB.getSelectionModel().getSelectedItem()));
+        weatherCB.setVisibleRowCount(5);
+        weatherCB.getSelectionModel().selectFirst();
+        pane8.getChildren().add(weatherCB);
+
+        tabPane.getTabs().get(7).setContent(pane8);
+
         root.getChildren().add(tabPane);
+    }
+
+    // установить текущую погоду
+    private void setWeather(WeatherEnum selected) {
+        Game.getMap().setCurrentWeather(new Pair(selected, 6));
+    }
+
+    // Получить доступные для текущей карты погоды
+    private List<WeatherEnum> getAccessibleWeathers() {
+        return Game.getMap().getAccessibleWeathers() != null ? new ArrayList<>(Game.getMap().getAccessibleWeathers().keySet()) :
+                Collections.emptyList();
+    }
+
+    // Сохранить доступную для текущей карты погоду
+    private void changeAccessibleWeather(String checkBoxId, boolean checked) {
+        if (checked) {
+            Game.getMap().getAccessibleWeathers().put(WeatherEnum.valueOf(checkBoxId), 1);
+        } else {
+            Game.getMap().getAccessibleWeathers().remove(WeatherEnum.valueOf(checkBoxId));
+        }
+        weatherCB.getItems().clear();
+        weatherCB.getItems().addAll(getAccessibleWeathers());
     }
 
     private void changeShowZones() {
@@ -523,8 +613,8 @@ public class Editor {
                                 (itemInfo.getName().toLowerCase().contains(searchString.toLowerCase())));
                 itemTile.setVisible(visible);
                 if (itemTile.isVisible()) {
-                    itemTile.setX(5 + (i / 13) * (tileSize + 5));
-                    itemTile.setY(5 + (i) * (tileSize + 5) - (i / 13) * 585);
+                    itemTile.setX(5 + (i / 11) * (tileSize + 5));
+                    itemTile.setY(5 + (i) * (tileSize + 5) - (i / 11) * 495);
                     i++;
                 }
             }

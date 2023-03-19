@@ -551,18 +551,23 @@ public class ItemsController {
         int totalWeight = 0;
         for (Items item : inventory) {
             totalWeight += item.getInfo().getWeight() * item.getCount();
+            if (item.getInfo().getParams() != null &&
+                    item.getInfo().getParams().get("currentCapacity") != null) {
+                // нужно учитывать вес содержимого предметов
+                totalWeight += Integer.parseInt(item.getParams().get("currentCapacity"));
+            }
         }
         return BigDecimal.valueOf(totalWeight).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
     }
 
     /**
-     * Получить максимальный переносимый персонажем вес
+     * Получить максимальный переносимый персонажем вес (в килограммах)
      *
      * @param player - персонаж
      * @return максимальная масса, которую может переносить персонаж
      */
     public static BigDecimal getMaximumWeight(Player player) {
-        return BigDecimal.valueOf(player.getParams().getCharacteristics().get(3).getCurrentValue() * 3);
+        return  BigDecimal.valueOf(player.getParams().getCharacteristics().get(3).getCurrentValue() * 3 + Player.getBaseWeight());
     }
 
     /**

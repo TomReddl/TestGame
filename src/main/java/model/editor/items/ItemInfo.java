@@ -23,9 +23,10 @@ public class ItemInfo {
     private Long weight;
     private Long volume;
     private Long price;
-    protected Integer maxStrength; // Максимальная прочность
+    protected int maxStrength; // Максимальная прочность
     private Boolean stackable; // предмет может храниться в стеках
     private Boolean fragile; // хрупкий предмет, его нельзя починить Если его прочность упадет до 0, предмет уничтожится
+    private boolean burn; // может ли предмет сгореть
     private List<ItemTypeEnum> types;
     @JsonIgnore
     private ImageView image;

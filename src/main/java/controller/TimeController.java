@@ -1,7 +1,11 @@
 package controller;
 
 import model.entity.GameCalendar;
+import model.entity.battle.DamageTypeEnum;
+import model.entity.map.MapCellInfo;
 import view.Game;
+
+import static controller.BattleController.baseFireDamage;
 
 /**
  * Действия со временем
@@ -37,9 +41,24 @@ public class TimeController {
     private static boolean incTime(boolean show) {
         var currentDate = GameCalendar.getCurrentDate();
         currentDate.setTic(currentDate.getTic() + 1);
+
+        MapCellInfo playerMapCell = Game.getMap().getTiles()[Game.getMap().getPlayer().getXPosition()][Game.getMap().getPlayer().getYPosition()];
+        if (playerMapCell.getFireId() != 0) {
+            // Если персонаж стоит на горящем тайле, урон огнем наносится ему каждый ход
+            BattleController.applyDamageToPlayer(playerMapCell.getFireId() * baseFireDamage, DamageTypeEnum.FIRE_DAMAGE);
+        }
+
+        if (currentDate.getTic() % 10 == 0) {
+            MapController.fireSpread(); // распространение огня каждые 10 тиков
+        }
+
         if (currentDate.getTic() > GameCalendar.getTicsInHour()) {
             currentDate.setTic(1);
             currentDate.setHour(currentDate.getHour() + 1);
+
+            if (currentDate.getHour() % 4 == 0) {
+                MapController.moldGrowth(); // рост плесени каждые 4 часа
+            }
 
             CharactersController.changeHungerAndThirst(Game.getMap().getPlayer()); // жажда и голод убывают каждый час
 
@@ -71,6 +90,7 @@ public class TimeController {
         }
         if (show) {
             Game.getTimeLabel().setText(getCurrentDataStr(false));
+            MapController.drawCurrentMap();
         }
         return true;
     }
@@ -115,5 +135,14 @@ public class TimeController {
             return Game.getGameText("EVENING");
         }
         return Game.getGameText("NIGHT");
+    }
+
+    /**
+     * Получить текущее время года
+     *
+     * @return время года для текущей даты
+     */
+    public static GameCalendar.SeasonEnum getSeason() {
+        return GameCalendar.MonthEnum.getMonth(GameCalendar.getCurrentDate().getMonth()).getSeason();
     }
 }
