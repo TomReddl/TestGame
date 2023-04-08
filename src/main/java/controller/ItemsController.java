@@ -10,6 +10,8 @@ import model.entity.ItemTypeEnum;
 import model.entity.map.Items;
 import model.entity.player.ParamsInfo;
 import model.entity.player.Player;
+import view.AlchemyLaboratoryPanel;
+import view.AlchemyPanel;
 import view.Game;
 import view.inventory.*;
 import view.menu.GameMenuPanel;
@@ -192,37 +194,37 @@ public class ItemsController {
      * @param player    - персонаж
      * @return true, если предмет удален
      */
-    public static Boolean deleteItem(Items item, int count, List<Items> inventory, Player player) {
-        boolean found = false;
+    public static boolean deleteItem(Items item, int count, List<Items> inventory, Player player) {
         for (Items i : inventory) {
-            if (item.getTypeId() == i.getTypeId()) {
+            if (i.getTypeId() == item.getTypeId()) {
                 if (item.getInfo().getStackable() && count > 0) {
-                    i.setCount(i.getCount() - count);
-                    if (i.getCount() <= 0) {
+                    int itemCount = i.getCount() - count;
+                    if (itemCount > 0) {
+                        i.setCount(itemCount);
+                    } else {
+                        if (i.isEquipment()) {
+                            ItemsController.equipItem(i, player);
+                        }
                         inventory.remove(i);
                     }
                 } else {
+                    if (i.isEquipment()) {
+                        ItemsController.equipItem(i, player);
+                    }
                     inventory.remove(i);
                 }
-                found = true;
-                break;
+                if (player != null) {
+                    player.setCurrentVolume(getCurrVolume(inventory));
+                    player.setCurrentWeight(getCurrWeight(inventory));
+                }
+                InventoryPanel.setWeightText();
+                InventoryPanel.setVolumeText();
+                InventoryPanel inventoryPanel = player != null ? Game.getInventory() : Game.getContainerInventory();
+                inventoryPanel.filterInventoryTabs(inventoryPanel.getTabPane().getSelectionModel().getSelectedItem());
+                return true;
             }
         }
-        if (!found) {
-            return false;
-        }
-        if (player != null) {
-            player.setCurrentVolume(getCurrVolume(inventory));
-            player.setCurrentWeight(getCurrWeight(inventory));
-        }
-
-        InventoryPanel.setWeightText();
-        InventoryPanel.setVolumeText();
-
-        InventoryPanel inventoryPanel = player != null ? Game.getInventory() : Game.getContainerInventory();
-        inventoryPanel.filterInventoryTabs(inventoryPanel.getTabPane().getSelectionModel().getSelectedItem());
-
-        return true;
+        return false;
     }
 
     /**
@@ -401,16 +403,39 @@ public class ItemsController {
      * @param player - персонаж
      */
     private static void useItem(Items item, Player player) {
-        if (item.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES) ||
-                item.getInfo().getTypes().contains(ItemTypeEnum.WEAPON) ||
-                item.getInfo().getTypes().contains(ItemTypeEnum.TOOL)) {
-            equipItem(item, player);
-        } else if (item.getInfo().getTypes().contains(ItemTypeEnum.EAT) ||
-                item.getInfo().getTypes().contains(ItemTypeEnum.POTION) ||
-                item.getInfo().getTypes().contains(ItemTypeEnum.INGREDIENT)) {
-            eatItem(item, player);
-        } else if (item.getInfo().getTypes().contains(ItemTypeEnum.BOOK)) {
-            BookPanel.showBookPanel(item.getTypeId());
+        if (Game.getInventory().getShowMode().equals(InventoryPanel.ShowModeEnum.SELECT_FOR_POTION_CRAFT)) { // выбор предмета для панели алхимического стола
+            AlchemyPanel alchemyPanel = Game.getEditor().getAlchemyPanel();
+            Game.getGameMenu().showGameMenuPanel("0");
+            if (item.getInfo().getTypes().contains(ItemTypeEnum.INGREDIENT)) {
+                alchemyPanel.getSelectedIngredients().set(alchemyPanel.getIndex(), item);
+                alchemyPanel.getSelectedIngredientsCount().get(alchemyPanel.getIndex()).setText(String.valueOf(item.getCount()));
+                alchemyPanel.getIngredientImages().get(alchemyPanel.getIndex()).setImage(item.getInfo().getIcon().getImage());
+            } else if (item.getInfo().getTypes().contains(ItemTypeEnum.BOTTLE)) {
+                alchemyPanel.setSelectedBottle(item);
+                alchemyPanel.getSelectedBottlesCount().setText(String.valueOf(item.getCount()));
+                alchemyPanel.getBottleImage().setImage(item.getInfo().getIcon().getImage());
+            }
+            Game.getEditor().getAlchemyPanel().setCookButtonEnabled();
+            Game.getEditor().getAlchemyPanel().setEffectsText();
+        } else if (Game.getInventory().getShowMode().equals(InventoryPanel.ShowModeEnum.SELECT_FOR_POTION_EXPLORE)) {
+            AlchemyLaboratoryPanel laboratoryPanel = Game.getEditor().getAlchemyLaboratoryPanel();
+            Game.getGameMenu().showGameMenuPanel("0");
+            laboratoryPanel.setSelectedIngredient(item);
+            laboratoryPanel.getExploreButton().setDisable(false);
+            laboratoryPanel.getIngredientImage().setImage(item.getInfo().getIcon().getImage());
+        } else {
+            if (item.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES) ||
+                    item.getInfo().getTypes().contains(ItemTypeEnum.WEAPON) ||
+                    item.getInfo().getTypes().contains(ItemTypeEnum.TOOL) ||
+                    item.getInfo().getTypes().contains(ItemTypeEnum.BOTTLE)) {
+                equipItem(item, player);
+            } else if (item.getInfo().getTypes().contains(ItemTypeEnum.EAT) ||
+                    item.getInfo().getTypes().contains(ItemTypeEnum.POTION) ||
+                    item.getInfo().getTypes().contains(ItemTypeEnum.INGREDIENT)) {
+                eatItem(item, player);
+            } else if (item.getInfo().getTypes().contains(ItemTypeEnum.BOOK)) {
+                BookPanel.showBookPanel(item.getTypeId());
+            }
         }
     }
 
@@ -428,6 +453,10 @@ public class ItemsController {
 
             PlayerIndicatorsPanel.setIndicatorValue(2, params.getIndicators().get(2).getCurrentValue() + ((EdibleInfo) item.getInfo()).getHunger());
             PlayerIndicatorsPanel.setIndicatorValue(3, params.getIndicators().get(3).getCurrentValue() + ((EdibleInfo) item.getInfo()).getThirst());
+
+            if (item.getInfo().getTypes().contains(ItemTypeEnum.POTION)) {
+                EffectController.applyEffects(item, player);
+            }
 
             deleteItem(item, 1, inventory, player);
 
@@ -496,7 +525,8 @@ public class ItemsController {
                         }
                     }
                 }
-            } else if (wearingItem.getInfo().getTypes().contains(ItemTypeEnum.TOOL)) {
+            } else if (wearingItem.getInfo().getTypes().contains(ItemTypeEnum.TOOL) ||
+                    wearingItem.getInfo().getTypes().contains(ItemTypeEnum.BOTTLE)) {
                 wearingItem.setEquipment(!wearingItem.isEquipment());
                 var bodyPart = wearingItems.get(BodyPartEnum.RIGHT_ARM.ordinal());
                 if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {

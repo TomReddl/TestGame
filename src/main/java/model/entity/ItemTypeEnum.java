@@ -32,6 +32,7 @@ public enum ItemTypeEnum {
     SHOVEL(Game.getText("SHOVEL")), // Лопаты
     SCYTHE(Game.getText("SCYTHE")), // Косы
     WATERING_CAN(Game.getText("WATERING_CAN")), // Лейки
+    BOTTLE(Game.getText("BOTTLE")), // Бутылка
     BROOM(Game.getText("BROOM")); // Метла
 
     @Getter

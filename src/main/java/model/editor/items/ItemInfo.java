@@ -5,6 +5,7 @@ import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 import model.entity.ItemTypeEnum;
+import model.entity.effects.EffectParams;
 
 import java.util.List;
 import java.util.Map;
@@ -33,4 +34,5 @@ public class ItemInfo {
     @JsonIgnore
     private ImageView icon;
     private Map<String, String> params; // дополнительные параметры предмета, мапа формата <Название параметра, значение>
+    private List<EffectParams> effects; // эффекты
 }

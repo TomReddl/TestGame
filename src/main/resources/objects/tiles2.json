@@ -2,12 +2,14 @@
   {
     "id": 0,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 1,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 2,
@@ -18,7 +20,8 @@
     "id": 3,
     "strength": 50,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 4,
@@ -72,117 +75,137 @@
     "id": 12,
     "strength": 100,
     "type": "CONTAINER",
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 13,
     "strength": 100,
     "type": "CONTAINER",
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 14,
     "strength": 100,
     "type": "CONTAINER",
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 15,
     "strength": 100,
     "type": "CONTAINER",
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 16,
     "strength": 100,
     "type": "CONTAINER",
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 17,
     "strength": 100,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 18,
     "strength": 500,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 19,
     "strength": 50,
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 20,
     "strength": 40,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 21,
     "strength": 60,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 22,
     "strength": 70,
     "type": "CONTAINER",
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 23,
     "strength": 70,
     "type": "CONTAINER",
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 24,
     "strength": 50,
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 25,
     "strength": 50,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 26,
     "strength": 50,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 27,
     "strength": 50,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 28,
     "strength": 50,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 29,
     "strength": 50,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 30,
     "strength": 50,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 31,
     "strength": 0,
     "type": "CONTAINER",
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 32,
@@ -1568,7 +1591,7 @@
     "passability": true,
     "type": "PLANT",
     "params": {
-      "harvestedId": "0",
+      "harvestedId": "244",
       "harvestId": "106"
     },
     "burn": true
@@ -1579,7 +1602,7 @@
     "passability": true,
     "type": "PLANT",
     "params": {
-      "harvestedId": "0",
+      "harvestedId": "245",
       "harvestId": "108",
       "harvestCount": "3"
     },
@@ -1591,7 +1614,7 @@
     "passability": true,
     "type": "PLANT",
     "params": {
-      "harvestedId": "0",
+      "harvestedId": "246",
       "harvestId": "107",
       "harvestCount": "3"
     },
@@ -1656,5 +1679,72 @@
     "strength": 0,
     "passability": false,
     "type": "ORE"
+  },
+  {
+    "id": 244,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT",
+    "params": {
+      "nextGrowthStage": "233"
+    },
+    "burn": true
+  },
+  {
+    "id": 245,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT",
+    "params": {
+      "nextGrowthStage": "234"
+    },
+    "burn": true
+  },
+  {
+    "id": 246,
+    "strength": 0,
+    "passability": true,
+    "type": "PLANT",
+    "params": {
+      "nextGrowthStage": "235"
+    },
+    "burn": true
+  },
+  {
+    "id": 247,
+    "strength": 0,
+    "passability": false,
+    "type": "ALCHEMY_TABLE",
+    "params": {
+      "level": "1"
+    },
+    "burn": true
+  },
+  {
+    "id": 248,
+    "strength": 0,
+    "passability": false,
+    "type": "ALCHEMY_TABLE",
+    "params": {
+      "level": "2"
+    },
+    "burn": true
+  },
+  {
+    "id": 249,
+    "strength": 0,
+    "passability": false,
+    "type": "ALCHEMY_TABLE",
+    "params": {
+      "level": "3"
+    },
+    "burn": true
+  }
+,
+  {
+    "id": 250,
+    "strength": 0,
+    "passability": false,
+    "type": "ALCHEMY_LABORATORY"
   }
 ]

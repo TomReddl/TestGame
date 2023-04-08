@@ -174,10 +174,27 @@ public class ParamPanel {
             legacyLabels.get(i).setText(paramsInfo.getLegacy().get(i).getCurrentValue().toString());
         }
         for (int i = 0; i < 6; i++) {
-            characteristicsLabels.get(i).setText(paramsInfo.getCharacteristics().get(i).getCurrentValue().toString());
+            Parameter parameter = paramsInfo.getCharacteristics().get(i);
+            characteristicsLabels.get(i).setText(parameter.getCurrentValue().toString());
+            if (parameter.getCurrentValue() > parameter.getRealValue()) {
+                ParamPanel.getCharacteristicsLabels().get(i).setTextFill(Color.GREEN);
+            } else if (parameter.getCurrentValue() < parameter.getRealValue()) {
+                ParamPanel.getCharacteristicsLabels().get(i).setTextFill(Color.RED);
+            } else {
+                ParamPanel.getCharacteristicsLabels().get(i).setTextFill(Color.BLACK);
+            }
         }
         for (int i = 0; i < 24; i++) {
-            skillsLabels.get(i).setText(paramsInfo.getSkills().get(i).getCurrentValue().toString());
+            Parameter parameter = paramsInfo.getSkills().get(i);
+            skillsLabels.get(i).setText(parameter.getCurrentValue().toString());
+
+            if (parameter.getCurrentValue() > parameter.getRealValue()) {
+                ParamPanel.getSkillsLabels().get(i).setTextFill(Color.GREEN);
+            } else if (parameter.getCurrentValue() < parameter.getRealValue()) {
+                ParamPanel.getSkillsLabels().get(i).setTextFill(Color.RED);
+            } else {
+                ParamPanel.getSkillsLabels().get(i).setTextFill(Color.BLACK);
+            }
         }
     }
 }

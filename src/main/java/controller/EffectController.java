@@ -1,21 +1,27 @@
-package model.entity.effects;
+package controller;
 
 import lombok.Getter;
 import lombok.Setter;
+import model.entity.ItemTypeEnum;
+import model.entity.effects.EffectInfo;
+import model.entity.effects.EffectParams;
+import model.entity.map.Items;
+import model.entity.player.Player;
 import view.Game;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Класс для хранения и работы с эффектами
  */
-public class EffectUtils {
+public class EffectController {
     @Getter
     @Setter
-    private Map<String, EffectInfo> effects = new HashMap<>();
+    private static Map<String, EffectInfo> effects = new HashMap<>();
 
-    public EffectUtils() {
+    static {
         effects.put("HEALTH_RESTORE", new EffectInfo(Game.getEffectText("HEALTH_RESTORE")));
 
         effects.put("POWER_INC", new EffectInfo(Game.getEffectText("POWER_INC")));
@@ -81,5 +87,79 @@ public class EffectUtils {
         effects.put("PICK_POCKET_DEC", new EffectInfo(Game.getEffectText("PICK_POCKET_DEC")));
         effects.put("SNEAK_DEC", new EffectInfo(Game.getEffectText("SNEAK_DEC")));
         effects.put("ANIMAL_HANDLING_DEC", new EffectInfo(Game.getEffectText("ANIMAL_HANDLING_DEC")));
+
+        effects.put("EPIPHANY", new EffectInfo(Game.getEffectText("EPIPHANY")));
+    }
+
+    /**
+     * Применить новые эффекты к персонажу
+     */
+    public static void applyEffects(Items items, Player player) {
+        List<EffectParams> effectParams = items.getEffects();
+        player.getAppliedEffects().addAll(effectParams);
+        for (EffectParams effect : effectParams) {
+            effect.setBaseItem(items);
+            executeEffect(player, effect);
+        }
+        Game.getParams().refreshParamsValueViews(); // перерисовывает параметры персонажа
+    }
+
+    /**
+     * Выполнить действие наложенных на персонажа эффектов
+     *
+     * @param player
+     */
+    public static void executeEffects(Player player) {
+        for (EffectParams effect : player.getAppliedEffects()) {
+            if (effect.getBaseItem().getInfo().getTypes().contains(ItemTypeEnum.POTION)) {
+                if (effect.getDurability() > 0) {
+                    removeEffect(player, effect);
+                } else {
+                    executeEffect(player, effect);
+                    effect.setDurability(effect.getDurability() - 1);
+                }
+            }
+        }
+    }
+
+    private static void executeEffect(Player player, EffectParams effect) {
+        switch (effect.getStrId()) {
+            case "HEALTH_RESTORE": {
+                player.getParams().getIndicators().get(0).setCurrentValue(
+                        player.getParams().getIndicators().get(0).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "POWER_INC": {
+                player.getParams().getCharacteristics().get(0).setCurrentValue(
+                        player.getParams().getCharacteristics().get(0).getCurrentValue() + effect.getPower()
+                );
+
+                break;
+            }
+            case "EPIPHANY": {
+                MapController.drawCurrentMap();
+                break;
+            }
+        }
+
+    }
+
+    /**
+     * Удалить наложенные на персонажа эффекты
+     *
+     * @param player
+     * @param effect
+     */
+    public static void removeEffect(Player player, EffectParams effect) {
+        player.getAppliedEffects().remove(effect);
+        switch (effect.getStrId()) {
+            case "POWER_INC": {
+                player.getParams().getCharacteristics().get(0).setCurrentValue(
+                        player.getParams().getCharacteristics().get(0).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+        }
     }
 }

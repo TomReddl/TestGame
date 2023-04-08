@@ -4,10 +4,7 @@ import lombok.Getter;
 import model.entity.WorldLangEnum;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Известная персонажу информация
@@ -18,6 +15,9 @@ public class KnowledgeInfo implements Serializable {
 
     @Getter
     private final List<WorldLangEnum> langs = new ArrayList<>(); // языки, которыми владеет персонаж
+
+    @Getter
+    private final Map<Integer, List<String>> knowEffects = new HashMap<>();
 
     public KnowledgeInfo() {
         langs.add(WorldLangEnum.NALHAIM); // герой знает налхеймский язык

@@ -13,6 +13,8 @@ import javafx.scene.paint.Color;
 import lombok.Getter;
 import model.entity.map.Items;
 import view.Game;
+import view.inventory.InventoryPanel;
+import view.inventory.PlayerIndicatorsPanel;
 import view.params.ParamPanel;
 
 import java.util.List;
@@ -73,17 +75,35 @@ public class GameMenuPanel {
 
     public void showContainerInventory(List<Items> itemsList, int x, int y) {
         showGameMenuPanel("0");
-        Game.getContainerInventory().show(itemsList, x, y);
+        Game.getContainerInventory().show(itemsList, x, y, InventoryPanel.ShowModeEnum.DEFAULT);
     }
 
     private void setPanelsVisible(Boolean show) {
         GameMenuPanel.getPane().setVisible(show);
         if (show) {
-            Game.getInventory().show(Game.getMap().getPlayer().getInventory(), 0, 0);
+            Game.getInventory().show(Game.getMap().getPlayer().getInventory(), 0, 0, InventoryPanel.ShowModeEnum.DEFAULT);
+            PlayerIndicatorsPanel.showPanel(true);
             Game.getParams().refreshParamsValueViews();
         } else {
             Game.getInventory().hide();
             Game.getContainerInventory().hide();
+            PlayerIndicatorsPanel.showPanel(false);
+        }
+    }
+
+    /**
+     * Показать только панель инвентаря (например, для выбора ингредиента для зельеварения)
+     *
+     * @param show - признак видимости
+     * @param itemType - тип
+     */
+    public void showOnlyInventory(Boolean show, String itemType, InventoryPanel.ShowModeEnum showMode) {
+        GameMenuPanel.getPane().setVisible(show);
+        if (show) {
+            Game.getInventory().show(Game.getMap().getPlayer().getInventory(), 0, 0, showMode);
+            Game.getInventory().drawItems(InventoryPanel.SortType.NAME, true, itemType);
+        } else {
+            Game.getInventory().hide();
         }
     }
 }

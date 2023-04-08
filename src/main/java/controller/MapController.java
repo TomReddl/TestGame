@@ -13,6 +13,7 @@ import model.editor.TileTypeEnum;
 import model.entity.GameCalendar;
 import model.entity.GameModeEnum;
 import model.entity.battle.DamageTypeEnum;
+import model.entity.effects.EffectParams;
 import model.entity.map.*;
 import model.entity.player.Player;
 import view.Editor;
@@ -34,6 +35,7 @@ import static game.GameParams.*;
  */
 public class MapController {
     private static final ImageView bag = new ImageView("/graphics/items/bag.png");
+    private static final ImageView dark = new ImageView("/graphics/tiles/Dark.png");
     @Getter
     private static final int dugUpGroundId = 109; // вскопанная земля
     @Getter
@@ -753,15 +755,16 @@ public class MapController {
      * @param YPos - координата y левого верхнего угла отрисовываемой области
      */
     public static void drawMap(int XPos, int YPos) {
+        boolean[][] visiblyPoints = CharactersController.findVisibleMapPoints(Game.getMap().getPlayer());
         for (int x = 0; x < viewSize; x++) {
             for (int y = 0; y < viewSize; y++) {
-                drawBottomLayer(XPos, YPos, x, y);
+                drawBottomLayer(XPos, YPos, x, y, !Game.getGameMode().equals(GameModeEnum.GAME) || visiblyPoints[x][y]);
             }
         }
 
         for (int x = 0; x < viewSize; x++) { // NPC и существа рисуются в отдельном цикле, чтобы быть поверх уже отрисованной карты
             for (int y = 0; y < viewSize; y++) {
-                drawUpperLayer(XPos, YPos, x, y);
+                drawUpperLayer(XPos, YPos, x, y, !Game.getGameMode().equals(GameModeEnum.GAME) || visiblyPoints[x][y]);
             }
         }
     }
@@ -775,8 +778,8 @@ public class MapController {
      */
     public static void drawTile(Player player, int x, int y) {
         if (x > -1 && y > -1 && x < viewSize && y < viewSize) {
-            drawBottomLayer(player.getXMapPos(), player.getYMapPos(), x, y);
-            drawUpperLayer(player.getXMapPos(), player.getYMapPos(), x, y);
+            drawBottomLayer(player.getXMapPos(), player.getYMapPos(), x, y, true);
+            drawUpperLayer(player.getXMapPos(), player.getYMapPos(), x, y, true);
         }
     }
 
@@ -811,41 +814,43 @@ public class MapController {
     }
 
     // отрисовка нижнего уровня тайла
-    private static void drawBottomLayer(int Xpos, int YPos, int x, int y) {
+    private static void drawBottomLayer(int Xpos, int YPos, int x, int y, boolean visibly) {
         GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
         var mapCellInfo = Game.getMap().getTiles()[Xpos + x][YPos + y];
 
         var tileInfo1 = Editor.getTiles1().get(mapCellInfo.getTile1Id());
         var tileInfo2 = Editor.getTiles2().get(mapCellInfo.getTile2Id());
 
-        gc.drawImage(tileInfo1.getImage().getImage(),
-                x * tileSize, y * tileSize);
-        gc.drawImage(tileInfo2.getImage().getImage(),
-                x * tileSize, y * tileSize - (tileInfo2.getImage().getImage().getHeight() - tileSize));
-
-        // загрязнение на тайле
-        if (mapCellInfo.getPollutionId() != 0) {
-            gc.drawImage(Editor.getPollutions().get(mapCellInfo.getPollutionId()).getImage().getImage(),
+        if (visibly) {
+            gc.drawImage(tileInfo1.getImage().getImage(),
                     x * tileSize, y * tileSize);
-        }
+            gc.drawImage(tileInfo2.getImage().getImage(),
+                    x * tileSize, y * tileSize - (tileInfo2.getImage().getImage().getHeight() - tileSize));
 
-        // предметы
-        if (tileInfo2.getType() == null || !(tileInfo2.getType().equals(TileTypeEnum.CONTAINER.toString()))) {
-            if (mapCellInfo.getItems() != null) {
-                if (mapCellInfo.getItems().size() == 1) {
-                    gc.drawImage(Editor.getItems().get(
-                            mapCellInfo.getItems().get(0).getTypeId()).getImage().getImage(),
-                            x * tileSize, y * tileSize);
-                } else { // если на тайле больше 1 предмета, рисуем мешок
-                    gc.drawImage(bag.getImage(),
-                            x * tileSize, y * tileSize);
+            // загрязнение на тайле
+            if (mapCellInfo.getPollutionId() != 0) {
+                gc.drawImage(Editor.getPollutions().get(mapCellInfo.getPollutionId()).getImage().getImage(),
+                        x * tileSize, y * tileSize);
+            }
+
+            // предметы
+            if (tileInfo2.getType() == null || !(tileInfo2.getType().equals(TileTypeEnum.CONTAINER.toString()))) {
+                if (mapCellInfo.getItems() != null) {
+                    if (mapCellInfo.getItems().size() == 1) {
+                        gc.drawImage(Editor.getItems().get(
+                                mapCellInfo.getItems().get(0).getTypeId()).getImage().getImage(),
+                                x * tileSize, y * tileSize);
+                    } else { // если на тайле больше 1 предмета, рисуем мешок
+                        gc.drawImage(bag.getImage(),
+                                x * tileSize, y * tileSize);
+                    }
                 }
             }
         }
     }
 
     // отрисовка верхнего уровня тайла
-    private static void drawUpperLayer(int Xpos, int YPos, int x, int y) {
+    private static void drawUpperLayer(int Xpos, int YPos, int x, int y, boolean visibly) {
         var player = Game.getMap().getPlayer();
         List<NPC> npcList = Game.getMap().getNpcList();
         List<Creature> creaturesList = Game.getMap().getCreaturesList();
@@ -854,63 +859,69 @@ public class MapController {
 
         var tileInfo2 = Editor.getTiles2().get(mapCellInfo.getTile2Id());
 
-        // NPC
-        if (mapCellInfo.getNpcId() != null) {
-            gc.drawImage(Editor.getNpcs().get(npcList.get(
-                    mapCellInfo.getNpcId()).getNpcTypeId()).getImage().getImage(),
-                    x * tileSize, y * tileSize);
-        }
+        if (visibly) {
+            // NPC
+            if (mapCellInfo.getNpcId() != null) {
+                gc.drawImage(Editor.getNpcs().get(npcList.get(
+                        mapCellInfo.getNpcId()).getNpcTypeId()).getImage().getImage(),
+                        x * tileSize, y * tileSize);
+            }
 
-        // существа
-        if (mapCellInfo.getCreatureId() != null) {
-            gc.drawImage(Editor.getCreatures().get(
-                    creaturesList.get(mapCellInfo.getCreatureId()).getCreatureTypeId()).getImage().getImage(),
-                    x * tileSize, y * tileSize);
-        }
+            // существа
+            if (mapCellInfo.getCreatureId() != null &&
+                    showCreature(creaturesList.get(mapCellInfo.getCreatureId()).getCreatureTypeId())) {
+                gc.drawImage(Editor.getCreatures().get(
+                        creaturesList.get(mapCellInfo.getCreatureId()).getCreatureTypeId()).getImage().getImage(),
+                        x * tileSize, y * tileSize);
+            }
 
-        // персонаж игрока
-        if ((Game.getGameMode().equals(GameModeEnum.GAME) ||
-                Game.getGameMode().equals(GameModeEnum.GAME_MENU)) &&
-                (player.getXViewPos() == x) && (player.getYViewPos() == y)) {
-            CharactersController.drawPlayerImage(player);
-        }
+            // персонаж игрока
+            if ((Game.getGameMode().equals(GameModeEnum.GAME) ||
+                    Game.getGameMode().equals(GameModeEnum.GAME_MENU)) &&
+                    (player.getXViewPos() == x) && (player.getYViewPos() == y)) {
+                CharactersController.drawPlayerImage(player);
+            }
 
-        // если у тайла есть верхний уровень или его высота больше размера тайла, рисуем его поверх персонажа или NPC
-        Image tile2Img = tileInfo2.getImage().getImage();
-        if (tileInfo2.isTwoLayer() || (tile2Img.getHeight() > tileSize)) {
-            gc.drawImage(tile2Img, x * tileSize, y * tileSize - (tile2Img.getHeight() - tileSize));
-        }
+            // если у тайла есть верхний уровень или его высота больше размера тайла, рисуем его поверх персонажа или NPC
+            Image tile2Img = tileInfo2.getImage().getImage();
+            if (tileInfo2.isTwoLayer() || (tile2Img.getHeight() > tileSize)) {
+                gc.drawImage(tile2Img, x * tileSize, y * tileSize - (tile2Img.getHeight() - tileSize));
+            }
 
-        // если тайл горит, рисуем огонь
-        if (mapCellInfo.getFireId() != 0) {
-            gc.drawImage(Editor.getFires().get(mapCellInfo.getFireId()),
-                    x * tileSize, y * tileSize);
-        }
+            // если тайл горит, рисуем огонь
+            if (mapCellInfo.getFireId() != 0) {
+                gc.drawImage(Editor.getFires().get(mapCellInfo.getFireId()),
+                        x * tileSize, y * tileSize);
+            }
 
-        // погодные эффекты рисуем только в режиме игры
-        if (Game.getGameMode().equals(GameModeEnum.GAME) && !Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.CLEAR)) {
-            if (Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.FOG)) {
-                if (tileDistance(player, x, y) >= Game.getMap().getCurrentWeather().getValue()) { // рисуем сплошной туман
-                    gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage1(),
-                            x * tileSize, y * tileSize);
-                }
-                if (tileDistance(player, x, y) == Game.getMap().getCurrentWeather().getValue() - 1) { // рисуем полупрозрачный туман
-                    gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage2(),
-                            x * tileSize, y * tileSize);
-                }
-                if (tileDistance(player, x, y) == Game.getMap().getCurrentWeather().getValue() - 2) { // и рисуем едва видимую дымку
-                    gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage3(),
-                            x * tileSize, y * tileSize);
-                }
-            } else {
-                if (GameCalendar.getCurrentDate().getTic() % 2 == 0) {
-                    gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage1(),
-                            x * tileSize, y * tileSize);
+            // погодные эффекты рисуем только в режиме игры
+            if (Game.getGameMode().equals(GameModeEnum.GAME) && !Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.CLEAR)) {
+                if (Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.FOG)) {
+                    if (tileDistance(player, x, y) >= Game.getMap().getCurrentWeather().getValue()) { // рисуем сплошной туман
+                        gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage1(),
+                                x * tileSize, y * tileSize);
+                    }
+                    if (tileDistance(player, x, y) == Game.getMap().getCurrentWeather().getValue() - 1) { // рисуем полупрозрачный туман
+                        gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage2(),
+                                x * tileSize, y * tileSize);
+                    }
+                    if (tileDistance(player, x, y) == Game.getMap().getCurrentWeather().getValue() - 2) { // и рисуем едва видимую дымку
+                        gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage3(),
+                                x * tileSize, y * tileSize);
+                    }
                 } else {
-                    gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage2(),
-                            x * tileSize, y * tileSize);
+                    if (GameCalendar.getCurrentDate().getTic() % 2 == 0) {
+                        gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage1(),
+                                x * tileSize, y * tileSize);
+                    } else {
+                        gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage2(),
+                                x * tileSize, y * tileSize);
+                    }
                 }
             }
+        } else { // если тайл не виден, то закрашиваем его чёрным цветом
+            gc.drawImage(dark.getImage(),
+                    x * tileSize, y * tileSize);
         }
 
         // Если включено отображение зон, то рисуем их поверх всего
@@ -920,6 +931,23 @@ public class MapController {
             gc.drawImage(Editor.getZones().get(mapCellInfo.getZoneId()).getImage().getImage(),
                     x * tileSize, y * tileSize);
         }
+    }
+
+    /**
+     * Нужно ли отрисовывать существо
+     *
+     * @param creatureId - идентификатор существа
+     * @return - true, если нужно отрисовать существо
+     */
+    private static boolean showCreature(int creatureId) {
+        boolean epiphany = false;
+        for (EffectParams effect : Game.getMap().getPlayer().getAppliedEffects()) {
+            if (effect.getStrId().equals("EPIPHANY")) {
+                epiphany = true;
+                break;
+            }
+        }
+        return Game.getGameMode().equals(GameModeEnum.EDITOR) || !CreaturesController.invisibleCreatures.contains(creatureId) || epiphany;
     }
 
     public static int tileDistance(Player player, double x, double y) {

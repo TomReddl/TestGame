@@ -31,7 +31,7 @@ public class WorldMap implements Serializable {
 
     public WorldMap() {
         accessibleWeathers.put(WeatherEnum.CLEAR, 1);
-        currentWeather = new Pair(WeatherEnum.FOG, 6);
+        currentWeather = new Pair(WeatherEnum.CLEAR, 1);
         mapName = "1";
         for (int i = 0; i < mapSize; i++) {
             for (int j = 0; j < mapSize; j++) {
@@ -41,5 +41,6 @@ public class WorldMap implements Serializable {
                 tiles[i][j] = taleInfo;
             }
         }
+        tiles[1][1].setTile2Id(249); // алхимический стол для тестирования
     }
 }

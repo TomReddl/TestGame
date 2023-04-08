@@ -75,4 +75,12 @@ public class MapCellInfo implements Serializable {
     public TileInfo getTile2Info() {
         return Editor.getTiles2().get(tile2Id);
     }
+
+    /**
+     * Видимость сквозь тайл
+     */
+    @JsonIgnore
+    public boolean isVisibly() {
+        return Editor.getTiles1().get(tile1Id).isVisibly() && Editor.getTiles2().get(tile2Id).isVisibly();
+    }
 }

@@ -3,13 +3,15 @@
     "id": 0,
     "strength": 0,
     "type": "EARTH",
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 1,
     "strength": 0,
     "type": "EARTH",
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 2,
@@ -64,18 +66,21 @@
   {
     "id": 12,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 13,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 14,
     "strength": 0,
     "type": "EARTH",
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 15,
@@ -161,25 +166,29 @@
     "id": 23,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 24,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 25,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 26,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 27,
@@ -266,12 +275,14 @@
     "strength": 0,
     "type": "EARTH",
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 36,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 37,
@@ -361,17 +372,20 @@
   {
     "id": 46,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 47,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 48,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 49,
@@ -939,6 +953,11 @@
   },
   {
     "id": 120,
+    "strength": 0,
+    "passability": true
+  },
+  {
+    "id": 121,
     "strength": 0,
     "passability": true
   }

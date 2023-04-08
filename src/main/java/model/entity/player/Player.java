@@ -9,6 +9,7 @@ import lombok.Setter;
 import model.editor.items.BodyPartEnum;
 import model.editor.items.ClothesStyleEnum;
 import model.entity.DirectionEnum;
+import model.entity.effects.EffectParams;
 import model.entity.map.Items;
 
 import java.io.Serializable;
@@ -59,6 +60,9 @@ public class Player implements Serializable {
     private List<Items> inventory = new ArrayList<>(); // предметы в инвентаре персонажа
     private List<Pair<BodyPartEnum, Items>> wearingItems = new ArrayList<>(); // надетые предметы
 
+    @JsonProperty("appliedEffects")
+    private List<EffectParams> appliedEffects; // примененные эффекты
+
     @JsonIgnore
     @Getter
     private static int baseVolume = 40000;
@@ -91,5 +95,7 @@ public class Player implements Serializable {
         for (BodyPartEnum partEnum : BodyPartEnum.values()) {
             wearingItems.add(new Pair<>(partEnum, null));
         }
+
+        appliedEffects = new ArrayList<>();
     }
 }

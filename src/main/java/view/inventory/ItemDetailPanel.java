@@ -102,12 +102,29 @@ public class ItemDetailPanel {
                     String.format(Game.getText("TASTE"), edibleInfo.getTaste()) + "\n" +
                     String.format(Game.getText("HUNGER_RESTORE"), edibleInfo.getHunger()) + "\n" +
                     String.format(Game.getText("THIRST_RESTORE"), edibleInfo.getThirst()) + "\n" + "\n");
-            if (edibleInfo.getEffects() != null) {
-                for (EffectParams effect : edibleInfo.getEffects()) {
-                    descLabel.setText(descLabel.getText() + Game.getEffectText(effect.getStrId()) + " " +
-                            effect.getPower() + Game.getText("UNITS") + " " +
-                            (effect.getDurability() > 0 ? (Game.getText("ON") + " " + effect.getDurability() + " " + Game.getText("TURNS")) : ""));
+
+            descLabel.setText(descLabel.getText() + Game.getText("EFFECTS") + "\n");
+            boolean emptyShowEffects = true;
+            if (item.getEffects() != null) {
+                for (EffectParams effect : item.getEffects()) {
+                    boolean showEffectInfo = true;
+                    if (item.getInfo().getTypes().contains(ItemTypeEnum.INGREDIENT)) {
+                        List<String> effects = Game.getMap().getPlayer().getKnowledgeInfo().getKnowEffects().get(item.getTypeId());
+                        if (effects == null || !effects.contains(effect.getStrId())) {
+                            showEffectInfo = false; // для ингредиентов не показывает эффекты, которые персонаж еще не открыл
+                        }
+                    }
+                    if (showEffectInfo) {
+                        emptyShowEffects = false;
+                        descLabel.setText(descLabel.getText() + Game.getEffectText(effect.getStrId()) + " " +
+                                (effect.getPower() != null ? effect.getPower() + Game.getText("UNITS") + " " : "") +
+                                (effect.getDurability() != null ? (Game.getText("ON") + " " + effect.getDurability() + " " + Game.getText("TURNS")) : "")
+                                + "\n");
+                    }
                 }
+            }
+            if (emptyShowEffects) {
+                descLabel.setText(descLabel.getText() + Game.getText("UNKNOWN_EFFECTS"));
             }
         } else if (item.getInfo().getTypes().contains(ItemTypeEnum.TOOL)) {
             if (item.getInfo().getTypes().contains(ItemTypeEnum.WATERING_CAN)) {

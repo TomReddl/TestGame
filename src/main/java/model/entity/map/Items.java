@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import model.editor.items.ItemInfo;
+import model.entity.effects.EffectParams;
 import view.Editor;
 import view.inventory.InventoryPanel;
 
@@ -12,6 +13,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,6 +35,12 @@ public class Items {
     private int currentStrength; // Текущая прочность
     @JsonProperty("params")
     private Map<String, String> params; // дополнительные параметры
+    @JsonProperty("name")
+    private String name; // кастомное название предмета
+    @JsonProperty("price")
+    private Long price; // кастомная цена предмета
+    @JsonProperty("effects")
+    private List<EffectParams> effects; // кастомные эффекты предмета
 
     public Items(int typeId, int count) {
         this.typeId = typeId;
@@ -52,6 +60,9 @@ public class Items {
         this.equipment = anotherItem.isEquipment();
         this.currentStrength = anotherItem.getCurrentStrength();
         this.params = anotherItem.getParams();
+        this.name = anotherItem.getName();
+        this.effects = anotherItem.getEffects();
+        this.price = anotherItem.getPrice();
     }
 
     private static Comparator<Items> compareByName = Comparator.comparing(o -> o.getInfo().getName());
@@ -73,6 +84,18 @@ public class Items {
 
     public ItemInfo getInfo() {
         return Editor.getItems().get(getTypeId());
+    }
+
+    public Long getPrice() {
+        return price != null ? price : getInfo().getPrice();
+    }
+
+    public String getName() {
+        return name != null ? name : getInfo().getName();
+    }
+
+    public List<EffectParams> getEffects() {
+        return effects != null ? effects : getInfo().getEffects();
     }
 
     public static BigDecimal getFormatedItemValue(Long value) {

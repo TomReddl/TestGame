@@ -29,8 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static game.GameParams.mapSize;
-import static game.GameParams.tileSize;
+import static game.GameParams.*;
 
 /**
  * Действия персонажей
@@ -104,19 +103,19 @@ public class CharactersController {
             try {
                 wateringMapCell(itemInRightHand, Game.getMap().getTiles()[player.getXMapPos() + tileX - 1]
                         [player.getYMapPos() + tileY], player);
-                MapController.drawTile(player, tileX-1, tileY);
+                MapController.drawTile(player, tileX - 1, tileY);
             } catch (Exception ignored) {
             }
             try {
                 wateringMapCell(itemInRightHand, Game.getMap().getTiles()[player.getXMapPos() + tileX]
-                        [player.getYMapPos() + tileY -1], player);
-                MapController.drawTile(player, tileX, tileY-1);
+                        [player.getYMapPos() + tileY - 1], player);
+                MapController.drawTile(player, tileX, tileY - 1);
             } catch (Exception ignored) {
             }
             try {
                 wateringMapCell(itemInRightHand, Game.getMap().getTiles()[player.getXMapPos() + tileX - 1]
-                        [player.getYMapPos() + tileY -1], player);
-                MapController.drawTile(player, tileX-1, tileY-1);
+                        [player.getYMapPos() + tileY - 1], player);
+                MapController.drawTile(player, tileX - 1, tileY - 1);
             } catch (Exception ignored) {
             }
         }
@@ -277,8 +276,32 @@ public class CharactersController {
                     harvest(mapCellInfo);
                     break;
                 }
+                case ALCHEMY_TABLE: {
+                    Game.getEditor().getAlchemyPanel().showPanel(true, tileInfo.getName(), Integer.parseInt(tileInfo.getParams().get("level")));
+                    break;
+                }
+                case ALCHEMY_LABORATORY: {
+                    Game.getEditor().getAlchemyLaboratoryPanel().showPanel(true);
+                    break;
+                }
             }
             MapController.drawTile(player, x, y);
+        }
+
+        TileInfo tile1Info = Editor.getTiles1().get(mapCellInfo.getTile1Id());
+        if (tile1Info.getType() != null) {
+            switch (TileTypeEnum.valueOf(tile1Info.getType())) {
+                case WATER: {
+                    var itemInRightHand = player.getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).getValue();
+                    if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.BOTTLE)) {
+                        ItemsController.deleteItem(itemInRightHand, 1, player.getInventory(), player);
+                        Items bottleOfWater = new Items(117, 1);
+                        ItemsController.addItem(bottleOfWater, player.getInventory(), player);
+                        Game.showMessage(Game.getText("BOTTLE_FILLED"), Color.GREEN);
+                    }
+                    break;
+                }
+            }
         }
         TimeController.tic(true);
     }
@@ -633,6 +656,10 @@ public class CharactersController {
         ItemsController.addItem(new Items(3, 1), player.getInventory(), player);
         ItemsController.addItem(new Items(11, 10), player.getInventory(), player);
         ItemsController.addItem(new Items(10, 1), player.getInventory(), player);
+        ItemsController.addItem(new Items(113, 2), player.getInventory(), player);
+        ItemsController.addItem(new Items(114, 2), player.getInventory(), player);
+        ItemsController.addItem(new Items(115, 2), player.getInventory(), player);
+        ItemsController.addItem(new Items(117, 2), player.getInventory(), player);
 
         ItemsController.equipItem(
                 ItemsController.addItem(new Items(23, 1),
@@ -704,5 +731,40 @@ public class CharactersController {
     public static void changeCleanness(Player player) {
         ParamsInfo params = player.getParams();
         PlayerIndicatorsPanel.setIndicatorValue(4, params.getIndicators().get(4).getCurrentValue() - 5);
+    }
+
+    /**
+     * Найти все видимые персонажем точки на карте
+     *
+     * @param player - персонаж
+     */
+    public static boolean[][] findVisibleMapPoints(Player player) {
+        int viewX = player.getXViewPos();
+        int viewY = player.getYViewPos();
+        int width = viewSize;
+        int height = viewSize;
+        boolean[][] result = new boolean[width][height];
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (i == viewX && j == viewY) {
+                    result[i][j] = true;
+                } else {
+                    boolean visible = true;
+                    int dx = i - viewX;
+                    int dy = j - viewY;
+                    int steps = Math.max(Math.abs(dx), Math.abs(dy));
+                    for (int k = 1; k < steps; k++) {
+                        int px = viewX + k * dx / steps;
+                        int py = viewY + k * dy / steps;
+                        if (!Game.getMap().getTiles()[player.getXMapPos() + px][player.getYMapPos() + py].isVisibly()) {
+                            visible = false;
+                            break;
+                        }
+                    }
+                    result[i][j] = visible;
+                }
+            }
+        }
+        return result;
     }
 }

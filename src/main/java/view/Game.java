@@ -2,26 +2,26 @@ package view;
 
 import controller.MapController;
 import controller.TimeController;
+import game.GameParams;
+import javafx.scene.Group;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import model.editor.items.ItemInfo;
+import lombok.Getter;
+import lombok.Setter;
 import model.editor.TileInfo;
+import model.editor.items.ItemInfo;
 import model.entity.GameModeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.map.WorldMap;
 import view.inventory.InventoryPanel;
 import view.inventory.PlayerIndicatorsPanel;
 import view.menu.GameMenuPanel;
-import view.params.ParamPanel;
-import javafx.scene.Group;
-import javafx.scene.image.ImageView;
-import lombok.Getter;
-import lombok.Setter;
 import view.menu.MainMenu;
-import game.GameParams;
+import view.params.ParamPanel;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -58,7 +58,7 @@ public class Game {
     public static Stage stage;
 
     static {
-        for (int i = 0; i<4; i++) {
+        for (int i = 0; i < 4; i++) {
             Label label = new Label("");
             label.setFont(Font.font("Arial", FontWeight.BOLD, 14));
             label.setLayoutX(50);
@@ -71,7 +71,7 @@ public class Game {
         }
 
         timeLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        timeLabel.setLayoutX(10 + tileSize*viewSize);
+        timeLabel.setLayoutX(10 + tileSize * viewSize);
         timeLabel.setLayoutY(10);
         timeLabel.setVisible(false);
 
@@ -283,7 +283,6 @@ public class Game {
             i++;
             if (!label.isVisible()) {
                 messageLabel = label;
-
                 break;
             }
         }
@@ -292,7 +291,7 @@ public class Game {
         } else {
             messageLabel.setTextFill(Color.RED);
         }
-        messageLabel.setLayoutY(610 + i*20);
+        messageLabel.setLayoutY(610 + i * 20);
         messageLabel.setVisible(true);
         messageLabel.setText(message);
     }

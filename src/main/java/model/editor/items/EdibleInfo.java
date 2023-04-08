@@ -12,7 +12,6 @@ import java.util.List;
 @Setter
 @Getter
 public class EdibleInfo extends ItemInfo {
-    private List<EffectParams> effects; // эффекты
     private Integer taste; // вкус
     private Integer hunger; // сколько голода восстанавливает
     private Integer thirst; // сколько жажды восстанавливает

@@ -16,6 +16,7 @@ import java.util.List;
 public class BattleController {
 
     public static final int baseFireDamage = 20; // базовый урон от горения
+    public static final int baseAcidRainDamage = 3; // базовый урон от кислотного дождя
 
     /**
      * Наносит урон персонажу игрока

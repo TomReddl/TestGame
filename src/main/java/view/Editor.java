@@ -16,7 +16,6 @@ import lombok.Getter;
 import lombok.Setter;
 import model.editor.*;
 import model.editor.items.ItemInfo;
-import model.entity.GameLangEnum;
 import model.entity.GameModeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.map.WeatherEnum;
@@ -24,8 +23,6 @@ import model.entity.map.WeatherEnum;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static game.GameParams.*;
 
@@ -100,10 +97,17 @@ public class Editor {
 
     private ComboBox<WeatherEnum> weatherCB = new ComboBox();
 
+    @Getter
+    private final AlchemyPanel alchemyPanel;
+    @Getter
+    private final AlchemyLaboratoryPanel alchemyLaboratoryPanel;
+
     public Editor() {
         Game.getRoot().getChildren().add(canvas);
         drawTiles();
         drawEditorButtons();
+        alchemyPanel = new AlchemyPanel();
+        alchemyLaboratoryPanel = new AlchemyLaboratoryPanel();
     }
 
     private void drawEditorButtons() {
@@ -571,8 +575,13 @@ public class Editor {
         } else {
             Game.getMap().getAccessibleWeathers().remove(WeatherEnum.valueOf(checkBoxId));
         }
+        WeatherEnum currentWeather = Game.getMap().getCurrentWeather().getKey();
         weatherCB.getItems().clear();
         weatherCB.getItems().addAll(getAccessibleWeathers());
+        if (weatherCB.getItems().contains(currentWeather)) {
+            setWeather(currentWeather);
+            weatherCB.getSelectionModel().select(currentWeather);
+        }
     }
 
     private void changeShowZones() {
@@ -581,6 +590,7 @@ public class Editor {
     }
 
     private void setBorder(Pane pane) {
+        border.setVisible(true);
         if (pane1.getChildren().contains(border)) {
             pane1.getChildren().remove(border);
         } else if (pane2.getChildren().contains(border)) {
@@ -616,6 +626,16 @@ public class Editor {
                     itemTile.setX(5 + (i / 11) * (tileSize + 5));
                     itemTile.setY(5 + (i) * (tileSize + 5) - (i / 11) * 495);
                     i++;
+                }
+            }
+            if (selectedType.equals(EditorObjectType.ITEM)) {
+                ImageView icon = items.get(selectTile).getIcon();
+                if (icon.isVisible()) {
+                    border.setVisible(true);
+                    border.setX(icon.getX() - 1);
+                    border.setY(icon.getY() - 1);
+                } else {
+                    border.setVisible(false);
                 }
             }
         }

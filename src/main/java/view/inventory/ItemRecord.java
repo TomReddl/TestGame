@@ -64,7 +64,8 @@ public class ItemRecord {
             pane.getChildren().add(brokenItemIcon);
         }
 
-        var cutName = itemInfo.getName().length() > 25 ? itemInfo.getName().substring(0, 22).concat("... ") : itemInfo.getName();
+        var itemName = items.getName();
+        var cutName = itemName.length() > 25 ? itemName.substring(0, 22).concat("... ") : itemName;
         var nameText = items.getCount() > 1 ?
                 (cutName + " (" + items.getCount() + ")") : cutName;
         nameLabel = new Label(nameText);
@@ -102,7 +103,7 @@ public class ItemRecord {
         volumeLabel.setLayoutY(10);
         pane.getChildren().add(volumeLabel);
 
-        priceLabel = new Label(itemInfo.getPrice().toString());
+        priceLabel = new Label(items.getPrice().toString());
         priceLabel.setLayoutX(inventoryPanel.getPriceLabel().getLayoutX());
         priceLabel.setLayoutY(10);
         pane.getChildren().add(priceLabel);

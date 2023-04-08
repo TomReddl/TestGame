@@ -17,7 +17,8 @@ public enum  TileTypeEnum {
     WATER("Вода"),
     EARTH("Земля"),
     ORE("Руда"),
-    CRAFTING_PLACE("Место для крафта");
+    ALCHEMY_TABLE("Алхимический стол"),
+    ALCHEMY_LABORATORY("Алхимическая лаборатория");
 
     @Getter
     private final String desc;

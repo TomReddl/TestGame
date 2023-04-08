@@ -539,5 +539,29 @@
       "TOOL",
       "COMMON"
     ]
+  },
+  {
+    "id": 116,
+    "weight": "50",
+    "volume": "100",
+    "price": "50",
+    "maxStrength": 20,
+    "stackable": true,
+    "types": [
+      "BOTTLE",
+      "COMMON"
+    ]
+  },
+  {
+    "id": 117,
+    "weight": "100",
+    "volume": "100",
+    "price": "50",
+    "maxStrength": 20,
+    "stackable": true,
+    "types": [
+      "BOTTLE",
+      "COMMON"
+    ]
   }
 ]

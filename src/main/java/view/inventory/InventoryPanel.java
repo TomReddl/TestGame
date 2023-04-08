@@ -38,6 +38,13 @@ public class InventoryPanel {
         CONTAINER; // инвентарь контейнера или торговца
     }
 
+    // Режим открытия инвентаря
+    public enum ShowModeEnum {
+        DEFAULT, // обычное открытие инвентаря
+        SELECT_FOR_POTION_CRAFT, // выбор предмета для зельеварения
+        SELECT_FOR_POTION_EXPLORE; // выбор предмета для зельеварения
+    }
+
     // Тип сортировки
     public enum SortType {
         NAME("Имя"),
@@ -55,6 +62,7 @@ public class InventoryPanel {
 
     @Getter
     private final TabPane tabPane = new TabPane();
+    @Getter
     private final Map<String, Tab> tabHolder = new HashMap<>();
     private final ScrollPane scrollPane = new ScrollPane();
     private final Pane pane = new Pane();
@@ -84,6 +92,8 @@ public class InventoryPanel {
     @Getter
     private int y;
     private InventoryTypeEnum inventoryType; // текущий тип инвентаря
+    @Getter
+    private ShowModeEnum showMode; // тип открытия инвентаря
 
     private static final DecimalFormat formatter = new DecimalFormat("###,###.###");
 
@@ -296,18 +306,17 @@ public class InventoryPanel {
         setVolumeText();
     }
 
-    public void show(List<Items> itemsList, int x, int y) {
+    public void show(List<Items> itemsList, int x, int y, ShowModeEnum showMode) {
         this.x = x;
         this.y = y;
         items = itemsList;
         refreshInventory();
         tabPane.setVisible(true);
-        PlayerIndicatorsPanel.showPanel(true);
+        this.showMode = showMode;
     }
 
     public void hide() {
         tabPane.setVisible(false);
-        PlayerIndicatorsPanel.showPanel(false);
     }
 
     /*
