@@ -2,17 +2,16 @@ package controller;
 
 import javafx.util.Pair;
 import lombok.Getter;
-import model.editor.items.BodyPartEnum;
-import model.editor.items.ClothesInfo;
-import model.editor.items.EdibleInfo;
-import model.editor.items.WeaponInfo;
+import model.editor.items.*;
 import model.entity.ItemTypeEnum;
+import model.entity.battle.DamageTypeEnum;
+import model.entity.map.Creature;
 import model.entity.map.Items;
+import model.entity.map.MapCellInfo;
+import model.entity.player.Parameter;
 import model.entity.player.ParamsInfo;
 import model.entity.player.Player;
-import view.AlchemyLaboratoryPanel;
-import view.AlchemyPanel;
-import view.Game;
+import view.*;
 import view.inventory.*;
 import view.menu.GameMenuPanel;
 
@@ -20,11 +19,19 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * Действия с предметами
  */
 public class ItemsController {
+    private static final Random random = new Random();
+    public static final int engineeringWateringCan = 110; // id инженерной лейки
+    public static final int lighterId = 112; // id защигалки
+    public static final int bottleOfWaterId = 117; // id бутылки с водой
+    public static final int biomassId = 120; // идентификатор биомассы
+    public static final int mutantIngredientId = 121; // идентификатор мутантного ингредиента
 
     // Виды действий с предметами
     public enum ItemActionType {
@@ -185,6 +192,57 @@ public class ItemsController {
     }
 
     /**
+     * Переложить весь мусор из инвентаря персонажа в мусорку (кнопка "Складировать весь мусор")
+     */
+    public static void storeTrash() {
+        List<Items> playerInventory = Game.getMap().getPlayer().getInventory().stream().filter(item -> item.getInfo().getTypes().contains(ItemTypeEnum.TRASH)).collect(Collectors.toList());
+        while (playerInventory.size() > 0) {
+            Items item = playerInventory.get(0);
+            addItemsToContainerFromPlayer(item, item.getCount(), Game.getContainerInventory().getItems());
+            playerInventory.remove(item);
+        }
+    }
+
+    /**
+     * Разделать тушу существа
+     */
+    public static void butcheringCreature() {
+        Items itemInRightHand = Game.getMap().getPlayer().getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).getValue();
+        if (itemInRightHand != null && ((WeaponInfo) itemInRightHand.getInfo()).getDamageType().equals(DamageTypeEnum.CUTTING_DAMAGE.name())) {
+            Creature creature = Game.getMap().getPlayer().getInteractCreature();
+            if (creature != null && !creature.isAlive() && creature.getInfo().getOrgans() != null) {
+                TimeController.tic(60);
+                ItemsController.damageItem(itemInRightHand, 10, Game.getMap().getPlayer().getInventory(), Game.getMap().getPlayer());
+                creature.setButchering(true);
+                Game.getContainerInventory().getButcherButton().setVisible(false);
+                for (String key : creature.getInfo().getOrgans().keySet()) {
+                    addItem(new Items(Integer.parseInt(key), getButcheringItemsCount(creature.getInfo().getOrgans().get(key))), creature.getInventory(), Game.getMap().getPlayer());
+                }
+                Game.getContainerInventory().refreshInventory();
+                MapController.drawCurrentMap();
+            }
+        } else {
+            Game.showMessage(Game.getText("NOT_BUTCHERING"));
+        }
+    }
+
+    /**
+     * Получить случайно число органов при разделке из строки
+     *
+     * @param countStr строка с количеством органов. Может содержать интервал вида "1-5"
+     * @return количество органов
+     */
+    private static int getButcheringItemsCount(String countStr) {
+        if (countStr.contains("-")) {
+            String[] parts = countStr.split("-");
+            int min = Integer.parseInt(parts[0]);
+            int max = Integer.parseInt(parts[1]);
+            return (int) (Math.random() * (max - min + 1)) + min;
+        }
+        return Integer.parseInt(countStr);
+    }
+
+    /**
      * Удалить item из инвентаря
      * если count = 0, удалить все предметы
      *
@@ -205,6 +263,7 @@ public class ItemsController {
                         if (i.isEquipment()) {
                             ItemsController.equipItem(i, player);
                         }
+                        i.setCount(0);
                         inventory.remove(i);
                     }
                 } else {
@@ -342,6 +401,7 @@ public class ItemsController {
      */
     private static void shiftItem(Items item) {
         List<Items> containerInventory = Game.getContainerInventory().getItems();
+
         if (item.getCount() == 1 || Game.isShiftPressed()) {
             if (containerInventory.contains(item)) {
                 addItemsToPlayerFromContainer(item, item.getCount(), containerInventory);
@@ -405,24 +465,58 @@ public class ItemsController {
     private static void useItem(Items item, Player player) {
         if (Game.getInventory().getShowMode().equals(InventoryPanel.ShowModeEnum.SELECT_FOR_POTION_CRAFT)) { // выбор предмета для панели алхимического стола
             AlchemyPanel alchemyPanel = Game.getEditor().getAlchemyPanel();
-            Game.getGameMenu().showGameMenuPanel("0");
-            if (item.getInfo().getTypes().contains(ItemTypeEnum.INGREDIENT)) {
-                alchemyPanel.getSelectedIngredients().set(alchemyPanel.getIndex(), item);
-                alchemyPanel.getSelectedIngredientsCount().get(alchemyPanel.getIndex()).setText(String.valueOf(item.getCount()));
-                alchemyPanel.getIngredientImages().get(alchemyPanel.getIndex()).setImage(item.getInfo().getIcon().getImage());
-            } else if (item.getInfo().getTypes().contains(ItemTypeEnum.BOTTLE)) {
-                alchemyPanel.setSelectedBottle(item);
-                alchemyPanel.getSelectedBottlesCount().setText(String.valueOf(item.getCount()));
-                alchemyPanel.getBottleImage().setImage(item.getInfo().getIcon().getImage());
+            List<Items> selectedIngredients = alchemyPanel.getSelectedIngredients();
+            if (item.getTypeId() == mutantIngredientId && selectedIngredients.stream().anyMatch(i -> i.getTypeId() == mutantIngredientId)) {
+                Game.showMessage(Game.getText("MAX_ONE_MUTANT"));
+            } else {
+                if (item.getInfo().getTypes().contains(ItemTypeEnum.INGREDIENT) && !selectedIngredients.contains(item)) {
+                    alchemyPanel.getSelectedIngredients().set(alchemyPanel.getIndex(), item);
+                    alchemyPanel.getSelectedIngredientsCount().get(alchemyPanel.getIndex()).setText(String.valueOf(item.getCount()));
+                    alchemyPanel.getIngredientImages().get(alchemyPanel.getIndex()).setImage(item.getInfo().getIcon().getImage());
+                    Game.getGameMenu().showGameMenuPanel("0");
+                } else if (bottleOfWaterId == item.getTypeId()) {
+                    alchemyPanel.setSelectedBottle(item);
+                    alchemyPanel.getSelectedBottlesCount().setText(String.valueOf(item.getCount()));
+                    alchemyPanel.getBottleImage().setImage(item.getInfo().getIcon().getImage());
+                    Game.getGameMenu().showGameMenuPanel("0");
+                }
+                Game.getEditor().getAlchemyPanel().setCookButtonDisabled();
+                Game.getEditor().getAlchemyPanel().setEffectsText();
+                Game.getEditor().getAlchemyPanel().setCookAllButtonVisibly();
             }
-            Game.getEditor().getAlchemyPanel().setCookButtonEnabled();
-            Game.getEditor().getAlchemyPanel().setEffectsText();
         } else if (Game.getInventory().getShowMode().equals(InventoryPanel.ShowModeEnum.SELECT_FOR_POTION_EXPLORE)) {
             AlchemyLaboratoryPanel laboratoryPanel = Game.getEditor().getAlchemyLaboratoryPanel();
             Game.getGameMenu().showGameMenuPanel("0");
             laboratoryPanel.setSelectedIngredient(item);
             laboratoryPanel.getExploreButton().setDisable(false);
             laboratoryPanel.getIngredientImage().setImage(item.getInfo().getIcon().getImage());
+        } else if (Game.getInventory().getShowMode().equals(InventoryPanel.ShowModeEnum.SELECT_FOR_COMBINER)) {
+            if (item.getTypeId() != mutantIngredientId) { // мутантный ингредиент нельзя комбинировать
+                CombinerPanel combinerPanel = Game.getEditor().getCombinerPanel();
+                Game.getGameMenu().showGameMenuPanel("0");
+                if (combinerPanel.getIndex() == 1) {
+                    combinerPanel.setFirstIngredient(item);
+                    combinerPanel.getFirstIngredientImage().setImage(item.getInfo().getIcon().getImage());
+                } else if (combinerPanel.getIndex() == 2) {
+                    combinerPanel.setSecondIngredient(item);
+                    combinerPanel.getSecondIngredientImage().setImage(item.getInfo().getIcon().getImage());
+                }
+                combinerPanel.setCombineChance();
+                combinerPanel.setCombineButtonDisabled();
+            } else {
+                Game.showMessage(Game.getText("CANT_COMBINE_MUTANT"));
+            }
+        } else if (Game.getInventory().getShowMode().equals(InventoryPanel.ShowModeEnum.SELECT_FOR_DUPLICATOR)) {
+            if (item.getTypeId() != mutantIngredientId) { // мутантный ингредиент нельзя копировать
+                DuplicatorPanel duplicatorPanel = Game.getEditor().getDuplicatorPanel();
+                Game.getGameMenu().showGameMenuPanel("0");
+                duplicatorPanel.setSelectedIngredient(item);
+                duplicatorPanel.getIngredientImage().setImage(item.getInfo().getIcon().getImage());
+                duplicatorPanel.setDuplicateButtonDisabled();
+                duplicatorPanel.getIngredientCountLabel().setText(String.valueOf(item.getCount()));
+            } else {
+                Game.showMessage(Game.getText("CANT_COPY_MUTANT"));
+            }
         } else {
             if (item.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES) ||
                     item.getInfo().getTypes().contains(ItemTypeEnum.WEAPON) ||
@@ -435,7 +529,27 @@ public class ItemsController {
                 eatItem(item, player);
             } else if (item.getInfo().getTypes().contains(ItemTypeEnum.BOOK)) {
                 BookPanel.showBookPanel(item.getTypeId());
+            } else if (item.getInfo().getTypes().contains(ItemTypeEnum.CLOCK)) {
+                Game.getTimeLabel().setText(TimeController.getCurrentDataStr(true));
+            } else if (item.getInfo().getTypes().contains(ItemTypeEnum.FOLDABLE)) {
+                setFoldableItem(item);
             }
+        }
+    }
+
+    /**
+     * Разложить складываемый предмет
+     *
+     * @param items - предмет
+     */
+    private static void setFoldableItem(Items items) {
+        Player player = Game.getMap().getPlayer();
+        MapCellInfo mapCellInfo = Game.getMap().getTiles()[player.getXPosition()][player.getYPosition()];
+        if (mapCellInfo.getTile2Id() == 0) {
+            mapCellInfo.setTile2Id(Integer.parseInt(items.getInfo().getParams().get("tileId"))); // устанавливаем предмет, если клетка не занята
+            ItemsController.deleteItem(items, 1, player.getInventory(), player);
+            MapController.drawPlayerTile();
+            TimeController.tic(10);
         }
     }
 
@@ -455,7 +569,7 @@ public class ItemsController {
             PlayerIndicatorsPanel.setIndicatorValue(3, params.getIndicators().get(3).getCurrentValue() + ((EdibleInfo) item.getInfo()).getThirst());
 
             if (item.getInfo().getTypes().contains(ItemTypeEnum.POTION)) {
-                EffectController.applyEffects(item, player);
+                EffectsController.applyEffects(item, player);
             }
 
             deleteItem(item, 1, inventory, player);
@@ -484,12 +598,18 @@ public class ItemsController {
                 var bodyPart = wearingItems.get(index);
                 if (canEquipItem(wearingItem, bodyPart, player)) {
                     wearingItem.setEquipment(!wearingItem.isEquipment());
+                    if (wearingItem.isEquipment()) {
+                        EffectsController.applyEffects(wearingItem, player);
+                    } else {
+                        EffectsController.removeEffects(wearingItem, player);
+                    }
 
                     if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {
                         wearingItems.set(index, new Pair<>(bodyPart.getKey(), null));
                     } else {
                         if (bodyPart.getValue() != null) {
                             bodyPart.getValue().setEquipment(false);
+                            EffectsController.removeEffects(bodyPart.getValue(), player);
                         }
                         wearingItems.set(index, new Pair<>(bodyPart.getKey(), wearingItem));
                     }
@@ -500,12 +620,19 @@ public class ItemsController {
             } else if (wearingItem.getInfo().getTypes().contains(ItemTypeEnum.WEAPON)) {
                 var weapon = (WeaponInfo) wearingItem.getInfo();
                 wearingItem.setEquipment(!wearingItem.isEquipment());
+                if (wearingItem.isEquipment()) {
+                    EffectsController.applyEffects(wearingItem, player);
+                } else {
+                    EffectsController.removeEffects(wearingItem, player);
+                }
+
                 var bodyPart = wearingItems.get(BodyPartEnum.RIGHT_ARM.ordinal());
                 if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {
                     wearingItems.set(BodyPartEnum.RIGHT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), null));
                 } else {
                     if (bodyPart.getValue() != null) {
                         bodyPart.getValue().setEquipment(false);
+                        EffectsController.removeEffects(bodyPart.getValue(), player);
                     }
                     wearingItems.set(BodyPartEnum.RIGHT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), wearingItem));
                 }
@@ -517,6 +644,7 @@ public class ItemsController {
                     if (bodyPart.getValue() != null) {
                         if (!((WeaponInfo) bodyPart.getValue().getInfo()).getOneHand()) {
                             bodyPart.getValue().setEquipment(false);
+                            EffectsController.removeEffects(bodyPart.getValue(), player);
                         }
                         if (!weapon.getOneHand()) {
                             wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), wearingItem));
@@ -557,7 +685,7 @@ public class ItemsController {
             }
 
             // перерисовываем весь тайл с персонажем, чтобы не оставалось артефактов от снятых предметов одежды
-            MapController.drawTile(player, player.getXViewPos(), player.getYViewPos());
+            MapController.drawPlayerTile();
 
             player.setCurrentVolume(getCurrVolume(player.getInventory()));
             player.setCurrentWeight(getCurrWeight(player.getInventory()));
@@ -597,7 +725,7 @@ public class ItemsController {
      * @return максимальная масса, которую может переносить персонаж
      */
     public static BigDecimal getMaximumWeight(Player player) {
-        return  BigDecimal.valueOf(player.getParams().getCharacteristics().get(3).getCurrentValue() * 3 + Player.getBaseWeight());
+        return BigDecimal.valueOf(player.getParams().getCharacteristics().get(3).getCurrentValue() * 3 + Player.getBaseWeight());
     }
 
     /**
@@ -629,5 +757,28 @@ public class ItemsController {
                 (belt != null ? Integer.parseInt(belt.getInfo().getParams().get("addVolume")) : 0) +
                 (backpack != null ? Integer.parseInt(backpack.getInfo().getParams().get("addVolume")) : 0);
         return BigDecimal.valueOf(maxVol).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
+    }
+
+    /**
+     * Получить качество скрафченного предмета исходя из уровня навыка
+     *
+     * @param param - навык, на основании которого создается предмет
+     * @return
+     */
+    public static QualityGradationEnum getQuality(Parameter param) {
+        int currentValue = param.getCurrentValue();
+        int result = random.nextInt(currentValue) + 10;
+        if (result > 100) {
+            return QualityGradationEnum.LEGENDARY;
+        } else if (result > 80) {
+            return QualityGradationEnum.EXPERT;
+        } else if (result > 60) {
+            return QualityGradationEnum.QUALITY;
+        } else if (result > 40) {
+            return QualityGradationEnum.NORMAL;
+        } else if (result > 20) {
+            return QualityGradationEnum.CHEAP;
+        }
+        return QualityGradationEnum.UNSUCCESSFUL;
     }
 }

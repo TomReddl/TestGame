@@ -6,10 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.InstantDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
 import model.editor.*;
-import model.editor.items.ClothesInfo;
-import model.editor.items.EdibleInfo;
-import model.editor.items.ItemInfo;
-import model.editor.items.WeaponInfo;
+import model.editor.items.*;
 import model.entity.map.WorldMap;
 import lombok.experimental.UtilityClass;
 
@@ -120,6 +117,16 @@ public class JsonUtils {
             });
         } catch (Exception ex) {
             throw new RuntimeException("can not read 'zones.json', cause=%s" + ex.getMessage());
+        }
+    }
+
+    public static List<RecipeInfo> getRecipes() {
+        try {
+            var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/recipes.json";
+            return objectMapper.readValue(new File(path), new TypeReference<>() {
+            });
+        } catch (Exception ex) {
+            throw new RuntimeException("can not read 'recipes.json', cause=%s" + ex.getMessage());
         }
     }
 

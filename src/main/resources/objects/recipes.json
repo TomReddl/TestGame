@@ -1,0 +1,12 @@
+[{
+  "recipeId": 1,
+  "itemId": 120,
+  "craftingPlace": "800",
+  "level": 1,
+  "timeToCraft": 60,
+  "elements": {
+    "1": 1,
+    "2": 2,
+    "3": 3
+  }
+}]

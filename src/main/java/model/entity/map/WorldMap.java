@@ -1,9 +1,11 @@
 package model.entity.map;
 
+import controller.EffectsController;
 import javafx.util.Pair;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import model.entity.effects.EffectParams;
 import model.entity.player.Player;
 
 import java.io.Serializable;
@@ -28,6 +30,7 @@ public class WorldMap implements Serializable {
     private Player player = new Player();
     private Pair<WeatherEnum, Integer> currentWeather; // текущая погода и ее сила
     private Map<WeatherEnum, Integer> accessibleWeathers = new HashMap<>(); // доступная погода и вероятность ее наступления
+    private Map<Integer, EffectParams> additionalEffect = new HashMap<>(); // дополнительные эффекты ингредиентов (генерируются случайно при старте новой игры)
 
     public WorldMap() {
         accessibleWeathers.put(WeatherEnum.CLEAR, 1);
@@ -42,5 +45,7 @@ public class WorldMap implements Serializable {
             }
         }
         tiles[1][1].setTile2Id(249); // алхимический стол для тестирования
+
+        EffectsController.putAdditionalEffects(additionalEffect);
     }
 }

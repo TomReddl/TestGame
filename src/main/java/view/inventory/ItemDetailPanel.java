@@ -56,7 +56,7 @@ public class ItemDetailPanel {
         pane.setLayoutX(containerInventory.contains(selectItem) ? 765 : 490);
         pane.setLayoutY(y + 65);
         pane.setVisible(true);
-        descLabel.setText(item.getInfo().getDesc());
+        descLabel.setText(item.getName());
         if (item.getInfo() instanceof WeaponInfo) {
             var weaponInfo = (WeaponInfo) item.getInfo();
             descLabel.setText(descLabel.getText() + "\n\n" +
@@ -64,13 +64,7 @@ public class ItemDetailPanel {
                     String.format(Game.getText("STRENGTH"), item.getCurrentStrength(), weaponInfo.getMaxStrength()) + "\n" +
                     (weaponInfo.getOneHand() ? Game.getText("ONE_HAND") : Game.getText("TWO_HAND")) + "\n" +
                     Game.getText(ParamPanel.getSkillsNames().get(weaponInfo.getSkill()) + "_PARAM_NAME"));
-            if (weaponInfo.getEffects() != null) {
-                for (EffectParams effect : weaponInfo.getEffects()) {
-                    descLabel.setText(descLabel.getText() + Game.getEffectText(effect.getStrId()) + " " +
-                            effect.getPower() + Game.getText("UNITS") + " " +
-                            (effect.getDurability() > 0 ? (Game.getText("ON") + " " + effect.getDurability() + " " + Game.getText("TURNS")) : ""));
-                }
-            }
+            addEffectsText(weaponInfo.getEffects());
         } else if (item.getInfo() instanceof ClothesInfo) {
             var clothesInfo = (ClothesInfo) item.getInfo();
             descLabel.setText(descLabel.getText() + "\n\n" +
@@ -89,13 +83,7 @@ public class ItemDetailPanel {
 
                     String.format(Game.getText("STYLE"), ClothesStyleEnum.valueOf(clothesInfo.getStyle()).getDesc()) + "\n" +
                     ClothesGenderEnum.valueOf(clothesInfo.getGender()).getDesc());
-            if (clothesInfo.getEffects() != null) {
-                for (EffectParams effect : clothesInfo.getEffects()) {
-                    descLabel.setText(descLabel.getText() + Game.getEffectText(effect.getStrId()) + " " +
-                            effect.getPower() + Game.getText("UNITS") + " " +
-                            (effect.getDurability() > 0 ? (Game.getText("ON") + " " + effect.getDurability() + " " + Game.getText("TURNS")) : ""));
-                }
-            }
+            addEffectsText(clothesInfo.getEffects());
         } else if (item.getInfo() instanceof EdibleInfo) {
             var edibleInfo = (EdibleInfo) item.getInfo();
             descLabel.setText(descLabel.getText() + "\n\n" +
@@ -150,6 +138,24 @@ public class ItemDetailPanel {
                                 item.getInfo().getMaxStrength(),
                                 item.getInfo().getParams().get("skillBonus"),
                                 toolSkill));
+            }
+        }
+    }
+
+    /**
+     * Добавить описание эффектов
+     *
+     * @param effectsList
+     */
+    private static void addEffectsText(List<EffectParams> effectsList) {
+        if (effectsList != null) {
+            descLabel.setText(descLabel.getText() + Game.getText("EFFECTS") + "\n");
+            for (EffectParams effect : effectsList) {
+                descLabel.setText(descLabel.getText() + Game.getEffectText(effect.getStrId()) + " " +
+                        effect.getPower() + Game.getText("UNITS") + " " +
+                        ((effect.getDurability() != null && effect.getDurability() > 0) ?
+                                (Game.getText("ON") + " " + effect.getDurability() + " " + Game.getText("TURNS")) :
+                                ""));
             }
         }
     }

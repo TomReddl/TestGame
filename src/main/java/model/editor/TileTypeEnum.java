@@ -18,7 +18,10 @@ public enum  TileTypeEnum {
     EARTH("Земля"),
     ORE("Руда"),
     ALCHEMY_TABLE("Алхимический стол"),
-    ALCHEMY_LABORATORY("Алхимическая лаборатория");
+    ALCHEMY_LABORATORY("Алхимическая лаборатория"),
+    INGREDIENTS_COMBINER("Объединитель ингредиентов"),
+    DUPLICATOR("Дубликатор ингредиентов"),
+    CRAFTING_PLACE("Место для крафта");
 
     @Getter
     private final String desc;

@@ -1,10 +1,15 @@
 package controller;
 
+import javafx.scene.paint.Color;
 import model.editor.TileTypeEnum;
+import model.editor.items.WeaponInfo;
+import model.entity.BloodTypeEnum;
 import model.entity.GameModeEnum;
 import model.entity.battle.DamageTypeEnum;
+import model.entity.map.Creature;
 import model.entity.map.Items;
 import model.entity.map.MapCellInfo;
+import model.entity.player.Player;
 import view.Game;
 import view.menu.MainMenu;
 
@@ -17,6 +22,86 @@ public class BattleController {
 
     public static final int baseFireDamage = 20; // базовый урон от горения
     public static final int baseAcidRainDamage = 3; // базовый урон от кислотного дождя
+    public static final int baseAcidPollutionDamage = 3; // базовый урон от кислотного загрязнения
+
+    /**
+     * Персонаж атакует существо
+     *
+     * @param player   - персонаж
+     * @param weapon   - оружие, которым он атакует
+     * @param creature - атакуемое существо
+     */
+    public static void attackCreature(Player player, Items weapon, Creature creature) {
+        WeaponInfo weaponInfo = ((WeaponInfo) weapon.getInfo());
+        boolean isKilled = applyDamageToCreature(weaponInfo.getDamage(), DamageTypeEnum.valueOf(weaponInfo.getDamageType()), creature);
+        if (isKilled) {
+            if (Game.getMap().getPlayer() == player) { // выводим сообщение, только если атаковал текущий выбранный персонаж
+                Game.showMessage(creature.getInfo().getName() + " " + Game.getText("KILLED"), Color.GREEN);
+            }
+        }
+        ItemsController.damageItem(weapon, 1, Game.getMap().getPlayer().getInventory(), Game.getMap().getPlayer());
+    }
+
+    /**
+     * Наносит урон существу
+     *
+     * @param damagePoints - урон
+     * @param damageType   - тип наносимого урона
+     * @param creature     - существо
+     * @return true- существо убито
+     */
+    public static boolean applyDamageToCreature(int damagePoints, DamageTypeEnum damageType, Creature creature) {
+        creature.setHealth(creature.getHealth() - damagePoints);
+        setBloodSplatter(damagePoints, damageType, creature);
+        if (creature.getHealth() <= 0) {
+            creature.setAlive(false);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Установить брызки крови при ударе по существу
+     */
+    private static void setBloodSplatter(int damagePoints, DamageTypeEnum damageType, Creature creature) {
+        switch (damageType) {
+            case CUTTING_DAMAGE: {
+                if (damagePoints >= 10) {
+                    setPollution(creature);
+                }
+                break;
+            }
+            case PIERCING_DAMAGE: {
+                if (damagePoints >= 15) {
+                    setPollution(creature);
+                }
+                break;
+            }
+            case CRUSHING_DAMAGE: {
+                if (damagePoints >= 20) {
+                    setPollution(creature);
+                }
+                break;
+            }
+        }
+    }
+
+    /**
+     * Установить брызги на точку карты
+     *
+     * @param creature - существо
+     */
+    private static void setPollution(Creature creature) {
+        BloodTypeEnum bloodType = BloodTypeEnum.valueOf(creature.getInfo().getBloodType());
+        MapCellInfo mapCellInfo = Game.getMap().getTiles()[creature.getXPos()][creature.getYPos()];
+        if (mapCellInfo.getPollutionId() == 0) {
+            mapCellInfo.setPollutionId(bloodType.getPollution1Id());
+        } else if (mapCellInfo.getPollutionId() == bloodType.getPollution1Id()) {
+            mapCellInfo.setPollutionId(bloodType.getPollution2Id());
+        } else if (mapCellInfo.getPollutionId() == bloodType.getPollution2Id()) {
+            mapCellInfo.setPollutionId(bloodType.getPollution3Id());
+        }
+    }
 
     /**
      * Наносит урон персонажу игрока
@@ -28,9 +113,9 @@ public class BattleController {
         var playerHealth = player.getParams().getIndicators().get(0).getCurrentValue();
         playerHealth = playerHealth - damagePoints;
         // при нанесение урона на земле остается кровь
-        if (!damageType.equals(DamageTypeEnum.FIRE_DAMAGE)) {
-            Game.getMap().getTiles()[player.getXPosition()][player.getYPosition()].setPollutionId(3);
-            MapController.drawTile(player, player.getXViewPos(), player.getYViewPos());
+        if (damageType.isBloody()) {
+            Game.getMap().getTiles()[player.getXPosition()][player.getYPosition()].setPollutionId(1);
+            MapController.drawPlayerTile();
         }
         if (playerHealth <= 0) {
             killPlayer();
@@ -51,7 +136,7 @@ public class BattleController {
     /**
      * Наносит урон точке на карте
      *
-     * @param mapCellInfo - точка
+     * @param mapCellInfo  - точка
      * @param damagePoints - урон
      */
     public static void applyDamageToMapCell(MapCellInfo mapCellInfo, int damagePoints, DamageTypeEnum damageType) {
@@ -77,7 +162,7 @@ public class BattleController {
             }
         } else if (mapCellInfo.getTile2Info().getStrength() == 0 && mapCellInfo.getTile2Info().isBurn() &&
                 damageType.equals(DamageTypeEnum.FIRE_DAMAGE) && damagePoints == baseFireDamage * 4) {
-                mapCellInfo.setTile2Id(0);
+            mapCellInfo.setTile2Id(0);
         } else if (mapCellInfo.getTile1Info().getStrength() == 0 && mapCellInfo.getTile1Info().isBurn() &&
                 damageType.equals(DamageTypeEnum.FIRE_DAMAGE) && damagePoints == baseFireDamage * 4) {
             mapCellInfo.setTile1Id(MapController.getBurntGround());

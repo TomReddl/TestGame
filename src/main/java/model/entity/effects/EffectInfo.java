@@ -11,8 +11,14 @@ import lombok.Setter;
 public class EffectInfo {
     private String name;
     private String desc;
+    private String potionColor; // цвет бутылки зелья
 
     public EffectInfo(String name) {
         this.name = name;
+    }
+
+    public EffectInfo(String name, String potionColor) {
+        this.name = name;
+        this.potionColor = potionColor;
     }
 }

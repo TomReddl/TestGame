@@ -5,6 +5,7 @@ import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Map;
 /**
  * Данные типа существа в редакторе
  */
@@ -18,4 +19,7 @@ public class CreatureInfo {
     private String name;
     @JsonIgnore
     private String desc;
+    private Map<String, String> organs; // органы
+    private Integer health; // здоровье существа
+    private String bloodType; // тип крови существа
 }

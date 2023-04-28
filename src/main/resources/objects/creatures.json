@@ -36,7 +36,22 @@
     "imageId": 11
   },
   {
-    "imageId": 12
+    "imageId": 12,
+    "health": 300,
+    "organs": {
+      "122": "1",
+      "123": "1",
+      "124": "1",
+      "125": "1",
+      "126": "1",
+      "127": "2-4",
+      "128": "6-8",
+      "129": "2",
+      "130": "8-12",
+      "131": "5-10",
+      "133": "1"
+    },
+    "bloodType": "BLOOD"
   },
   {
     "imageId": 13
@@ -303,7 +318,9 @@
     "imageId": 100
   },
   {
-    "imageId": 101
+    "imageId": 101,
+    "health": 100,
+    "bloodType": "BLOOD"
   },
   {
     "imageId": 102
@@ -348,7 +365,12 @@
     "imageId": 115
   },
   {
-    "imageId": 116
+    "imageId": 116,
+    "health": 200,
+    "organs": {
+      "136": "5-10"
+    },
+    "bloodType": "DIRT"
   },
   {
     "imageId": 117

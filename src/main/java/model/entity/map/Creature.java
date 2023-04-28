@@ -4,8 +4,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import model.editor.CreatureInfo;
+import view.Editor;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Информация о существе
@@ -24,11 +28,20 @@ public class Creature implements Serializable {
     private int yPos;
     @JsonProperty("isAlive")
     private boolean isAlive;
+    private boolean isButchering; // признак разделанной туши (для убитых существ)
+    private Integer health;
+    private List<Items> inventory; // инвентарь существа
 
     public Creature(int creatureTypeId, int id, int xPos, int yPos) {
         this.creatureTypeId = creatureTypeId;
         this.id = id;
         this.xPos = xPos;
         this.yPos = yPos;
+        this.health = Editor.getCreatures().get(creatureTypeId).getHealth();
+        this.inventory = new ArrayList<>();
+    }
+
+    public CreatureInfo getInfo() {
+        return Editor.getCreatures().get(creatureTypeId);
     }
 }

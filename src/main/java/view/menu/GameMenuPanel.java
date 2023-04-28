@@ -59,6 +59,12 @@ public class GameMenuPanel {
         tab.setId("1");
         tabPane.getTabs().add(tab);
 
+        tab = new Tab(Game.getText("EFFECTS_TAB"));
+        tab.setClosable(false);
+        tab.setContent(Game.getEffectsPanel().getPane());
+        tab.setId("2");
+        tabPane.getTabs().add(tab);
+
         pane.getChildren().add(tabPane);
         root.getChildren().add(pane);
     }
@@ -73,17 +79,18 @@ public class GameMenuPanel {
         GameMenuPanel.getTabPane().getSelectionModel().select(Integer.parseInt(tabName));
     }
 
-    public void showContainerInventory(List<Items> itemsList, int x, int y) {
+    public void showContainerInventory(List<Items> itemsList, int x, int y, String type) {
         showGameMenuPanel("0");
-        Game.getContainerInventory().show(itemsList, x, y, InventoryPanel.ShowModeEnum.DEFAULT);
+        Game.getContainerInventory().show(itemsList, x, y, InventoryPanel.ShowModeEnum.DEFAULT, type);
     }
 
     private void setPanelsVisible(Boolean show) {
         GameMenuPanel.getPane().setVisible(show);
         if (show) {
-            Game.getInventory().show(Game.getMap().getPlayer().getInventory(), 0, 0, InventoryPanel.ShowModeEnum.DEFAULT);
+            Game.getInventory().show(Game.getMap().getPlayer().getInventory(), 0, 0, InventoryPanel.ShowModeEnum.DEFAULT, "");
             PlayerIndicatorsPanel.showPanel(true);
             Game.getParams().refreshParamsValueViews();
+            Game.getEffectsPanel().refreshEffectsPanel();
         } else {
             Game.getInventory().hide();
             Game.getContainerInventory().hide();
@@ -100,7 +107,7 @@ public class GameMenuPanel {
     public void showOnlyInventory(Boolean show, String itemType, InventoryPanel.ShowModeEnum showMode) {
         GameMenuPanel.getPane().setVisible(show);
         if (show) {
-            Game.getInventory().show(Game.getMap().getPlayer().getInventory(), 0, 0, showMode);
+            Game.getInventory().show(Game.getMap().getPlayer().getInventory(), 0, 0, showMode, "");
             Game.getInventory().drawItems(InventoryPanel.SortType.NAME, true, itemType);
         } else {
             Game.getInventory().hide();

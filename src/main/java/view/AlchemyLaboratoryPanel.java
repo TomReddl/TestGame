@@ -1,6 +1,7 @@
 package view;
 
-import controller.EffectController;
+import controller.CharactersController;
+import controller.EffectsController;
 import controller.ItemsController;
 import controller.TimeController;
 import javafx.geometry.Insets;
@@ -17,6 +18,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import lombok.Getter;
 import lombok.Setter;
+import model.editor.TileTypeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.map.Items;
 import model.entity.player.Player;
@@ -33,6 +35,7 @@ public class AlchemyLaboratoryPanel {
     private final Pane pane;
     @Getter
     private final Label laboratoryNameLabel; // название лаборатории
+    private final Label infoLabel; // подсказка для игрока
     @Getter
     private final ImageView ingredientImage; // изображение выбранного ингредиента
     @Getter
@@ -49,7 +52,7 @@ public class AlchemyLaboratoryPanel {
 
     public AlchemyLaboratoryPanel() {
         pane = new Pane();
-        pane.setPrefSize(230, 160);
+        pane.setPrefSize(230, 180);
         pane.setLayoutX(150);
         pane.setLayoutY(150);
         pane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -62,21 +65,30 @@ public class AlchemyLaboratoryPanel {
         laboratoryNameLabel.setText(Editor.getTiles2().get(250).getName());
         pane.getChildren().add(laboratoryNameLabel);
 
+        infoLabel = new Label();
+        infoLabel.setLayoutX(10);
+        infoLabel.setLayoutY(30);
+        infoLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
+        infoLabel.setText(Game.getText("ALCHEMY_LABORATORY_HINT"));
+        infoLabel.setWrapText(true);
+        infoLabel.setMaxWidth(210);
+        pane.getChildren().add(infoLabel);
+
         backgroundImage = new ImageView("/graphics/gui/ingredientBackground.png");
         backgroundImage.setLayoutX(90);
-        backgroundImage.setLayoutY(50);
+        backgroundImage.setLayoutY(85);
         backgroundImage.setOnMouseClicked(event -> addIngredient(event.getButton() == MouseButton.SECONDARY));
         pane.getChildren().add(backgroundImage);
 
         ingredientImage = new ImageView();
         ingredientImage.setLayoutX(94);
-        ingredientImage.setLayoutY(54);
+        ingredientImage.setLayoutY(89);
         ingredientImage.setOnMouseClicked(event -> addIngredient(event.getButton() == MouseButton.SECONDARY));
         pane.getChildren().add(ingredientImage);
 
         exploreButton = new Button(Game.getText("EXPLORE_INGREDIENT"));
         exploreButton.setLayoutX(10);
-        exploreButton.setLayoutY(120);
+        exploreButton.setLayoutY(140);
         exploreButton.setPrefWidth(100);
         exploreButton.setOnAction(event -> exploreEffect());
         exploreButton.setDisable(true);
@@ -84,7 +96,7 @@ public class AlchemyLaboratoryPanel {
 
         closeButton = new Button(Game.getText("CLOSE"));
         closeButton.setLayoutX(120);
-        closeButton.setLayoutY(120);
+        closeButton.setLayoutY(140);
         closeButton.setPrefWidth(100);
         closeButton.setOnAction(event -> closePanel());
         pane.getChildren().add(closeButton);
@@ -97,6 +109,7 @@ public class AlchemyLaboratoryPanel {
         ingredientImage.setImage(null);
         exploreButton.setDisable(true);
         pane.setVisible(false);
+        Game.getMap().getPlayer().setInteractMapPoint(null);
     }
 
     /**
@@ -109,18 +122,26 @@ public class AlchemyLaboratoryPanel {
             List<String> effects = Game.getMap().getPlayer().getKnowledgeInfo().getKnowEffects().get(selectedIngredient.getTypeId());
             if (effects == null) {
                 Player player = Game.getMap().getPlayer();
-                effects = new ArrayList<>();
-                String newEffect = selectedIngredient.getEffects().get(0).getStrId();
-                effects.add(newEffect);
-                Game.getMap().getPlayer().getKnowledgeInfo().getKnowEffects().put(selectedIngredient.getTypeId(), effects);
-                Game.showMessage(Game.getText("NEW_EFFECT_EXPLORED") + ": " +
-                        EffectController.getEffects().get(newEffect).getName(), Color.GREEN);
-
-                ItemsController.deleteItem(selectedIngredient, 1, player.getInventory(), player);
-                selectedIngredient = new Items();
-                ingredientImage.setImage(null);
-                exploreButton.setDisable(true);
                 TimeController.tic(timeToExplore);
+                // проверяем, на месте ли наш стол, а то за время исследования он мог сгореть
+                String tileType = player.getInteractMapPoint().getTile2Info().getType();
+                if (tileType == null || !TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.ALCHEMY_LABORATORY)) {
+                    Game.showMessage(player.getInteractMapPoint().getTile2Info().getName() + Game.getText("DESTROYED"));
+                    closePanel();
+                } else {
+                    effects = new ArrayList<>();
+                    String newEffect = selectedIngredient.getEffects().get(0).getStrId();
+                    effects.add(newEffect);
+                    Game.getMap().getPlayer().getKnowledgeInfo().getKnowEffects().put(selectedIngredient.getTypeId(), effects);
+                    Game.showMessage(Game.getText("NEW_EFFECT_EXPLORED") + ": " +
+                            EffectsController.getEffects().get(newEffect).getName(), Color.GREEN);
+
+                    ItemsController.deleteItem(selectedIngredient, 1, player.getInventory(), player);
+                    selectedIngredient = new Items();
+                    ingredientImage.setImage(null);
+                    exploreButton.setDisable(true);
+                    CharactersController.addSkillExp(17, 20);
+                }
             } else {
                 Game.showMessage(Game.getText("NOT_EXPLODED_EFFECTS"));
             }

@@ -14,6 +14,7 @@ import java.io.Serializable;
 @Setter
 public class PollutionInfo implements Serializable {
     private int id;
+    private Integer nextId; // id следующего уровня загрязнения того же типа
     @JsonIgnore
     private ImageView image;
 }

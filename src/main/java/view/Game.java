@@ -46,6 +46,7 @@ public class Game {
     private static final Properties creaturesProperties = new Properties();
     private static final Properties effectsProperties = new Properties();
     private static final Properties gameProperties = new Properties();
+    private static final Properties pollutionsProperties = new Properties();
 
     @Getter
     private static final List<Label> messageLabels = new ArrayList<>(); // лэйблы для отображения игровых сообщений
@@ -96,7 +97,10 @@ public class Game {
     @Getter
     private static final ParamPanel params = new ParamPanel(root);
     @Getter
+    private static final EffectsPanel effectsPanel = new EffectsPanel();
+    @Getter
     private static final GameMenuPanel gameMenu = new GameMenuPanel(root);
+
     @Getter
     private static GameModeEnum gameMode = GameModeEnum.MAIN_MENU;
     @Getter
@@ -196,6 +200,11 @@ public class Game {
                     GameParams.lang.toString().toLowerCase() + ".properties");
             gameProperties.load(in);
             in.close();
+
+            in = new FileInputStream("src/main/resources/text/pollutions_" +
+                    GameParams.lang.toString().toLowerCase() + ".properties");
+            pollutionsProperties.load(in);
+            in.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -275,6 +284,10 @@ public class Game {
         return gameProperties.getProperty(strId);
     }
 
+    public static String getPollutionsText(String strId) {
+        return pollutionsProperties.getProperty(strId);
+    }
+
     // отобразить сообщение игроку
     public static void showMessage(String message, Color... color) {
         Label messageLabel = null;
@@ -285,6 +298,13 @@ public class Game {
                 messageLabel = label;
                 break;
             }
+        }
+        if (messageLabel == null) {
+            for (Label label : messageLabels) {
+                label.setVisible(false);
+            }
+            messageLabel = messageLabels.get(0);
+            messageLabel.setVisible(true);
         }
         if (color.length > 0) {
             messageLabel.setTextFill(color[0]);

@@ -11,6 +11,7 @@ import model.entity.DirectionEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.battle.DamageTypeEnum;
 import model.entity.map.ClosableCellInfo;
+import model.entity.map.Creature;
 import model.entity.map.Items;
 import model.entity.map.MapCellInfo;
 import model.entity.player.GenderEnum;
@@ -29,6 +30,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static controller.ItemsController.engineeringWateringCan;
+import static controller.ItemsController.lighterId;
 import static game.GameParams.*;
 
 /**
@@ -65,15 +68,17 @@ public class CharactersController {
         var tileY = (((int) y) / tileSize);
         var player = Game.getMap().getPlayer();
         if (MapController.isReachable(player, tileX, tileY)) {
+            MapCellInfo mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + tileX]
+                    [player.getYMapPos() + tileY];
             var itemInRightHand = player.getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).getValue();
             if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.TOOL)) {
-                MapCellInfo mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + tileX]
-                        [player.getYMapPos() + tileY];
                 if (itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.WATERING_CAN)) { // если в руках лейка
                     watering(itemInRightHand, mapCellInfo, tileX, tileY, player);
                 }
-                if (itemInRightHand.getTypeId() == 112) { // если в руках зажигалка
-                    if (mapCellInfo.getFireId() == 0 &&
+                if (itemInRightHand.getTypeId() == lighterId) { // если в руках зажигалка
+                    if (mapCellInfo.getTile2Id() == 256) { // поджигаем костёр
+                        mapCellInfo.setTile2Id(257);
+                    } else if (mapCellInfo.getFireId() == 0 &&
                             (mapCellInfo.getTile1Info().isBurn() || mapCellInfo.getTile2Info().isBurn())) {
                         int fireLevel = mapCellInfo.getFireId() + 1;
                         if (fireLevel > 3) {
@@ -83,6 +88,12 @@ public class CharactersController {
                     }
                 }
                 MapController.drawTile(player, tileX, tileY);
+            }
+            if (mapCellInfo.getCreatureId() != null) {
+                if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.WEAPON)) {
+                    Creature creature = Game.getMap().getCreaturesList().get(mapCellInfo.getCreatureId());
+                    BattleController.attackCreature(player, itemInRightHand, creature);
+                }
             }
             TimeController.tic(true); // нажатие на карту занимает 1 тик
         }
@@ -134,7 +145,7 @@ public class CharactersController {
             itemInRightHand.getParams().put("currentCapacity", itemInRightHand.getParams().get("capacity"));
             Game.showMessage(Game.getText("WATERING_CAN_FILLED"), Color.GREEN);
         } else {
-            int consumption = itemInRightHand.getTypeId() == 110 ? 100 : 500; // расход воды для инженерной лейки ниже
+            int consumption = itemInRightHand.getTypeId() == engineeringWateringCan ? 100 : 500; // расход воды для инженерной лейки ниже
             if (currentCapacity >= consumption) {
                 if (mapCellInfo.getFireId() != 0) {
                     mapCellInfo.setFireId(mapCellInfo.getFireId() - 1); // тушим огонь
@@ -144,7 +155,7 @@ public class CharactersController {
                         mapCellInfo.setTile1Id(MapController.getWetGround());
                     }
                 } else {
-                    mapCellInfo.setPollutionId(2); // если поливаем не землю, образуется лужа
+                    mapCellInfo.setPollutionId(5); // если поливаем не землю, образуется лужа
                 }
                 itemInRightHand.getParams().put("currentCapacity", String.valueOf(currentCapacity - consumption));
             } else {
@@ -207,10 +218,12 @@ public class CharactersController {
         if (isClosedCell(mapCellInfo)) {
             closableInteract(mapCellInfo);
         } else {
-            if (itemsList.size() > 1 || itemsList.get(0).getCount() > 1 || mapCellInfo.getTile2Type().equals(TileTypeEnum.CONTAINER)) {
+            if ((itemsList != null && (itemsList.size() > 1 || itemsList.get(0).getCount() > 1)) || mapCellInfo.getTile2Type().equals(TileTypeEnum.CONTAINER)) {
                 // показываем вторую панель инвентаря, если на тайле лежит больше 1 предмета, или если это контейнер
-                Game.getGameMenu().showContainerInventory(itemsList, x, y);
-            } else {
+                String subtype = mapCellInfo.getTile2Info().getParams() != null ? mapCellInfo.getTile2Info().getParams().get("subtype") : "";
+                boolean isTrashCan = subtype != null && subtype.equals("trashCan");
+                Game.getGameMenu().showContainerInventory(itemsList, x, y, isTrashCan ? "trashCan" : "");
+            } else if (itemsList != null) {
                 List<Items> removeList = new ArrayList<>();
                 for (Items items : itemsList) {
                     if (ItemsController.addItem(items, player.getInventory(), player) != null) {
@@ -269,7 +282,7 @@ public class CharactersController {
                     break;
                 }
                 case BED: {
-                    SelectTimePanel.show(SelectTimePanel.TimeSkipType.SLEEP);
+                    SelectTimePanel.show(SelectTimePanel.TimeSkipType.SLEEP, mapCellInfo);
                     break;
                 }
                 case PLANT: {
@@ -282,6 +295,18 @@ public class CharactersController {
                 }
                 case ALCHEMY_LABORATORY: {
                     Game.getEditor().getAlchemyLaboratoryPanel().showPanel(true);
+                    break;
+                }
+                case INGREDIENTS_COMBINER: {
+                    Game.getEditor().getCombinerPanel().showPanel(true);
+                    break;
+                }
+                case DUPLICATOR: {
+                    Game.getEditor().getDuplicatorPanel().showPanel(true);
+                    break;
+                }
+                case CRAFTING_PLACE: {
+                    Game.getEditor().getCraftPanel().showPanel(true);
                     break;
                 }
             }
@@ -656,10 +681,10 @@ public class CharactersController {
         ItemsController.addItem(new Items(3, 1), player.getInventory(), player);
         ItemsController.addItem(new Items(11, 10), player.getInventory(), player);
         ItemsController.addItem(new Items(10, 1), player.getInventory(), player);
-        ItemsController.addItem(new Items(113, 2), player.getInventory(), player);
-        ItemsController.addItem(new Items(114, 2), player.getInventory(), player);
-        ItemsController.addItem(new Items(115, 2), player.getInventory(), player);
-        ItemsController.addItem(new Items(117, 2), player.getInventory(), player);
+        ItemsController.addItem(new Items(113, 3), player.getInventory(), player);
+        ItemsController.addItem(new Items(114, 3), player.getInventory(), player);
+        ItemsController.addItem(new Items(115, 3), player.getInventory(), player);
+        ItemsController.addItem(new Items(117, 3), player.getInventory(), player);
 
         ItemsController.equipItem(
                 ItemsController.addItem(new Items(23, 1),

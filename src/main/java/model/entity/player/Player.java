@@ -10,7 +10,10 @@ import model.editor.items.BodyPartEnum;
 import model.editor.items.ClothesStyleEnum;
 import model.entity.DirectionEnum;
 import model.entity.effects.EffectParams;
+import model.entity.map.Creature;
 import model.entity.map.Items;
+import model.entity.map.MapCellInfo;
+import view.Game;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -83,6 +86,11 @@ public class Player implements Serializable {
     private BigDecimal currentWeight;
     private ClothesStyleEnum style;
 
+    @JsonIgnore
+    @Getter
+    @Setter
+    private MapCellInfo interactMapPoint; // Точка на карте, с которой взаимодействует персонаж
+
     public Player() {
         image = new ImageView("/graphics/characters/32.png");
         image.setVisible(false);
@@ -97,5 +105,16 @@ public class Player implements Serializable {
         }
 
         appliedEffects = new ArrayList<>();
+    }
+
+    /**
+     * Получить существо, с которым взаимодействует персонаж
+     * @return
+     */
+    public Creature getInteractCreature() {
+        if (interactMapPoint != null && interactMapPoint.getCreatureId() != null) {
+            return Game.getMap().getCreaturesList().get(interactMapPoint.getCreatureId());
+        }
+        return null;
     }
 }

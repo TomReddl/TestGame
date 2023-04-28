@@ -21,7 +21,7 @@ public class MainMenu {
     @Getter
     private static final Pane pane = new Pane();
     @Getter
-    private static final ImageView backgroundImage = new ImageView("/graphics/gui/Background.png");
+    private static final ImageView backgroundImage = new ImageView("/graphics/gui/Background1.png");
     @Getter
     private static final Button continueButton = new Button(Game.getText("CONTINUE"));
     @Getter

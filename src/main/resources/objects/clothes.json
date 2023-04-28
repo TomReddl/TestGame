@@ -8,7 +8,7 @@
   "armor": 5,
   "maxStrength": 50,
   "skill": 10,
-  "bodyPart": "TORS",
+  "bodyPart": "TORSO",
   "covering": 30,
   "style": "COMMON",
   "gender": "MALE",
@@ -341,5 +341,47 @@
     "style": "NALHAIM",
     "gender": "UNISEX",
     "types": ["CLOTHES"]
+  },
+  {
+    "id": 118,
+    "weight": "300",
+    "volume": "400",
+    "price": "500",
+    "stackable": false,
+    "armor": 2,
+    "maxStrength": 50,
+    "skill": 10,
+    "bodyPart": "GLOVES",
+    "covering": 20,
+    "style": "NOBLEMAN",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "effects": [
+      {
+        "strId": "POTIONS_INC",
+        "power": "20"
+      }
+    ]
+  },
+  {
+    "id": 119,
+    "weight": "1500",
+    "volume": "3000",
+    "price": "1000",
+    "stackable": false,
+    "armor": 5,
+    "maxStrength": 150,
+    "skill": 10,
+    "bodyPart": "TORSO",
+    "covering": 20,
+    "style": "NOBLEMAN",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "effects": [
+      {
+        "strId": "INTELLIGENCE_INC",
+        "power": "5"
+      }
+    ]
   }
 ]

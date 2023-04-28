@@ -12,4 +12,5 @@ public class WeaponInfo extends ItemInfo {
     private Integer damage; // базовый урон
     private Integer skill; // навык, отвечающий за владение данным оружием
     private Boolean oneHand; // одноручное оружие
+    private String damageType; // тип урона
 }

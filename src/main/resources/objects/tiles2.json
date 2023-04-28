@@ -211,53 +211,63 @@
     "id": 32,
     "strength": 0,
     "type": "CONTAINER",
-    "passability": true
+    "passability": true,
+    "visibly": false
   },
   {
     "id": 33,
     "strength": 0,
     "type": "CONTAINER",
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 34,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 35,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 36,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 37,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 38,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 39,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 40,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 41,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 42,
@@ -281,227 +291,262 @@
     "strength": 0,
     "type": "CLOCK",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 46,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 47,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 48,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 49,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 50,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 51,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 52,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 53,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 54,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 55,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 56,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 57,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 58,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 59,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 60,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 61,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 62,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 63,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 64,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 65,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 66,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 67,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 68,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 69,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 70,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 71,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 72,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 73,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 74,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 75,
     "strength": 0,
     "type": "BED",
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 76,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 77,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 78,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 79,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 80,
@@ -593,7 +638,7 @@
       "anotherDoorState": "81"
     },
     "burn": true,
-    "twoLayer": false
+    "visibly": true
   },
   {
     "id": 92,
@@ -604,7 +649,7 @@
       "anotherDoorState": "80"
     },
     "burn": true,
-    "twoLayer": false
+    "visibly": true
   },
   {
     "id": 93,
@@ -693,7 +738,8 @@
   {
     "id": 107,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 108,
@@ -705,42 +751,49 @@
     "id": 109,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 110,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 111,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 112,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 113,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 114,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 115,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 116,
@@ -751,37 +804,52 @@
     "id": 117,
     "strength": 0,
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 118,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 119,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 120,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 121,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 122,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "type": "CONTAINER",
+    "params": {
+      "subtype": "trashCan"
+    },
+    "visibly": true
   },
   {
     "id": 123,
     "strength": 0,
-    "passability": true
+    "type": "CONTAINER",
+    "params": {
+      "subtype": "trashCan"
+    },
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 124,
@@ -796,57 +864,68 @@
   {
     "id": 126,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 127,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 128,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 129,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 130,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 131,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 132,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 133,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 134,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 135,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 136,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 137,
@@ -856,7 +935,8 @@
   {
     "id": 138,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 139,
@@ -874,12 +954,14 @@
     "id": 141,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 142,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 143,
@@ -890,24 +972,28 @@
   {
     "id": 144,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 145,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 146,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 147,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 148,
@@ -918,58 +1004,69 @@
   {
     "id": 149,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 150,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 151,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 152,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 153,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 154,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 155,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 156,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 157,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 158,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 159,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 160,
@@ -981,7 +1078,8 @@
     "id": 161,
     "strength": 0,
     "passability": true,
-    "type": "DOOR"
+    "type": "DOOR",
+    "visibly": true
   },
   {
     "id": 162,
@@ -993,7 +1091,8 @@
     "id": 163,
     "strength": 0,
     "passability": true,
-    "type": "DOOR"
+    "type": "DOOR",
+    "visibly": true
   },
   {
     "id": 164,
@@ -1005,7 +1104,8 @@
     "id": 165,
     "strength": 0,
     "passability": true,
-    "type": "DOOR"
+    "type": "DOOR",
+    "visibly": true
   },
   {
     "id": 166,
@@ -1017,7 +1117,8 @@
     "id": 167,
     "strength": 0,
     "passability": true,
-    "type": "DOOR"
+    "type": "DOOR",
+    "visibly": true
   },
   {
     "id": 168,
@@ -1029,7 +1130,8 @@
     "id": 169,
     "strength": 0,
     "passability": true,
-    "type": "DOOR"
+    "type": "DOOR",
+    "visibly": true
   },
   {
     "id": 170,
@@ -1041,7 +1143,8 @@
     "id": 171,
     "strength": 0,
     "passability": true,
-    "type": "DOOR"
+    "type": "DOOR",
+    "visibly": true
   },
   {
     "id": 172,
@@ -1052,7 +1155,8 @@
     "id": 173,
     "strength": 0,
     "passability": false,
-    "type": "MOVABLE"
+    "type": "MOVABLE",
+    "visibly": true
   },
   {
     "id": 174,
@@ -1082,54 +1186,64 @@
   {
     "id": 179,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 180,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 181,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 182,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 183,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 184,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 185,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 186,
     "strength": 0,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 187,
     "strength": 0,
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 188,
     "strength": 0,
     "burn": true,
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 189,
@@ -1139,7 +1253,8 @@
     "params": {
       "nextGrowthStage": "190"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 190,
@@ -1149,7 +1264,8 @@
     "params": {
       "nextGrowthStage": "191"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 191,
@@ -1161,7 +1277,8 @@
       "harvestId": "92",
       "nextGrowthStage": "192"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 192,
@@ -1173,14 +1290,16 @@
       "harvestId": "87",
       "nextGrowthStage": "193"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 193,
     "strength": 0,
     "passability": true,
     "type": "PLANT",
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 194,
@@ -1190,7 +1309,8 @@
     "params": {
       "nextGrowthStage": "195"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 195,
@@ -1200,7 +1320,8 @@
     "params": {
       "nextGrowthStage": "196"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 196,
@@ -1212,14 +1333,16 @@
       "harvestId": "88",
       "nextGrowthStage": "197"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 197,
     "strength": 0,
     "passability": true,
     "type": "PLANT",
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 198,
@@ -1229,7 +1352,8 @@
     "params": {
       "nextGrowthStage": "199"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 199,
@@ -1239,7 +1363,8 @@
     "params": {
       "nextGrowthStage": "200"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 200,
@@ -1252,14 +1377,16 @@
       "harvestCount": "3",
       "nextGrowthStage": "201"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 201,
     "strength": 0,
     "passability": true,
     "type": "PLANT",
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 202,
@@ -1269,7 +1396,8 @@
     "params": {
       "nextGrowthStage": "203"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 203,
@@ -1279,7 +1407,8 @@
     "params": {
       "nextGrowthStage": "204"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 204,
@@ -1291,21 +1420,24 @@
       "harvestId": "90",
       "nextGrowthStage": "205"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 205,
     "strength": 0,
     "passability": true,
     "type": "PLANT",
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 206,
     "strength": 0,
     "passability": true,
     "type": "PLANT",
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 207,
@@ -1315,7 +1447,8 @@
     "params": {
       "nextGrowthStage": "208"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 208,
@@ -1325,7 +1458,8 @@
     "params": {
       "nextGrowthStage": "209"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 209,
@@ -1357,7 +1491,8 @@
     "params": {
       "nextGrowthStage": "212"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 212,
@@ -1367,7 +1502,8 @@
     "params": {
       "nextGrowthStage": "213"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 213,
@@ -1422,7 +1558,8 @@
       "harvestedId": "218",
       "harvestId": "97"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 218,
@@ -1432,7 +1569,8 @@
     "params": {
       "nextGrowthStage": "217"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 219,
@@ -1465,7 +1603,8 @@
       "harvestedId": "222",
       "harvestId": "99"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 222,
@@ -1475,7 +1614,8 @@
     "params": {
       "nextGrowthStage": "221"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 223,
@@ -1507,7 +1647,8 @@
     "params": {
       "nextGrowthStage": "226"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 226,
@@ -1519,7 +1660,8 @@
       "harvestId": "101",
       "harvestCount": "3"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 227,
@@ -1529,7 +1671,8 @@
     "params": {
       "nextGrowthStage": "228"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 228,
@@ -1540,7 +1683,8 @@
       "harvestedId": "227",
       "harvestId": "103"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 229,
@@ -1550,7 +1694,8 @@
     "params": {
       "nextGrowthStage": "230"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 230,
@@ -1562,7 +1707,8 @@
       "harvestId": "104",
       "harvestCount": "5"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 231,
@@ -1572,7 +1718,8 @@
     "params": {
       "nextGrowthStage": "232"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 232,
@@ -1583,7 +1730,8 @@
       "harvestedId": "231",
       "harvestId": "105"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 233,
@@ -1594,7 +1742,8 @@
       "harvestedId": "244",
       "harvestId": "106"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 234,
@@ -1606,7 +1755,8 @@
       "harvestId": "108",
       "harvestCount": "3"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 235,
@@ -1618,7 +1768,8 @@
       "harvestId": "107",
       "harvestCount": "3"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 236,
@@ -1630,7 +1781,8 @@
       "harvestId": "109",
       "harvestCount": "3"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 237,
@@ -1640,28 +1792,32 @@
     "params": {
       "nextGrowthStage": "236"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 238,
     "strength": 0,
     "passability": true,
     "type": "PLANT",
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 239,
     "strength": 0,
     "passability": true,
     "type": "PLANT",
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 240,
     "strength": 0,
     "passability": true,
     "type": "PLANT",
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 241,
@@ -1688,7 +1844,8 @@
     "params": {
       "nextGrowthStage": "233"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 245,
@@ -1698,7 +1855,8 @@
     "params": {
       "nextGrowthStage": "234"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 246,
@@ -1708,7 +1866,8 @@
     "params": {
       "nextGrowthStage": "235"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 247,
@@ -1718,7 +1877,8 @@
     "params": {
       "level": "1"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 248,
@@ -1728,7 +1888,8 @@
     "params": {
       "level": "2"
     },
-    "burn": true
+    "burn": true,
+    "visibly": true
   },
   {
     "id": 249,
@@ -1738,13 +1899,69 @@
     "params": {
       "level": "3"
     },
-    "burn": true
-  }
-,
+    "burn": true,
+    "visibly": true
+  },
   {
     "id": 250,
     "strength": 0,
     "passability": false,
-    "type": "ALCHEMY_LABORATORY"
+    "type": "ALCHEMY_LABORATORY",
+    "visibly": true
+  },
+  {
+    "id": 251,
+    "strength": 0,
+    "passability": false,
+    "type": "INGREDIENTS_COMBINER",
+    "visibly": true
+  },
+  {
+    "id": 252,
+    "strength": 0,
+    "passability": false,
+    "type": "DUPLICATOR"
+  },
+  {
+    "id": 253,
+    "strength": 0,
+    "passability": false,
+    "type": "CRAFTING_PLACE"
+  },
+  {
+    "id": 254,
+    "strength": 0,
+    "passability": true,
+    "visibly": true,
+    "type": "BED",
+    "burn": true,
+    "params": {
+      "subtype": "sleepingBag"
+    }
+  },
+  {
+    "id": 255,
+    "strength": 0,
+    "passability": true,
+    "visibly": true
+  },
+  {
+    "id": 256,
+    "strength": 0,
+    "passability": true,
+    "visibly": true
+  },
+  {
+    "id": 257,
+    "strength": 0,
+    "passability": false,
+    "visibly": true
+  },
+  {
+    "id": 258,
+    "passability": false,
+    "visibly": true,
+    "strength": 100,
+    "type": "CONTAINER"
   }
 ]

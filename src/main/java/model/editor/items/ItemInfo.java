@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import model.entity.ItemTypeEnum;
 import model.entity.effects.EffectParams;
+import view.Game;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,4 +37,19 @@ public class ItemInfo {
     private ImageView icon;
     private Map<String, String> params; // дополнительные параметры предмета, мапа формата <Название параметра, значение>
     private List<EffectParams> effects; // эффекты
+
+    public List<EffectParams> getEffects() {
+        // для ингредиентов добавляем случайные дополнительные эффекты
+        if (this.getTypes().contains(ItemTypeEnum.INGREDIENT) && effects != null) {
+            List<EffectParams> allEffects = new ArrayList<>(effects);
+            allEffects.add(Game.getMap().getAdditionalEffect().get(id));
+            return allEffects;
+        } else {
+            return effects;
+        }
+    }
+
+    public List<EffectParams> getBaseEffects() {
+        return effects;
+    }
 }

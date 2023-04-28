@@ -470,17 +470,20 @@
   {
     "id": 57,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 58,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 59,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 60,
@@ -565,17 +568,20 @@
   {
     "id": 68,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 69,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 70,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 71,
@@ -660,17 +666,20 @@
   {
     "id": 79,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 80,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 81,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 82,
@@ -755,17 +764,20 @@
   {
     "id": 90,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 91,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 92,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 93,
@@ -850,115 +862,136 @@
   {
     "id": 101,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 102,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 103,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 104,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 105,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 106,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 107,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 108,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 109,
     "strength": 0,
     "type": "EARTH",
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 110,
     "strength": 0,
     "type": "EARTH",
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 111,
     "strength": 0,
     "type": "EARTH",
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 112,
     "strength": 0,
     "type": "WATER",
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 113,
     "strength": 0,
     "type": "WATER",
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 114,
     "strength": 0,
     "type": "WATER",
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 115,
     "strength": 0,
     "type": "WATER",
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 116,
     "strength": 0,
     "type": "WATER",
-    "passability": false
+    "passability": false,
+    "visibly": true
   },
   {
     "id": 117,
     "strength": 0,
     "burn": true,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 118,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 119,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 120,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   },
   {
     "id": 121,
     "strength": 0,
-    "passability": true
+    "passability": true,
+    "visibly": true
   }
 ]

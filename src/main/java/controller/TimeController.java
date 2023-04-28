@@ -1,13 +1,13 @@
 package controller;
 
+import model.editor.items.BodyPartEnum;
 import model.entity.GameCalendar;
 import model.entity.battle.DamageTypeEnum;
 import model.entity.map.MapCellInfo;
 import model.entity.map.WeatherEnum;
 import view.Game;
 
-import static controller.BattleController.baseAcidRainDamage;
-import static controller.BattleController.baseFireDamage;
+import static controller.BattleController.*;
 
 /**
  * Действия со временем
@@ -50,13 +50,21 @@ public class TimeController {
             BattleController.applyDamageToPlayer(playerMapCell.getFireId() * baseFireDamage, DamageTypeEnum.FIRE_DAMAGE);
         }
 
+        Integer pollutionId = playerMapCell.getPollutionId();
+        if (pollutionId >= 13 && pollutionId <= 15) {
+            // Если персонаж стоит на кислотном загрязнении без обуви, урон кислотой наносится ему каждый ход
+            if (Game.getMap().getPlayer().getWearingItems().get(BodyPartEnum.SHOES.ordinal()).getValue() == null) {
+                BattleController.applyDamageToPlayer((pollutionId - 12) * baseAcidPollutionDamage, DamageTypeEnum.ACID_DAMAGE);
+            }
+        }
+
         if (Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.ACID_RAIN)) {
             // Если идет кислотный дождь, он наносит урон персонажу
             BattleController.applyDamageToPlayer(baseAcidRainDamage, DamageTypeEnum.FIRE_DAMAGE);
         }
 
         // эффекты действуют каждый ход
-        EffectController.executeEffects(Game.getMap().getPlayer());
+        EffectsController.executeEffects(Game.getMap().getPlayer());
 
         if (currentDate.getTic() % 10 == 0) {
             MapController.fireSpread(); // распространение огня каждые 10 тиков

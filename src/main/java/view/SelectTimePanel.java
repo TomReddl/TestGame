@@ -1,5 +1,6 @@
 package view;
 
+import controller.ItemsController;
 import controller.MapController;
 import controller.TimeController;
 import javafx.geometry.Insets;
@@ -13,6 +14,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import lombok.Getter;
 import model.entity.GameCalendar;
+import model.entity.map.Items;
+import model.entity.map.MapCellInfo;
+import model.entity.player.Player;
 import view.inventory.ItemCountPanel;
 
 import static game.GameParams.tileSize;
@@ -28,8 +32,11 @@ public class SelectTimePanel {
     private static final Button selectButton;
     @Getter
     private static final Button backButton;
+    @Getter
+    private static final Button packButton; // кнопка "Убрать мешок" для спального мешка
     private static final Label selectTimeLabel;
     private static TimeSkipType timeSkipType;
+    private static MapCellInfo mapCell;
 
     // Виды пропуска времени
     public enum TimeSkipType {
@@ -47,8 +54,8 @@ public class SelectTimePanel {
     static {
         pane = new Pane();
         pane.setPrefSize(300, 80);
-        pane.setLayoutX(tileSize*(viewSize / 2) - 150);
-        pane.setLayoutY(tileSize*(viewSize / 2) - 50);
+        pane.setLayoutX(tileSize * (viewSize / 2) - 150);
+        pane.setLayoutY(tileSize * (viewSize / 2) - 50);
         pane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
         pane.setStyle("-fx-border-color:gray;");
         pane.setVisible(false);
@@ -84,20 +91,31 @@ public class SelectTimePanel {
         backButton.setLayoutX(150);
         backButton.setOnAction(event -> hide());
         pane.getChildren().add(backButton);
+
+        packButton = new Button(Game.getGameText("PACK"));
+        packButton.setLayoutY(40);
+        packButton.setLayoutX(210);
+        packButton.setVisible(false);
+        packButton.setOnAction(event -> packSleepingBag());
+        pane.getChildren().add(packButton);
     }
 
     /**
-     * Показать панель выбора количества предметов
+     * Показать панель выбора времени ожидания/сна
      *
-     * @param type - тип пропуска времени (ожидание/сон)
+     * @param type        - тип пропуска времени (ожидание/сон)
+     * @param mapCellInfo - точка на карте с кроватью
      */
-    public static void show(TimeSkipType type) {
+    public static void show(TimeSkipType type, MapCellInfo mapCellInfo) {
         timeSkipType = type;
         if (!Game.getInventory().getTabPane().isVisible() && !ItemCountPanel.getPane().isVisible()) {
             selectButton.setText(timeSkipType.getDesc());
             selectTimeLabel.setText("1 " + Game.getGameText("HOUR"));
             slider.setValue(1);
             pane.setVisible(true);
+            String subtype = mapCellInfo.getTile2Info().getParams() != null ? mapCellInfo.getTile2Info().getParams().get("subtype") : "";
+            packButton.setVisible(subtype.equals("sleepingBag"));
+            mapCell = mapCellInfo;
         }
     }
 
@@ -114,5 +132,18 @@ public class SelectTimePanel {
     private static void changeValue(Number newVal) {
         slider.setValue(newVal.intValue());
         selectTimeLabel.setText(newVal.intValue() + " " + Game.getGameText("HOUR"));
+    }
+
+    /**
+     * Запаковать спальный мешок
+     */
+    private static void packSleepingBag() {
+        if (mapCell != null) {
+            mapCell.setTile2Id(0);
+            Player player = Game.getMap().getPlayer();
+            ItemsController.addItem(new Items(134, 1), player.getInventory(), player);
+            TimeController.tic(10);
+            hide();
+        }
     }
 }

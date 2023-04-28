@@ -89,9 +89,9 @@
     "volume": "200",
     "price": "700",
     "stackable": true,
-    "taste": 10,
-    "hunger": 10,
-    "thirst": 1,
+    "taste": 5,
+    "hunger": 0,
+    "thirst": 10,
     "types": [
       "POTION"
     ]
@@ -513,6 +513,133 @@
       {
         "strId": "POWER_DEC"
       }
+    ]
+  },
+  {
+    "id": 120,
+    "weight": "800",
+    "volume": "1000",
+    "price": "100",
+    "stackable": true,
+    "burn": true,
+    "taste": 0,
+    "hunger": 15,
+    "thirst": 0,
+    "types": [
+      "EAT"
+    ]
+  },
+  {
+    "id": 121,
+    "weight": "1000",
+    "volume": "1200",
+    "price": "400",
+    "stackable": false,
+    "burn": true,
+    "taste": 0,
+    "hunger": 0,
+    "thirst": 0,
+    "types": [
+      "INGREDIENT"
+    ]
+  },
+  {
+    "id": 122,
+    "weight": "1000",
+    "volume": "1200",
+    "price": "400",
+    "stackable": true,
+    "burn": true,
+    "taste": 0,
+    "hunger": 0,
+    "thirst": 0,
+    "types": [
+      "EAT"
+    ]
+  },
+  {
+    "id": 123,
+    "weight": "1000",
+    "volume": "1200",
+    "price": "400",
+    "stackable": true,
+    "burn": true,
+    "taste": 0,
+    "hunger": 0,
+    "thirst": 0,
+    "types": [
+      "EAT"
+    ]
+  },
+  {
+    "id": 124,
+    "weight": "1000",
+    "volume": "1200",
+    "price": "400",
+    "stackable": true,
+    "burn": true,
+    "taste": 0,
+    "hunger": 0,
+    "thirst": 0,
+    "types": [
+      "EAT"
+    ]
+  },
+  {
+    "id": 125,
+    "weight": "1000",
+    "volume": "1200",
+    "price": "400",
+    "stackable": true,
+    "burn": true,
+    "taste": 0,
+    "hunger": 0,
+    "thirst": 0,
+    "types": [
+      "EAT"
+    ]
+  },
+  {
+    "id": 129,
+    "weight": "1000",
+    "volume": "1200",
+    "price": "400",
+    "stackable": true,
+    "burn": true,
+    "taste": 0,
+    "hunger": 0,
+    "thirst": 0,
+    "types": [
+      "INGREDIENT"
+    ]
+  },
+  {
+    "id": 131,
+    "weight": "1000",
+    "volume": "1200",
+    "price": "400",
+    "stackable": true,
+    "burn": true,
+    "taste": 0,
+    "hunger": 0,
+    "thirst": 0,
+    "types": [
+      "EAT"
+    ]
+  },
+  {
+    "id": 136,
+    "weight": "200",
+    "volume": "200",
+    "price": "0",
+    "stackable": true,
+    "burn": true,
+    "taste": -100,
+    "hunger": 0,
+    "thirst": 0,
+    "types": [
+      "EAT",
+      "INGREDIENT"
     ]
   }
 ]

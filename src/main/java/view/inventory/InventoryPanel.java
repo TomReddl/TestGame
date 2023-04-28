@@ -13,13 +13,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import lombok.Getter;
+import lombok.Setter;
 import model.editor.items.BodyPartEnum;
 import model.editor.items.ClothesInfo;
 import model.entity.ItemTypeEnum;
+import model.entity.map.Creature;
 import model.entity.map.Items;
+import model.entity.player.Player;
 import view.Game;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +46,9 @@ public class InventoryPanel {
     public enum ShowModeEnum {
         DEFAULT, // обычное открытие инвентаря
         SELECT_FOR_POTION_CRAFT, // выбор предмета для зельеварения
-        SELECT_FOR_POTION_EXPLORE; // выбор предмета для зельеварения
+        SELECT_FOR_POTION_EXPLORE, // выбор предмета для исследования
+        SELECT_FOR_COMBINER, // выбор предмета для объединения
+        SELECT_FOR_DUPLICATOR; // выбор предмета для объединения
     }
 
     // Тип сортировки
@@ -73,6 +79,9 @@ public class InventoryPanel {
     private final ImageView sortVolumeImage = new ImageView("/graphics/gui/Sort1.png");
     private final ImageView sortPriceImage = new ImageView("/graphics/gui/Sort1.png");
     private final Button takeAllButton = new Button(Game.getText("TAKE_ALL"));
+    private final Button storeTrashButton = new Button(Game.getText("STORE_ALL_TRASH"));
+    @Getter
+    private final Button butcherButton = new Button(Game.getText("BUTCHER")); // Кнопка "Разделать тушу" для трупа существа
     @Getter
     private final Label typeLabel = new Label(Game.getText("TYPE"));
     @Getter
@@ -86,6 +95,7 @@ public class InventoryPanel {
 
     private boolean descending = false;
     @Getter
+    @Setter
     private List<Items> items = Game.getMap().getPlayer().getInventory();
     @Getter
     private int x; // координаты нужны для панели инвентаря контейнера, чтобы перерисовывать тайл, если игрок забирает с него все предметы
@@ -215,6 +225,18 @@ public class InventoryPanel {
             takeAllButton.setLayoutY(395);
             takeAllButton.setOnAction(event -> ItemsController.takeAllItems());
             outerPane.getChildren().add(takeAllButton);
+
+            storeTrashButton.setLayoutX(90);
+            storeTrashButton.setLayoutY(395);
+            storeTrashButton.setOnAction(event -> ItemsController.storeTrash());
+            storeTrashButton.setVisible(false);
+            outerPane.getChildren().add(storeTrashButton);
+
+            butcherButton.setLayoutX(90);
+            butcherButton.setLayoutY(395);
+            butcherButton.setOnAction(event -> ItemsController.butcheringCreature());
+            butcherButton.setVisible(false);
+            outerPane.getChildren().add(butcherButton);
         }
 
         tabPane.getTabs().get(0).setContent(outerPane);
@@ -285,33 +307,38 @@ public class InventoryPanel {
             ItemTypeEnum type = ItemTypeEnum.getItemTypeByCode(selectType);
             pane.getChildren().remove(pane.getChildren().indexOf(sortPriceImage) + 1, pane.getChildren().size());
 
-            items.sort(
-                    descending ? comparator.reversed() : comparator);
-            for (Items items : items) {
-                List<ItemTypeEnum> types = items.getInfo().getTypes();
-                if (types != null && (types.contains(type) || ItemTypeEnum.ALL.equals(type))) {
-                    var itemRecord = new ItemRecord(items, selectType, this);
-                    itemRecord.getPane().setLayoutY(++i * tileSize);
-                    pane.getChildren().add(itemRecord.getPane());
+            if (items != null) {
+                items.sort(
+                        descending ? comparator.reversed() : comparator);
+                for (Items items : items) {
+                    List<ItemTypeEnum> types = items.getInfo().getTypes();
+                    if (types != null && (types.contains(type) || ItemTypeEnum.ALL.equals(type))) {
+                        var itemRecord = new ItemRecord(items, selectType, this);
+                        itemRecord.getPane().setLayoutY(++i * tileSize);
+                        pane.getChildren().add(itemRecord.getPane());
+                    }
                 }
             }
         }
         pane.setMinHeight(40 * (i + 1));
     }
 
-    private void refreshInventory() {
+    public void refreshInventory() {
         drawItems(SortType.NAME, false,
                 tabPane.getSelectionModel().getSelectedItem().getText());
         setWeightText();
         setVolumeText();
     }
 
-    public void show(List<Items> itemsList, int x, int y, ShowModeEnum showMode) {
+    public void show(List<Items> itemsList, int x, int y, ShowModeEnum showMode, String type) {
         this.x = x;
         this.y = y;
         items = itemsList;
         refreshInventory();
         tabPane.setVisible(true);
+        storeTrashButton.setVisible(type.equals("trashCan"));
+        Creature creature = Game.getMap().getPlayer().getInteractCreature();
+        butcherButton.setVisible(type.equals("creature") && creature != null && !creature.isButchering());
         this.showMode = showMode;
     }
 
@@ -350,5 +377,16 @@ public class InventoryPanel {
         } else {
             tabPane.getSelectionModel().select(0);
         }
+    }
+
+    public List<Items> getItems() {
+        if (inventoryType.equals(InventoryTypeEnum.CONTAINER)) {
+            if (items == null) {
+                Player player = Game.getMap().getPlayer();
+                items = new ArrayList<>();
+                Game.getMap().getTiles()[player.getXMapPos() + Game.getContainerInventory().getX()][player.getYMapPos() + Game.getContainerInventory().getY()].setItems(items);
+            }
+        }
+        return items;
     }
 }

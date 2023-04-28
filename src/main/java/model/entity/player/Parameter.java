@@ -11,6 +11,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 public class Parameter implements Serializable {
+    private String strId; // идентификатор параметра
     private Integer realValue; // значение параметра без учета модификаторов
     private Integer currentValue; // текущее значение параметра
     private Integer experience; // опыт до повышения навыка

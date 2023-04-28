@@ -294,6 +294,7 @@ public class MapController {
     // Нужно ли отображать информацию о точке на карте
     private static boolean needShowPointInfo(double x, double y) {
         return Game.getGameMode().equals(GameModeEnum.EDITOR) ||
+                !Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.FOG) ||
                 (Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.FOG) &&
                         tileDistance(Game.getMap().getPlayer(), (((int) x) / tileSize), (((int) y) / tileSize)) < Game.getMap().getCurrentWeather().getValue());
     }
@@ -525,7 +526,7 @@ public class MapController {
         switch (Game.getGameMode()) {
             case GAME:
             case EDITOR: {
-                MapController.onEditorKeyTyped(code);
+                onEditorKeyTyped(code);
                 break;
             }
         }
@@ -546,7 +547,7 @@ public class MapController {
     }
 
     /**
-     * Обработка нажатия кнопки клавиатуры в режиме редактора
+     * Обработка нажатия кнопки клавиатуры
      *
      * @param code - код нажатой кнопки
      */
@@ -675,7 +676,7 @@ public class MapController {
                 break;
             }
             case T: {
-                SelectTimePanel.show(SelectTimePanel.TimeSkipType.WAIT);
+                SelectTimePanel.show(SelectTimePanel.TimeSkipType.WAIT, null);
                 break;
             }
             case E: {
@@ -687,8 +688,14 @@ public class MapController {
                     int y = ((int) (robot.getMousePosition().getY() - Game.getStage().getY() - headerSize) / tileSize);
                     if (isReachable(player, x, y)) {
                         var mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y];
+                        player.setInteractMapPoint(mapCellInfo);
                         List<Items> itemsList = mapCellInfo.getItems();
-                        if (itemsList != null || mapCellInfo.getTile2Type().equals(TileTypeEnum.CONTAINER)) {
+                        if (mapCellInfo.getCreatureId() != null) {
+                            Creature creature = Game.getMap().getCreaturesList().get(mapCellInfo.getCreatureId());
+                            if (!creature.isAlive()) {
+                                Game.getGameMenu().showContainerInventory(creature.getInventory(), x, y, "creature");
+                            }
+                        } else  if (itemsList != null || mapCellInfo.getTile2Type().equals(TileTypeEnum.CONTAINER)) {
                             CharactersController.pickUpItems(itemsList, x, y);
                         } else {
                             CharactersController.interactionWithMap(x, y);
@@ -784,6 +791,14 @@ public class MapController {
     }
 
     /**
+     * Перерисовать тайл, на которой стоит персонаж
+     */
+    public static void drawPlayerTile() {
+        Player player = Game.getMap().getPlayer();
+        drawTile(player, player.getXViewPos(), player.getYViewPos());
+    }
+
+    /**
      * Добавить предмет на карту
      *
      * @param x         - координата тайла по горизонтали
@@ -870,9 +885,11 @@ public class MapController {
             // существа
             if (mapCellInfo.getCreatureId() != null &&
                     showCreature(creaturesList.get(mapCellInfo.getCreatureId()).getCreatureTypeId())) {
-                gc.drawImage(Editor.getCreatures().get(
-                        creaturesList.get(mapCellInfo.getCreatureId()).getCreatureTypeId()).getImage().getImage(),
-                        x * tileSize, y * tileSize);
+                Creature creature = creaturesList.get(mapCellInfo.getCreatureId());
+                Image creatureImage = creature.isButchering() ?
+                        CreaturesController.getRemains().getImage() :
+                        Editor.getCreatures().get(creature.getCreatureTypeId()).getImage().getImage();
+                gc.drawImage(creatureImage, x * tileSize, y * tileSize);
             }
 
             // персонаж игрока

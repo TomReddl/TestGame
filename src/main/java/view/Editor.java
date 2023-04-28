@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.Setter;
 import model.editor.*;
 import model.editor.items.ItemInfo;
+import model.editor.items.RecipeInfo;
 import model.entity.GameModeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.map.WeatherEnum;
@@ -88,6 +89,9 @@ public class Editor {
     private static List<ZoneInfo> zones = JsonUtils.getZones();
     @Setter
     @Getter
+    private static List<RecipeInfo> recipes = JsonUtils.getRecipes();
+    @Setter
+    @Getter
     private static Canvas canvas = new Canvas(screenSizeX, screenSizeY); // размеры игрового окна
     @Setter
     @Getter
@@ -101,6 +105,12 @@ public class Editor {
     private final AlchemyPanel alchemyPanel;
     @Getter
     private final AlchemyLaboratoryPanel alchemyLaboratoryPanel;
+    @Getter
+    private final CombinerPanel combinerPanel;
+    @Getter
+    private final DuplicatorPanel duplicatorPanel;
+    @Getter
+    private final CraftPanel craftPanel;
 
     public Editor() {
         Game.getRoot().getChildren().add(canvas);
@@ -108,6 +118,9 @@ public class Editor {
         drawEditorButtons();
         alchemyPanel = new AlchemyPanel();
         alchemyLaboratoryPanel = new AlchemyLaboratoryPanel();
+        combinerPanel = new CombinerPanel();
+        duplicatorPanel = new DuplicatorPanel();
+        craftPanel = new CraftPanel();
     }
 
     private void drawEditorButtons() {
@@ -440,6 +453,10 @@ public class Editor {
                 tile = new ImageView("/graphics/gui/Delete.png");
             } else {
                 tile = new ImageView("/graphics/pollutions/" + i + ".png");
+                int finalI = (i-1) / 3;
+                int finalIndex = i;
+                tile.setOnMouseEntered(event -> Popover.showPopover(finalIndex + " " + Game.getPollutionsText(String.valueOf(finalI)), tile.getX(), tile.getY() + tileSize));
+                tile.setOnMouseExited(event -> Popover.hidePopover());
             }
             tile.setFitWidth(tileSize);
             tile.setPreserveRatio(true);
@@ -459,6 +476,7 @@ public class Editor {
             pollutions.get(i).setImage(tile);
             pane6.getChildren().add(tile);
         }
+        pane6.setOnMouseEntered(event -> Popover.setPane(pane6));
         scrollPane6.setContent(pane6);
         tabPane.getTabs().get(5).setContent(scrollPane6);
 

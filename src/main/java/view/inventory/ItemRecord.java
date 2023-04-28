@@ -1,8 +1,10 @@
 package view.inventory;
 
+import controller.EffectsController;
 import controller.ItemsController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -15,6 +17,7 @@ import model.editor.items.ClothesInfo;
 import model.editor.items.ItemInfo;
 import model.editor.items.WeaponInfo;
 import model.entity.ItemTypeEnum;
+import model.entity.effects.EffectInfo;
 import model.entity.map.Items;
 import view.Game;
 
@@ -53,7 +56,17 @@ public class ItemRecord {
         pane.setBackground(new Background(new BackgroundFill(
                 ((items.isEquipment()) ? Color.GAINSBORO : Color.WHITESMOKE), CornerRadii.EMPTY, Insets.EMPTY)));
 
-        icon = new ImageView(itemInfo.getIcon().getImage());
+        if (items.getInfo().getTypes().contains(ItemTypeEnum.POTION) && items.getEffects() != null && !items.getEffects().isEmpty()) {
+            EffectInfo effectInfo = EffectsController.getEffects().get(items.getEffects().get(0).getStrId());
+            Image image = EffectsController.getPotionImages().get(effectInfo.getPotionColor());
+            if (image != null) {
+                icon = new ImageView(image);
+            }
+        }
+        if (icon == null) {
+            icon = new ImageView(itemInfo.getIcon().getImage());
+        }
+
         pane.getChildren().add(icon);
 
         if ((itemInfo.getTypes().contains(ItemTypeEnum.WEAPON) || itemInfo.getTypes().contains(ItemTypeEnum.CLOTHES))
