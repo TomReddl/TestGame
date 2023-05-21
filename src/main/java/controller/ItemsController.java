@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.paint.Color;
 import javafx.util.Pair;
 import lombok.Getter;
 import model.editor.items.*;
@@ -32,6 +33,8 @@ public class ItemsController {
     public static final int bottleOfWaterId = 117; // id бутылки с водой
     public static final int biomassId = 120; // идентификатор биомассы
     public static final int mutantIngredientId = 121; // идентификатор мутантного ингредиента
+
+    private static final int defaultTimeToCraft = 20; // дефолтное время крафта
 
     // Виды действий с предметами
     public enum ItemActionType {
@@ -150,6 +153,9 @@ public class ItemsController {
      * @return добавленный предмет, если удалось добавить, null, если не удалось добавить
      */
     public static Items addItem(Items item, int count, List<Items> inventory, Player player) {
+        if (count == 0) {
+            return null;
+        }
         item = new Items(item, count);
         if (!canAddItem(item, inventory, player)) {
             return null;
@@ -253,34 +259,36 @@ public class ItemsController {
      * @return true, если предмет удален
      */
     public static boolean deleteItem(Items item, int count, List<Items> inventory, Player player) {
-        for (Items i : inventory) {
-            if (i.getTypeId() == item.getTypeId()) {
-                if (item.getInfo().getStackable() && count > 0) {
-                    int itemCount = i.getCount() - count;
-                    if (itemCount > 0) {
-                        i.setCount(itemCount);
+        if (item != null) {
+            for (Items i : inventory) {
+                if (i.getTypeId() == item.getTypeId()) {
+                    if (item.getInfo().getStackable() && count > 0) {
+                        int itemCount = i.getCount() - count;
+                        if (itemCount > 0) {
+                            i.setCount(itemCount);
+                        } else {
+                            if (i.isEquipment()) {
+                                ItemsController.equipItem(i, player);
+                            }
+                            i.setCount(0);
+                            inventory.remove(i);
+                        }
                     } else {
                         if (i.isEquipment()) {
                             ItemsController.equipItem(i, player);
                         }
-                        i.setCount(0);
                         inventory.remove(i);
                     }
-                } else {
-                    if (i.isEquipment()) {
-                        ItemsController.equipItem(i, player);
+                    if (player != null) {
+                        player.setCurrentVolume(getCurrVolume(inventory));
+                        player.setCurrentWeight(getCurrWeight(inventory));
                     }
-                    inventory.remove(i);
+                    InventoryPanel.setWeightText();
+                    InventoryPanel.setVolumeText();
+                    InventoryPanel inventoryPanel = player != null ? Game.getInventory() : Game.getContainerInventory();
+                    inventoryPanel.filterInventoryTabs(inventoryPanel.getTabPane().getSelectionModel().getSelectedItem());
+                    return true;
                 }
-                if (player != null) {
-                    player.setCurrentVolume(getCurrVolume(inventory));
-                    player.setCurrentWeight(getCurrWeight(inventory));
-                }
-                InventoryPanel.setWeightText();
-                InventoryPanel.setVolumeText();
-                InventoryPanel inventoryPanel = player != null ? Game.getInventory() : Game.getContainerInventory();
-                inventoryPanel.filterInventoryTabs(inventoryPanel.getTabPane().getSelectionModel().getSelectedItem());
-                return true;
             }
         }
         return false;
@@ -518,15 +526,15 @@ public class ItemsController {
                 Game.showMessage(Game.getText("CANT_COPY_MUTANT"));
             }
         } else {
-            if (item.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES) ||
+            if (item.getInfo().getTypes().contains(ItemTypeEnum.EAT) ||
+                    item.getInfo().getTypes().contains(ItemTypeEnum.POTION) ||
+                    item.getInfo().getTypes().contains(ItemTypeEnum.INGREDIENT)) {
+                eatItem(item, player);
+            } else if (item.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES) ||
                     item.getInfo().getTypes().contains(ItemTypeEnum.WEAPON) ||
                     item.getInfo().getTypes().contains(ItemTypeEnum.TOOL) ||
                     item.getInfo().getTypes().contains(ItemTypeEnum.BOTTLE)) {
                 equipItem(item, player);
-            } else if (item.getInfo().getTypes().contains(ItemTypeEnum.EAT) ||
-                    item.getInfo().getTypes().contains(ItemTypeEnum.POTION) ||
-                    item.getInfo().getTypes().contains(ItemTypeEnum.INGREDIENT)) {
-                eatItem(item, player);
             } else if (item.getInfo().getTypes().contains(ItemTypeEnum.BOOK)) {
                 BookPanel.showBookPanel(item.getTypeId());
             } else if (item.getInfo().getTypes().contains(ItemTypeEnum.CLOCK)) {
@@ -780,5 +788,54 @@ public class ItemsController {
             return QualityGradationEnum.CHEAP;
         }
         return QualityGradationEnum.UNSUCCESSFUL;
+    }
+
+    /**
+     * Создать предмет
+     *
+     * @param recipeInfo- создаваемый предмет
+     * @param player - персонаж, который создает предмет
+     */
+    public static void craftItem(RecipeInfo recipeInfo, Player player) {
+        List<Items> craftElements = getCraftElements(recipeInfo, player);
+        if (craftElements == null) {
+            Game.showMessage(Game.getGameText("NO_ITEMS_TO_CRAFT"));
+        } else {
+            for (Items element : craftElements) {
+                ItemsController.deleteItem(element,
+                        recipeInfo.getElements().get(String.valueOf(element.getTypeId())),
+                        player.getInventory(),
+                        player);
+            }
+            ItemsController.addItem(new Items(recipeInfo.getItemId(), recipeInfo.getItemCount() != null ? recipeInfo.getItemCount() : 1), player.getInventory(), player);
+            Integer exp = recipeInfo.getExp();
+            CharactersController.addSkillExp(recipeInfo.getSkillId(), exp != null ? exp : 10);
+            if (Game.getMap().getPlayer().equals(player)) {
+                Integer timeToCraft = recipeInfo.getTimeToCraft();
+                TimeController.tic(timeToCraft != null ? timeToCraft : defaultTimeToCraft);
+                Game.showMessage(String.format(Game.getGameText("ITEM_CREATED"), Editor.getItems().get(recipeInfo.getItemId()).getName()),
+                        Color.GREEN);
+            }
+        }
+    }
+
+    /**
+     * Получить список ингредиентов, необходимых для крафта
+     *
+     * @param recipeInfo - рецепт
+     * @param player     - персонаж, в инвентаре которого ищем предметы
+     * @return список ингредиентов, или null, если не все ингредиенты есть в инвентаре персонажа
+     */
+    public static List<Items> getCraftElements(RecipeInfo recipeInfo, Player player) {
+        List<Items> craftElements = new ArrayList<>();
+        for (String key : recipeInfo.getElements().keySet()) {
+            var element = ItemsController.findItemInInventory(Integer.parseInt(key), player.getInventory());
+            if (element == null) {
+                return null;
+            } else {
+                craftElements.add(element);
+            }
+        }
+        return craftElements;
     }
 }

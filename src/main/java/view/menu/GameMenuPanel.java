@@ -28,6 +28,8 @@ public class GameMenuPanel {
     @Getter
     private static final TabPane tabPane = new TabPane();
     private static final ImageView closeMenuButton = new ImageView("/graphics/gui/Close.png");
+    @Getter
+    private final Tab effectTab = new Tab(Game.getText("EFFECTS_TAB"));
 
     public GameMenuPanel(Group root) {
         pane.setPrefSize(550, 455);
@@ -59,11 +61,10 @@ public class GameMenuPanel {
         tab.setId("1");
         tabPane.getTabs().add(tab);
 
-        tab = new Tab(Game.getText("EFFECTS_TAB"));
-        tab.setClosable(false);
-        tab.setContent(Game.getEffectsPanel().getPane());
-        tab.setId("2");
-        tabPane.getTabs().add(tab);
+        effectTab.setClosable(false);
+        effectTab.setContent(Game.getEffectsPanel().getPane());
+        effectTab.setId("2");
+        tabPane.getTabs().add(effectTab);
 
         pane.getChildren().add(tabPane);
         root.getChildren().add(pane);

@@ -14,6 +14,7 @@ public class EffectParams {
     private Integer power; // сила эффекта
     private Integer durability; // продолжительность эффекта
     private Items baseItem; // предмет, дающий эффект
+    private EffectTypeEnum type; // тип эффекта
 
     public EffectParams() {
     }

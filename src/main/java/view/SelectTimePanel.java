@@ -96,7 +96,7 @@ public class SelectTimePanel {
         packButton.setLayoutY(40);
         packButton.setLayoutX(210);
         packButton.setVisible(false);
-        packButton.setOnAction(event -> packSleepingBag());
+        packButton.setOnAction(event -> packAndTakeItem());
         pane.getChildren().add(packButton);
     }
 
@@ -114,7 +114,7 @@ public class SelectTimePanel {
             slider.setValue(1);
             pane.setVisible(true);
             String subtype = mapCellInfo.getTile2Info().getParams() != null ? mapCellInfo.getTile2Info().getParams().get("subtype") : "";
-            packButton.setVisible(subtype.equals("sleepingBag"));
+            packButton.setVisible(subtype.equals("packable"));
             mapCell = mapCellInfo;
         }
     }
@@ -135,14 +135,18 @@ public class SelectTimePanel {
     }
 
     /**
-     * Запаковать спальный мешок
+     * Забрать складываемый предмет
      */
-    private static void packSleepingBag() {
+    private static void packAndTakeItem() {
         if (mapCell != null) {
+            var params = mapCell.getTile2Info().getParams();
             mapCell.setTile2Id(0);
             Player player = Game.getMap().getPlayer();
-            ItemsController.addItem(new Items(134, 1), player.getInventory(), player);
-            TimeController.tic(10);
+            var packingItemId = params.get("packingItem");
+            if (packingItemId != null) {
+                ItemsController.addItem(new Items(Integer.parseInt(packingItemId), 1), player.getInventory(), player);
+            }
+            TimeController.tic(params.get("packingTime") != null ? Integer.parseInt(params.get("packingTime")) : 5);
             hide();
         }
     }

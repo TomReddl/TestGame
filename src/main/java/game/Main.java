@@ -46,7 +46,7 @@ public class Main extends Application {
         primaryStage.show();
         Editor.getCanvas().requestFocus();
 
-        CharactersController.setPlayerStartItems(player);
+        CharactersController.setPlayerStartParams(player);
 
         File f = new File("src/main/resources/sound/mainTheme.mp3");
         Media media = new Media(f.toURI().toString());

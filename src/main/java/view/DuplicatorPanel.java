@@ -187,8 +187,8 @@ public class DuplicatorPanel {
         }
     }
 
-    public void showPanel(boolean visible) {
-        pane.setVisible(visible);
+    public void showPanel() {
+        pane.setVisible(true);
         biomass = ItemsController.findItemInInventory(biomassId, Game.getMap().getPlayer().getInventory());
         if (biomass != null) {
             biomassImage.setImage(biomass.getInfo().getIcon().getImage());

@@ -116,7 +116,12 @@
     "id": 18,
     "strength": 500,
     "passability": false,
-    "visibly": true
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "anvil",
+      "level": "1"
+    }
   },
   {
     "id": 19,
@@ -1926,7 +1931,11 @@
     "id": 253,
     "strength": 0,
     "passability": false,
-    "type": "CRAFTING_PLACE"
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "foundry",
+      "level": "1"
+    }
   },
   {
     "id": 254,
@@ -1936,7 +1945,9 @@
     "type": "BED",
     "burn": true,
     "params": {
-      "subtype": "sleepingBag"
+      "subtype": "packable",
+      "packingItem" : "134",
+      "packingTime" : "5"
     }
   },
   {
@@ -1955,7 +1966,12 @@
     "id": 257,
     "strength": 0,
     "passability": false,
-    "visibly": true
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "cookingTable",
+      "level": "0"
+    }
   },
   {
     "id": 258,
@@ -1963,5 +1979,298 @@
     "visibly": true,
     "strength": 100,
     "type": "CONTAINER"
+  },
+  {
+    "id": 259,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "foundry",
+      "level": "2"
+    }
+  },
+  {
+    "id": 260,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "foundry",
+      "level": "3"
+    }
+  },
+  {
+    "id": 261,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "anvil",
+      "level": "2"
+    }
+  },
+  {
+    "id": 262,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "anvil",
+      "level": "3"
+    }
+  },
+  {
+    "id": 263,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "workbench",
+      "level": "1"
+    }
+  },
+  {
+    "id": 264,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "joinersTable",
+      "level": "1"
+    }
+  },
+  {
+    "id": 265,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "joinersTable",
+      "level": "2"
+    }
+  },
+  {
+    "id": 266,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "joinersTable",
+      "level": "3"
+    }
+  },
+  {
+    "id": 267,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "loom",
+      "level": "1"
+    }
+  },
+  {
+    "id": 268,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "loom",
+      "level": "2"
+    }
+  },
+  {
+    "id": 269,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "loom",
+      "level": "3"
+    }
+  },
+  {
+    "id": 270,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "cookingTable",
+      "level": "1"
+    }
+  },
+  {
+    "id": 271,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "cookingTable",
+      "level": "2"
+    }
+  },
+  {
+    "id": 272,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "cookingTable",
+      "level": "3"
+    }
+  },
+  {
+    "id": 273,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "jewelryTable",
+      "level": "1"
+    }
+  },
+  {
+    "id": 274,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "jewelryTable",
+      "level": "2"
+    }
+  },
+  {
+    "id": 275,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "jewelryTable",
+      "level": "3"
+    }
+  },
+  {
+    "id": 276,
+    "strength": 0,
+    "passability": false,
+    "type": "ORE"
+  },
+  {
+    "id": 277,
+    "strength": 0,
+    "passability": false,
+    "type": "ORE"
+  },
+  {
+    "id": 278,
+    "strength": 0,
+    "passability": false,
+    "type": "ORE"
+  },
+  {
+    "id": 279,
+    "strength": 0,
+    "passability": false,
+    "type": "ORE"
+  },
+  {
+    "id": 280,
+    "strength": 0,
+    "passability": false,
+    "type": "ORE"
+  },
+  {
+    "id": 281,
+    "strength": 0,
+    "passability": false,
+    "type": "ORE"
+  },
+  {
+    "id": 282,
+    "strength": 0,
+    "passability": false,
+    "type": "ORE"
+  },
+  {
+    "id": 283,
+    "strength": 0,
+    "passability": false,
+    "type": "ORE"
+  },
+  {
+    "id": 284,
+    "strength": 0,
+    "passability": false,
+    "type": "ORE"
+  },
+  {
+    "id": 285,
+    "strength": 0,
+    "passability": false,
+    "type": "ORE"
+  },
+  {
+    "id": 286,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "engineeringTable",
+      "level": "1"
+    }
+  },
+  {
+    "id": 287,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "engineeringTable",
+      "level": "2"
+    }
+  },
+  {
+    "id": 288,
+    "strength": 0,
+    "passability": false,
+    "visibly": true,
+    "type": "CRAFTING_PLACE",
+    "params": {
+      "subtype": "engineeringTable",
+      "level": "3"
+    }
+  },
+  {
+    "id": 289,
+    "strength": 0,
+    "type": "BED",
+    "burn": true,
+    "passability": false,
+    "visibly": false,
+    "params": {
+      "subtype": "packable",
+      "packingItem" : "165",
+      "packingTime" : "15"
+    }
   }
 ]

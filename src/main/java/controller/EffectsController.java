@@ -6,6 +6,7 @@ import model.editor.items.ItemInfo;
 import model.entity.ItemTypeEnum;
 import model.entity.effects.EffectInfo;
 import model.entity.effects.EffectParams;
+import model.entity.effects.EffectTypeEnum;
 import model.entity.map.Items;
 import model.entity.player.Player;
 import view.Editor;
@@ -115,6 +116,9 @@ public class EffectsController {
 
     /**
      * Применить новые эффекты к персонажу
+     *
+     * @param items  - предмет, эффекты которого применяются
+     * @param player - персонаж
      */
     public static void applyEffects(Items items, Player player) {
         List<EffectParams> effectParams = items.getEffects();
@@ -122,6 +126,7 @@ public class EffectsController {
             player.getAppliedEffects().addAll(effectParams);
             for (EffectParams effect : effectParams) {
                 effect.setBaseItem(items);
+                setEffectType(effect, items);
                 executeEffect(player, effect, true);
             }
             Game.getParams().refreshParamsValueViews(); // перерисовывает параметры персонажа
@@ -130,15 +135,31 @@ public class EffectsController {
     }
 
     /**
+     * Установить тип эффекта
+     * @param effect - эффект
+     * @param item   - предмет
+     */
+    private static void setEffectType(EffectParams effect, Items item) {
+        if (item != null) {
+            if (item.getInfo().getTypes().contains(ItemTypeEnum.POTION)) {
+                effect.setType(EffectTypeEnum.POTION);
+            } else {
+                effect.setType(EffectTypeEnum.ITEM);
+            }
+        }
+    }
+
+    /**
      * Выполнить действие наложенных на персонажа эффектов
      *
-     * @param player
+     * @param player- персонаж
      */
     public static void executeEffects(Player player) {
+        List<EffectParams> removedEffects = new ArrayList<>();
         for (EffectParams effect : player.getAppliedEffects()) {
             if (effect.getBaseItem().getInfo().getTypes().contains(ItemTypeEnum.POTION)) {
-                if (effect.getDurability() > 0) {
-                    removeEffect(player, effect);
+                if (effect.getDurability() < 0) {
+                    removedEffects.add(effect);
                     Game.getParams().refreshParamsValueViews(); // перерисовывает параметры персонажа
                     Game.getEffectsPanel().refreshEffectsPanel();
                 } else {
@@ -147,14 +168,15 @@ public class EffectsController {
                 }
             }
         }
+        removedEffects.forEach(effect -> removeEffect(player, effect));
     }
 
     /**
-     * Выполнить действие эффектов
+     * Выполнить действие эффекта
      *
-     * @param player
-     * @param effect
-     * @param isFirstTime- действие выполняется первый раз. Для многих эффектов не нужно ничего делать после первого применения
+     * @param player      - персонаж
+     * @param effect      - эффект
+     * @param isFirstTime - действие выполняется первый раз. Для многих эффектов не нужно ничего делать после первого применения
      */
     private static void executeEffect(Player player, EffectParams effect, boolean isFirstTime) {
         switch (effect.getStrId()) {
@@ -263,6 +285,143 @@ public class EffectsController {
                 break;
             }
 
+            // увеличение навыков
+            case "HEAVY_WEAPON_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(0).setCurrentValue(
+                            player.getParams().getSkills().get(0).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "HEAVY_ARMOR_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(1).setCurrentValue(
+                            player.getParams().getSkills().get(1).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "FARMING_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(2).setCurrentValue(
+                            player.getParams().getSkills().get(2).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "CARPENTRY_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(3).setCurrentValue(
+                            player.getParams().getSkills().get(3).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "BLOCKING_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(4).setCurrentValue(
+                            player.getParams().getSkills().get(4).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "HAND_COMBAT_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(5).setCurrentValue(
+                            player.getParams().getSkills().get(5).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "BLACKSMITHING_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(6).setCurrentValue(
+                            player.getParams().getSkills().get(6).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "CONSTRUCTION_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(7).setCurrentValue(
+                            player.getParams().getSkills().get(7).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "LIGHT_WEAPON_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(8).setCurrentValue(
+                            player.getParams().getSkills().get(8).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "LIGHT_ARMOR_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(9).setCurrentValue(
+                            player.getParams().getSkills().get(9).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "ARMORLESS_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(10).setCurrentValue(
+                            player.getParams().getSkills().get(10).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "LOCKPICKING_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(11).setCurrentValue(
+                            player.getParams().getSkills().get(11).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "SPEECH_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(12).setCurrentValue(
+                            player.getParams().getSkills().get(12).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "TRADE_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(13).setCurrentValue(
+                            player.getParams().getSkills().get(13).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "COMMAND_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(14).setCurrentValue(
+                            player.getParams().getSkills().get(14).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "LOVE_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(15).setCurrentValue(
+                            player.getParams().getSkills().get(15).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "TRAINING_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(16).setCurrentValue(
+                            player.getParams().getSkills().get(16).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
             case "POTIONS_INC": {
                 if (isFirstTime) {
                     player.getParams().getSkills().get(17).setCurrentValue(
@@ -271,6 +430,249 @@ public class EffectsController {
                 }
                 break;
             }
+            case "MEDICINE_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(18).setCurrentValue(
+                            player.getParams().getSkills().get(18).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "ENGINEERING_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(19).setCurrentValue(
+                            player.getParams().getSkills().get(19).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "MARKSMANSHIP_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(20).setCurrentValue(
+                            player.getParams().getSkills().get(20).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "PICK_POCKET_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(21).setCurrentValue(
+                            player.getParams().getSkills().get(21).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "SNEAK_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(22).setCurrentValue(
+                            player.getParams().getSkills().get(2).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "ANIMAL_HANDLING_INC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(23).setCurrentValue(
+                            player.getParams().getSkills().get(23).getCurrentValue() + effect.getPower()
+                    );
+                }
+                break;
+            }
+
+            // уменьшение навыков
+            case "HEAVY_WEAPON_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(0).setCurrentValue(
+                            player.getParams().getSkills().get(0).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "HEAVY_ARMOR_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(1).setCurrentValue(
+                            player.getParams().getSkills().get(1).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "FARMING_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(2).setCurrentValue(
+                            player.getParams().getSkills().get(2).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "CARPENTRY_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(3).setCurrentValue(
+                            player.getParams().getSkills().get(3).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "BLOCKING_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(4).setCurrentValue(
+                            player.getParams().getSkills().get(4).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "HAND_COMBAT_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(5).setCurrentValue(
+                            player.getParams().getSkills().get(5).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "BLACKSMITHING_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(6).setCurrentValue(
+                            player.getParams().getSkills().get(6).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "CONSTRUCTION_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(7).setCurrentValue(
+                            player.getParams().getSkills().get(7).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "LIGHT_WEAPON_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(8).setCurrentValue(
+                            player.getParams().getSkills().get(8).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "LIGHT_ARMOR_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(9).setCurrentValue(
+                            player.getParams().getSkills().get(9).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "ARMORLESS_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(10).setCurrentValue(
+                            player.getParams().getSkills().get(10).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "LOCKPICKING_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(11).setCurrentValue(
+                            player.getParams().getSkills().get(11).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "SPEECH_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(12).setCurrentValue(
+                            player.getParams().getSkills().get(12).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "TRADE_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(13).setCurrentValue(
+                            player.getParams().getSkills().get(13).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "COMMAND_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(14).setCurrentValue(
+                            player.getParams().getSkills().get(14).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "LOVE_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(15).setCurrentValue(
+                            player.getParams().getSkills().get(15).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "TRAINING_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(16).setCurrentValue(
+                            player.getParams().getSkills().get(16).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "POTIONS_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(17).setCurrentValue(
+                            player.getParams().getSkills().get(17).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "MEDICINE_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(18).setCurrentValue(
+                            player.getParams().getSkills().get(18).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "ENGINEERING_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(19).setCurrentValue(
+                            player.getParams().getSkills().get(19).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "MARKSMANSHIP_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(20).setCurrentValue(
+                            player.getParams().getSkills().get(20).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "PICK_POCKET_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(21).setCurrentValue(
+                            player.getParams().getSkills().get(21).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "SNEAK_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(22).setCurrentValue(
+                            player.getParams().getSkills().get(2).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+            case "ANIMAL_HANDLING_DEC": {
+                if (isFirstTime) {
+                    player.getParams().getSkills().get(23).setCurrentValue(
+                            player.getParams().getSkills().get(23).getCurrentValue() - effect.getPower()
+                    );
+                }
+                break;
+            }
+
             case "EPIPHANY": {
                 if (isFirstTime) {
                     MapController.drawCurrentMap();
@@ -278,20 +680,21 @@ public class EffectsController {
                 break;
             }
         }
-
     }
 
     /**
      * Удалить все эффекты, наложенные предметом
-     * @param items
-     * @param player
+     * @param items  - предмет, эффекты которого нужно удалить
+     * @param player - персонаж
      */
     public static void removeEffects(Items items, Player player) {
+        List<EffectParams> removedEffects = new ArrayList<>();
         for (EffectParams effect : player.getAppliedEffects()) {
             if (effect.getBaseItem().equals(items)) {
-                removeEffect(player, effect);
+                removedEffects.add(effect);
             }
         }
+        removedEffects.forEach(effect -> removeEffect(player, effect));
         Game.getParams().refreshParamsValueViews(); // перерисовывает параметры персонажа
         Game.getEffectsPanel().refreshEffectsPanel();
     }
@@ -380,9 +783,294 @@ public class EffectsController {
                 break;
             }
 
+            // увеличение навыков
+            case "HEAVY_WEAPON_INC": {
+                player.getParams().getSkills().get(0).setCurrentValue(
+                        player.getParams().getSkills().get(0).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "HEAVY_ARMOR_INC": {
+                player.getParams().getSkills().get(1).setCurrentValue(
+                        player.getParams().getSkills().get(1).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "FARMING_INC": {
+                player.getParams().getSkills().get(2).setCurrentValue(
+                        player.getParams().getSkills().get(2).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "CARPENTRY_INC": {
+                player.getParams().getSkills().get(3).setCurrentValue(
+                        player.getParams().getSkills().get(3).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "BLOCKING_INC": {
+                player.getParams().getSkills().get(4).setCurrentValue(
+                        player.getParams().getSkills().get(4).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "HAND_COMBAT_INC": {
+                player.getParams().getSkills().get(5).setCurrentValue(
+                        player.getParams().getSkills().get(5).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "BLACKSMITHING_INC": {
+                player.getParams().getSkills().get(6).setCurrentValue(
+                        player.getParams().getSkills().get(6).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "CONSTRUCTION_INC": {
+                player.getParams().getSkills().get(7).setCurrentValue(
+                        player.getParams().getSkills().get(7).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "LIGHT_WEAPON_INC": {
+                player.getParams().getSkills().get(8).setCurrentValue(
+                        player.getParams().getSkills().get(8).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "LIGHT_ARMOR_INC": {
+                player.getParams().getSkills().get(9).setCurrentValue(
+                        player.getParams().getSkills().get(9).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "ARMORLESS_INC": {
+                player.getParams().getSkills().get(10).setCurrentValue(
+                        player.getParams().getSkills().get(10).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "LOCKPICKING_INC": {
+                player.getParams().getSkills().get(11).setCurrentValue(
+                        player.getParams().getSkills().get(11).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "SPEECH_INC": {
+                player.getParams().getSkills().get(12).setCurrentValue(
+                        player.getParams().getSkills().get(12).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "TRADE_INC": {
+                player.getParams().getSkills().get(13).setCurrentValue(
+                        player.getParams().getSkills().get(13).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "COMMAND_INC": {
+                player.getParams().getSkills().get(14).setCurrentValue(
+                        player.getParams().getSkills().get(14).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "LOVE_INC": {
+                player.getParams().getSkills().get(15).setCurrentValue(
+                        player.getParams().getSkills().get(15).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "TRAINING_INC": {
+                player.getParams().getSkills().get(16).setCurrentValue(
+                        player.getParams().getSkills().get(16).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
             case "POTIONS_INC": {
                 player.getParams().getSkills().get(17).setCurrentValue(
                         player.getParams().getSkills().get(17).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "MEDICINE_INC": {
+                player.getParams().getSkills().get(18).setCurrentValue(
+                        player.getParams().getSkills().get(18).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "ENGINEERING_INC": {
+                player.getParams().getSkills().get(19).setCurrentValue(
+                        player.getParams().getSkills().get(19).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "MARKSMANSHIP_INC": {
+                player.getParams().getSkills().get(20).setCurrentValue(
+                        player.getParams().getSkills().get(20).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "PICK_POCKET_INC": {
+                player.getParams().getSkills().get(21).setCurrentValue(
+                        player.getParams().getSkills().get(21).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "SNEAK_INC": {
+                player.getParams().getSkills().get(22).setCurrentValue(
+                        player.getParams().getSkills().get(22).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+            case "ANIMAL_HANDLING_INC": {
+                player.getParams().getSkills().get(23).setCurrentValue(
+                        player.getParams().getSkills().get(23).getCurrentValue() - effect.getPower()
+                );
+                break;
+            }
+
+            // уменьшение навыков
+            case "HEAVY_WEAPON_DEC": {
+                player.getParams().getSkills().get(0).setCurrentValue(
+                        player.getParams().getSkills().get(0).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "HEAVY_ARMOR_DEC": {
+                player.getParams().getSkills().get(1).setCurrentValue(
+                        player.getParams().getSkills().get(1).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "FARMING_DEC": {
+                player.getParams().getSkills().get(2).setCurrentValue(
+                        player.getParams().getSkills().get(2).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "CARPENTRY_DEC": {
+                player.getParams().getSkills().get(3).setCurrentValue(
+                        player.getParams().getSkills().get(3).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "BLOCKING_DEC": {
+                player.getParams().getSkills().get(4).setCurrentValue(
+                        player.getParams().getSkills().get(4).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "HAND_COMBAT_DEC": {
+                player.getParams().getSkills().get(5).setCurrentValue(
+                        player.getParams().getSkills().get(5).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "BLACKSMITHING_DEC": {
+                player.getParams().getSkills().get(6).setCurrentValue(
+                        player.getParams().getSkills().get(6).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "CONSTRUCTION_DEC": {
+                player.getParams().getSkills().get(7).setCurrentValue(
+                        player.getParams().getSkills().get(7).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "LIGHT_WEAPON_DEC": {
+                player.getParams().getSkills().get(8).setCurrentValue(
+                        player.getParams().getSkills().get(8).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "LIGHT_ARMOR_DEC": {
+                player.getParams().getSkills().get(9).setCurrentValue(
+                        player.getParams().getSkills().get(9).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "ARMORLESS_DEC": {
+                player.getParams().getSkills().get(10).setCurrentValue(
+                        player.getParams().getSkills().get(10).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "LOCKPICKING_DEC": {
+                player.getParams().getSkills().get(11).setCurrentValue(
+                        player.getParams().getSkills().get(11).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "SPEECH_DEC": {
+                player.getParams().getSkills().get(12).setCurrentValue(
+                        player.getParams().getSkills().get(12).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "TRADE_DEC": {
+                player.getParams().getSkills().get(13).setCurrentValue(
+                        player.getParams().getSkills().get(13).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "COMMAND_DEC": {
+                player.getParams().getSkills().get(14).setCurrentValue(
+                        player.getParams().getSkills().get(14).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "LOVE_DEC": {
+                player.getParams().getSkills().get(15).setCurrentValue(
+                        player.getParams().getSkills().get(15).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "TRAINING_DEC": {
+                player.getParams().getSkills().get(16).setCurrentValue(
+                        player.getParams().getSkills().get(16).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "POTIONS_DEC": {
+                player.getParams().getSkills().get(17).setCurrentValue(
+                        player.getParams().getSkills().get(17).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "MEDICINE_DEC": {
+                player.getParams().getSkills().get(18).setCurrentValue(
+                        player.getParams().getSkills().get(18).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "ENGINEERING_DEC": {
+                player.getParams().getSkills().get(19).setCurrentValue(
+                        player.getParams().getSkills().get(19).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "MARKSMANSHIP_DEC": {
+                player.getParams().getSkills().get(20).setCurrentValue(
+                        player.getParams().getSkills().get(20).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "PICK_POCKET_DEC": {
+                player.getParams().getSkills().get(21).setCurrentValue(
+                        player.getParams().getSkills().get(21).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "SNEAK_DEC": {
+                player.getParams().getSkills().get(22).setCurrentValue(
+                        player.getParams().getSkills().get(22).getCurrentValue() + effect.getPower()
+                );
+                break;
+            }
+            case "ANIMAL_HANDLING_DEC": {
+                player.getParams().getSkills().get(23).setCurrentValue(
+                        player.getParams().getSkills().get(23).getCurrentValue() + effect.getPower()
                 );
                 break;
             }

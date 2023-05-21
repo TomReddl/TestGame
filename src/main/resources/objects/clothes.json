@@ -383,5 +383,65 @@
         "power": "5"
       }
     ]
+  },
+  {
+    "id": 166,
+    "weight": "600",
+    "volume": "2000",
+    "price": "400",
+    "stackable": false,
+    "armor": 15,
+    "maxStrength": 150,
+    "skill": 10,
+    "bodyPart": "TORSO",
+    "covering": 20,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"]
+  },
+  {
+    "id": 167,
+    "weight": "600",
+    "volume": "2000",
+    "price": "400",
+    "stackable": false,
+    "armor": 15,
+    "maxStrength": 150,
+    "skill": 10,
+    "bodyPart": "LEGS",
+    "covering": 20,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"]
+  },
+  {
+    "id": 168,
+    "weight": "600",
+    "volume": "2000",
+    "price": "400",
+    "stackable": false,
+    "armor": 15,
+    "maxStrength": 150,
+    "skill": 10,
+    "bodyPart": "HEAD",
+    "covering": 20,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"]
+  },
+  {
+    "id": 169,
+    "weight": "600",
+    "volume": "2000",
+    "price": "400",
+    "stackable": false,
+    "armor": 15,
+    "maxStrength": 150,
+    "skill": 10,
+    "bodyPart": "SHOES",
+    "covering": 20,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"]
   }
 ]

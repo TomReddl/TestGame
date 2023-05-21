@@ -553,18 +553,6 @@
     ]
   },
   {
-    "id": 117,
-    "weight": "100",
-    "volume": "100",
-    "price": "50",
-    "maxStrength": 20,
-    "stackable": true,
-    "types": [
-      "BOTTLE",
-      "COMMON"
-    ]
-  },
-  {
     "id": 126,
     "weight": "100",
     "volume": "100",
@@ -659,6 +647,282 @@
     ],
     "params": {
       "tileId": "255"
+    }
+  },
+  {
+    "id": 138,
+    "weight": "5000",
+    "volume": "1000",
+    "price": "50",
+    "maxStrength": 100,
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 139,
+    "weight": "6000",
+    "volume": "1000",
+    "price": "120",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 140,
+    "weight": "12000",
+    "volume": "1100",
+    "price": "120",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 142,
+    "weight": "6000",
+    "volume": "1000",
+    "price": "120",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 143,
+    "weight": "6000",
+    "volume": "1000",
+    "price": "120",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 144,
+    "weight": "6000",
+    "volume": "1000",
+    "price": "120",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 145,
+    "weight": "6000",
+    "volume": "1000",
+    "price": "120",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 146,
+    "weight": "6000",
+    "volume": "1000",
+    "price": "120",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 147,
+    "weight": "6000",
+    "volume": "1000",
+    "price": "120",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 148,
+    "weight": "6000",
+    "volume": "1000",
+    "price": "120",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 149,
+    "weight": "6000",
+    "volume": "1000",
+    "price": "120",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 150,
+    "weight": "6000",
+    "volume": "1000",
+    "price": "120",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 151,
+    "weight": "6000",
+    "volume": "1000",
+    "price": "120",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 152,
+    "weight": "6000",
+    "volume": "1000",
+    "price": "120",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 153,
+    "weight": "6000",
+    "volume": "1000",
+    "price": "120",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 154,
+    "weight": "6000",
+    "volume": "1000",
+    "price": "120",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 155,
+    "weight": "10000",
+    "volume": "1500",
+    "price": "50",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 156,
+    "weight": "10000",
+    "volume": "1500",
+    "price": "50",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 157,
+    "weight": "10000",
+    "volume": "1500",
+    "price": "50",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 158,
+    "weight": "5000",
+    "volume": "1500",
+    "price": "10",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 159,
+    "weight": "10000",
+    "volume": "1500",
+    "price": "50",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 160,
+    "weight": "10000",
+    "volume": "1500",
+    "price": "50",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 161,
+    "weight": "10000",
+    "volume": "1500",
+    "price": "50",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 162,
+    "weight": "10000",
+    "volume": "1500",
+    "price": "50",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 163,
+    "weight": "10000",
+    "volume": "1500",
+    "price": "50",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 164,
+    "weight": "10000",
+    "volume": "1500",
+    "price": "50",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 165,
+    "weight": "5000",
+    "volume": "12000",
+    "price": "400",
+    "maxStrength": 100,
+    "stackable": true,
+    "types": [
+      "COMMON",
+      "FOLDABLE"
+    ],
+    "params": {
+      "tileId": "289"
     }
   }
 ]

@@ -1,12 +1,248 @@
-[{
-  "recipeId": 1,
-  "itemId": 120,
-  "craftingPlace": "800",
-  "level": 1,
-  "timeToCraft": 60,
-  "elements": {
-    "1": 1,
-    "2": 2,
-    "3": 3
+[
+  {
+    "recipeId": 1,
+    "itemId": 138,
+    "craftingPlace": "foundry",
+    "level": 1,
+    "skillId": 6,
+    "timeToCraft": 30,
+    "group": "well-known",
+    "elements": {
+      "33": 1
+    }
+  },
+  {
+    "recipeId": 2,
+    "itemId": 139,
+    "craftingPlace": "foundry",
+    "level": 2,
+    "skillId": 6,
+    "timeToCraft": 40,
+    "group": "well-known",
+    "exp": 20,
+    "elements": {
+      "140": 1
+    }
+  },
+  {
+    "recipeId": 3,
+    "itemId": 141,
+    "craftingPlace": "cookingTable",
+    "level": 0,
+    "skillId": 6,
+    "timeToCraft": 20,
+    "group": "well-known",
+    "exp": 5,
+    "elements": {
+      "131": 1
+    }
+  },
+  {
+    "recipeId": 4,
+    "itemId": 142,
+    "craftingPlace": "foundry",
+    "level": 2,
+    "skillId": 6,
+    "timeToCraft": 30,
+    "group": "well-known",
+    "elements": {
+      "159": 1
+    }
+  },
+  {
+    "recipeId": 5,
+    "itemId": 143,
+    "craftingPlace": "foundry",
+    "level": 2,
+    "skillId": 6,
+    "timeToCraft": 30,
+    "group": "well-known",
+    "elements": {
+      "160": 1
+    }
+  },
+  {
+    "recipeId": 6,
+    "itemId": 144,
+    "craftingPlace": "foundry",
+    "level": 1,
+    "skillId": 6,
+    "timeToCraft": 30,
+    "group": "well-known",
+    "elements": {
+      "155": 1
+    }
+  },
+  {
+    "recipeId": 7,
+    "itemId": 145,
+    "craftingPlace": "foundry",
+    "level": 1,
+    "skillId": 6,
+    "timeToCraft": 30,
+    "group": "well-known",
+    "elements": {
+      "156": 1
+    }
+  },
+  {
+    "recipeId": 8,
+    "itemId": 146,
+    "craftingPlace": "foundry",
+    "level": 3,
+    "skillId": 6,
+    "timeToCraft": 30,
+    "group": "well-known",
+    "elements": {
+      "161": 1
+    }
+  },
+  {
+    "recipeId": 9,
+    "itemId": 147,
+    "craftingPlace": "foundry",
+    "level": 3,
+    "skillId": 6,
+    "timeToCraft": 30,
+    "group": "well-known",
+    "elements": {
+      "162": 1
+    }
+  },
+  {
+    "recipeId": 10,
+    "itemId": 148,
+    "craftingPlace": "foundry",
+    "level": 3,
+    "skillId": 6,
+    "timeToCraft": 30,
+    "group": "well-known",
+    "elements": {
+      "163": 1
+    }
+  },
+  {
+    "recipeId": 11,
+    "itemId": 149,
+    "craftingPlace": "foundry",
+    "level": 3,
+    "skillId": 6,
+    "timeToCraft": 30,
+    "group": "well-known",
+    "elements": {
+      "161": 1,
+      "164": 1
+    }
+  },
+  {
+    "recipeId": 12,
+    "itemId": 150,
+    "craftingPlace": "foundry",
+    "level": 3,
+    "skillId": 6,
+    "timeToCraft": 30,
+    "group": "well-known",
+    "elements": {
+      "162": 1,
+      "164": 1
+    }
+  },
+  {
+    "recipeId": 13,
+    "itemId": 151,
+    "craftingPlace": "foundry",
+    "level": 3,
+    "skillId": 6,
+    "timeToCraft": 30,
+    "group": "well-known",
+    "elements": {
+      "163": 1,
+      "164": 1
+    }
+  },
+  {
+    "recipeId": 14,
+    "itemId": 153,
+    "craftingPlace": "foundry",
+    "level": 1,
+    "skillId": 6,
+    "timeToCraft": 30,
+    "group": "well-known",
+    "elements": {
+      "157": 1
+    }
+  },
+  {
+    "recipeId": 15,
+    "itemId": 154,
+    "craftingPlace": "foundry",
+    "level": 3,
+    "skillId": 6,
+    "timeToCraft": 30,
+    "group": "well-known",
+    "elements": {
+      "164": 1
+    }
+  },
+  {
+    "recipeId": 16,
+    "itemId": 152,
+    "craftingPlace": "foundry",
+    "level": 1,
+    "skillId": 6,
+    "timeToCraft": 30,
+    "group": "well-known",
+    "elements": {
+      "33": 1,
+      "158": 1
+    }
+  },
+  {
+    "recipeId": 17,
+    "itemId": 166,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": 6,
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "139": 12
+    }
+  },
+  {
+    "recipeId": 18,
+    "itemId": 167,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": 6,
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "139": 8
+    }
+  },
+  {
+    "recipeId": 19,
+    "itemId": 168,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": 6,
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "139": 6
+    }
+  },
+  {
+    "recipeId": 20,
+    "itemId": 169,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": 6,
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "139": 6
+    }
   }
-}]
+]

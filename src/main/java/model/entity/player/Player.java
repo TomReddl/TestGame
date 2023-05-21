@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import model.editor.items.BodyPartEnum;
 import model.editor.items.ClothesStyleEnum;
+import model.editor.items.RecipeInfo;
 import model.entity.DirectionEnum;
 import model.entity.effects.EffectParams;
 import model.entity.map.Creature;
@@ -65,6 +66,8 @@ public class Player implements Serializable {
 
     @JsonProperty("appliedEffects")
     private List<EffectParams> appliedEffects; // примененные эффекты
+
+    private List<Integer> knowledgeRecipes = new ArrayList<>(); // известные персонажу рецепты крафта
 
     @JsonIgnore
     @Getter

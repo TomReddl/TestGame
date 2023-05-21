@@ -158,7 +158,7 @@ public class AlchemyLaboratoryPanel {
         }
     }
 
-    public void showPanel(boolean visible) {
-        pane.setVisible(visible);
+    public void showPanel() {
+        pane.setVisible(true);
     }
 }

@@ -90,5 +90,6 @@ public class EffectsPanel {
             itemRecord.getPane().setLayoutY(++i * tileSize);
             innerPane.getChildren().add(itemRecord.getPane());
         }
+        Game.getGameMenu().getEffectTab().setDisable(Game.getMap().getPlayer().getAppliedEffects().isEmpty());
     }
 }

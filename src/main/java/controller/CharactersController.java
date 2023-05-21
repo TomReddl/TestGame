@@ -294,19 +294,19 @@ public class CharactersController {
                     break;
                 }
                 case ALCHEMY_LABORATORY: {
-                    Game.getEditor().getAlchemyLaboratoryPanel().showPanel(true);
+                    Game.getEditor().getAlchemyLaboratoryPanel().showPanel();
                     break;
                 }
                 case INGREDIENTS_COMBINER: {
-                    Game.getEditor().getCombinerPanel().showPanel(true);
+                    Game.getEditor().getCombinerPanel().showPanel();
                     break;
                 }
                 case DUPLICATOR: {
-                    Game.getEditor().getDuplicatorPanel().showPanel(true);
+                    Game.getEditor().getDuplicatorPanel().showPanel();
                     break;
                 }
                 case CRAFTING_PLACE: {
-                    Game.getEditor().getCraftPanel().showPanel(true);
+                    Game.getEditor().getCraftPanel().showPanel(tileInfo);
                     break;
                 }
             }
@@ -672,11 +672,15 @@ public class CharactersController {
     }
 
     /**
-     * Добавить в инвентарь персонажа стартовые предметы
+     * Устанавливает стартовые настройки персонажа (знания и предметы в инвентаре)
      *
      * @param player - персонаж
      */
-    public static void setPlayerStartItems(Player player) {
+    public static void setPlayerStartParams(Player player) {
+        player.getKnowledgeRecipes().add(1);
+        player.getKnowledgeRecipes().add(2);
+        player.getKnowledgeRecipes().add(3);
+
         ItemsController.addItem(new Items(1, 2), player.getInventory(), player);
         ItemsController.addItem(new Items(3, 1), player.getInventory(), player);
         ItemsController.addItem(new Items(11, 10), player.getInventory(), player);
