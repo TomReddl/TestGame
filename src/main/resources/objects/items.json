@@ -924,5 +924,45 @@
     "params": {
       "tileId": "289"
     }
+  },
+  {
+    "id": 170,
+    "weight": "10000",
+    "volume": "18000",
+    "price": "500",
+    "stackable": true,
+    "burn": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 171,
+    "weight": "10000",
+    "volume": "5000",
+    "price": "20",
+    "stackable": true,
+    "burn": false,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 172,
+    "weight": "5000",
+    "volume": "8000",
+    "price": "400",
+    "stackable": false,
+    "maxStrength": 100,
+    "types": ["METAL_DETECTOR", "TOOL"]
+  },
+  {
+    "id": 173,
+    "weight": "7000",
+    "volume": "10000",
+    "price": "800",
+    "stackable": false,
+    "maxStrength": 100,
+    "types": ["METAL_DETECTOR", "TOOL"]
   }
 ]

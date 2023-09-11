@@ -34,6 +34,7 @@ public enum ItemTypeEnum {
     WATERING_CAN(Game.getText("WATERING_CAN")), // Лейки
     BOTTLE(Game.getText("BOTTLE")), // Бутылка
     BROOM(Game.getText("BROOM")), // Метла
+    METAL_DETECTOR(Game.getText("METAL_DETECTOR")), // Металлоискатель
     CLOCK(Game.getText("CLOCK")), // Часы
     FOLDABLE(Game.getText("FOLDABLE")); // Раскладываемый
 

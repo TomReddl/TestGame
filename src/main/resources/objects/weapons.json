@@ -7,6 +7,7 @@
     "stackable": false,
     "damage": 15,
     "maxStrength": 100,
+    "damageType": "CUTTING_DAMAGE",
     "skill": 8,
     "oneHand": true,
     "types": ["WEAPON"]
@@ -19,6 +20,7 @@
     "stackable": false,
     "damage": 5,
     "maxStrength": 70,
+    "damageType": "CUTTING_DAMAGE",
     "skill": 8,
     "oneHand": true,
     "types": ["WEAPON"]
@@ -31,6 +33,7 @@
     "stackable": false,
     "damage": 25,
     "maxStrength": 160,
+    "damageType": "CUTTING_DAMAGE",
     "skill": 0,
     "oneHand": false,
     "types": ["WEAPON"]
@@ -43,6 +46,7 @@
     "stackable": false,
     "damage": 25,
     "maxStrength": 160,
+    "damageType": "CRUSHING_DAMAGE",
     "skill": 0,
     "oneHand": false,
     "types": ["WEAPON"]
@@ -68,6 +72,7 @@
     "stackable": false,
     "damage": 23,
     "maxStrength": 100,
+    "damageType": "CRUSHING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "PICKAXE"]
@@ -80,6 +85,7 @@
     "stackable": false,
     "damage": 28,
     "maxStrength": 150,
+    "damageType": "CRUSHING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "PICKAXE"]
@@ -92,6 +98,7 @@
     "stackable": false,
     "damage": 32,
     "maxStrength": 250,
+    "damageType": "CRUSHING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "PICKAXE"]
@@ -104,6 +111,7 @@
     "stackable": false,
     "damage": 38,
     "maxStrength": 400,
+    "damageType": "CRUSHING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "PICKAXE"]
@@ -116,6 +124,7 @@
     "stackable": false,
     "damage": 45,
     "maxStrength": 800,
+    "damageType": "CRUSHING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "PICKAXE"]
@@ -128,6 +137,7 @@
     "stackable": false,
     "damage": 28,
     "maxStrength": 100,
+    "damageType": "CRUSHING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "AXE"]
@@ -140,6 +150,7 @@
     "stackable": false,
     "damage": 32,
     "maxStrength": 150,
+    "damageType": "CRUSHING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "AXE"]
@@ -152,6 +163,7 @@
     "stackable": false,
     "damage": 38,
     "maxStrength": 250,
+    "damageType": "CRUSHING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "AXE"]
@@ -164,6 +176,7 @@
     "stackable": false,
     "damage": 45,
     "maxStrength": 400,
+    "damageType": "CRUSHING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "AXE"]
@@ -176,6 +189,7 @@
     "stackable": false,
     "damage": 50,
     "maxStrength": 800,
+    "damageType": "CRUSHING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "AXE"]
@@ -188,6 +202,7 @@
     "stackable": false,
     "damage": 12,
     "maxStrength": 100,
+    "damageType": "CRUSHING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "SHOVEL"]
@@ -200,6 +215,7 @@
     "stackable": false,
     "damage": 16,
     "maxStrength": 140,
+    "damageType": "CRUSHING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "SHOVEL"]
@@ -212,6 +228,7 @@
     "stackable": false,
     "damage": 22,
     "maxStrength": 200,
+    "damageType": "CRUSHING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "SHOVEL"]
@@ -224,6 +241,7 @@
     "stackable": false,
     "damage": 20,
     "maxStrength": 100,
+    "damageType": "CUTTING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "SCYTHE"]
@@ -236,6 +254,7 @@
     "stackable": false,
     "damage": 24,
     "maxStrength": 140,
+    "damageType": "CUTTING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "SCYTHE"]
@@ -248,6 +267,7 @@
     "stackable": false,
     "damage": 28,
     "maxStrength": 200,
+    "damageType": "CUTTING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "SCYTHE"]
@@ -260,6 +280,7 @@
     "stackable": false,
     "damage": 5,
     "maxStrength": 800,
+    "damageType": "CRUSHING_DAMAGE",
     "skill": 8,
     "oneHand": false,
     "types": ["WEAPON", "BROOM"]
@@ -272,6 +293,7 @@
     "stackable": false,
     "damage": 8,
     "maxStrength": 5,
+    "damageType": "CUTTING_DAMAGE",
     "skill": 8,
     "oneHand": true,
     "fragile": true,

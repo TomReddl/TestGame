@@ -147,7 +147,16 @@ public class BattleController {
                 if (damageType.equals(DamageTypeEnum.FIRE_DAMAGE)) {
                     mapCellInfo.setTile2Id(0);
                 } else {
-                    mapCellInfo.setTile2Id(150); // обломки
+                    String tileType = mapCellInfo.getTile2Info().getType();
+                    if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.WOOD)) {
+                        mapCellInfo.setTile2Id(3); // пень
+                    } else if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.ORE)) {
+                        mapCellInfo.setTile2Id(241); // скала
+                    } else if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CROPS)) {
+                        mapCellInfo.setTile2Id(Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("harvestedId"))); // для урожая берем то, что указано в параметрах
+                    } else {
+                        mapCellInfo.setTile2Id(150); // обломки
+                    }
                 }
             }
         } else if (mapCellInfo.getTile1Info().getStrength() > 0) {

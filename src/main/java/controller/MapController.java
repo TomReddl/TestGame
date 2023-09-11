@@ -35,6 +35,7 @@ import static game.GameParams.*;
  */
 public class MapController {
     private static final ImageView bag = new ImageView("/graphics/items/bag.png");
+    private static final ImageView ore = new ImageView("/graphics/gui/ore.png");
     private static final ImageView dark = new ImageView("/graphics/tiles/Dark.png");
     @Getter
     private static final int dugUpGroundId = 109; // вскопанная земля
@@ -796,6 +797,28 @@ public class MapController {
     public static void drawPlayerTile() {
         Player player = Game.getMap().getPlayer();
         drawTile(player, player.getXViewPos(), player.getYViewPos());
+    }
+
+    /**
+     * Отрисовать руду при подстветке металлоискателем
+     */
+    public static void drawOres(int itemId) {
+        var player = Game.getMap().getPlayer();
+        GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
+        for (int x = 0; x < viewSize; x++) {
+            for (int y = 0; y < viewSize; y++) {
+                TileInfo tileInfo = Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y].getTile2Info();
+                if (tileInfo.getType() != null && TileTypeEnum.valueOf(tileInfo.getType()).equals(TileTypeEnum.ORE)) {
+                    if (itemId == 173) { // улучшенный металлоискатель показывает тип руды
+                        gc.drawImage(tileInfo.getImage().getImage(),
+                                x * tileSize, y * tileSize);
+                    } else { // обычный металлоискатель показывает только само наличие руды
+                        gc.drawImage(ore.getImage(),
+                                x * tileSize, y * tileSize);
+                    }
+                }
+            }
+        }
     }
 
     /**

@@ -26,30 +26,35 @@
   {
     "id": 4,
     "strength": 120,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 5,
     "strength": 120,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 6,
     "strength": 90,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 7,
     "strength": 90,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 8,
     "strength": 90,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
@@ -68,6 +73,7 @@
   {
     "id": 11,
     "strength": 110,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
@@ -658,85 +664,99 @@
   },
   {
     "id": 93,
-    "strength": 0,
+    "strength": 100,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 94,
-    "strength": 0,
+    "strength": 100,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 95,
     "strength": 160,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 96,
-    "strength": 0,
+    "strength": 100,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 97,
-    "strength": 0,
+    "strength": 100,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 98,
-    "strength": 0,
+    "strength": 100,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 99,
-    "strength": 0,
+    "strength": 100,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 100,
-    "strength": 0,
+    "strength": 100,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 101,
-    "strength": 0,
+    "strength": 100,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 102,
-    "strength": 0,
+    "strength": 100,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 103,
-    "strength": 0,
+    "strength": 100,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 104,
-    "strength": 0,
+    "strength": 100,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 105,
-    "strength": 0,
+    "strength": 100,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
   {
     "id": 106,
-    "strength": 0,
+    "strength": 100,
+    "type": "WOOD",
     "burn": true,
     "passability": false
   },
@@ -1478,9 +1498,9 @@
   },
   {
     "id": 210,
-    "strength": 0,
+    "strength": 50,
     "passability": true,
-    "type": "PLANT",
+    "type": "CROPS",
     "params": {
       "harvestedId": "0",
       "harvestId": "95",
@@ -1522,9 +1542,9 @@
   },
   {
     "id": 214,
-    "strength": 0,
+    "strength": 50,
     "passability": true,
-    "type": "PLANT",
+    "type": "CROPS",
     "params": {
       "harvestedId": "0",
       "harvestId": "96",
@@ -1831,14 +1851,20 @@
   },
   {
     "id": 242,
-    "strength": 0,
+    "strength": 250,
     "passability": false,
+    "params": {
+      "ore" : "33"
+    },
     "type": "ORE"
   },
   {
     "id": 243,
-    "strength": 0,
+    "strength": 250,
     "passability": false,
+    "params": {
+      "ore" : "158"
+    },
     "type": "ORE"
   },
   {
@@ -2169,62 +2195,92 @@
   },
   {
     "id": 276,
-    "strength": 0,
+    "strength": 250,
     "passability": false,
+    "params": {
+      "ore" : "155"
+    },
     "type": "ORE"
   },
   {
     "id": 277,
-    "strength": 0,
+    "strength": 250,
     "passability": false,
+    "params": {
+      "ore" : "156"
+    },
     "type": "ORE"
   },
   {
     "id": 278,
-    "strength": 0,
+    "strength": 250,
     "passability": false,
+    "params": {
+      "ore" : "157"
+    },
     "type": "ORE"
   },
   {
     "id": 279,
-    "strength": 0,
+    "strength": 250,
     "passability": false,
+    "params": {
+      "ore" : "140"
+    },
     "type": "ORE"
   },
   {
     "id": 280,
-    "strength": 0,
+    "strength": 250,
     "passability": false,
+    "params": {
+      "ore" : "159"
+    },
     "type": "ORE"
   },
   {
     "id": 281,
-    "strength": 0,
+    "strength": 250,
     "passability": false,
+    "params": {
+      "ore" : "160"
+    },
     "type": "ORE"
   },
   {
     "id": 282,
-    "strength": 0,
+    "strength": 250,
     "passability": false,
+    "params": {
+      "ore" : "161"
+    },
     "type": "ORE"
   },
   {
     "id": 283,
-    "strength": 0,
+    "strength": 250,
     "passability": false,
+    "params": {
+      "ore" : "162"
+    },
     "type": "ORE"
   },
   {
     "id": 284,
-    "strength": 0,
+    "strength": 250,
     "passability": false,
+    "params": {
+      "ore" : "163"
+    },
     "type": "ORE"
   },
   {
     "id": 285,
-    "strength": 0,
+    "strength": 250,
     "passability": false,
+    "params": {
+      "ore" : "164"
+    },
     "type": "ORE"
   },
   {
@@ -2272,5 +2328,48 @@
       "packingItem" : "165",
       "packingTime" : "15"
     }
+  },
+  {
+    "id": 290,
+    "strength": 100,
+    "type": "WOOD",
+    "passability": false,
+    "burn": true,
+    "visibly": false,
+    "params": {
+      "wood" : "170"
+    }
+  },
+  {
+    "id": 291,
+    "strength": 100,
+    "type": "WOOD",
+    "passability": false,
+    "burn": true,
+    "visibly": false
+  },
+  {
+    "id": 292,
+    "strength": 100,
+    "type": "WOOD",
+    "passability": false,
+    "burn": true,
+    "visibly": false
+  },
+  {
+    "id": 293,
+    "strength": 100,
+    "type": "WOOD",
+    "passability": false,
+    "burn": true,
+    "visibly": false
+  },
+  {
+    "id": 294,
+    "strength": 100,
+    "type": "WOOD",
+    "passability": false,
+    "burn": true,
+    "visibly": false
   }
 ]

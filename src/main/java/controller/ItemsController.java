@@ -33,6 +33,8 @@ public class ItemsController {
     public static final int bottleOfWaterId = 117; // id бутылки с водой
     public static final int biomassId = 120; // идентификатор биомассы
     public static final int mutantIngredientId = 121; // идентификатор мутантного ингредиента
+    public static final int woodId = 5; // идентификатор обычной древесины
+    public static final int stoneId = 171; // идентификатор камня
 
     private static final int defaultTimeToCraft = 20; // дефолтное время крафта
 
