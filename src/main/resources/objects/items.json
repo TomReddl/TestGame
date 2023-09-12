@@ -964,5 +964,14 @@
     "stackable": false,
     "maxStrength": 100,
     "types": ["METAL_DETECTOR", "TOOL"]
+  },
+  {
+    "id": 174,
+    "weight": "2000",
+    "volume": "3000",
+    "price": "200",
+    "stackable": false,
+    "maxStrength": 100,
+    "types": ["ECHOLOCATOR", "TOOL"]
   }
 ]

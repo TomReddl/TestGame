@@ -35,6 +35,7 @@ public enum ItemTypeEnum {
     BOTTLE(Game.getText("BOTTLE")), // Бутылка
     BROOM(Game.getText("BROOM")), // Метла
     METAL_DETECTOR(Game.getText("METAL_DETECTOR")), // Металлоискатель
+    ECHOLOCATOR(Game.getText("ECHOLOCATOR")), // Эхолокатор
     CLOCK(Game.getText("CLOCK")), // Часы
     FOLDABLE(Game.getText("FOLDABLE")); // Раскладываемый
 

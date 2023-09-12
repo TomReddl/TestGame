@@ -29,6 +29,8 @@ public class MapCellInfo implements Serializable {
     private Integer creatureId; // если на тайле стоит существо, здесь отображается его id
     private List<Items> items; // лежащие на тайле предметы
     private String desc; // кастомное описание тайла
+    private int x; // координата x на карте мира
+    private int y; // координата y на карте мира
 
     public MapCellInfo(MapCellInfo oldInfo) {
         this.tile1Id = oldInfo.getTile1Id();
@@ -42,6 +44,8 @@ public class MapCellInfo implements Serializable {
         this.creatureId = oldInfo.getCreatureId();
         this.items = oldInfo.getItems();
         this.desc = oldInfo.getDesc();
+        this.x = oldInfo.getX();
+        this.y = oldInfo.getY();
     }
 
     /**

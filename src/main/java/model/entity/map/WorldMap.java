@@ -41,6 +41,8 @@ public class WorldMap implements Serializable {
                 var taleInfo = new MapCellInfo();
                 taleInfo.setTile1Id(0);
                 taleInfo.setTile2Id(0);
+                taleInfo.setX(i);
+                taleInfo.setY(j);
                 tiles[i][j] = taleInfo;
             }
         }

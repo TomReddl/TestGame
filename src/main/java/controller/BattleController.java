@@ -10,6 +10,7 @@ import model.entity.map.Creature;
 import model.entity.map.Items;
 import model.entity.map.MapCellInfo;
 import model.entity.player.Player;
+import view.Editor;
 import view.Game;
 import view.menu.MainMenu;
 
@@ -150,12 +151,18 @@ public class BattleController {
                     String tileType = mapCellInfo.getTile2Info().getType();
                     if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.WOOD)) {
                         mapCellInfo.setTile2Id(3); // пень
+                        mapCellInfo.setTile2Strength(Editor.getTiles2().get(3).getStrength());
                     } else if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.ORE)) {
                         mapCellInfo.setTile2Id(241); // скала
+                        mapCellInfo.setTile2Strength(Editor.getTiles2().get(241).getStrength());
                     } else if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CROPS)) {
                         mapCellInfo.setTile2Id(Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("harvestedId"))); // для урожая берем то, что указано в параметрах
+                    } else if (mapCellInfo.getTile2Id() == 241) {
+                        MapController.addItemOnMap(mapCellInfo.getX(), mapCellInfo.getY(), new Items(ItemsController.stoneId, 10));
+                        mapCellInfo.setTile2Id(0);
                     } else {
                         mapCellInfo.setTile2Id(150); // обломки
+                        mapCellInfo.setTile2Strength(Editor.getTiles2().get(150).getStrength());
                     }
                 }
             }
@@ -167,6 +174,7 @@ public class BattleController {
                     mapCellInfo.setTile1Id(MapController.getBurntGround());
                 } else {
                     mapCellInfo.setTile1Id(37); // руины
+                    mapCellInfo.setTile1Strength(Editor.getTiles1().get(37).getStrength());
                 }
             }
         } else if (mapCellInfo.getTile2Info().getStrength() == 0 && mapCellInfo.getTile2Info().isBurn() &&

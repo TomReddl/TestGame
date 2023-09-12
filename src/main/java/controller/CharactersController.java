@@ -69,6 +69,8 @@ public class CharactersController {
         var tileY = (((int) y) / tileSize);
         var player = Game.getMap().getPlayer();
         var showOres = false;
+        var showEmptiness = false;
+        var applyDamage = false;
         if (MapController.isReachable(player, tileX, tileY)) {
             MapCellInfo mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + tileX]
                     [player.getYMapPos() + tileY];
@@ -90,6 +92,8 @@ public class CharactersController {
                     }
                 } else if (itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.METAL_DETECTOR)) { // если в руках металлоискатель
                     showOres = true;
+                } else if (itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.ECHOLOCATOR)) { // если в руках эхолокатор
+                    showEmptiness = true;
                 }
             } else if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.AXE)) { // если в руках топор
                 String tileType = mapCellInfo.getTile2Info().getType();
@@ -100,6 +104,7 @@ public class CharactersController {
 
                     BattleController.applyDamageToMapCell(mapCellInfo, ((WeaponInfo) itemInRightHand.getInfo()).getDamage(),
                             DamageTypeEnum.valueOf(((WeaponInfo) itemInRightHand.getInfo()).getDamageType()));
+                    applyDamage = true;
                     tileType = mapCellInfo.getTile2Info().getType();
                     if (tileType == null || !TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.WOOD)) {
                         ItemsController.addItem(new Items(woodId, 2), player.getInventory(), player); // если срубили дерево, добавляем бревна в инвентарь
@@ -114,6 +119,7 @@ public class CharactersController {
 
                     BattleController.applyDamageToMapCell(mapCellInfo, ((WeaponInfo) itemInRightHand.getInfo()).getDamage(),
                             DamageTypeEnum.valueOf(((WeaponInfo) itemInRightHand.getInfo()).getDamageType()));
+                    applyDamage = true;
                     tileType = mapCellInfo.getTile2Info().getType();
                     if (tileType == null || !TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.ORE)) {
                         ItemsController.addItem(new Items(oreId, 5), player.getInventory(), player); // если добыли руду, добавляем ее в инвентарь
@@ -127,11 +133,17 @@ public class CharactersController {
 
                     BattleController.applyDamageToMapCell(mapCellInfo, ((WeaponInfo) itemInRightHand.getInfo()).getDamage(),
                             DamageTypeEnum.valueOf(((WeaponInfo) itemInRightHand.getInfo()).getDamageType()));
+                    applyDamage = true;
                     tileType = mapCellInfo.getTile2Info().getType();
                     if (tileType == null || !TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CROPS)) {
                         ItemsController.addItem(new Items(harvestId, harvestCount), player.getInventory(), player); // если скосили посевы, добавляем в инвентарь
                     }
                 }
+            }
+
+            if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.WEAPON) && !applyDamage) { // если в руках оружие
+                BattleController.applyDamageToMapCell(mapCellInfo, ((WeaponInfo) itemInRightHand.getInfo()).getDamage(),
+                        DamageTypeEnum.valueOf(((WeaponInfo) itemInRightHand.getInfo()).getDamageType()));
             }
             MapController.drawTile(player, tileX, tileY);
             if (mapCellInfo.getCreatureId() != null) {
@@ -143,6 +155,9 @@ public class CharactersController {
             TimeController.tic(true); // нажатие на карту занимает 1 тик
             if (showOres) {
                 MapController.drawOres(itemInRightHand.getInfo().getId());
+            }
+            if (showEmptiness) {
+                MapController.drawEmptiness();
             }
         }
     }

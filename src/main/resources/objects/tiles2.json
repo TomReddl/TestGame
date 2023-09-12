@@ -1532,7 +1532,7 @@
   },
   {
     "id": 213,
-    "strength": 0,
+    "strength": 50,
     "passability": true,
     "type": "PLANT",
     "params": {
@@ -1846,7 +1846,7 @@
   },
   {
     "id": 241,
-    "strength": 0,
+    "strength": 400,
     "passability": false
   },
   {

@@ -36,6 +36,7 @@ import static game.GameParams.*;
 public class MapController {
     private static final ImageView bag = new ImageView("/graphics/items/bag.png");
     private static final ImageView ore = new ImageView("/graphics/gui/ore.png");
+    private static final ImageView emptiness = new ImageView("/graphics/gui/emptiness.png");
     private static final ImageView dark = new ImageView("/graphics/tiles/Dark.png");
     @Getter
     private static final int dugUpGroundId = 109; // вскопанная земля
@@ -696,7 +697,7 @@ public class MapController {
                             if (!creature.isAlive()) {
                                 Game.getGameMenu().showContainerInventory(creature.getInventory(), x, y, "creature");
                             }
-                        } else  if (itemsList != null || mapCellInfo.getTile2Type().equals(TileTypeEnum.CONTAINER)) {
+                        } else if (itemsList != null || mapCellInfo.getTile2Type().equals(TileTypeEnum.CONTAINER)) {
                             CharactersController.pickUpItems(itemsList, x, y);
                         } else {
                             CharactersController.interactionWithMap(x, y);
@@ -816,6 +817,24 @@ public class MapController {
                         gc.drawImage(ore.getImage(),
                                 x * tileSize, y * tileSize);
                     }
+                }
+            }
+        }
+    }
+
+    /**
+     * Отрисовать пустоты при подстветке эхолокатором
+     */
+    public static void drawEmptiness() {
+        var player = Game.getMap().getPlayer();
+        GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
+        for (int x = 0; x < viewSize; x++) {
+            for (int y = 0; y < viewSize; y++) {
+                TileInfo tile1Info = Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y].getTile1Info();
+                TileInfo tile2Info = Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y].getTile2Info();
+                if (tile1Info.isPassability() && tile2Info.isPassability()) {
+                    gc.drawImage(emptiness.getImage(),
+                            x * tileSize, y * tileSize);
                 }
             }
         }
