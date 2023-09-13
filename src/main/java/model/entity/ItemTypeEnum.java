@@ -37,7 +37,8 @@ public enum ItemTypeEnum {
     METAL_DETECTOR(Game.getText("METAL_DETECTOR")), // Металлоискатель
     ECHOLOCATOR(Game.getText("ECHOLOCATOR")), // Эхолокатор
     CLOCK(Game.getText("CLOCK")), // Часы
-    FOLDABLE(Game.getText("FOLDABLE")); // Раскладываемый
+    FOLDABLE(Game.getText("FOLDABLE")), // Раскладываемый
+    SEED(Game.getText("SEED")); // Семена растений
 
     @Getter
     @Setter

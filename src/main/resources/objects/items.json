@@ -973,5 +973,17 @@
     "stackable": false,
     "maxStrength": 100,
     "types": ["ECHOLOCATOR", "TOOL"]
+  },
+  {
+    "id": 175,
+    "weight": "50",
+    "volume": "50",
+    "price": "5",
+    "stackable": true,
+    "maxStrength": 20,
+    "types": ["SEED"],
+    "params": {
+      "plantId": "189"
+    }
   }
 ]

@@ -149,6 +149,7 @@
     "taste": 10,
     "hunger": 10,
     "thirst": 1,
+    "remainder": 175,
     "types": [
       "EAT",
       "INGREDIENT"

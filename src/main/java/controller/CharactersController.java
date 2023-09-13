@@ -139,19 +139,28 @@ public class CharactersController {
                         ItemsController.addItem(new Items(harvestId, harvestCount), player.getInventory(), player); // если скосили посевы, добавляем в инвентарь
                     }
                 }
+            } else if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.SEED)) { // если в руках семена
+                if ((mapCellInfo.getTile1Id() == 109 || mapCellInfo.getTile1Id() == 110 || mapCellInfo.getTile1Id() == 111) &&
+                        (mapCellInfo.getTile2Id() == 0)) { // сажать можно только во вскопанную землю
+                    ItemsController.deleteItem(itemInRightHand, 1, player.getInventory(), player);
+                    if (itemInRightHand.getParams() != null && itemInRightHand.getParams().get("plantId") != null) {
+                        mapCellInfo.setTile2Id(Integer.parseInt(itemInRightHand.getParams().get("plantId")));
+                    } else {
+                        System.out.println("Для предмета с id ==" + itemInRightHand.getInfo().getId() + " не задан параметр plantId");
+                    }
+                }
             }
 
             if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.WEAPON) && !applyDamage) { // если в руках оружие
-                BattleController.applyDamageToMapCell(mapCellInfo, ((WeaponInfo) itemInRightHand.getInfo()).getDamage(),
-                        DamageTypeEnum.valueOf(((WeaponInfo) itemInRightHand.getInfo()).getDamageType()));
-            }
-            MapController.drawTile(player, tileX, tileY);
-            if (mapCellInfo.getCreatureId() != null) {
-                if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.WEAPON)) {
+                if (mapCellInfo.getCreatureId() != null) {
                     Creature creature = Game.getMap().getCreaturesList().get(mapCellInfo.getCreatureId());
                     BattleController.attackCreature(player, itemInRightHand, creature);
+                } else {
+                    BattleController.applyDamageToMapCell(mapCellInfo, ((WeaponInfo) itemInRightHand.getInfo()).getDamage(),
+                            DamageTypeEnum.valueOf(((WeaponInfo) itemInRightHand.getInfo()).getDamageType()));
                 }
             }
+
             TimeController.tic(true); // нажатие на карту занимает 1 тик
             if (showOres) {
                 MapController.drawOres(itemInRightHand.getInfo().getId());

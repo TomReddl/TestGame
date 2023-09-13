@@ -535,7 +535,8 @@ public class ItemsController {
             } else if (item.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES) ||
                     item.getInfo().getTypes().contains(ItemTypeEnum.WEAPON) ||
                     item.getInfo().getTypes().contains(ItemTypeEnum.TOOL) ||
-                    item.getInfo().getTypes().contains(ItemTypeEnum.BOTTLE)) {
+                    item.getInfo().getTypes().contains(ItemTypeEnum.BOTTLE) ||
+                    item.getInfo().getTypes().contains(ItemTypeEnum.SEED)) {
                 equipItem(item, player);
             } else if (item.getInfo().getTypes().contains(ItemTypeEnum.BOOK)) {
                 BookPanel.showBookPanel(item.getTypeId());
@@ -664,7 +665,8 @@ public class ItemsController {
                     }
                 }
             } else if (wearingItem.getInfo().getTypes().contains(ItemTypeEnum.TOOL) ||
-                    wearingItem.getInfo().getTypes().contains(ItemTypeEnum.BOTTLE)) {
+                    wearingItem.getInfo().getTypes().contains(ItemTypeEnum.BOTTLE) ||
+                    wearingItem.getInfo().getTypes().contains(ItemTypeEnum.SEED)) {
                 wearingItem.setEquipment(!wearingItem.isEquipment());
                 var bodyPart = wearingItems.get(BodyPartEnum.RIGHT_ARM.ordinal());
                 if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {
