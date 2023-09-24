@@ -180,6 +180,7 @@
     "taste": 10,
     "hunger": 10,
     "thirst": 1,
+    "remainder": 177,
     "types": [
       "EAT",
       "INGREDIENT"
@@ -200,6 +201,7 @@
     "taste": 10,
     "hunger": 100,
     "thirst": 1,
+    "remainder": 178,
     "types": [
       "EAT",
       "INGREDIENT"

@@ -185,6 +185,21 @@ public class MapController {
     }
 
     /**
+     * Поджечь точку на карте, если она горит
+     * @param mapCellInfo
+     */
+    public static void setFire(MapCellInfo mapCellInfo) {
+        if (mapCellInfo.getFireId() == 0 &&
+                (mapCellInfo.getTile1Info().isBurn() || mapCellInfo.getTile2Info().isBurn())) {
+            int fireLevel = mapCellInfo.getFireId() + 1;
+            if (fireLevel > 3) {
+                fireLevel = 3;
+            }
+            mapCellInfo.setFireId(fireLevel);
+        }
+    }
+
+    /**
      * Рост плесени на карте мира
      */
     public static void moldGrowth() {

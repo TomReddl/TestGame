@@ -985,5 +985,127 @@
     "params": {
       "plantId": "189"
     }
+  },
+  {
+    "id": 176,
+    "weight": "50",
+    "volume": "50",
+    "price": "5",
+    "stackable": true,
+    "maxStrength": 20,
+    "types": ["SEED"],
+    "params": {
+      "plantId": "194"
+    }
+  },
+  {
+    "id": 177,
+    "weight": "200",
+    "volume": "100",
+    "price": "5",
+    "stackable": true,
+    "maxStrength": 20,
+    "types": ["SEED"],
+    "params": {
+      "plantId": "198"
+    }
+  },
+  {
+    "id": 178,
+    "weight": "50",
+    "volume": "50",
+    "price": "5",
+    "stackable": true,
+    "maxStrength": 20,
+    "types": ["SEED"],
+    "params": {
+      "plantId": "202"
+    }
+  },
+
+  {
+    "id": 179,
+    "weight": "50",
+    "volume": "50",
+    "price": "5",
+    "stackable": true,
+    "maxStrength": 20,
+    "types": ["SEED"],
+    "params": {
+      "plantId": "207"
+    }
+  },
+  {
+    "id": 180,
+    "weight": "50",
+    "volume": "50",
+    "price": "5",
+    "stackable": true,
+    "maxStrength": 20,
+    "types": ["SEED"],
+    "params": {
+      "plantId": "211"
+    }
+  },
+  {
+    "id": 181,
+    "weight": "500",
+    "volume": "600",
+    "price": "200",
+    "stackable": true,
+    "maxStrength": 50,
+    "types": ["EXPLOSIVES"],
+    "params": {
+      "power": "200",
+      "radius": "2",
+      "time": "5"
+    }
+  },
+  {
+    "id": 182,
+    "weight": "2000",
+    "volume": "2500",
+    "price": "1000",
+    "stackable": true,
+    "maxStrength": 50,
+    "types": ["EXPLOSIVES"],
+    "params": {
+      "power": "800",
+      "radius": "2",
+      "time": "5"
+    }
+  },
+  {
+    "id": 183,
+    "weight": "2400",
+    "volume": "3000",
+    "price": "1500",
+    "stackable": true,
+    "maxStrength": 50,
+    "types": ["EXPLOSIVES"],
+    "params": {
+      "power": "800",
+      "radius": "2"
+    }
+  },
+  {
+    "id": 184,
+    "weight": "2000",
+    "volume": "1000",
+    "price": "200",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
+  },
+  {
+    "id": 185,
+    "weight": "3000",
+    "volume": "2000",
+    "price": "100",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
   }
 ]

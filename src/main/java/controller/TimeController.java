@@ -1,11 +1,14 @@
 package controller;
 
 import model.editor.items.BodyPartEnum;
+import model.entity.Event;
 import model.entity.GameCalendar;
 import model.entity.battle.DamageTypeEnum;
 import model.entity.map.MapCellInfo;
 import model.entity.map.WeatherEnum;
 import view.Game;
+
+import java.util.*;
 
 import static controller.BattleController.*;
 
@@ -13,6 +16,8 @@ import static controller.BattleController.*;
  * Действия со временем
  */
 public class TimeController {
+
+    private static Map<Integer, List<Event>> eventsMap = new HashMap<>(); // будущие события
 
     /**
      * Выполнить указанное количество тиков
@@ -110,6 +115,13 @@ public class TimeController {
             Game.getTimeLabel().setText(getCurrentDataStr(false));
             MapController.drawCurrentMap();
         }
+
+        if (eventsMap.get(currentDate.getTic()) != null) {
+            for (Event event : eventsMap.get(currentDate.getTic())) {
+                executeEvent(event);
+            }
+            eventsMap.remove(currentDate.getTic());
+        }
         return true;
     }
 
@@ -162,5 +174,93 @@ public class TimeController {
      */
     public static GameCalendar.SeasonEnum getSeason() {
         return GameCalendar.MonthEnum.getMonth(GameCalendar.getCurrentDate().getMonth()).getSeason();
+    }
+
+    /**
+     * Выполнить событие
+     * @param event - событие
+     */
+    private static void executeEvent(Event event) {
+        switch (event.getId()) {
+            case "EXPLORE": {
+                MapCellInfo mapCellInfo = Game.getMap().getTiles()[event.getX()][event.getY()];
+                int damage = Integer.parseInt(event.getParams().get("power"));
+                BattleController.applyDamageToMapCell(mapCellInfo, damage,
+                        DamageTypeEnum.EXPLOSIVE_DAMAGE);
+                MapController.setFire(mapCellInfo);
+
+                try {
+                    mapCellInfo = Game.getMap().getTiles()[event.getX()-1][event.getY()];
+                    BattleController.applyDamageToMapCell(mapCellInfo, damage,
+                            DamageTypeEnum.EXPLOSIVE_DAMAGE);
+                    MapController.setFire(mapCellInfo);
+                } catch (Exception ignored) {
+                }
+                try {
+                    mapCellInfo = Game.getMap().getTiles()[event.getX()-1][event.getY()-1];
+                    BattleController.applyDamageToMapCell(mapCellInfo, damage,
+                            DamageTypeEnum.EXPLOSIVE_DAMAGE);
+                    MapController.setFire(mapCellInfo);
+                } catch (Exception ignored) {
+                }
+                try {
+                    mapCellInfo = Game.getMap().getTiles()[event.getX()-1][event.getY()+1];
+                    BattleController.applyDamageToMapCell(mapCellInfo, damage,
+                            DamageTypeEnum.EXPLOSIVE_DAMAGE);
+                    MapController.setFire(mapCellInfo);
+                } catch (Exception ignored) {
+                }
+                try {
+                    mapCellInfo = Game.getMap().getTiles()[event.getX()][event.getY()+1];
+                    BattleController.applyDamageToMapCell(mapCellInfo, damage,
+                            DamageTypeEnum.EXPLOSIVE_DAMAGE);
+                    MapController.setFire(mapCellInfo);
+                } catch (Exception ignored) {
+                }
+                try {
+                    mapCellInfo = Game.getMap().getTiles()[event.getX()][event.getY()-1];
+                    BattleController.applyDamageToMapCell(mapCellInfo, damage,
+                            DamageTypeEnum.EXPLOSIVE_DAMAGE);
+                    MapController.setFire(mapCellInfo);
+                } catch (Exception ignored) {
+                }
+                try {
+                    mapCellInfo = Game.getMap().getTiles()[event.getX()+1][event.getY()-1];
+                    BattleController.applyDamageToMapCell(mapCellInfo, damage,
+                            DamageTypeEnum.EXPLOSIVE_DAMAGE);
+                    MapController.setFire(mapCellInfo);
+                } catch (Exception ignored) {
+                }
+                try {
+                    mapCellInfo = Game.getMap().getTiles()[event.getX()+1][event.getY()+1];
+                    BattleController.applyDamageToMapCell(mapCellInfo, damage,
+                            DamageTypeEnum.EXPLOSIVE_DAMAGE);
+                    MapController.setFire(mapCellInfo);
+                } catch (Exception ignored) {
+                }
+                try {
+                    mapCellInfo = Game.getMap().getTiles()[event.getX()+1][event.getY()];
+                    BattleController.applyDamageToMapCell(mapCellInfo, damage,
+                            DamageTypeEnum.EXPLOSIVE_DAMAGE);
+                    MapController.setFire(mapCellInfo);
+                } catch (Exception ignored) {
+                }
+            }
+        }
+    }
+
+    /**
+     * Добавить событие в список будущих событий
+     * @param event - событие
+     */
+    public static void addEvent(Event event) {
+        if (eventsMap.get(event.getTime()) == null) {
+            List<Event> list = new ArrayList<>();
+            list.add(event);
+            eventsMap.put(event.getTime(), list);
+        } else {
+            eventsMap.put(event.getTime(), new ArrayList<>());
+            eventsMap.get(event.getTime()).add(event);
+        }
     }
 }

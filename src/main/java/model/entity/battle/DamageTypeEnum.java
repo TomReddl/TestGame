@@ -11,6 +11,7 @@ public enum DamageTypeEnum {
     CUTTING_DAMAGE(Game.getText("CUTTING_DAMAGE"), true),       // Режущий урон
     FIRE_DAMAGE(Game.getText("FIRE_DAMAGE"), false),            // Урон огнем
     ACID_DAMAGE(Game.getText("ACID_DAMAGE"), false),            // Урон кислотой
+    EXPLOSIVE_DAMAGE(Game.getText("EXPLOSIVE_DAMAGE"), false),  // Урон взрыва
     CRUSHING_DAMAGE(Game.getText("CRUSHING_DAMAGE"), true);     // Дробящий урон
 
     @Getter

@@ -244,5 +244,17 @@
     "elements": {
       "139": 6
     }
+  },
+  {
+    "recipeId": 21,
+    "itemId": 184,
+    "craftingPlace": "foundry",
+    "level": 2,
+    "skillId": 6,
+    "timeToCraft": 15,
+    "group": "well-known",
+    "elements": {
+      "185": 1
+    }
   }
 ]

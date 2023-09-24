@@ -41,6 +41,8 @@ public class Items {
     private Long price; // кастомная цена предмета
     @JsonProperty("effects")
     private List<EffectParams> effects; // кастомные эффекты предмета
+    @JsonProperty("unselectable")
+    private boolean unselectable; // предмет нельзя подобрать (например, активированная взрывчатка)
 
     public Items(int typeId, int count) {
         this.typeId = typeId;

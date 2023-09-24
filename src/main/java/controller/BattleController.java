@@ -148,14 +148,14 @@ public class BattleController {
                 if (damageType.equals(DamageTypeEnum.FIRE_DAMAGE)) {
                     mapCellInfo.setTile2Id(0);
                 } else {
-                    String tileType = mapCellInfo.getTile2Info().getType();
-                    if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.WOOD)) {
+                    String tile2Type = mapCellInfo.getTile2Info().getType();
+                    if (tile2Type != null && TileTypeEnum.valueOf(tile2Type).equals(TileTypeEnum.WOOD)) {
                         mapCellInfo.setTile2Id(3); // пень
                         mapCellInfo.setTile2Strength(Editor.getTiles2().get(3).getStrength());
-                    } else if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.ORE)) {
+                    } else if (tile2Type != null && TileTypeEnum.valueOf(tile2Type).equals(TileTypeEnum.ORE)) {
                         mapCellInfo.setTile2Id(241); // скала
                         mapCellInfo.setTile2Strength(Editor.getTiles2().get(241).getStrength());
-                    } else if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CROPS)) {
+                    } else if (tile2Type != null && TileTypeEnum.valueOf(tile2Type).equals(TileTypeEnum.CROPS)) {
                         mapCellInfo.setTile2Id(Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("harvestedId"))); // для урожая берем то, что указано в параметрах
                     } else if (mapCellInfo.getTile2Id() == 241) {
                         MapController.addItemOnMap(mapCellInfo.getX(), mapCellInfo.getY(), new Items(ItemsController.stoneId, 10));
@@ -185,8 +185,9 @@ public class BattleController {
             mapCellInfo.setTile1Id(MapController.getBurntGround());
         }
 
-        // Предметы, лежащие не в контейнере могут сгореть
-        if ((mapCellInfo.getTile2Info().getType() == null || !TileTypeEnum.valueOf(mapCellInfo.getTile2Info().getType()).equals(TileTypeEnum.CONTAINER)) &&
+        // Предметы, лежащие не в контейнере могут сгореть или быть уничтожены взрывом
+        if (((mapCellInfo.getTile2Info().getType() == null || !TileTypeEnum.valueOf(mapCellInfo.getTile2Info().getType()).equals(TileTypeEnum.CONTAINER)) &&
+                (damageType.equals(DamageTypeEnum.FIRE_DAMAGE) || damageType.equals(DamageTypeEnum.EXPLOSIVE_DAMAGE))) &&
                 mapCellInfo.getItems() != null) {
             List<Items> items = mapCellInfo.getItems();
             for (Items item : items) {

@@ -9,6 +9,8 @@ import model.editor.TileTypeEnum;
 import model.editor.items.BodyPartEnum;
 import model.editor.items.WeaponInfo;
 import model.entity.DirectionEnum;
+import model.entity.Event;
+import model.entity.GameCalendar;
 import model.entity.ItemTypeEnum;
 import model.entity.battle.DamageTypeEnum;
 import model.entity.map.ClosableCellInfo;
@@ -27,9 +29,7 @@ import view.inventory.PlayerIndicatorsPanel;
 import view.params.ParamPanel;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static controller.ItemsController.engineeringWateringCan;
 import static controller.ItemsController.lighterId;
@@ -82,13 +82,8 @@ public class CharactersController {
                 } else if (itemInRightHand.getTypeId() == lighterId) { // если в руках зажигалка
                     if (mapCellInfo.getTile2Id() == 256) { // поджигаем костёр
                         mapCellInfo.setTile2Id(257);
-                    } else if (mapCellInfo.getFireId() == 0 &&
-                            (mapCellInfo.getTile1Info().isBurn() || mapCellInfo.getTile2Info().isBurn())) {
-                        int fireLevel = mapCellInfo.getFireId() + 1;
-                        if (fireLevel > 3) {
-                            fireLevel = 3;
-                        }
-                        mapCellInfo.setFireId(fireLevel);
+                    } else {
+                        MapController.setFire(mapCellInfo);
                     }
                 } else if (itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.METAL_DETECTOR)) { // если в руках металлоискатель
                     showOres = true;
@@ -128,19 +123,28 @@ public class CharactersController {
             } else if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.SCYTHE)) { // если в руках коса
                 String tileType = mapCellInfo.getTile2Info().getType();
                 if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CROPS)) {
-                    int harvestId = Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("harvestId"));
-                    int harvestCount = Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("harvestCount"));
-
+                    int i = 1;
+                    List<Pair<Integer, Integer>> harvests = new ArrayList<>();
+                    while (mapCellInfo.getTile2Info().getParams().get("harvestId" + i) != null) {
+                        harvests.add(new Pair(Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("harvestId" + i)),
+                                Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("harvestCount" + i))));
+                        i++;
+                    }
                     BattleController.applyDamageToMapCell(mapCellInfo, ((WeaponInfo) itemInRightHand.getInfo()).getDamage(),
                             DamageTypeEnum.valueOf(((WeaponInfo) itemInRightHand.getInfo()).getDamageType()));
                     applyDamage = true;
                     tileType = mapCellInfo.getTile2Info().getType();
                     if (tileType == null || !TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CROPS)) {
-                        ItemsController.addItem(new Items(harvestId, harvestCount), player.getInventory(), player); // если скосили посевы, добавляем в инвентарь
+                        for (Pair<Integer, Integer> harvest : harvests) {
+                            ItemsController.addItem(new Items(harvest.getKey(), harvest.getValue()), player.getInventory(), player); // если скосили посевы, добавляем в инвентарь
+                            i++;
+                        }
                     }
                 }
             } else if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.SEED)) { // если в руках семена
-                if ((mapCellInfo.getTile1Id() == 109 || mapCellInfo.getTile1Id() == 110 || mapCellInfo.getTile1Id() == 111) &&
+                if ((mapCellInfo.getTile1Id() == MapController.getDugUpGroundId() ||
+                        mapCellInfo.getTile1Id() == MapController.getDryGround()||
+                        mapCellInfo.getTile1Id() == MapController.getWetGround()) &&
                         (mapCellInfo.getTile2Id() == 0)) { // сажать можно только во вскопанную землю
                     ItemsController.deleteItem(itemInRightHand, 1, player.getInventory(), player);
                     if (itemInRightHand.getParams() != null && itemInRightHand.getParams().get("plantId") != null) {
@@ -149,6 +153,21 @@ public class CharactersController {
                         System.out.println("Для предмета с id ==" + itemInRightHand.getInfo().getId() + " не задан параметр plantId");
                     }
                 }
+            } else if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.SHOVEL)) { // если в руках лопата
+                String tileType = mapCellInfo.getTile1Info().getType();
+                if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.EARTH) && mapCellInfo.getTile2Id() == 0) {
+                    mapCellInfo.setTile1Id(MapController.getDugUpGroundId());
+                }
+            } else if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.EXPLOSIVES)) { // если в руках взрывчатка
+                MapController.addItemOnMap(mapCellInfo.getX(), mapCellInfo.getY(), new Items(itemInRightHand.getTypeId(), 1));
+                Event event = new Event();
+                event.setTime(Integer.parseInt(itemInRightHand.getParams().get("time")) + GameCalendar.getCurrentDate().getTic());
+                event.setParams(itemInRightHand.getParams());
+                event.setX(mapCellInfo.getX());
+                event.setY(mapCellInfo.getY());
+                event.setId("EXPLORE");
+                TimeController.addEvent(event);
+                ItemsController.deleteItem(itemInRightHand, 1, player.getInventory(), player);
             }
 
             if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.WEAPON) && !applyDamage) { // если в руках оружие

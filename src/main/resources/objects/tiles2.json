@@ -1299,7 +1299,7 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "190",
-      "harvestId": "92",
+      "harvestId1": "92",
       "nextGrowthStage": "192"
     },
     "burn": true,
@@ -1312,7 +1312,7 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "190",
-      "harvestId": "87",
+      "harvestId1": "87",
       "nextGrowthStage": "193"
     },
     "burn": true,
@@ -1355,8 +1355,10 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "0",
-      "harvestId": "88",
-      "nextGrowthStage": "197"
+      "harvestId1": "88",
+      "nextGrowthStage": "197",
+      "harvestId2": "176",
+      "harvestCount2": "3"
     },
     "burn": true,
     "visibly": true
@@ -1398,8 +1400,8 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "199",
-      "harvestId": "89",
-      "harvestCount": "3",
+      "harvestId1": "89",
+      "harvestCount1": "3",
       "nextGrowthStage": "201"
     },
     "burn": true,
@@ -1442,7 +1444,9 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "0",
-      "harvestId": "90",
+      "harvestId1": "90",
+      "harvestId2": "178",
+      "harvestCount2": "3",
       "nextGrowthStage": "205"
     },
     "burn": true,
@@ -1503,8 +1507,10 @@
     "type": "CROPS",
     "params": {
       "harvestedId": "0",
-      "harvestId": "95",
-      "harvestCount": "5"
+      "harvestId1": "95",
+      "harvestCount1": "5",
+      "harvestId2": "179",
+      "harvestCount2": "3"
     },
     "burn": true
   },
@@ -1547,8 +1553,10 @@
     "type": "CROPS",
     "params": {
       "harvestedId": "0",
-      "harvestId": "96",
-      "harvestCount": "5"
+      "harvestId1": "96",
+      "harvestCount1": "5",
+      "harvestId2": "180",
+      "harvestCount2": "3"
     },
     "burn": true
   },
@@ -1569,8 +1577,8 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "215",
-      "harvestId": "98",
-      "harvestCount": "5"
+      "harvestId1": "98",
+      "harvestCount1": "5"
     },
     "burn": true
   },
@@ -1581,7 +1589,7 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "218",
-      "harvestId": "97"
+      "harvestId1": "97"
     },
     "burn": true,
     "visibly": true
@@ -1614,8 +1622,8 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "219",
-      "harvestId": "100",
-      "harvestCount": "5"
+      "harvestId1": "100",
+      "harvestCount1": "5"
     },
     "burn": true
   },
@@ -1626,7 +1634,7 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "222",
-      "harvestId": "99"
+      "harvestId1": "99"
     },
     "burn": true,
     "visibly": true
@@ -1659,8 +1667,8 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "223",
-      "harvestId": "102",
-      "harvestCount": "5"
+      "harvestId1": "102",
+      "harvestCount1": "5"
     },
     "burn": true
   },
@@ -1682,8 +1690,8 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "225",
-      "harvestId": "101",
-      "harvestCount": "3"
+      "harvestId1": "101",
+      "harvestCount1": "3"
     },
     "burn": true,
     "visibly": true
@@ -1706,7 +1714,7 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "227",
-      "harvestId": "103"
+      "harvestId1": "103"
     },
     "burn": true,
     "visibly": true
@@ -1729,8 +1737,8 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "229",
-      "harvestId": "104",
-      "harvestCount": "5"
+      "harvestId1": "104",
+      "harvestCount1": "5"
     },
     "burn": true,
     "visibly": true
@@ -1753,7 +1761,7 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "231",
-      "harvestId": "105"
+      "harvestId1": "105"
     },
     "burn": true,
     "visibly": true
@@ -1765,7 +1773,7 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "244",
-      "harvestId": "106"
+      "harvestId1": "106"
     },
     "burn": true,
     "visibly": true
@@ -1777,8 +1785,8 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "245",
-      "harvestId": "108",
-      "harvestCount": "3"
+      "harvestId1": "108",
+      "harvestCount1": "3"
     },
     "burn": true,
     "visibly": true
@@ -1790,8 +1798,8 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "246",
-      "harvestId": "107",
-      "harvestCount": "3"
+      "harvestId1": "107",
+      "harvestCount1": "3"
     },
     "burn": true,
     "visibly": true
@@ -1803,8 +1811,8 @@
     "type": "PLANT",
     "params": {
       "harvestedId": "237",
-      "harvestId": "109",
-      "harvestCount": "3"
+      "harvestId1": "109",
+      "harvestCount1": "3"
     },
     "burn": true,
     "visibly": true
@@ -1854,7 +1862,7 @@
     "strength": 250,
     "passability": false,
     "params": {
-      "ore" : "33"
+      "ore": "33"
     },
     "type": "ORE"
   },
@@ -1863,7 +1871,7 @@
     "strength": 250,
     "passability": false,
     "params": {
-      "ore" : "158"
+      "ore": "158"
     },
     "type": "ORE"
   },
@@ -1972,8 +1980,8 @@
     "burn": true,
     "params": {
       "subtype": "packable",
-      "packingItem" : "134",
-      "packingTime" : "5"
+      "packingItem": "134",
+      "packingTime": "5"
     }
   },
   {
@@ -2198,7 +2206,7 @@
     "strength": 250,
     "passability": false,
     "params": {
-      "ore" : "155"
+      "ore": "155"
     },
     "type": "ORE"
   },
@@ -2207,7 +2215,7 @@
     "strength": 250,
     "passability": false,
     "params": {
-      "ore" : "156"
+      "ore": "156"
     },
     "type": "ORE"
   },
@@ -2216,7 +2224,7 @@
     "strength": 250,
     "passability": false,
     "params": {
-      "ore" : "157"
+      "ore": "157"
     },
     "type": "ORE"
   },
@@ -2225,7 +2233,7 @@
     "strength": 250,
     "passability": false,
     "params": {
-      "ore" : "140"
+      "ore": "140"
     },
     "type": "ORE"
   },
@@ -2234,7 +2242,7 @@
     "strength": 250,
     "passability": false,
     "params": {
-      "ore" : "159"
+      "ore": "159"
     },
     "type": "ORE"
   },
@@ -2243,7 +2251,7 @@
     "strength": 250,
     "passability": false,
     "params": {
-      "ore" : "160"
+      "ore": "160"
     },
     "type": "ORE"
   },
@@ -2252,7 +2260,7 @@
     "strength": 250,
     "passability": false,
     "params": {
-      "ore" : "161"
+      "ore": "161"
     },
     "type": "ORE"
   },
@@ -2261,7 +2269,7 @@
     "strength": 250,
     "passability": false,
     "params": {
-      "ore" : "162"
+      "ore": "162"
     },
     "type": "ORE"
   },
@@ -2270,7 +2278,7 @@
     "strength": 250,
     "passability": false,
     "params": {
-      "ore" : "163"
+      "ore": "163"
     },
     "type": "ORE"
   },
@@ -2279,7 +2287,7 @@
     "strength": 250,
     "passability": false,
     "params": {
-      "ore" : "164"
+      "ore": "164"
     },
     "type": "ORE"
   },
@@ -2325,8 +2333,8 @@
     "visibly": false,
     "params": {
       "subtype": "packable",
-      "packingItem" : "165",
-      "packingTime" : "15"
+      "packingItem": "165",
+      "packingTime": "15"
     }
   },
   {
@@ -2337,7 +2345,7 @@
     "burn": true,
     "visibly": false,
     "params": {
-      "wood" : "170"
+      "wood": "170"
     }
   },
   {
@@ -2371,5 +2379,22 @@
     "passability": false,
     "burn": true,
     "visibly": false
+  },
+  {
+    "id": 295,
+    "strength": 100,
+    "type": "WOOD",
+    "passability": false,
+    "burn": true,
+    "visibly": false
+  },
+  {
+    "id": 296,
+    "strength": 250,
+    "passability": false,
+    "params": {
+      "ore": "185"
+    },
+    "type": "ORE"
   }
 ]
