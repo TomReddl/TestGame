@@ -116,7 +116,8 @@
     "id": 17,
     "strength": 100,
     "passability": false,
-    "visibly": true
+    "visibly": true,
+    "type": "DUMMY"
   },
   {
     "id": 18,

@@ -48,7 +48,7 @@ public class InventoryPanel {
         SELECT_FOR_POTION_CRAFT, // выбор предмета для зельеварения
         SELECT_FOR_POTION_EXPLORE, // выбор предмета для исследования
         SELECT_FOR_COMBINER, // выбор предмета для объединения
-        SELECT_FOR_DUPLICATOR; // выбор предмета для объединения
+        SELECT_FOR_DUPLICATOR; // выбор предмета для дублирования
     }
 
     // Тип сортировки

@@ -24,6 +24,7 @@ import view.inventory.BookPanel;
 import view.inventory.ItemCountPanel;
 import view.menu.MainMenu;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -712,7 +713,7 @@ public class MapController {
                             if (!creature.isAlive()) {
                                 Game.getGameMenu().showContainerInventory(creature.getInventory(), x, y, "creature");
                             }
-                        } else if (itemsList != null || mapCellInfo.getTile2Type().equals(TileTypeEnum.CONTAINER)) {
+                        } else if (itemsList != null || mapCellInfo.getTile2Type().equals(TileTypeEnum.CONTAINER) || mapCellInfo.getTile2Type().equals(TileTypeEnum.DUMMY)) {
                             CharactersController.pickUpItems(itemsList, x, y);
                         } else {
                             CharactersController.interactionWithMap(x, y);
@@ -906,7 +907,8 @@ public class MapController {
             }
 
             // предметы
-            if (tileInfo2.getType() == null || !(tileInfo2.getType().equals(TileTypeEnum.CONTAINER.toString()))) {
+            if (tileInfo2.getType() == null || !(tileInfo2.getType().equals(TileTypeEnum.CONTAINER.toString()) ||
+                    tileInfo2.getType().equals(TileTypeEnum.DUMMY.toString()))) {
                 if (mapCellInfo.getItems() != null) {
                     if (mapCellInfo.getItems().size() == 1) {
                         gc.drawImage(Editor.getItems().get(
@@ -915,6 +917,16 @@ public class MapController {
                     } else { // если на тайле больше 1 предмета, рисуем мешок
                         gc.drawImage(bag.getImage(),
                                 x * tileSize, y * tileSize);
+                    }
+                }
+            } else if (tileInfo2.getType().equals(TileTypeEnum.DUMMY.toString())) { // Для манекена отрисовываем надетые на него вещи
+                if (mapCellInfo.getItems() != null) {
+                    for (Items item : mapCellInfo.getItems()) {
+                        var path = "/graphics/items/" + item.getTypeId() + "doll.png";
+                        var f = new File("/" + Player.class.getProtectionDomain().getCodeSource().getLocation().getPath() + path);
+                        if (f.exists()) {
+                            gc.drawImage(new Image(path), x * tileSize, y * tileSize -3);
+                        }
                     }
                 }
             }

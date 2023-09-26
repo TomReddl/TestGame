@@ -309,8 +309,9 @@ public class CharactersController {
         if (isClosedCell(mapCellInfo)) {
             closableInteract(mapCellInfo);
         } else {
-            if ((itemsList != null && (itemsList.size() > 1 || itemsList.get(0).getCount() > 1)) || mapCellInfo.getTile2Type().equals(TileTypeEnum.CONTAINER)) {
-                // показываем вторую панель инвентаря, если на тайле лежит больше 1 предмета, или если это контейнер
+            if ((itemsList != null && (itemsList.size() > 1 || itemsList.get(0).getCount() > 1)) || mapCellInfo.getTile2Type().equals(TileTypeEnum.CONTAINER)
+                    || mapCellInfo.getTile2Type().equals(TileTypeEnum.DUMMY)) {
+                // показываем вторую панель инвентаря, если на тайле лежит больше 1 предмета, или если это контейнер/манекен
                 String subtype = mapCellInfo.getTile2Info().getParams() != null ? mapCellInfo.getTile2Info().getParams().get("subtype") : "";
                 boolean isTrashCan = subtype != null && subtype.equals("trashCan");
                 Game.getGameMenu().showContainerInventory(itemsList, x, y, isTrashCan ? "trashCan" : "");

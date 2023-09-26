@@ -3,6 +3,7 @@ package controller;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 import lombok.Getter;
+import model.editor.TileTypeEnum;
 import model.editor.items.*;
 import model.entity.ItemTypeEnum;
 import model.entity.battle.DamageTypeEnum;
@@ -438,7 +439,9 @@ public class ItemsController {
         if (addItem(item, count, inventory, Game.getMap().getPlayer()) != null) {
             deleteItem(item, count, containerInventory, null);
             // если остался 1 или 0 предметов, перерисовываем тайл карты
-            if (containerInventory.size() <= 1) {
+            MapCellInfo mapCellInfo = player.getInteractMapPoint();
+            String tileType = mapCellInfo.getTile2Info().getType();
+            if (containerInventory.size() <= 1 || (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.DUMMY))) {
                 int x = Game.getContainerInventory().getX();
                 int y = Game.getContainerInventory().getY();
                 if (containerInventory.size() == 0) {
@@ -460,9 +463,36 @@ public class ItemsController {
      * @param containerInventory - инвентарь, в который перемещаются предметы
      */
     public static void addItemsToContainerFromPlayer(Items item, int count, List<Items> containerInventory) {
-        List<Items> inventory = Game.getMap().getPlayer().getInventory();
-        if (addItem(item, count, containerInventory, null) != null) {
-            deleteItem(item, count, inventory, Game.getMap().getPlayer());
+        Player player = Game.getMap().getPlayer();
+        List<Items> inventory = player.getInventory();
+        MapCellInfo mapCellInfo = player.getInteractMapPoint();
+        String tileType = mapCellInfo.getTile2Info().getType();
+        boolean canAdd = true;
+        if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.DUMMY)) {
+            count = 1; // на манекен можно повесить лишь 1 экземпляр каждого вида одежды
+            if (item.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES)) {
+                for (Items i : containerInventory) {
+                    if (i.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES) && ((ClothesInfo) i.getInfo()).getBodyPart().equals(((ClothesInfo) item.getInfo()).getBodyPart())) {
+                        canAdd = false;
+                        break;
+                    }
+                }
+            } else if (item.getInfo().getTypes().contains(ItemTypeEnum.WEAPON)) {
+                for (Items i : containerInventory) {
+                    if (i.getInfo().getTypes().contains(ItemTypeEnum.WEAPON)) {
+                        canAdd = false;
+                        break;
+                    }
+                }
+            } else {
+                canAdd = false;
+            }
+        }
+        if (canAdd && addItem(item, count, containerInventory, null) != null) {
+            deleteItem(item, count, inventory, player);
+        }
+        if (canAdd && tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.DUMMY)) {
+            MapController.drawTile(player, mapCellInfo.getX() - player.getXMapPos(), mapCellInfo.getY() - player.getYMapPos()); // для манекена всегда перерисовываем тайл
         }
     }
 
