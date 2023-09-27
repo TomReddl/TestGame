@@ -430,14 +430,25 @@ public class CharactersController {
      */
     public static void harvest(MapCellInfo mapCellInfo) {
         if (mapCellInfo.getTile2Info().getParams() != null &&
-                mapCellInfo.getTile2Info().getParams().get("harvestId") != null) {
+                mapCellInfo.getTile2Info().getParams().get("harvestId1") != null) {
             var player = Game.getMap().getPlayer();
-            int harvestCount = (mapCellInfo.getTile2Info().getParams() != null && mapCellInfo.getTile2Info().getParams().get("harvestCount") != null) ?
-                    Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("harvestCount")) : 1;
-            ItemsController.addItem(
-                    new Items(Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("harvestId")), harvestCount),
-                    player.getInventory(),
-                    player);
+            int i = 1;
+            List<Pair<Integer, Integer>> harvests = new ArrayList<>();
+            while (mapCellInfo.getTile2Info().getParams().get("harvestId" + i) != null) {
+                harvests.add(new Pair(Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("harvestId" + i)),
+                        mapCellInfo.getTile2Info().getParams().get("harvestCount" + i) != null ? Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("harvestCount" + i)) : 1));
+                i++;
+            }
+
+            for (Pair<Integer, Integer> harvest : harvests) {
+                Items harvestItem = new Items(harvest.getKey(), harvest.getValue());
+                ItemsController.addItem(
+                        harvestItem,
+                        player.getInventory(),
+                        player);
+                i++;
+            }
+
             mapCellInfo.setTile2Id(Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("harvestedId")));
         }
     }
@@ -833,7 +844,8 @@ public class CharactersController {
         player.setCurrentWeight(ItemsController.getCurrWeight(player.getInventory()));
 
         InventoryPanel.setWeightText();
-        InventoryPanel.setVolumeText();
+        Game.getInventory().setVolumeText();
+        Game.hideMessage();
     }
 
     /**

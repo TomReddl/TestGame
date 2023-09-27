@@ -179,10 +179,14 @@ public class ItemsController {
         }
 
         InventoryPanel.setWeightText();
-        InventoryPanel.setVolumeText();
+        Game.getInventory().setVolumeText();
 
         InventoryPanel inventoryPanel = player != null ? Game.getInventory() : Game.getContainerInventory();
         inventoryPanel.filterInventoryTabs(inventoryPanel.getTabPane().getSelectionModel().getSelectedItem());
+
+        if (player != null) {
+            Game.showMessage(String.format(Game.getGameText("ITEM_ADDED"), item.getInfo().getName(), count), Color.GREEN);
+        }
 
         return item;
     }
@@ -287,7 +291,7 @@ public class ItemsController {
                         player.setCurrentWeight(getCurrWeight(inventory));
                     }
                     InventoryPanel.setWeightText();
-                    InventoryPanel.setVolumeText();
+                    Game.getInventory().setVolumeText();
                     InventoryPanel inventoryPanel = player != null ? Game.getInventory() : Game.getContainerInventory();
                     inventoryPanel.filterInventoryTabs(inventoryPanel.getTabPane().getSelectionModel().getSelectedItem());
                     return true;
@@ -438,7 +442,7 @@ public class ItemsController {
         List<Items> inventory = player.getInventory();
         if (addItem(item, count, inventory, Game.getMap().getPlayer()) != null) {
             deleteItem(item, count, containerInventory, null);
-            // если остался 1 или 0 предметов, перерисовываем тайл карты
+            // если остался 1 или 0 предметов, перерисовываем тайл карты. Также перерисовываем всегда для манекена
             MapCellInfo mapCellInfo = player.getInteractMapPoint();
             String tileType = mapCellInfo.getTile2Info().getType();
             if (containerInventory.size() <= 1 || (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.DUMMY))) {
@@ -448,6 +452,9 @@ public class ItemsController {
                     Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y].setItems(null);
                 }
                 MapController.drawTile(player, x, y);
+            }
+            if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CONTAINER)) {
+                Game.getContainerInventory().setVolumeText();
             }
             return true;
         } else {
@@ -466,7 +473,10 @@ public class ItemsController {
         Player player = Game.getMap().getPlayer();
         List<Items> inventory = player.getInventory();
         MapCellInfo mapCellInfo = player.getInteractMapPoint();
-        String tileType = mapCellInfo.getTile2Info().getType();
+        String tileType = null;
+        if (mapCellInfo != null) {
+            tileType = mapCellInfo.getTile2Info().getType();
+        }
         boolean canAdd = true;
         if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.DUMMY)) {
             count = 1; // на манекен можно повесить лишь 1 экземпляр каждого вида одежды
@@ -488,11 +498,24 @@ public class ItemsController {
                 canAdd = false;
             }
         }
+        if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CONTAINER)) {
+            int totalVolume = 0;
+            for (Items i : containerInventory) {
+                totalVolume += i.getInfo().getVolume() * i.getCount();
+            }
+            if (totalVolume + item.getInfo().getVolume() * count > Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("volume"))) {
+                canAdd = false;
+                Game.showMessage(Game.getText("NOT_ENOUGH_VOLUME"));
+            }
+        }
         if (canAdd && addItem(item, count, containerInventory, null) != null) {
             deleteItem(item, count, inventory, player);
         }
         if (canAdd && tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.DUMMY)) {
             MapController.drawTile(player, mapCellInfo.getX() - player.getXMapPos(), mapCellInfo.getY() - player.getYMapPos()); // для манекена всегда перерисовываем тайл
+        }
+        if (canAdd && tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CONTAINER)) {
+            Game.getContainerInventory().setVolumeText();
         }
     }
 
@@ -734,7 +757,7 @@ public class ItemsController {
             player.setCurrentVolume(getCurrVolume(player.getInventory()));
             player.setCurrentWeight(getCurrWeight(player.getInventory()));
 
-            InventoryPanel.setVolumeText();
+            Game.getInventory().setVolumeText();
 
             return true;
         } else {
@@ -779,6 +802,9 @@ public class ItemsController {
      * @return заполненный объем инвентаря
      */
     public static BigDecimal getCurrVolume(List<Items> inventory) {
+        if (inventory == null) {
+            return BigDecimal.ZERO;
+        }
         int totalVolume = 0;
         for (Items item : inventory) {
             if (!item.isEquipment()) { // объем надетых вещей не учитывается при подсчете свободного места в инвентаре

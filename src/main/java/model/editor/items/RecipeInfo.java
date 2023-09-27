@@ -11,6 +11,7 @@ import java.util.Map;
 @Setter
 @Getter
 public class RecipeInfo {
+    private String name; // название создаваемого предмета
     private Integer recipeId; // id рецепта
     private Integer itemId; // id создаваемого предмета
     private Integer itemCount; // количество создаваемых предметов

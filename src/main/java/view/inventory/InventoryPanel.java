@@ -14,14 +14,18 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import lombok.Getter;
 import lombok.Setter;
+import model.editor.TileTypeEnum;
 import model.editor.items.BodyPartEnum;
 import model.editor.items.ClothesInfo;
 import model.entity.ItemTypeEnum;
 import model.entity.map.Creature;
 import model.entity.map.Items;
+import model.entity.map.MapCellInfo;
 import model.entity.player.Player;
 import view.Game;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -91,7 +95,7 @@ public class InventoryPanel {
     @Getter
     private final Label priceLabel = new Label(Game.getText("PRICE"));
     private static final Label totalWeightLabel = new Label(Game.getText("TOTAL_WEIGHT"));
-    private static final Label totalVolumeLabel = new Label(Game.getText("TOTAL_VOLUME"));
+    private final Label totalVolumeLabel = new Label(Game.getText("TOTAL_VOLUME"));
 
     private boolean descending = false;
     @Getter
@@ -209,16 +213,16 @@ public class InventoryPanel {
 
         outerPane.getChildren().add(scrollPane);
 
+        totalVolumeLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        totalVolumeLabel.setLayoutY(405);
+        totalVolumeLabel.setLayoutX(250);
+        outerPane.getChildren().add(totalVolumeLabel);
+
         if (inventoryType.equals(InventoryTypeEnum.PLAYER)) {
             totalWeightLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
             totalWeightLabel.setLayoutY(405);
             totalWeightLabel.setLayoutX(10);
             outerPane.getChildren().add(totalWeightLabel);
-
-            totalVolumeLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
-            totalVolumeLabel.setLayoutY(405);
-            totalVolumeLabel.setLayoutX(180);
-            outerPane.getChildren().add(totalVolumeLabel);
         } else {
             scrollPane.setMaxHeight(380);
             takeAllButton.setLayoutX(10);
@@ -270,9 +274,18 @@ public class InventoryPanel {
         }
     }
 
-    public static void setVolumeText() {
-        var currentVolume = Game.getMap().getPlayer().getCurrentVolume();
-        var maxVolume = Game.getMap().getPlayer().getMaxVolume();
+    public void setVolumeText() {
+        var currentVolume = ItemsController.getCurrVolume(items);
+        BigDecimal maxVolume = null;
+        MapCellInfo interactMapPoint = Game.getMap().getPlayer().getInteractMapPoint();
+        if (inventoryType.equals(InventoryTypeEnum.PLAYER)) {
+            maxVolume = Game.getMap().getPlayer().getMaxVolume();
+        } else if (interactMapPoint != null) {
+            String tileType = interactMapPoint.getTile2Info().getType();
+            if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CONTAINER)) {
+                maxVolume = BigDecimal.valueOf(Integer.parseInt(interactMapPoint.getTile2Info().getParams().get("volume"))).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);;
+            }
+        }
         if (currentVolume != null && maxVolume != null) {
             totalVolumeLabel.setTextFill(currentVolume.compareTo(maxVolume) > 0 ? Color.web("#FF0000") : Color.web("#000000"));
             totalVolumeLabel.setText(Game.getText("TOTAL_VOLUME") + " " + formatter.format(currentVolume) + "/" +
@@ -340,6 +353,17 @@ public class InventoryPanel {
         Creature creature = Game.getMap().getPlayer().getInteractCreature();
         butcherButton.setVisible(type.equals("creature") && creature != null && !creature.isButchering());
         this.showMode = showMode;
+        totalVolumeLabel.setVisible(false);
+        MapCellInfo interactMapPoint = Game.getMap().getPlayer().getInteractMapPoint();
+        if (interactMapPoint != null) {
+            String tileType = interactMapPoint.getTile2Info().getType();
+            if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CONTAINER)) {
+                totalVolumeLabel.setVisible(true);
+                Game.getContainerInventory().setVolumeText();
+            }
+        } else if (inventoryType.equals(InventoryTypeEnum.PLAYER)) {
+            totalVolumeLabel.setVisible(true);
+        }
     }
 
     public void hide() {

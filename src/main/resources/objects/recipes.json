@@ -1,5 +1,6 @@
 [
   {
+    "name": "Железный слиток",
     "recipeId": 1,
     "itemId": 138,
     "craftingPlace": "foundry",
@@ -12,6 +13,7 @@
     }
   },
   {
+    "name": "Аригитовый слиток",
     "recipeId": 2,
     "itemId": 139,
     "craftingPlace": "foundry",
@@ -25,6 +27,7 @@
     }
   },
   {
+    "name": "Жареный стейк",
     "recipeId": 3,
     "itemId": 141,
     "craftingPlace": "cookingTable",
@@ -38,6 +41,7 @@
     }
   },
   {
+    "name": "Зирконитовый слиток",
     "recipeId": 4,
     "itemId": 142,
     "craftingPlace": "foundry",
@@ -50,6 +54,7 @@
     }
   },
   {
+    "name": "Пайроналовый слиток",
     "recipeId": 5,
     "itemId": 143,
     "craftingPlace": "foundry",
@@ -62,6 +67,7 @@
     }
   },
   {
+    "name": "Медный слиток",
     "recipeId": 6,
     "itemId": 144,
     "craftingPlace": "foundry",
@@ -74,6 +80,7 @@
     }
   },
   {
+    "name": "Золотой слиток",
     "recipeId": 7,
     "itemId": 145,
     "craftingPlace": "foundry",
@@ -86,6 +93,7 @@
     }
   },
   {
+    "name": "Люмериевый слиток",
     "recipeId": 8,
     "itemId": 146,
     "craftingPlace": "foundry",
@@ -98,6 +106,7 @@
     }
   },
   {
+    "name": "Деагаровый слиток",
     "recipeId": 9,
     "itemId": 147,
     "craftingPlace": "foundry",
@@ -110,6 +119,7 @@
     }
   },
   {
+    "name": "Эонитиевый слиток",
     "recipeId": 10,
     "itemId": 148,
     "craftingPlace": "foundry",
@@ -122,6 +132,7 @@
     }
   },
   {
+    "name": "Сайдаловый слиток",
     "recipeId": 11,
     "itemId": 149,
     "craftingPlace": "foundry",
@@ -135,6 +146,7 @@
     }
   },
   {
+    "name": "Рибуритовый слиток",
     "recipeId": 12,
     "itemId": 150,
     "craftingPlace": "foundry",
@@ -148,6 +160,7 @@
     }
   },
   {
+    "name": "Курамиевый слиток",
     "recipeId": 13,
     "itemId": 151,
     "craftingPlace": "foundry",
@@ -161,6 +174,7 @@
     }
   },
   {
+    "name": "Свинцовый слиток",
     "recipeId": 14,
     "itemId": 153,
     "craftingPlace": "foundry",
@@ -173,6 +187,7 @@
     }
   },
   {
+    "name": "Фузаритовый слиток",
     "recipeId": 15,
     "itemId": 154,
     "craftingPlace": "foundry",
@@ -185,6 +200,7 @@
     }
   },
   {
+    "name": "Стальной слиток",
     "recipeId": 16,
     "itemId": 152,
     "craftingPlace": "foundry",
@@ -198,6 +214,7 @@
     }
   },
   {
+    "name": "Аригитовый нагрудник",
     "recipeId": 17,
     "itemId": 166,
     "craftingPlace": "anvil",
@@ -210,6 +227,7 @@
     }
   },
   {
+    "name": "Аригитовые поножи",
     "recipeId": 18,
     "itemId": 167,
     "craftingPlace": "anvil",
@@ -222,6 +240,7 @@
     }
   },
   {
+    "name": "Аригитовый шлем",
     "recipeId": 19,
     "itemId": 168,
     "craftingPlace": "anvil",
@@ -234,6 +253,7 @@
     }
   },
   {
+    "name": "Аригитовые сапоги",
     "recipeId": 20,
     "itemId": 169,
     "craftingPlace": "anvil",
@@ -246,6 +266,7 @@
     }
   },
   {
+    "name": "Карбериевый слиток",
     "recipeId": 21,
     "itemId": 184,
     "craftingPlace": "foundry",
@@ -255,6 +276,34 @@
     "group": "well-known",
     "elements": {
       "185": 1
+    }
+  },
+  {
+    "name": "Деревянная доска",
+    "recipeId": 22,
+    "itemId": 6,
+    "itemCount": 4,
+    "craftingPlace": "joinersTable",
+    "level": 1,
+    "skillId": 3,
+    "timeToCraft": 15,
+    "group": "well-known",
+    "elements": {
+      "5": 1
+    }
+  },
+  {
+    "name": "Доска тришшака",
+    "recipeId": 23,
+    "itemId": 186,
+    "itemCount": 4,
+    "craftingPlace": "joinersTable",
+    "level": 2,
+    "skillId": 3,
+    "timeToCraft": 15,
+    "group": "well-known",
+    "elements": {
+      "170": 1
     }
   }
 ]

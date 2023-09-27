@@ -1107,5 +1107,15 @@
     "types": [
       "RESOURCE"
     ]
+  },
+  {
+    "id": 186,
+    "weight": "2000",
+    "volume": "5000",
+    "price": "100",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
   }
 ]
