@@ -26,14 +26,17 @@
   },
   {
     "id": 7,
-    "nextId": 8
+    "nextId": 8,
+    "burn": true
   },
   {
     "id": 8,
-    "nextId": 9
+    "nextId": 9,
+    "burn": true
   },
   {
-    "id": 9
+    "id": 9,
+    "burn": true
   },
   {
     "id": 10,

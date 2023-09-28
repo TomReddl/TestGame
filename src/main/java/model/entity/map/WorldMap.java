@@ -46,7 +46,7 @@ public class WorldMap implements Serializable {
                 tiles[i][j] = taleInfo;
             }
         }
-        tiles[1][1].setTile2Id(249); // алхимический стол для тестирования
+        tiles[1][1].setTile2Id(260); // плавильня для тестирования
 
         EffectsController.putAdditionalEffects(additionalEffect);
     }

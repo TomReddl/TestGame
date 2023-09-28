@@ -185,6 +185,10 @@ public class BattleController {
             mapCellInfo.setTile1Id(MapController.getBurntGround());
         }
 
+        if (damageType.equals(DamageTypeEnum.FIRE_DAMAGE) && mapCellInfo.getFireId() > 1) { // все загрязнения сгорают в огне
+                mapCellInfo.setPollutionId(0);
+        }
+
         // Предметы, лежащие не в контейнере могут сгореть или быть уничтожены взрывом
         if (((mapCellInfo.getTile2Info().getType() == null || !TileTypeEnum.valueOf(mapCellInfo.getTile2Info().getType()).equals(TileTypeEnum.CONTAINER)) &&
                 (damageType.equals(DamageTypeEnum.FIRE_DAMAGE) || damageType.equals(DamageTypeEnum.EXPLOSIVE_DAMAGE))) &&

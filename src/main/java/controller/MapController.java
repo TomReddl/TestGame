@@ -166,7 +166,7 @@ public class MapController {
         for (int x = 0; x < mapSize; x++) {
             for (int y = 0; y < mapSize; y++) {
                 MapCellInfo mapCellInfo = Game.getMap().getTiles()[x][y];
-                if (fires[x][y] && (mapCellInfo.getTile1Info().isBurn() || mapCellInfo.getTile2Info().isBurn()) ||
+                if (fires[x][y] && (mapCellInfo.getTile1Info().isBurn() || mapCellInfo.getTile2Info().isBurn() || Editor.getPollutions().get(mapCellInfo.getPollutionId()).isBurn()) ||
                         mapCellInfo.getFireId() != 0) {
                     int fireLevel = mapCellInfo.getFireId() + 1;
 
@@ -176,7 +176,7 @@ public class MapController {
                         fireLevel = 3;
                     }
 
-                    if (!mapCellInfo.getTile1Info().isBurn() && !mapCellInfo.getTile2Info().isBurn()) {
+                    if (!mapCellInfo.getTile1Info().isBurn() && !mapCellInfo.getTile2Info().isBurn() && !Editor.getPollutions().get(mapCellInfo.getPollutionId()).isBurn()) {
                         fireLevel = 0;
                     }
                     mapCellInfo.setFireId(fireLevel);
@@ -191,7 +191,8 @@ public class MapController {
      */
     public static void setFire(MapCellInfo mapCellInfo) {
         if (mapCellInfo.getFireId() == 0 &&
-                (mapCellInfo.getTile1Info().isBurn() || mapCellInfo.getTile2Info().isBurn())) {
+                (mapCellInfo.getTile1Info().isBurn() || mapCellInfo.getTile2Info().isBurn() ||
+                        Editor.getPollutions().get(mapCellInfo.getPollutionId()).isBurn())) {
             int fireLevel = mapCellInfo.getFireId() + 1;
             if (fireLevel > 3) {
                 fireLevel = 3;

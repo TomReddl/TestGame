@@ -878,6 +878,7 @@ public class ItemsController {
                 Game.showMessage(String.format(Game.getGameText("ITEM_CREATED"), Editor.getItems().get(recipeInfo.getItemId()).getName()),
                         Color.GREEN);
             }
+            Game.getEditor().getCraftPanel().showPanel(Game.getMap().getPlayer().getInteractMapPoint().getTile2Info()); // перерисовываем панель крафта на случай, если изменился список доступных рецептов
         }
     }
 

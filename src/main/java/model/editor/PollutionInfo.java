@@ -15,6 +15,7 @@ import java.io.Serializable;
 public class PollutionInfo implements Serializable {
     private int id;
     private Integer nextId; // id следующего уровня загрязнения того же типа
+    private boolean burn; // может ли загрязнение сгореть
     @JsonIgnore
     private ImageView image;
 }
