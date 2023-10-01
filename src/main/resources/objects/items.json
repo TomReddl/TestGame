@@ -1117,5 +1117,283 @@
     "types": [
       "RESOURCE"
     ]
+  },
+  {
+    "id": 187,
+    "weight": "300",
+    "volume": "300",
+    "price": "25",
+    "stackable": true,
+    "maxStrength": 100,
+    "types": [
+      "TOOL",
+      "COMMON"
+    ]
+  },
+  {
+    "id": 188,
+    "weight": "50",
+    "volume": "50",
+    "price": "10",
+    "stackable": true,
+    "maxStrength": 20,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 189,
+    "weight": "5",
+    "volume": "5",
+    "price": "15",
+    "stackable": true,
+    "maxStrength": 10,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 191,
+    "weight": "20",
+    "volume": "20",
+    "price": "30",
+    "stackable": true,
+    "maxStrength": 15,
+    "types": [
+      "TOOL",
+      "COMMON"
+    ]
+  },
+  {
+    "id": 192,
+    "weight": "200",
+    "volume": "300",
+    "price": "10",
+    "stackable": true,
+    "maxStrength": 30,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 193,
+    "weight": "200",
+    "volume": "300",
+    "price": "10",
+    "stackable": true,
+    "maxStrength": 30,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 194,
+    "weight": "100",
+    "volume": "100",
+    "price": "10",
+    "stackable": true,
+    "maxStrength": 30,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 195,
+    "weight": "150",
+    "volume": "100",
+    "price": "20",
+    "stackable": true,
+    "maxStrength": 60,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 196,
+    "weight": "100",
+    "volume": "100",
+    "price": "10",
+    "stackable": true,
+    "maxStrength": 30,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 197,
+    "weight": "300",
+    "volume": "500",
+    "price": "25",
+    "stackable": true,
+    "maxStrength": 40,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 198,
+    "weight": "200",
+    "volume": "300",
+    "price": "25",
+    "stackable": true,
+    "maxStrength": 50,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 199,
+    "weight": "1000",
+    "volume": "1500",
+    "price": "75",
+    "stackable": true,
+    "maxStrength": 75,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 200,
+    "weight": "500",
+    "volume": "500",
+    "price": "15",
+    "stackable": true,
+    "maxStrength": 100,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 201,
+    "weight": "800",
+    "volume": "1200",
+    "price": "50",
+    "stackable": true,
+    "maxStrength": 100,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 202,
+    "weight": "400",
+    "volume": "500",
+    "price": "20",
+    "stackable": true,
+    "maxStrength": 50,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 203,
+    "weight": "200",
+    "volume": "200",
+    "price": "40",
+    "stackable": true,
+    "maxStrength": 50,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 204,
+    "weight": "200",
+    "volume": "400",
+    "price": "20",
+    "stackable": true,
+    "maxStrength": 30,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 205,
+    "weight": "200",
+    "volume": "100",
+    "price": "50",
+    "stackable": true,
+    "maxStrength": 20,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 206,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "maxStrength": 20,
+    "types": [
+      "COMMON"
+    ],
+    "effects": [
+      {
+        "strId": "CHARISMA_INC",
+        "power": "20",
+        "durability": 100
+      }
+    ]
+  },
+  {
+    "id": 207,
+    "weight": "300",
+    "volume": "1000",
+    "price": "40",
+    "stackable": true,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 208,
+    "weight": "200",
+    "volume": "400",
+    "price": "10",
+    "stackable": true,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 209,
+    "weight": "25",
+    "volume": "50",
+    "price": "20",
+    "stackable": true,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 210,
+    "weight": "1500",
+    "volume": "2500",
+    "price": "60",
+    "stackable": true,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 211,
+    "weight": "2000",
+    "volume": "6000",
+    "price": "80",
+    "stackable": true,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 212,
+    "weight": "300",
+    "volume": "400",
+    "price": "15",
+    "stackable": true,
+    "types": [
+      "COMMON"
+    ]
   }
 ]

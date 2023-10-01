@@ -947,25 +947,29 @@
     "id": 129,
     "strength": 0,
     "passability": false,
-    "visibly": true
+    "visibly": true,
+    "type": "BATH"
   },
   {
     "id": 130,
     "strength": 0,
     "passability": false,
-    "visibly": true
+    "visibly": true,
+    "type": "BATH"
   },
   {
     "id": 131,
     "strength": 0,
     "passability": false,
-    "visibly": true
+    "visibly": true,
+    "type": "BATH"
   },
   {
     "id": 132,
     "strength": 0,
     "passability": false,
-    "visibly": true
+    "visibly": true,
+    "type": "BATH"
   },
   {
     "id": 133,

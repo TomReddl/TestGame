@@ -396,11 +396,11 @@ public class Editor {
             tab.setClosable(false);
             itemsTabPane.getTabs().add(tab);
         }
-        itemsTabPane.getTabs().get(0).setContent(itemsPane);
+        itemsTabPane.getTabs().get(0).setContent(scrollPane5);
         itemsTabPane.getSelectionModel().selectedItemProperty().addListener(
                 (observableValue, tab, t1) -> {
                     tab.setContent(null);
-                    t1.setContent(itemsPane);
+                    t1.setContent(scrollPane5);
                     filterItems(t1.getText(), searchItemTF.getText());
                 }
         );
@@ -417,8 +417,8 @@ public class Editor {
             tile.setPreserveRatio(true);
             tile.setSmooth(true);
             tile.setCache(true);
-            tile.setX(5 + (i / 11) * (tileSize + 5));
-            tile.setY(5 + (i) * (tileSize + 5) - (i / 11) * 495);
+            tile.setX(5 + (i / 10) * (tileSize + 5));
+            tile.setY(5 + (i) * (tileSize + 5) - (i / 10) * 450);
             tile.setId(String.valueOf(i));
             int finalI = i;
             tile.setOnMouseEntered(event -> Popover.showPopover(finalI + " " + Game.getItemsText(finalI + "NAME"), tile.getX(), tile.getY() + tileSize));
@@ -440,8 +440,8 @@ public class Editor {
             itemsPane.getChildren().add(items.get(i).getIcon());
         }
         itemsPane.setOnMouseEntered(event -> Popover.setPane(itemsPane));
-        scrollPane5.setContent(pane5);
-        tabPane.getTabs().get(4).setContent(scrollPane5);
+        scrollPane5.setContent(itemsPane);
+        tabPane.getTabs().get(4).setContent(pane5);
 
         ScrollPane scrollPane6 = new ScrollPane();
         scrollPane6.setLayoutX(190);
@@ -641,8 +641,8 @@ public class Editor {
                                 (itemInfo.getName().toLowerCase().contains(searchString.toLowerCase())));
                 itemTile.setVisible(visible);
                 if (itemTile.isVisible()) {
-                    itemTile.setX(5 + (i / 11) * (tileSize + 5));
-                    itemTile.setY(5 + (i) * (tileSize + 5) - (i / 11) * 495);
+                    itemTile.setX(5 + (i / 10) * (tileSize + 5));
+                    itemTile.setY(5 + (i) * (tileSize + 5) - (i / 10) * 450);
                     i++;
                 }
             }
@@ -657,6 +657,7 @@ public class Editor {
                 }
             }
         }
+        itemsPane.setMaxWidth(45 + (i / 10) * (tileSize + 5));
     }
 
     // Фильтрует тайлы в редакторе при поиске по названию

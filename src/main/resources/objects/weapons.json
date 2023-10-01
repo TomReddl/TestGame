@@ -298,5 +298,18 @@
     "oneHand": true,
     "fragile": true,
     "types": ["TRASH", "WEAPON"]
+  },
+  {
+    "id": 190,
+    "weight": "200",
+    "volume": "200",
+    "price": "30",
+    "stackable": false,
+    "damage": 2,
+    "maxStrength": 50,
+    "damageType": "CUTTING_DAMAGE",
+    "skill": 8,
+    "oneHand": true,
+    "types": ["COMMON", "WEAPON"]
   }
 ]

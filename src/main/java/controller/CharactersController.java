@@ -377,6 +377,10 @@ public class CharactersController {
                     SelectTimePanel.show(SelectTimePanel.TimeSkipType.SLEEP, mapCellInfo);
                     break;
                 }
+                case BATH: {
+                    washInBath(mapCellInfo);
+                    break;
+                }
                 case PLANT: {
                     harvest(mapCellInfo);
                     break;
@@ -421,6 +425,43 @@ public class CharactersController {
             }
         }
         TimeController.tic(true);
+    }
+
+    /**
+     * Мытье в ванне
+     *
+     * @param mapCellInfo - точка на карте
+     */
+    public static void washInBath(MapCellInfo mapCellInfo) {
+        Player player = Game.getMap().getPlayer();
+        ParamsInfo params = player.getParams();
+        int currentCleanness = params.getIndicators().get(4).getCurrentValue(); // текущее значение чистоты
+        if (currentCleanness < 70) {
+            currentCleanness = 70; // без мочалки и мыла можно довести чистоту только до 70
+        }
+
+        if (currentCleanness < 85) {
+            Items washcloth = ItemsController.findItemInInventory(204, player.getInventory());
+            if (washcloth != null) {
+                currentCleanness = 85; // с мочалкой можно довести уровень чистоты до 85
+            }
+        }
+        if (currentCleanness < 100) {
+            Items soap = ItemsController.findItemInInventory(206, player.getInventory()); // сначала ищем в инвентаре душистое мыло
+            if (soap != null) {
+                currentCleanness = 100;
+                EffectsController.applyEffects(soap, player); // вешаем на персонажа эффект мыла
+                ItemsController.deleteItem(soap, 1, player.getInventory(), player); // мыло тратися при мытье
+            } else {
+                soap = ItemsController.findItemInInventory(205, player.getInventory()); // ищем обычное мыло
+                if (soap != null) {
+                    currentCleanness = 100;
+                    ItemsController.deleteItem(soap, 1, player.getInventory(), player);
+                }
+            }
+        }
+        PlayerIndicatorsPanel.setIndicatorValue(4,  currentCleanness);
+        Game.showMessage(Game.getGameText("CHARACTER_WASHED"));
     }
 
     /**
@@ -860,7 +901,7 @@ public class CharactersController {
     }
 
     /**
-     * Изменение чистоты персонажа с течением времени
+     * Убывание чистоты персонажа с течением времени
      *
      * @param player - персонаж
      */
