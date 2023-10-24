@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
+import model.entity.creatures.CreatureTypeEnum;
 
+import java.util.List;
 import java.util.Map;
 /**
  * Данные типа существа в редакторе
@@ -19,6 +21,7 @@ public class CreatureInfo {
     private String name;
     @JsonIgnore
     private String desc;
+    private List<CreatureTypeEnum> types; // типы существа. Сущест во может принадлежать более чем к одному виду
     private Map<String, String> organs; // органы
     private Integer health; // здоровье существа
     private String bloodType; // тип крови существа

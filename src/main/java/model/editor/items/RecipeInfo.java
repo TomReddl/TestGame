@@ -16,7 +16,7 @@ public class RecipeInfo {
     private Integer itemId; // id создаваемого предмета
     private Integer itemCount; // количество создаваемых предметов
     private CraftingPlaceEnum craftingPlace; // тип стола для крафта
-    private Integer skillId; // навык для крафта
+    private String skillId; // навык для крафта
     private Integer minRequiredSkillLevel; // минимальный требуемый уровень навыка для крафта. Не обязательное
     private Integer level; // требуемый уровень стола для крафта
     private Integer timeToCraft; // время на создание предмета. Если null, то берется фиксированное значение

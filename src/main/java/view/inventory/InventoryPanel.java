@@ -52,7 +52,10 @@ public class InventoryPanel {
         SELECT_FOR_POTION_CRAFT, // выбор предмета для зельеварения
         SELECT_FOR_POTION_EXPLORE, // выбор предмета для исследования
         SELECT_FOR_COMBINER, // выбор предмета для объединения
-        SELECT_FOR_DUPLICATOR; // выбор предмета для дублирования
+        SELECT_FOR_DUPLICATOR, // выбор предмета для дублирования
+        SELECT_INLAYER_FOR_ENCHANT, // выбор инкрустата для зачарования
+        SELECT_INLAYER_FOR_DUPLICATOR, // выбор инкрустата для дублирования
+        SELECT_ITEM_FOR_ENCHANT; // выбор предмета для зачарования
     }
 
     // Тип сортировки
@@ -74,6 +77,7 @@ public class InventoryPanel {
     private final TabPane tabPane = new TabPane();
     @Getter
     private final Map<String, Tab> tabHolder = new HashMap<>();
+    @Getter
     private final ScrollPane scrollPane = new ScrollPane();
     private final Pane pane = new Pane();
     private final Pane outerPane = new Pane();
@@ -317,7 +321,14 @@ public class InventoryPanel {
                 pane.getChildren().add(itemRecord.getPane());
             }
         } else {
-            ItemTypeEnum type = ItemTypeEnum.getItemTypeByCode(selectType);
+            ItemTypeEnum type = null;
+            ItemTypeEnum secondType = null;
+            if (ItemTypeEnum.WEARABLE.getDesc().equals(selectType)) {
+                type = ItemTypeEnum.CLOTHES;
+                secondType = ItemTypeEnum.WEAPON;
+            } else {
+                type = ItemTypeEnum.getItemTypeByCode(selectType);
+            }
             pane.getChildren().remove(pane.getChildren().indexOf(sortPriceImage) + 1, pane.getChildren().size());
 
             if (items != null) {
@@ -325,7 +336,7 @@ public class InventoryPanel {
                         descending ? comparator.reversed() : comparator);
                 for (Items items : items) {
                     List<ItemTypeEnum> types = items.getInfo().getTypes();
-                    if (types != null && (types.contains(type) || ItemTypeEnum.ALL.equals(type))) {
+                    if (types != null && (types.contains(type) || (secondType != null && types.contains(secondType)) || ItemTypeEnum.ALL.equals(type))) {
                         var itemRecord = new ItemRecord(items, selectType, this);
                         itemRecord.getPane().setLayoutY(++i * tileSize);
                         pane.getChildren().add(itemRecord.getPane());

@@ -1395,5 +1395,967 @@
     "types": [
       "COMMON"
     ]
+  },
+  {
+    "id": 213,
+    "weight": "500",
+    "volume": "400",
+    "price": "300",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "POWER_INC",
+        "power": "10"
+      }
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 214,
+    "weight": "500",
+    "volume": "400",
+    "price": "300",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "STAMINA_INC",
+        "power": "10"
+      }
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 215,
+    "weight": "500",
+    "volume": "400",
+    "price": "300",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "AGILITY_INC",
+        "power": "10"
+      }
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 216,
+    "weight": "500",
+    "volume": "400",
+    "price": "300",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "CHARISMA_INC",
+        "power": "10"
+      }
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 217,
+    "weight": "500",
+    "volume": "400",
+    "price": "300",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "INTELLIGENCE_INC",
+        "power": "10"
+      }
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 218,
+    "weight": "500",
+    "volume": "400",
+    "price": "300",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "PERCEPTION_INC",
+        "power": "10"
+      }
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 219,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "HEAVY_WEAPON_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 220,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "HEAVY_ARMOR_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 221,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "FARMING_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 222,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "CARPENTRY_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 223,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "BLOCKING_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 224,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "HAND_COMBAT_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 225,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "BLACKSMITHING_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 226,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "CONSTRUCTION_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 227,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "LIGHT_WEAPON_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 228,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "LIGHT_ARMOR_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 229,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "ARMORLESS_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 230,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "LOCKPICKING_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 231,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "SPEECH_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 232,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "TRADE_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 233,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "COMMAND_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 234,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "LOVE_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 235,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "TRAINING_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 236,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "POTIONS_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 237,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "MEDICINE_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 238,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "ENGINEERING_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 239,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "MARKSMANSHIP_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 240,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "PICK_POCKET_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 241,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "SNEAK_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 242,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "ANIMAL_HANDLING_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 243,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "STONE_ART_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 244,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "SEWING_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 245,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "COOKING_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 246,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "PERFORMANCE_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 247,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "ENCHANTMENT_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 248,
+    "weight": "200",
+    "volume": "100",
+    "price": "150",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "DEDUCTION_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 249,
+    "weight": "700",
+    "volume": "500",
+    "price": "500",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "POWER_INC",
+        "power": "5"
+      },
+      {
+        "strId": "STAMINA_INC",
+        "power": "5"
+      },
+      {
+        "strId": "AGILITY_INC",
+        "power": "5"
+      },
+      {
+        "strId": "CHARISMA_INC",
+        "power": "5"
+      },
+      {
+        "strId": "INTELLIGENCE_INC",
+        "power": "5"
+      },
+      {
+        "strId": "PERCEPTION_INC",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "LARGE"
+    }
+  },
+  {
+    "id": 250,
+    "weight": "500",
+    "volume": "400",
+    "price": "4000",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "FIRE_STEPS"
+      }
+    ],
+    "params": {
+      "inlayerSize": "GREAT"
+    }
+  },
+  {
+    "id": 251,
+    "weight": "500",
+    "volume": "400",
+    "price": "5000",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "ADD_EXP",
+        "power": "5"
+      }
+    ],
+    "params": {
+      "inlayerSize": "GREAT"
+    }
+  },
+  {
+    "id": 253,
+    "weight": "500",
+    "volume": "400",
+    "price": "300",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "ACID_DAMAGE_RESIST",
+        "power": "10"
+      }
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 254,
+    "weight": "500",
+    "volume": "400",
+    "price": "300",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "FIRE_DAMAGE_RESIST",
+        "power": "10"
+      }
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 255,
+    "weight": "500",
+    "volume": "400",
+    "price": "300",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "ELECTRIC_DAMAGE_RESIST",
+        "power": "10"
+      }
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 256,
+    "weight": "500",
+    "volume": "400",
+    "price": "300",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "FROST_DAMAGE_RESIST",
+        "power": "10"
+      }
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 257,
+    "weight": "400",
+    "volume": "400",
+    "price": "50",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "params": {
+      "inlayerSize": "LARGE"
+    }
+  },
+  {
+    "id": 258,
+    "weight": "500",
+    "volume": "400",
+    "price": "250",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "INSECT_DAMAGE_ADD",
+        "power": "10"
+      }
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 259,
+    "weight": "500",
+    "volume": "400",
+    "price": "250",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "REPTILE_DAMAGE_ADD",
+        "power": "10"
+      }
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 260,
+    "weight": "500",
+    "volume": "400",
+    "price": "250",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "MOLD_DAMAGE_ADD",
+        "power": "10"
+      }
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 261,
+    "weight": "500",
+    "volume": "400",
+    "price": "250",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "HUMANOID_DAMAGE_ADD",
+        "power": "10"
+      }
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 262,
+    "weight": "500",
+    "volume": "400",
+    "price": "250",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "ABERRATION_DAMAGE_ADD",
+        "power": "10"
+      }
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 263,
+    "weight": "500",
+    "volume": "400",
+    "price": "350",
+    "stackable": true,
+    "types": [
+      "ENCHANTMENT"
+    ],
+    "effects": [
+      {
+        "strId": "WATER_WALK"
+      }
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
   }
 ]

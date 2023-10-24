@@ -7,10 +7,10 @@ import view.Game;
  * Типы эффектов
  */
 public enum EffectTypeEnum {
-    POTION(Game.getText("POTION_EFFECT_TYPE")),
-    ITEM(Game.getText("ITEM_EFFECT_TYPE")),
-    DISEASE(Game.getText("DISEASE_EFFECT_TYPE")),
-    ABILITY(Game.getText("ABILITY_EFFECT_TYPE"));
+    POTION(Game.getText("POTION_EFFECT_TYPE")),   // зелье
+    ITEM(Game.getText("ITEM_EFFECT_TYPE")),       // предмет
+    DISEASE(Game.getText("DISEASE_EFFECT_TYPE")), // болезнь
+    ABILITY(Game.getText("ABILITY_EFFECT_TYPE")); // способность
 
     @Getter
     private final String name;

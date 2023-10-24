@@ -111,6 +111,10 @@ public class Editor {
     private final DuplicatorPanel duplicatorPanel;
     @Getter
     private final CraftPanel craftPanel;
+    @Getter
+    private final EnchantmentPanel enchantmentPanel;
+    @Getter
+    private final InlayerDuplicatorPanel inlayerDuplicatorPanel;
 
     public Editor() {
         Game.getRoot().getChildren().add(canvas);
@@ -121,6 +125,8 @@ public class Editor {
         combinerPanel = new CombinerPanel();
         duplicatorPanel = new DuplicatorPanel();
         craftPanel = new CraftPanel();
+        enchantmentPanel = new EnchantmentPanel();
+        inlayerDuplicatorPanel = new InlayerDuplicatorPanel();
     }
 
     private void drawEditorButtons() {

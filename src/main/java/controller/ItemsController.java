@@ -33,6 +33,7 @@ public class ItemsController {
     public static final int lighterId = 112; // id защигалки
     public static final int bottleOfWaterId = 117; // id бутылки с водой
     public static final int biomassId = 120; // идентификатор биомассы
+    public static final int inlayerBlankId = 257; // идентификатор болванки инкрустата
     public static final int mutantIngredientId = 121; // идентификатор мутантного ингредиента
     public static final int woodId = 5; // идентификатор обычной древесины
     public static final int stoneId = 171; // идентификатор камня
@@ -85,6 +86,29 @@ public class ItemsController {
         if (itemTypeId != null) {
             for (Items i : inventory) {
                 if (i.getTypeId() == itemTypeId) {
+                    return i;
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Найти предмет в инвентаре, аналогичный переданному
+     *
+     * @param item - предмет, подобный которому ищем
+     * @param inventory  - инвентарь, в котором ищется предмет
+     * @return найденный предмет, или null
+     */
+    public static Items findItemInInventory(Items item, List<Items> inventory) {
+        if (item != null) {
+            for (Items i : inventory) {
+                if (i.getTypeId() == item.getTypeId() &&
+                        i.getName().equals(item.getName()) &&
+                i.getParams() == item.getParams() &&
+                i.getEffects() == item.getEffects() &&
+                i.getPrice().equals(item.getPrice()) &&
+                i.getCurrentStrength() == item.getCurrentStrength()) {
                     return i;
                 }
             }
@@ -164,7 +188,7 @@ public class ItemsController {
             return null;
         }
         boolean found = false;
-        Items i = findItemInInventory(item.getTypeId(), inventory);
+        Items i = findItemInInventory(item, inventory);
         if (i != null && item.getInfo().getStackable()) {
             i.setCount(i.getCount() + item.getCount());
             found = true;
@@ -185,7 +209,7 @@ public class ItemsController {
         inventoryPanel.filterInventoryTabs(inventoryPanel.getTabPane().getSelectionModel().getSelectedItem());
 
         if (player != null) {
-            Game.showMessage(String.format(Game.getGameText("ITEM_ADDED"), item.getInfo().getName(), count), Color.GREEN);
+            Game.showMessage(String.format(Game.getGameText("ITEM_ADDED"), item.getName(), count), Color.GREEN);
         }
 
         return item;
@@ -445,7 +469,7 @@ public class ItemsController {
             // если остался 1 или 0 предметов, перерисовываем тайл карты. Также перерисовываем всегда для манекена
             MapCellInfo mapCellInfo = player.getInteractMapPoint();
             String tileType = mapCellInfo.getTile2Info().getType();
-            if (containerInventory.size() <= 1 || (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.DUMMY))) {
+            if (containerInventory.size() <= 1 || (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.MANNEQUIN))) {
                 int x = Game.getContainerInventory().getX();
                 int y = Game.getContainerInventory().getY();
                 if (containerInventory.size() == 0) {
@@ -478,14 +502,20 @@ public class ItemsController {
             tileType = mapCellInfo.getTile2Info().getType();
         }
         boolean canAdd = true;
-        if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.DUMMY)) {
+        if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.MANNEQUIN)) {
             count = 1; // на манекен можно повесить лишь 1 экземпляр каждого вида одежды
             if (item.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES)) {
-                for (Items i : containerInventory) {
-                    if (i.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES) && ((ClothesInfo) i.getInfo()).getBodyPart().equals(((ClothesInfo) item.getInfo()).getBodyPart())) {
-                        canAdd = false;
-                        break;
+                if (((ClothesInfo) item.getInfo()).getGender().equals(mapCellInfo.getTile2Info().getParams().get("gender")) ||
+                        ((ClothesInfo) item.getInfo()).getGender().equals(ClothesGenderEnum.UNISEX.name())) {
+                    for (Items i : containerInventory) {
+                        if (i.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES) && ((ClothesInfo) i.getInfo()).getBodyPart().equals(((ClothesInfo) item.getInfo()).getBodyPart())) {
+                            canAdd = false;
+                            break;
+                        }
                     }
+                } else {
+                    canAdd = false;
+                    Game.showMessage(Game.getText("WRONG_GENDER"));
                 }
             } else if (item.getInfo().getTypes().contains(ItemTypeEnum.WEAPON)) {
                 for (Items i : containerInventory) {
@@ -511,7 +541,7 @@ public class ItemsController {
         if (canAdd && addItem(item, count, containerInventory, null) != null) {
             deleteItem(item, count, inventory, player);
         }
-        if (canAdd && tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.DUMMY)) {
+        if (canAdd && tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.MANNEQUIN)) {
             MapController.drawTile(player, mapCellInfo.getX() - player.getXMapPos(), mapCellInfo.getY() - player.getYMapPos()); // для манекена всегда перерисовываем тайл
         }
         if (canAdd && tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CONTAINER)) {
@@ -553,6 +583,24 @@ public class ItemsController {
             laboratoryPanel.setSelectedIngredient(item);
             laboratoryPanel.getExploreButton().setDisable(false);
             laboratoryPanel.getIngredientImage().setImage(item.getInfo().getIcon().getImage());
+        } else if (Game.getInventory().getShowMode().equals(InventoryPanel.ShowModeEnum.SELECT_ITEM_FOR_ENCHANT)) {
+            EnchantmentPanel enchantmentPanel = Game.getEditor().getEnchantmentPanel();
+            Game.getGameMenu().showGameMenuPanel("0");
+            enchantmentPanel.setItem(item);
+            enchantmentPanel.getItemImage().setImage(item.getInfo().getIcon().getImage());
+            enchantmentPanel.setEnchantButtonDisabled();
+        } else if (Game.getInventory().getShowMode().equals(InventoryPanel.ShowModeEnum.SELECT_INLAYER_FOR_ENCHANT)) {
+            EnchantmentPanel enchantmentPanel = Game.getEditor().getEnchantmentPanel();
+            Game.getGameMenu().showGameMenuPanel("0");
+            enchantmentPanel.setInlayer(item);
+            enchantmentPanel.getInlayerImage().setImage(item.getInfo().getIcon().getImage());
+            enchantmentPanel.setEnchantButtonDisabled();
+        } else if (Game.getInventory().getShowMode().equals(InventoryPanel.ShowModeEnum.SELECT_INLAYER_FOR_DUPLICATOR)) {
+            InlayerDuplicatorPanel inlayerDuplicatorPanel = Game.getEditor().getInlayerDuplicatorPanel();
+            Game.getGameMenu().showGameMenuPanel("0");
+            inlayerDuplicatorPanel.setSelectedInlayer(item);
+            inlayerDuplicatorPanel.getInlayerImage().setImage(item.getInfo().getIcon().getImage());
+            inlayerDuplicatorPanel.setDuplicateButtonDisabled();
         } else if (Game.getInventory().getShowMode().equals(InventoryPanel.ShowModeEnum.SELECT_FOR_COMBINER)) {
             if (item.getTypeId() != mutantIngredientId) { // мутантный ингредиент нельзя комбинировать
                 CombinerPanel combinerPanel = Game.getEditor().getCombinerPanel();

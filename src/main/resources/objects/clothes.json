@@ -7,7 +7,7 @@
   "burn": true,
   "armor": 5,
   "maxStrength": 50,
-  "skill": 10,
+  "skill": "ARMORLESS",
   "bodyPart": "TORSO",
   "covering": 30,
   "style": "COMMON",
@@ -23,12 +23,15 @@
     "burn": true,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 10,
+    "skill": "ARMORLESS",
     "bodyPart": "HEAD",
     "covering": 20,
     "style": "FRONTIER",
     "gender": "UNISEX",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
   },
   {
     "id": 21,
@@ -39,12 +42,15 @@
     "burn": true,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 10,
+    "skill": "ARMORLESS",
     "bodyPart": "TORSO",
     "covering": 20,
     "style": "FRONTIER",
     "gender": "MALE",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
   },
   {
     "id": 22,
@@ -55,12 +61,15 @@
     "burn": true,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 10,
+    "skill": "ARMORLESS",
     "bodyPart": "LEGS",
     "covering": 20,
     "style": "FRONTIER",
     "gender": "MALE",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
   },
   {
     "id": 23,
@@ -71,12 +80,15 @@
     "burn": true,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 10,
+    "skill": "ARMORLESS",
     "bodyPart": "SHOES",
     "covering": 20,
     "style": "FRONTIER",
     "gender": "MALE",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
   },
   {
     "id": 25,
@@ -87,7 +99,7 @@
     "burn": true,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 10,
+    "skill": "ARMORLESS",
     "bodyPart": "UNDERWEAR",
     "covering": 20,
     "style": "COMMON",
@@ -103,12 +115,15 @@
     "burn": true,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 10,
+    "skill": "ARMORLESS",
     "bodyPart": "SHIRT",
     "covering": 20,
     "style": "COMMON",
     "gender": "MALE",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
   },
   {
     "id": 27,
@@ -119,7 +134,7 @@
     "stackable": false,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 10,
+    "skill": "ARMORLESS",
     "bodyPart": "BACKPACK",
     "covering": 20,
     "style": "COMMON",
@@ -136,7 +151,7 @@
     "burn": true,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 10,
+    "skill": "ARMORLESS",
     "bodyPart": "BELT",
     "covering": 20,
     "style": "COMMON",
@@ -153,12 +168,15 @@
     "burn": true,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 10,
+    "skill": "ARMORLESS",
     "bodyPart": "TORSO",
     "covering": 20,
     "style": "FRONTIER",
     "gender": "MALE",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
   },
   {
     "id": 31,
@@ -169,7 +187,7 @@
     "burn": true,
     "armor": 0,
     "maxStrength": 50,
-    "skill": 10,
+    "skill": "ARMORLESS",
     "bodyPart": "BACKPACK",
     "covering": 20,
     "style": "COMMON",
@@ -185,12 +203,15 @@
     "stackable": false,
     "armor": 15,
     "maxStrength": 150,
-    "skill": 10,
+    "skill": "HEAVY_ARMOR",
     "bodyPart": "HEAD",
     "covering": 20,
     "style": "CATTGAR",
     "gender": "UNISEX",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
   },
   {
     "id": 36,
@@ -200,12 +221,15 @@
     "stackable": false,
     "armor": 15,
     "maxStrength": 150,
-    "skill": 10,
+    "skill": "LIGHT_ARMOR",
     "bodyPart": "TORSO",
     "covering": 20,
     "style": "CATTGAR",
     "gender": "MALE",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "LARGE"
+    }
   },
   {
     "id": 37,
@@ -215,12 +239,15 @@
     "stackable": false,
     "armor": 15,
     "maxStrength": 150,
-    "skill": 10,
+    "skill": "LIGHT_ARMOR",
     "bodyPart": "LEGS",
     "covering": 20,
     "style": "CATTGAR",
     "gender": "MALE",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
   },
   {
     "id": 38,
@@ -230,12 +257,15 @@
     "stackable": false,
     "armor": 15,
     "maxStrength": 150,
-    "skill": 10,
+    "skill": "LIGHT_ARMOR",
     "bodyPart": "HEAD",
     "covering": 20,
     "style": "CATTGAR",
     "gender": "UNISEX",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
   },
   {
     "id": 39,
@@ -245,12 +275,15 @@
     "stackable": false,
     "armor": 15,
     "maxStrength": 150,
-    "skill": 10,
+    "skill": "HEAVY_ARMOR",
     "bodyPart": "HEAD",
     "covering": 20,
     "style": "NALHAIM",
     "gender": "UNISEX",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
   },
   {
     "id": 40,
@@ -260,12 +293,15 @@
     "stackable": false,
     "armor": 15,
     "maxStrength": 150,
-    "skill": 10,
+    "skill": "LIGHT_ARMOR",
     "bodyPart": "HEAD",
     "covering": 20,
     "style": "NALHAIM",
     "gender": "UNISEX",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
   },
   {
     "id": 41,
@@ -275,12 +311,15 @@
     "stackable": false,
     "armor": 15,
     "maxStrength": 150,
-    "skill": 10,
+    "skill": "LIGHT_ARMOR",
     "bodyPart": "TORSO",
     "covering": 20,
     "style": "NALHAIM",
     "gender": "UNISEX",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "LARGE"
+    }
   },
   {
     "id": 42,
@@ -290,12 +329,15 @@
     "stackable": false,
     "armor": 15,
     "maxStrength": 150,
-    "skill": 10,
+    "skill": "LIGHT_ARMOR",
     "bodyPart": "LEGS",
     "covering": 20,
     "style": "NALHAIM",
     "gender": "UNISEX",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
   },
   {
     "id": 43,
@@ -305,12 +347,15 @@
     "stackable": false,
     "armor": 15,
     "maxStrength": 150,
-    "skill": 10,
+    "skill": "LIGHT_ARMOR",
     "bodyPart": "HEAD",
     "covering": 20,
     "style": "NALHAIM",
     "gender": "UNISEX",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
   },
   {
     "id": 44,
@@ -320,12 +365,15 @@
     "stackable": false,
     "armor": 15,
     "maxStrength": 150,
-    "skill": 10,
+    "skill": "LIGHT_ARMOR",
     "bodyPart": "TORSO",
     "covering": 20,
     "style": "NALHAIM",
     "gender": "UNISEX",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "LARGE"
+    }
   },
   {
     "id": 45,
@@ -335,12 +383,15 @@
     "stackable": false,
     "armor": 15,
     "maxStrength": 150,
-    "skill": 10,
+    "skill": "LIGHT_ARMOR",
     "bodyPart": "LEGS",
     "covering": 20,
     "style": "NALHAIM",
     "gender": "UNISEX",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
   },
   {
     "id": 118,
@@ -350,18 +401,22 @@
     "stackable": false,
     "armor": 2,
     "maxStrength": 50,
-    "skill": 10,
+    "skill": "ARMORLESS",
     "bodyPart": "GLOVES",
     "covering": 20,
     "style": "NOBLEMAN",
     "gender": "UNISEX",
+    "inlayerId": 236,
     "types": ["CLOTHES"],
     "effects": [
       {
         "strId": "POTIONS_INC",
-        "power": "20"
+        "power": "5"
       }
-    ]
+    ],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
   },
   {
     "id": 119,
@@ -371,18 +426,22 @@
     "stackable": false,
     "armor": 5,
     "maxStrength": 150,
-    "skill": 10,
+    "skill": "ARMORLESS",
     "bodyPart": "TORSO",
     "covering": 20,
     "style": "NOBLEMAN",
     "gender": "UNISEX",
     "types": ["CLOTHES"],
+    "inlayerId": 217,
     "effects": [
       {
         "strId": "INTELLIGENCE_INC",
-        "power": "5"
+        "power": "10"
       }
-    ]
+    ],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
   },
   {
     "id": 166,
@@ -392,12 +451,15 @@
     "stackable": false,
     "armor": 15,
     "maxStrength": 150,
-    "skill": 10,
+    "skill": "HEAVY_ARMOR",
     "bodyPart": "TORSO",
     "covering": 20,
     "style": "NALHAIM",
     "gender": "UNISEX",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "GREAT"
+    }
   },
   {
     "id": 167,
@@ -407,12 +469,15 @@
     "stackable": false,
     "armor": 15,
     "maxStrength": 150,
-    "skill": 10,
+    "skill": "HEAVY_ARMOR",
     "bodyPart": "LEGS",
     "covering": 20,
     "style": "NALHAIM",
     "gender": "UNISEX",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
   },
   {
     "id": 168,
@@ -422,12 +487,15 @@
     "stackable": false,
     "armor": 15,
     "maxStrength": 150,
-    "skill": 10,
+    "skill": "HEAVY_ARMOR",
     "bodyPart": "HEAD",
     "covering": 20,
     "style": "NALHAIM",
     "gender": "UNISEX",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
   },
   {
     "id": 169,
@@ -437,11 +505,37 @@
     "stackable": false,
     "armor": 15,
     "maxStrength": 150,
-    "skill": 10,
+    "skill": "HEAVY_ARMOR",
     "bodyPart": "SHOES",
     "covering": 20,
     "style": "NALHAIM",
     "gender": "UNISEX",
-    "types": ["CLOTHES"]
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 252,
+    "weight": "700",
+    "volume": "2000",
+    "price": "200",
+    "stackable": false,
+    "armor": 25,
+    "maxStrength": 150,
+    "skill": "HEAVY_ARMOR",
+    "bodyPart": "HEAD",
+    "covering": 25,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    },
+    "effects": [
+      {
+        "strId": "BLIND"
+      }
+    ]
   }
 ]

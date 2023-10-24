@@ -17,7 +17,9 @@ import model.entity.player.ParamsInfo;
 import view.Game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Панель параметров персонажа
@@ -54,7 +56,7 @@ public class ParamPanel {
     @Getter
     private static final List<Label> characteristicsLabels = new ArrayList<>();
     @Getter
-    private static final List<Label> skillsLabels = new ArrayList<>();
+    private static final Map<String, Label> skillsLabels = new HashMap<>();
 
     static {
         legacyNames.add("HAN");
@@ -75,26 +77,37 @@ public class ParamPanel {
         skillsNames.add("HEAVY_ARMOR");
         skillsNames.add("FARMING");
         skillsNames.add("CARPENTRY");
+        skillsNames.add("STONE_ART");
+
         skillsNames.add("BLOCKING");
-        skillsNames.add("HAND_TO_HAND_COMBAT");
-        skillsNames.add("BLACKSMITH");
+        skillsNames.add("HAND_COMBAT");
+        skillsNames.add("BLACKSMITHING");
         skillsNames.add("CONSTRUCTION");
+        skillsNames.add("SEWING");
+
         skillsNames.add("LIGHT_WEAPON");
         skillsNames.add("LIGHT_ARMOR");
-        skillsNames.add("UNARMORED_FIGHT");
-        skillsNames.add("BREAKING_LOCKS");
-        skillsNames.add("SPEECHCRAFT");
+        skillsNames.add("ARMORLESS");
+        skillsNames.add("LOCKPICKING");
+        skillsNames.add("COOKING");
+
+        skillsNames.add("SPEECH");
         skillsNames.add("TRADE");
         skillsNames.add("COMMAND");
         skillsNames.add("LOVE");
-        skillsNames.add("EDUCATION");
+        skillsNames.add("PERFORMANCE");
+
+        skillsNames.add("TRAINING");
         skillsNames.add("POTIONS");
         skillsNames.add("MEDICINE");
         skillsNames.add("ENGINEERING");
-        skillsNames.add("SHOOTING");
-        skillsNames.add("PICKPOCKETING");
-        skillsNames.add("SNEAKING");
+        skillsNames.add("ENCHANTMENT");
+
+        skillsNames.add("MARKSMANSHIP");
+        skillsNames.add("PICK_POCKET");
+        skillsNames.add("SNEAK");
         skillsNames.add("ANIMAL_HANDLING");
+        skillsNames.add("DEDUCTION");
     }
 
     public ParamPanel(Group root) {
@@ -102,6 +115,7 @@ public class ParamPanel {
         pane.setLayoutY(40);
         pane.setPrefSize(400, 270);
         pane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
+        pane.setStyle("-fx-border-color:black;");
 
         legacyLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
         legacyLabel.setLayoutX(5);
@@ -131,7 +145,7 @@ public class ParamPanel {
 
         skillsPane.setLayoutX(190);
         skillsPane.setLayoutY(20);
-        skillsPane.setPrefSize(180, 550);
+        skillsPane.setPrefSize(180, 650);
 
         scrollPane.setLayoutX(190);
         scrollPane.setLayoutY(20);
@@ -147,9 +161,9 @@ public class ParamPanel {
 
         i = 0;
         var j = 0;
-        for (Parameter skillParam : Game.getMap().getPlayer().getParams().getSkills()) {
-            if (i % 4 == 0) {
-                var label = new Label(Game.getText(ParamPanel.getCharacteristicsNames().get(i / 4) + "_PARAM_NAME"));
+        for (String paramName : skillsNames) {
+            if (i % 5 == 0) {
+                var label = new Label(Game.getText(ParamPanel.getCharacteristicsNames().get(i / 5) + "_PARAM_NAME"));
                 label.setFont(Font.font("Arial", FontWeight.BOLD, 12));
                 label.setTextFill(Color.web("#999999"));
                 label.setLayoutY(i * 18 + j);
@@ -157,8 +171,8 @@ public class ParamPanel {
                 skillsPane.getChildren().add(label);
                 j += 18;
             }
-            var paramRecord = new ParamRecord(skillParam, i, skill);
-            skillsLabels.add((Label) paramRecord.getBox().getChildrenUnmodifiable().get(1));
+            var paramRecord = new ParamRecord(Game.getMap().getPlayer().getParams().getSkills().get(paramName), i, skill);
+            skillsLabels.put(paramName, (Label) paramRecord.getBox().getChildrenUnmodifiable().get(1));
             paramRecord.getBox().setLayoutY((i++) * 18 + j);
             skillsPane.getChildren().add(paramRecord.getBox());
         }
@@ -184,16 +198,16 @@ public class ParamPanel {
                 ParamPanel.getCharacteristicsLabels().get(i).setTextFill(Color.BLACK);
             }
         }
-        for (int i = 0; i < 24; i++) {
-            Parameter parameter = paramsInfo.getSkills().get(i);
-            skillsLabels.get(i).setText(parameter.getCurrentValue().toString());
+        for (String paramName : Game.getMap().getPlayer().getParams().getSkills().keySet()) {
+            Parameter parameter = Game.getMap().getPlayer().getParams().getSkills().get(paramName);
+            skillsLabels.get(paramName).setText(parameter.getCurrentValue().toString());
 
             if (parameter.getCurrentValue() > parameter.getRealValue()) {
-                ParamPanel.getSkillsLabels().get(i).setTextFill(Color.GREEN);
+                ParamPanel.getSkillsLabels().get(paramName).setTextFill(Color.GREEN);
             } else if (parameter.getCurrentValue() < parameter.getRealValue()) {
-                ParamPanel.getSkillsLabels().get(i).setTextFill(Color.RED);
+                ParamPanel.getSkillsLabels().get(paramName).setTextFill(Color.RED);
             } else {
-                ParamPanel.getSkillsLabels().get(i).setTextFill(Color.BLACK);
+                ParamPanel.getSkillsLabels().get(paramName).setTextFill(Color.BLACK);
             }
         }
     }

@@ -150,7 +150,7 @@ public class CombinerPanel {
         combineButton.setLayoutX(10);
         combineButton.setLayoutY(180);
         combineButton.setPrefWidth(100);
-        combineButton.setOnAction(event -> exploreEffect());
+        combineButton.setOnAction(event -> combineIngredients());
         combineButton.setDisable(true);
         pane.getChildren().add(combineButton);
 
@@ -177,7 +177,7 @@ public class CombinerPanel {
     /**
      * Объединить ингредиенты
      */
-    private void exploreEffect() {
+    private void combineIngredients() {
         if (firstIngredient.getTypeId() != 0 && secondIngredient.getTypeId() != 0) {
             List<String> knowEffects1 = Game.getMap().getPlayer().getKnowledgeInfo().getKnowEffects().get(firstIngredient.getTypeId());
             List<String> effects1 = firstIngredient.getEffects().stream().map(EffectParams::getStrId).collect(Collectors.toList());
@@ -218,7 +218,7 @@ public class CombinerPanel {
                     secondIngredient = new Items();
                     secondIngredientImage.setImage(null);
                     combineButton.setDisable(true);
-                    CharactersController.addSkillExp(17, 20);
+                    CharactersController.addSkillExp("POTIONS", 20);
                 }
             } else {
                 Game.showMessage(Game.getText("COMBINE_IMPOSIBLE"));
@@ -268,7 +268,7 @@ public class CombinerPanel {
                     }
                 }
             }
-            int alchemySkill = Game.getMap().getPlayer().getParams().getSkills().get(17).getCurrentValue();
+            int alchemySkill = Game.getMap().getPlayer().getParams().getSkills().get("POTIONS").getCurrentValue();
             if (count == 0) {
                 chance = 10 + alchemySkill / 2;
             } else if (count == 1) {

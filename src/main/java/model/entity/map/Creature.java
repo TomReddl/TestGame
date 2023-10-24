@@ -38,6 +38,9 @@ public class Creature implements Serializable {
         this.xPos = xPos;
         this.yPos = yPos;
         this.health = Editor.getCreatures().get(creatureTypeId).getHealth();
+        if (health == null) { // если здоровье не задано, установим стандартное значение
+            health = 100;
+        }
         this.inventory = new ArrayList<>();
     }
 

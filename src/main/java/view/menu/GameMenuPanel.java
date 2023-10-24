@@ -107,6 +107,7 @@ public class GameMenuPanel {
      */
     public void showOnlyInventory(Boolean show, String itemType, InventoryPanel.ShowModeEnum showMode) {
         GameMenuPanel.getPane().setVisible(show);
+        GameMenuPanel.getTabPane().getSelectionModel().select(0);
         if (show) {
             Game.getInventory().show(Game.getMap().getPlayer().getInventory(), 0, 0, showMode, "");
             Game.getInventory().drawItems(InventoryPanel.SortType.NAME, true, itemType);

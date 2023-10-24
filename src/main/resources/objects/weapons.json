@@ -8,9 +8,12 @@
     "damage": 15,
     "maxStrength": 100,
     "damageType": "CUTTING_DAMAGE",
-    "skill": 8,
+    "skill": "LIGHT_WEAPON",
     "oneHand": true,
-    "types": ["WEAPON"]
+    "types": ["WEAPON"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
   },
   {
     "id": 19,
@@ -21,7 +24,7 @@
     "damage": 5,
     "maxStrength": 70,
     "damageType": "CUTTING_DAMAGE",
-    "skill": 8,
+    "skill": "LIGHT_WEAPON",
     "oneHand": true,
     "types": ["WEAPON"]
   },
@@ -34,7 +37,7 @@
     "damage": 25,
     "maxStrength": 160,
     "damageType": "CUTTING_DAMAGE",
-    "skill": 0,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON"]
   },
@@ -47,7 +50,7 @@
     "damage": 25,
     "maxStrength": 160,
     "damageType": "CRUSHING_DAMAGE",
-    "skill": 0,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON"]
   },
@@ -59,7 +62,7 @@
     "stackable": false,
     "damage": 85,
     "maxStrength": 1000,
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "damageType": "CUTTING_DAMAGE",
     "oneHand": true,
     "types": ["WEAPON"]
@@ -73,7 +76,7 @@
     "damage": 23,
     "maxStrength": 100,
     "damageType": "CRUSHING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "PICKAXE"]
   },
@@ -86,7 +89,7 @@
     "damage": 28,
     "maxStrength": 150,
     "damageType": "CRUSHING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "PICKAXE"]
   },
@@ -99,7 +102,7 @@
     "damage": 32,
     "maxStrength": 250,
     "damageType": "CRUSHING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "PICKAXE"]
   },
@@ -112,7 +115,7 @@
     "damage": 38,
     "maxStrength": 400,
     "damageType": "CRUSHING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "PICKAXE"]
   },
@@ -125,7 +128,7 @@
     "damage": 45,
     "maxStrength": 800,
     "damageType": "CRUSHING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "PICKAXE"]
   },
@@ -138,7 +141,7 @@
     "damage": 28,
     "maxStrength": 100,
     "damageType": "CRUSHING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "AXE"]
   },
@@ -151,7 +154,7 @@
     "damage": 32,
     "maxStrength": 150,
     "damageType": "CRUSHING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "AXE"]
   },
@@ -164,7 +167,7 @@
     "damage": 38,
     "maxStrength": 250,
     "damageType": "CRUSHING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "AXE"]
   },
@@ -177,7 +180,7 @@
     "damage": 45,
     "maxStrength": 400,
     "damageType": "CRUSHING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "AXE"]
   },
@@ -190,7 +193,7 @@
     "damage": 50,
     "maxStrength": 800,
     "damageType": "CRUSHING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "AXE"]
   },
@@ -203,7 +206,7 @@
     "damage": 12,
     "maxStrength": 100,
     "damageType": "CRUSHING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "SHOVEL"]
   },
@@ -216,7 +219,7 @@
     "damage": 16,
     "maxStrength": 140,
     "damageType": "CRUSHING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "SHOVEL"]
   },
@@ -229,7 +232,7 @@
     "damage": 22,
     "maxStrength": 200,
     "damageType": "CRUSHING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "SHOVEL"]
   },
@@ -242,7 +245,7 @@
     "damage": 20,
     "maxStrength": 100,
     "damageType": "CUTTING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "SCYTHE"]
   },
@@ -255,7 +258,7 @@
     "damage": 24,
     "maxStrength": 140,
     "damageType": "CUTTING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "SCYTHE"]
   },
@@ -268,7 +271,7 @@
     "damage": 28,
     "maxStrength": 200,
     "damageType": "CUTTING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "SCYTHE"]
   },
@@ -281,7 +284,7 @@
     "damage": 5,
     "maxStrength": 800,
     "damageType": "CRUSHING_DAMAGE",
-    "skill": 8,
+    "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON", "BROOM"]
   },
@@ -294,7 +297,7 @@
     "damage": 8,
     "maxStrength": 5,
     "damageType": "CUTTING_DAMAGE",
-    "skill": 8,
+    "skill": "LIGHT_WEAPON",
     "oneHand": true,
     "fragile": true,
     "types": ["TRASH", "WEAPON"]
@@ -308,8 +311,26 @@
     "damage": 2,
     "maxStrength": 50,
     "damageType": "CUTTING_DAMAGE",
-    "skill": 8,
+    "skill": "LIGHT_WEAPON",
     "oneHand": true,
     "types": ["COMMON", "WEAPON"]
+  },
+  {
+    "id": 264,
+    "weight": "4500",
+    "volume": "5000",
+    "price": "450",
+    "stackable": false,
+    "damage": 18,
+    "maxStrength": 300,
+    "damageType": "CUTTING_DAMAGE",
+    "skill": "HEAVY_WEAPON",
+    "oneHand": false,
+    "types": ["WEAPON"],
+    "effects": [
+      {
+        "strId": "MOLD_STRIKE"
+      }
+    ]
   }
 ]

@@ -587,32 +587,34 @@ public class MapController {
             MainMenu.getPane().setVisible(false);
             Game.setGameMode(GameModeEnum.GAME_MENU);
         } else if (!TileEditPanel.getPane().isVisible()) {
+            int xMapPos = player.getXMapPos();
+            int yMapPos = player.getYMapPos();
             switch (code) {
                 case E: {
                     Robot robot = new Robot();
                     int x = ((int) (robot.getMousePosition().getX() - Game.getStage().getX()) / tileSize);
                     int y = ((int) (robot.getMousePosition().getY() - Game.getStage().getY() - headerSize) / tileSize);
-                    MapCellInfo cellInfo = Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y];
+                    MapCellInfo cellInfo = Game.getMap().getTiles()[xMapPos + x][yMapPos + y];
                     TileEditPanel.showPanel(cellInfo);
                     break;
                 }
                 case W: {
-                    player.setYMapPos(Math.max(player.getYMapPos() - viewSize, 0));
+                    player.setYMapPos(Math.max(yMapPos - viewSize, 0));
                     MapController.drawCurrentMap();
                     break;
                 }
                 case S: {
-                    player.setYMapPos(Math.min(player.getYMapPos() + viewSize, mapSize - viewSize));
+                    player.setYMapPos(Math.min(yMapPos + viewSize, mapSize - viewSize));
                     MapController.drawCurrentMap();
                     break;
                 }
                 case D: {
-                    player.setXMapPos(Math.min(player.getXMapPos() + viewSize, mapSize - viewSize));
+                    player.setXMapPos(Math.min(xMapPos + viewSize, mapSize - viewSize));
                     MapController.drawCurrentMap();
                     break;
                 }
                 case A: {
-                    player.setXMapPos(Math.max(player.getXMapPos() - viewSize, 0));
+                    player.setXMapPos(Math.max(xMapPos - viewSize, 0));
                     MapController.drawCurrentMap();
                     break;
                 }
@@ -634,6 +636,8 @@ public class MapController {
     private static void onGameKeyReleased(KeyCode code) {
         var player = Game.getMap().getPlayer();
         Game.hideMessage();
+        int xPos = player.getXPosition();
+        int yPos = player.getYPosition();
         switch (code) {
             case D: {
                 if (BookPanel.getPane().isVisible()) {
@@ -714,12 +718,21 @@ public class MapController {
                             if (!creature.isAlive()) {
                                 Game.getGameMenu().showContainerInventory(creature.getInventory(), x, y, "creature");
                             }
-                        } else if (itemsList != null || mapCellInfo.getTile2Type().equals(TileTypeEnum.CONTAINER) || mapCellInfo.getTile2Type().equals(TileTypeEnum.DUMMY)) {
+                        } else if (itemsList != null || mapCellInfo.getTile2Type().equals(TileTypeEnum.CONTAINER) || mapCellInfo.getTile2Type().equals(TileTypeEnum.MANNEQUIN)) {
                             CharactersController.pickUpItems(itemsList, x, y);
                         } else {
                             CharactersController.interactionWithMap(x, y);
                         }
                     }
+                }
+            }
+        }
+        if (xPos != player.getXPosition() || yPos != player.getYPosition()) { // если персонаж переместился
+            for (EffectParams effect : player.getAppliedEffects()) {
+                if (effect.getStrId().equals("FIRE_STEPS")) { // если есть зачарование "огненная поступь, поджигаем точку, с которой ушел персонаж
+                    MapController.setFire(Game.getMap().getTiles()[xPos][yPos]);
+                    MapController.drawCurrentMap();
+                    break;
                 }
             }
         }
@@ -781,16 +794,40 @@ public class MapController {
      * @param YPos - координата y левого верхнего угла отрисовываемой области
      */
     public static void drawMap(int XPos, int YPos) {
-        boolean[][] visiblyPoints = CharactersController.findVisibleMapPoints(Game.getMap().getPlayer());
-        for (int x = 0; x < viewSize; x++) {
-            for (int y = 0; y < viewSize; y++) {
-                drawBottomLayer(XPos, YPos, x, y, !Game.getGameMode().equals(GameModeEnum.GAME) || visiblyPoints[x][y]);
+        Player player = Game.getMap().getPlayer();
+        if (CharactersController.isBlind(player)) { // если персонаж под действием эффекта "слепота"
+            drawBlindMap(player);
+        } else {
+            boolean[][] visiblyPoints = CharactersController.findVisibleMapPoints(Game.getMap().getPlayer());
+            for (int x = 0; x < viewSize; x++) {
+                for (int y = 0; y < viewSize; y++) {
+                    drawBottomLayer(XPos, YPos, x, y, !Game.getGameMode().equals(GameModeEnum.GAME) || visiblyPoints[x][y]);
+                }
+            }
+
+            for (int x = 0; x < viewSize; x++) { // NPC и существа рисуются в отдельном цикле, чтобы быть поверх уже отрисованной карты
+                for (int y = 0; y < viewSize; y++) {
+                    drawUpperLayer(XPos, YPos, x, y, !Game.getGameMode().equals(GameModeEnum.GAME) || visiblyPoints[x][y]);
+                }
             }
         }
+    }
 
-        for (int x = 0; x < viewSize; x++) { // NPC и существа рисуются в отдельном цикле, чтобы быть поверх уже отрисованной карты
+    /**
+     * Отрисовать карту для персонажа под действием эффекта "слепота"
+     * @param player
+     */
+    private static void drawBlindMap(Player player) {
+        GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
+        for (int x = 0; x < viewSize; x++) {
             for (int y = 0; y < viewSize; y++) {
-                drawUpperLayer(XPos, YPos, x, y, !Game.getGameMode().equals(GameModeEnum.GAME) || visiblyPoints[x][y]);
+                gc.drawImage(dark.getImage(),
+                        x * tileSize, y * tileSize);
+                if ((Game.getGameMode().equals(GameModeEnum.GAME) ||
+                        Game.getGameMode().equals(GameModeEnum.GAME_MENU)) &&
+                        (player.getXViewPos() == x) && (player.getYViewPos() == y)) {
+                    MapController.drawTile(player, x, y);
+                }
             }
         }
     }
@@ -909,7 +946,7 @@ public class MapController {
 
             // предметы
             if (tileInfo2.getType() == null || !(tileInfo2.getType().equals(TileTypeEnum.CONTAINER.toString()) ||
-                    tileInfo2.getType().equals(TileTypeEnum.DUMMY.toString()))) {
+                    tileInfo2.getType().equals(TileTypeEnum.MANNEQUIN.toString()))) {
                 if (mapCellInfo.getItems() != null) {
                     if (mapCellInfo.getItems().size() == 1) {
                         gc.drawImage(Editor.getItems().get(
@@ -920,7 +957,7 @@ public class MapController {
                                 x * tileSize, y * tileSize);
                     }
                 }
-            } else if (tileInfo2.getType().equals(TileTypeEnum.DUMMY.toString())) { // Для манекена отрисовываем надетые на него вещи
+            } else if (tileInfo2.getType().equals(TileTypeEnum.MANNEQUIN.toString())) { // Для манекена отрисовываем надетые на него вещи
                 if (mapCellInfo.getItems() != null) {
                     for (Items item : mapCellInfo.getItems()) {
                         var path = "/graphics/items/" + item.getTypeId() + "doll.png";

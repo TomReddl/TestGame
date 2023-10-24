@@ -11,10 +11,7 @@ import view.inventory.InventoryPanel;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Информация о предмете
@@ -43,10 +40,13 @@ public class Items {
     private List<EffectParams> effects; // кастомные эффекты предмета
     @JsonProperty("unselectable")
     private boolean unselectable; // предмет нельзя подобрать (например, активированная взрывчатка)
+    @JsonProperty("inlayerId")
+    private Integer inlayerId; // идентификатор инкрустата (для зачаровываемых предметов)
 
     public Items(int typeId, int count) {
         this.typeId = typeId;
         this.count = count;
+        this.inlayerId = this.getInfo().getInlayerId();
         this.setCurrentStrength(this.getInfo().getMaxStrength());
         this.setParams(this.getInfo().getParams());
         if (this.getInfo().getParams() != null &&
@@ -65,6 +65,8 @@ public class Items {
         this.name = anotherItem.getName();
         this.effects = anotherItem.getEffects();
         this.price = anotherItem.getPrice();
+        this.unselectable = anotherItem.isUnselectable();
+        this.inlayerId = anotherItem.getInlayerId();
     }
 
     private static Comparator<Items> compareByName = Comparator.comparing(o -> o.getInfo().getName());

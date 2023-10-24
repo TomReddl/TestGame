@@ -9,7 +9,7 @@ public enum  TileTypeEnum {
     NONE("Нет типа"),
     DOOR("Дверь"),
     CONTAINER("Контейнер"),
-    DUMMY("Манекен"), // надетые на манекен предметы отображаются на нем
+    MANNEQUIN("Манекен"), // надетые на манекен предметы отображаются на нем
     MOVABLE("Перемещаемый"), // этот тип тайлов можно толкать
     WALL("Стена"),
     BED("Кровать"),
@@ -25,6 +25,8 @@ public enum  TileTypeEnum {
     ALCHEMY_LABORATORY("Алхимическая лаборатория"),
     INGREDIENTS_COMBINER("Объединитель ингредиентов"),
     DUPLICATOR("Дубликатор ингредиентов"),
+    INLAYER_DUPLICATOR("Дубликатор инкрустатов"),
+    JEWELRY_TABLE("Стол для зачарования"),
     CRAFTING_PLACE("Место для крафта");
 
     @Getter

@@ -36,6 +36,7 @@ public class ItemRecord {
     private Label weightLabel;
     private Label volumeLabel;
     private Label priceLabel;
+    private ImageView enchantmentImage;
 
     public ItemRecord(String bodyPart) {
         pane = new Pane();
@@ -75,6 +76,11 @@ public class ItemRecord {
             brokenItemIcon.setX(25);
             brokenItemIcon.setY(25);
             pane.getChildren().add(brokenItemIcon);
+        }
+
+        if (items.getInlayerId() != null && items.getInlayerId() != 0) {
+            enchantmentImage = new ImageView("/graphics/gui/Enchantment.png");
+            pane.getChildren().add(enchantmentImage);
         }
 
         var itemName = items.getName();

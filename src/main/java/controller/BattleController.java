@@ -6,6 +6,8 @@ import model.editor.items.WeaponInfo;
 import model.entity.BloodTypeEnum;
 import model.entity.GameModeEnum;
 import model.entity.battle.DamageTypeEnum;
+import model.entity.creatures.CreatureTypeEnum;
+import model.entity.effects.EffectParams;
 import model.entity.map.Creature;
 import model.entity.map.Items;
 import model.entity.map.MapCellInfo;
@@ -21,7 +23,7 @@ import java.util.List;
  */
 public class BattleController {
 
-    public static final int baseFireDamage = 20; // базовый урон от горения
+    public static final int baseFireDamage = 15; // базовый урон от горения
     public static final int baseAcidRainDamage = 3; // базовый урон от кислотного дождя
     public static final int baseAcidPollutionDamage = 3; // базовый урон от кислотного загрязнения
 
@@ -34,7 +36,7 @@ public class BattleController {
      */
     public static void attackCreature(Player player, Items weapon, Creature creature) {
         WeaponInfo weaponInfo = ((WeaponInfo) weapon.getInfo());
-        boolean isKilled = applyDamageToCreature(weaponInfo.getDamage(), DamageTypeEnum.valueOf(weaponInfo.getDamageType()), creature);
+        boolean isKilled = applyDamageToCreature(getDamageWithEffects(weapon, creature), DamageTypeEnum.valueOf(weaponInfo.getDamageType()), creature);
         if (isKilled) {
             if (Game.getMap().getPlayer() == player) { // выводим сообщение, только если атаковал текущий выбранный персонаж
                 Game.showMessage(creature.getInfo().getName() + " " + Game.getText("KILLED"), Color.GREEN);
@@ -59,6 +61,25 @@ public class BattleController {
             return true;
         }
         return false;
+    }
+
+    /**
+     * Получить урон с модификаторами, наложенными на оружие
+     * @return значение урона с модификаторами
+     */
+    private static int getDamageWithEffects(Items weapon, Creature creature) {
+        int damagePoints = ((WeaponInfo) weapon.getInfo()).getDamage();
+        List<CreatureTypeEnum> creatureTypeEnums = creature.getInfo().getTypes();
+        if (creatureTypeEnums != null && weapon.getEffects() != null) {
+            for (CreatureTypeEnum type : creatureTypeEnums) {
+                for (EffectParams effectParams : weapon.getEffects()) {
+                    if (effectParams.getStrId().replaceAll("_DAMAGE_ADD", "").equals(type.name())) {
+                        damagePoints += effectParams.getPower();
+                    }
+                }
+            }
+        }
+        return damagePoints;
     }
 
     /**
@@ -93,7 +114,8 @@ public class BattleController {
      * @param creature - существо
      */
     private static void setPollution(Creature creature) {
-        BloodTypeEnum bloodType = BloodTypeEnum.valueOf(creature.getInfo().getBloodType());
+        String bloodTypeStr = creature.getInfo().getBloodType();
+        BloodTypeEnum bloodType = bloodTypeStr == null ? BloodTypeEnum.BLOOD : BloodTypeEnum.valueOf(bloodTypeStr); // если тип крови не указан, берем обычную кровь
         MapCellInfo mapCellInfo = Game.getMap().getTiles()[creature.getXPos()][creature.getYPos()];
         if (mapCellInfo.getPollutionId() == 0) {
             mapCellInfo.setPollutionId(bloodType.getPollution1Id());
@@ -111,6 +133,7 @@ public class BattleController {
      */
     public static void applyDamageToPlayer(int damagePoints, DamageTypeEnum damageType) {
         var player = Game.getMap().getPlayer();
+        damagePoints = getDamagePoint(damagePoints, damageType, player);
         var playerHealth = player.getParams().getIndicators().get(0).getCurrentValue();
         playerHealth = playerHealth - damagePoints;
         // при нанесение урона на земле остается кровь
@@ -126,12 +149,71 @@ public class BattleController {
     }
 
     /**
+     * Получить урон с учетом сопротивлений персонажа
+     * @param damagePoints - входящий урон без учета сопротивлений
+     * @param damageType   - тип урона
+     * @param player       - персонаж
+     * @return             - урон с учетом сопротивлений персонажа
+     */
+    private static int getDamagePoint(int damagePoints, DamageTypeEnum damageType, Player player) {
+        switch (damageType) {
+            case FIRE_DAMAGE: {
+                for (EffectParams effect : player.getAppliedEffects()) {
+                    if (effect.getStrId().equals("FIRE_DAMAGE_RESIST")) {
+                        damagePoints -= effect.getPower();
+                    }
+                }
+            }
+            case ELECTRIC_DAMAGE: {
+                for (EffectParams effect : player.getAppliedEffects()) {
+                    if (effect.getStrId().equals("ELECTRIC_DAMAGE_RESIST")) {
+                        damagePoints -= effect.getPower();
+                    }
+                }
+            }
+            case FROST_DAMAGE: {
+                for (EffectParams effect : player.getAppliedEffects()) {
+                    if (effect.getStrId().equals("FROST_DAMAGE_RESIST")) {
+                        damagePoints -= effect.getPower();
+                    }
+                }
+            }
+            case ACID_DAMAGE: {
+                for (EffectParams effect : player.getAppliedEffects()) {
+                    if (effect.getStrId().equals("ACID_DAMAGE_RESIST")) {
+                        damagePoints -= effect.getPower();
+                    }
+                }
+            }
+        }
+        if (damagePoints < 0) {
+            damagePoints = 0;
+        }
+
+        return damagePoints;
+    }
+
+    /**
      * Убивает персонажа игрока
      */
     public static void killPlayer() {
         MainMenu.getPane().setVisible(true);
         Game.setGameMode(GameModeEnum.GAME_MENU);
         Game.showMessage(Game.getText("PLAYER_DIED"));
+    }
+
+    /**
+     * Наносит урон по карте оружием
+     * @param mapCellInfo  - точка карты
+     * @param weapon       - оружие, которым наносится урон
+     */
+    public static void applyDamageToMapCell(MapCellInfo mapCellInfo, Items weapon) {
+        applyDamageToMapCell(mapCellInfo, ((WeaponInfo) weapon.getInfo()).getDamage(),
+                DamageTypeEnum.valueOf(((WeaponInfo) weapon.getInfo()).getDamageType()));
+        if (weapon.getEffects().stream().anyMatch(i -> i.getStrId().equals("MOLD_STRIKE")) &&
+                mapCellInfo.getTile1Type().equals(TileTypeEnum.EARTH)) {
+            mapCellInfo.setTile1Id(MapController.getMoldGround()); // если в руке оружие с эффектом "плесневелый удар", то заражаем землю плесенью
+        }
     }
 
     /**

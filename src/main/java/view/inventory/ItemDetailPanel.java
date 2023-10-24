@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import lombok.Getter;
 import lombok.Setter;
 import model.editor.items.*;
+import model.entity.InlayerSizeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.effects.EffectParams;
 import model.entity.map.Items;
@@ -63,8 +64,9 @@ public class ItemDetailPanel {
                     String.format(Game.getText("DAMAGE"), weaponInfo.getDamage()) + "\n" +
                     String.format(Game.getText("STRENGTH"), item.getCurrentStrength(), weaponInfo.getMaxStrength()) + "\n" +
                     (weaponInfo.getOneHand() ? Game.getText("ONE_HAND") : Game.getText("TWO_HAND")) + "\n" +
-                    Game.getText(ParamPanel.getSkillsNames().get(weaponInfo.getSkill()) + "_PARAM_NAME"));
-            addEffectsText(weaponInfo.getEffects());
+                    Game.getText(weaponInfo.getSkill() + "_PARAM_NAME"));
+            addEffectsText(item.getEffects());
+            addInlayerText(item);
         } else if (item.getInfo() instanceof ClothesInfo) {
             var clothesInfo = (ClothesInfo) item.getInfo();
             descLabel.setText(descLabel.getText() + "\n\n" +
@@ -79,11 +81,12 @@ public class ItemDetailPanel {
                             : "") + "\n" +
 
                     String.format(Game.getText("STRENGTH"), item.getCurrentStrength(), clothesInfo.getMaxStrength()) + "\n" +
-                    Game.getText(ParamPanel.getSkillsNames().get(clothesInfo.getSkill()) + "_PARAM_NAME") + "\n" + "\n" +
+                    Game.getText(clothesInfo.getSkill() + "_PARAM_NAME") + "\n" + "\n" +
 
                     String.format(Game.getText("STYLE"), ClothesStyleEnum.valueOf(clothesInfo.getStyle()).getDesc()) + "\n" +
                     ClothesGenderEnum.valueOf(clothesInfo.getGender()).getDesc());
-            addEffectsText(clothesInfo.getEffects());
+            addEffectsText(item.getEffects());
+            addInlayerText(item);
         } else if (item.getInfo() instanceof EdibleInfo) {
             var edibleInfo = (EdibleInfo) item.getInfo();
             descLabel.setText(descLabel.getText() + "\n\n" +
@@ -127,7 +130,7 @@ public class ItemDetailPanel {
                 var toolSkill = "";
                 if (item.getInfo().getTypes().contains(ItemTypeEnum.PICKLOCK) ||
                         item.getInfo().getTypes().contains(ItemTypeEnum.SAPPER_TOOL)) {
-                    toolSkill = Game.getText("BREAKING_LOCKS_PARAM_NAME");
+                    toolSkill = Game.getText("LOCKPICKING_PARAM_NAME");
                 } else if (item.getInfo().getTypes().contains(ItemTypeEnum.BUILDING_TOOL)) {
                     toolSkill = Game.getText("CONSTRUCTION_PARAM_NAME");
                 }
@@ -139,6 +142,9 @@ public class ItemDetailPanel {
                                 item.getInfo().getParams().get("skillBonus"),
                                 toolSkill));
             }
+        } else if (item.getInfo().getTypes().contains(ItemTypeEnum.ENCHANTMENT)) {
+            addEffectsText(item.getEffects());
+            addInlayerText(item);
         }
     }
 
@@ -148,8 +154,8 @@ public class ItemDetailPanel {
      * @param effectsList
      */
     private static void addEffectsText(List<EffectParams> effectsList) {
-        if (effectsList != null) {
-            descLabel.setText(descLabel.getText() + Game.getText("EFFECTS") + "\n");
+        if (effectsList != null && effectsList.size() > 0) {
+            descLabel.setText(descLabel.getText() + "\n\n" + Game.getText("EFFECTS") + "\n");
             for (EffectParams effect : effectsList) {
                 descLabel.setText(descLabel.getText() + Game.getEffectText(effect.getStrId()) + " " +
                         effect.getPower() + Game.getText("UNITS") + " " +
@@ -157,6 +163,24 @@ public class ItemDetailPanel {
                                 (Game.getText("ON") + " " + effect.getDurability() + " " + Game.getText("TURNS")) :
                                 ""));
             }
+        }
+    }
+
+    /**
+     * Добавить описание размера инкрустата (или слота для инкрустата)
+     *
+     * @param item
+     */
+    private static void addInlayerText(Items item) {
+        if (item.getInlayerId() == null || item.getInlayerId() == 0) {
+            String inlayerSize = "нет";
+            if (item.getParams() != null && item.getParams().get("inlayerSize") != null) {
+                inlayerSize = InlayerSizeEnum.valueOf(item.getParams().get("inlayerSize")).getDesc();
+            }
+            descLabel.setText(descLabel.getText() + "\n\n" +
+                    String.format(
+                            item.getInfo().getTypes().contains(ItemTypeEnum.ENCHANTMENT) ? Game.getText("INLAYER_SIZE") :
+                                    Game.getText("INLAYER_SLOT_SIZE"), inlayerSize));
         }
     }
 

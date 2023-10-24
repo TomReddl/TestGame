@@ -18,7 +18,11 @@
     "imageId": 5
   },
   {
-    "imageId": 6
+    "imageId": 6,
+    "health": 130,
+    "types": [
+      "INSECT"
+    ]
   },
   {
     "imageId": 7
@@ -75,10 +79,16 @@
     "imageId": 19
   },
   {
-    "imageId": 20
+    "imageId": 20,
+    "types": [
+      "INSECT"
+    ]
   },
   {
-    "imageId": 21
+    "imageId": 21,
+    "types": [
+      "INSECT"
+    ]
   },
   {
     "imageId": 22
@@ -93,10 +103,16 @@
     "imageId": 25
   },
   {
-    "imageId": 26
+    "imageId": 26,
+    "types": [
+      "INSECT"
+    ]
   },
   {
-    "imageId": 27
+    "imageId": 27,
+    "types": [
+      "INSECT"
+    ]
   },
   {
     "imageId": 28
@@ -132,19 +148,34 @@
     "imageId": 38
   },
   {
-    "imageId": 39
+    "imageId": 39,
+    "types": [
+      "INSECT"
+    ]
   },
   {
-    "imageId": 40
+    "imageId": 40,
+    "types": [
+      "INSECT"
+    ]
   },
   {
-    "imageId": 41
+    "imageId": 41,
+    "types": [
+      "INSECT"
+    ]
   },
   {
-    "imageId": 42
+    "imageId": 42,
+    "types": [
+      "INSECT"
+    ]
   },
   {
-    "imageId": 43
+    "imageId": 43,
+    "types": [
+      "INSECT"
+    ]
   },
   {
     "imageId": 44
@@ -156,16 +187,28 @@
     "imageId": 46
   },
   {
-    "imageId": 47
+    "imageId": 47,
+    "types": [
+      "INSECT"
+    ]
   },
   {
-    "imageId": 48
+    "imageId": 48,
+    "types": [
+      "INSECT"
+    ]
   },
   {
-    "imageId": 49
+    "imageId": 49,
+    "types": [
+      "INSECT"
+    ]
   },
   {
-    "imageId": 50
+    "imageId": 50,
+    "types": [
+      "INSECT"
+    ]
   },
   {
     "imageId": 51

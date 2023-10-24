@@ -1,6 +1,7 @@
 package model.editor.items;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +38,7 @@ public class ItemInfo {
     private ImageView icon;
     private Map<String, String> params; // дополнительные параметры предмета, мапа формата <Название параметра, значение>
     private List<EffectParams> effects; // эффекты
+    private Integer inlayerId; // идентификатор инкрустата (для зачаровываемых предметов)
 
     public List<EffectParams> getEffects() {
         // для ингредиентов добавляем случайные дополнительные эффекты

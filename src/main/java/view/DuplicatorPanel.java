@@ -117,11 +117,11 @@ public class DuplicatorPanel {
         biomassCountLabel.setLayoutY(137);
         pane.getChildren().add(biomassCountLabel);
 
-        duplicateButton = new Button(Game.getText("DUPLICATE_INGREDIENT"));
+        duplicateButton = new Button(Game.getText("DUPLICATE"));
         duplicateButton.setLayoutX(10);
         duplicateButton.setLayoutY(180);
         duplicateButton.setPrefWidth(100);
-        duplicateButton.setOnAction(event -> exploreEffect());
+        duplicateButton.setOnAction(event -> duplicate());
         duplicateButton.setDisable(true);
         pane.getChildren().add(duplicateButton);
 
@@ -146,9 +146,9 @@ public class DuplicatorPanel {
     }
 
     /**
-     * Объединить ингредиенты
+     * Дублировать ингредиент
      */
-    private void exploreEffect() {
+    private void duplicate() {
         if (selectedIngredient.getTypeId() != 0 && biomass.getTypeId() != 0) {
             Player player = Game.getMap().getPlayer();
             TimeController.tic(timeToDuplicate);
@@ -169,7 +169,7 @@ public class DuplicatorPanel {
                 } else {
                     biomassCountLabel.setText(String.valueOf(biomass.getCount()));
                 }
-                CharactersController.addSkillExp(17, 5);
+                CharactersController.addSkillExp("POTIONS", 5);
             }
         } else {
             Game.showMessage(Game.getText("DUPLICATE_IMPOSSIBLE"));

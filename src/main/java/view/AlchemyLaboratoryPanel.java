@@ -140,7 +140,7 @@ public class AlchemyLaboratoryPanel {
                     selectedIngredient = new Items();
                     ingredientImage.setImage(null);
                     exploreButton.setDisable(true);
-                    CharactersController.addSkillExp(17, 20);
+                    CharactersController.addSkillExp("POTIONS", 20);
                 }
             } else {
                 Game.showMessage(Game.getText("NOT_EXPLODED_EFFECTS"));

@@ -304,7 +304,7 @@ public class AlchemyPanel {
                 Game.showMessage(Game.getText("POTION_CRAFT_FAIL"));
             }
 
-            CharactersController.addSkillExp(17, expPoints);
+            CharactersController.addSkillExp("POTIONS", expPoints);
 
             // удаляем потраченные предметы в любом случае, даже, если зелье не получилось.
             ItemsController.deleteItem(selectedIngredients.get(0), 1, player.getInventory(), player);
@@ -403,7 +403,7 @@ public class AlchemyPanel {
     public void setCookButtonDisabled() {
         cookButton.setDisable(!canCook());
 
-        quality = ItemsController.getQuality(Game.getMap().getPlayer().getParams().getSkills().get(17));
+        quality = ItemsController.getQuality(Game.getMap().getPlayer().getParams().getSkills().get("POTIONS"));
         durability = (int) (1 + 5 * quality.getQualityLevel()) + random.nextInt(5);
         power = (int) (1 + 5 * quality.getQualityLevel()) + random.nextInt(5);
     }

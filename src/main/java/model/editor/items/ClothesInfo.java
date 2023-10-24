@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 public class ClothesInfo extends ItemInfo {
     private Integer armor; // базовая броня
-    private Integer skill; // навык, отвечающий за ношение данной одежды
+    private String skill; // навык, отвечающий за ношение данной одежды
     private String bodyPart; // часть тела, на которую надевается одежда
     private Integer covering; // уровень покрытия тела
     private String style; // стиль одежды (нужен для маскировки путем переодевания в одежду определенного стиля)

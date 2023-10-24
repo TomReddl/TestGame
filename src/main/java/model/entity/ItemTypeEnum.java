@@ -15,6 +15,7 @@ public enum ItemTypeEnum {
     EAT(Game.getText("EAT")), // Еда
     CLOTHES(Game.getText("CLOTHES")), // Одежда
     WEAPON(Game.getText("WEAPON")), // Оружие
+    WEARABLE(Game.getText("WEARABLE")), // Надеваемый (объединяет оружие и одежду, используется в фильтре для зачарования)
     RESOURCE(Game.getText("RESOURCE")), // Русурсы
     BOOK(Game.getText("BOOK")), // Книги
     TREASURE(Game.getText("TREASURE")), // Сокровища
@@ -39,6 +40,7 @@ public enum ItemTypeEnum {
     CLOCK(Game.getText("CLOCK")), // Часы
     FOLDABLE(Game.getText("FOLDABLE")), // Раскладываемый
     EXPLOSIVES(Game.getText("EXPLOSIVES")), // Взрывчатка
+    ENCHANTMENT(Game.getText("ENCHANTMENT")), // Инкрустат (предмет для зачарования)
     SEED(Game.getText("SEED")); // Семена растений
 
     @Getter
@@ -70,6 +72,7 @@ public enum ItemTypeEnum {
       list.add(ItemTypeEnum.TREASURE);
       list.add(ItemTypeEnum.INGREDIENT);
       list.add(ItemTypeEnum.POTION);
+      list.add(ItemTypeEnum.ENCHANTMENT);
       list.add(ItemTypeEnum.KEY);
       list.add(ItemTypeEnum.TOOL);
       list.add(ItemTypeEnum.TRASH);

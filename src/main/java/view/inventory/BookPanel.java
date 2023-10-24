@@ -165,7 +165,7 @@ public class BookPanel {
                     var increaseSkill = document.getElementsByTagName("increaseSkill").item(0);
                     if (increaseSkill != null &&
                             !Game.getMap().getPlayer().getKnowledgeInfo().getReadBooks().contains(bookTypeId)) {
-                        CharactersController.increaseSkill(Integer.parseInt(increaseSkill.getTextContent()), 1);
+                        CharactersController.increaseSkill(increaseSkill.getTextContent(), 1);
                     }
 
                     // добавляем книгу в список прочтенных

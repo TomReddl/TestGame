@@ -132,7 +132,10 @@
     "strength": 100,
     "passability": false,
     "visibly": true,
-    "type": "DUMMY"
+    "type": "MANNEQUIN",
+    "params": {
+      "gender": "MALE"
+    }
   },
   {
     "id": 18,
@@ -2219,9 +2222,8 @@
     "strength": 0,
     "passability": false,
     "visibly": true,
-    "type": "CRAFTING_PLACE",
+    "type": "JEWELRY_TABLE",
     "params": {
-      "subtype": "jewelryTable",
       "level": "1"
     }
   },
@@ -2230,9 +2232,8 @@
     "strength": 0,
     "passability": false,
     "visibly": true,
-    "type": "CRAFTING_PLACE",
+    "type": "JEWELRY_TABLE",
     "params": {
-      "subtype": "jewelryTable",
       "level": "2"
     }
   },
@@ -2241,9 +2242,8 @@
     "strength": 0,
     "passability": false,
     "visibly": true,
-    "type": "CRAFTING_PLACE",
+    "type": "JEWELRY_TABLE",
     "params": {
-      "subtype": "jewelryTable",
       "level": "3"
     }
   },
@@ -2442,5 +2442,34 @@
       "ore": "185"
     },
     "type": "ORE"
+  },
+  {
+    "id": 297,
+    "strength": 100,
+    "passability": false,
+    "visibly": true
+  },
+  {
+    "id": 298,
+    "strength": 200,
+    "passability": false,
+    "visibly": true,
+    "type": "INLAYER_DUPLICATOR"
+  },
+  {
+    "id": 299,
+    "strength": 100,
+    "passability": true,
+    "visibly": true
+  },
+  {
+    "id": 300,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "type": "MANNEQUIN",
+    "params": {
+      "gender": "FEMALE"
+    }
   }
 ]

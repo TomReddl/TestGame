@@ -5,7 +5,7 @@
     "itemId": 138,
     "craftingPlace": "foundry",
     "level": 1,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 30,
     "group": "well-known",
     "elements": {
@@ -18,7 +18,7 @@
     "itemId": 139,
     "craftingPlace": "foundry",
     "level": 2,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 40,
     "group": "well-known",
     "exp": 20,
@@ -32,7 +32,7 @@
     "itemId": 141,
     "craftingPlace": "cookingTable",
     "level": 0,
-    "skillId": 6,
+    "skillId": "COOKING",
     "timeToCraft": 20,
     "group": "well-known",
     "exp": 5,
@@ -46,7 +46,7 @@
     "itemId": 142,
     "craftingPlace": "foundry",
     "level": 2,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 30,
     "group": "well-known",
     "elements": {
@@ -59,7 +59,7 @@
     "itemId": 143,
     "craftingPlace": "foundry",
     "level": 2,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 30,
     "group": "well-known",
     "elements": {
@@ -72,7 +72,7 @@
     "itemId": 144,
     "craftingPlace": "foundry",
     "level": 1,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 30,
     "group": "well-known",
     "elements": {
@@ -85,7 +85,7 @@
     "itemId": 145,
     "craftingPlace": "foundry",
     "level": 1,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 30,
     "group": "well-known",
     "elements": {
@@ -98,7 +98,7 @@
     "itemId": 146,
     "craftingPlace": "foundry",
     "level": 3,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 30,
     "group": "well-known",
     "elements": {
@@ -111,7 +111,7 @@
     "itemId": 147,
     "craftingPlace": "foundry",
     "level": 3,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 30,
     "group": "well-known",
     "elements": {
@@ -124,7 +124,7 @@
     "itemId": 148,
     "craftingPlace": "foundry",
     "level": 3,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 30,
     "group": "well-known",
     "elements": {
@@ -137,7 +137,7 @@
     "itemId": 149,
     "craftingPlace": "foundry",
     "level": 3,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 30,
     "group": "well-known",
     "elements": {
@@ -151,7 +151,7 @@
     "itemId": 150,
     "craftingPlace": "foundry",
     "level": 3,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 30,
     "group": "well-known",
     "elements": {
@@ -165,7 +165,7 @@
     "itemId": 151,
     "craftingPlace": "foundry",
     "level": 3,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 30,
     "group": "well-known",
     "elements": {
@@ -179,7 +179,7 @@
     "itemId": 153,
     "craftingPlace": "foundry",
     "level": 1,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 30,
     "group": "well-known",
     "elements": {
@@ -192,7 +192,7 @@
     "itemId": 154,
     "craftingPlace": "foundry",
     "level": 3,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 30,
     "group": "well-known",
     "elements": {
@@ -205,7 +205,7 @@
     "itemId": 152,
     "craftingPlace": "foundry",
     "level": 1,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 30,
     "group": "well-known",
     "elements": {
@@ -219,7 +219,7 @@
     "itemId": 166,
     "craftingPlace": "anvil",
     "level": 2,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 120,
     "group": "well-known",
     "elements": {
@@ -232,7 +232,7 @@
     "itemId": 167,
     "craftingPlace": "anvil",
     "level": 2,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 80,
     "group": "well-known",
     "elements": {
@@ -245,7 +245,7 @@
     "itemId": 168,
     "craftingPlace": "anvil",
     "level": 2,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 60,
     "group": "well-known",
     "elements": {
@@ -258,7 +258,7 @@
     "itemId": 169,
     "craftingPlace": "anvil",
     "level": 2,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 60,
     "group": "well-known",
     "elements": {
@@ -271,7 +271,7 @@
     "itemId": 184,
     "craftingPlace": "foundry",
     "level": 2,
-    "skillId": 6,
+    "skillId": "BLACKSMITHING",
     "timeToCraft": 15,
     "group": "well-known",
     "elements": {
@@ -285,7 +285,7 @@
     "itemCount": 4,
     "craftingPlace": "joinersTable",
     "level": 1,
-    "skillId": 3,
+    "skillId": "CARPENTRY",
     "timeToCraft": 15,
     "group": "well-known",
     "elements": {
@@ -299,7 +299,7 @@
     "itemCount": 4,
     "craftingPlace": "joinersTable",
     "level": 2,
-    "skillId": 3,
+    "skillId": "CARPENTRY",
     "timeToCraft": 15,
     "group": "well-known",
     "elements": {
