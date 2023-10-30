@@ -24,5 +24,6 @@ public class CreatureInfo {
     private List<CreatureTypeEnum> types; // типы существа. Сущест во может принадлежать более чем к одному виду
     private Map<String, String> organs; // органы
     private Integer health; // здоровье существа
+    private Integer level; // уровень существа (агрегированный показатель силы, используется для определения получаемого опыта, лута с существа и т.д.)
     private String bloodType; // тип крови существа
 }

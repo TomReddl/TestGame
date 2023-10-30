@@ -221,7 +221,7 @@ public class CombinerPanel {
                     CharactersController.addSkillExp("POTIONS", 20);
                 }
             } else {
-                Game.showMessage(Game.getText("COMBINE_IMPOSIBLE"));
+                Game.showMessage(Game.getText("COMBINE_IMPOSSIBLE"));
             }
         }
     }

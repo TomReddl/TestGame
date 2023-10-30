@@ -3,45 +3,57 @@
     "imageId": 0
   },
   {
-    "imageId": 1
+    "imageId": 1,
+    "level": 1
   },
   {
-    "imageId": 2
+    "imageId": 2,
+    "level": 1
   },
   {
-    "imageId": 3
+    "imageId": 3,
+    "level": 1
   },
   {
-    "imageId": 4
+    "imageId": 4,
+    "level": 1
   },
   {
-    "imageId": 5
+    "imageId": 5,
+    "level": 1
   },
   {
     "imageId": 6,
     "health": 130,
+    "level": 3,
     "types": [
       "INSECT"
     ]
   },
   {
-    "imageId": 7
+    "imageId": 7,
+    "level": 2
   },
   {
-    "imageId": 8
+    "imageId": 8,
+    "level": 2
   },
   {
-    "imageId": 9
+    "imageId": 9,
+    "level": 1
   },
   {
-    "imageId": 10
+    "imageId": 10,
+    "level": 2
   },
   {
-    "imageId": 11
+    "imageId": 11,
+    "level": 2
   },
   {
     "imageId": 12,
     "health": 300,
+    "level": 3,
     "organs": {
       "122": "1",
       "123": "1",
@@ -58,13 +70,16 @@
     "bloodType": "BLOOD"
   },
   {
-    "imageId": 13
+    "imageId": 13,
+    "level": 2
   },
   {
-    "imageId": 14
+    "imageId": 14,
+    "level": 2
   },
   {
-    "imageId": 15
+    "imageId": 15,
+    "level": 1
   },
   {
     "imageId": 16

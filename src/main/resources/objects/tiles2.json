@@ -2471,5 +2471,25 @@
     "params": {
       "gender": "FEMALE"
     }
+  },
+  {
+    "id": 301,
+    "strength": 300,
+    "passability": false,
+    "visibly": true,
+    "type": "TRAINING_DUMMY",
+    "params": {
+      "maxTrainingLevel": "15"
+    }
+  },
+  {
+    "id": 302,
+    "strength": 500,
+    "passability": false,
+    "visibly": true,
+    "type": "TRAINING_DUMMY",
+    "params": {
+      "maxTrainingLevel": "30"
+    }
   }
 ]

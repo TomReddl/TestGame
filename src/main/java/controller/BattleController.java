@@ -43,6 +43,8 @@ public class BattleController {
             }
         }
         ItemsController.damageItem(weapon, 1, Game.getMap().getPlayer().getInventory(), Game.getMap().getPlayer());
+        int level = creature.getInfo().getLevel() != null ? creature.getInfo().getLevel() : 1;
+        CharactersController.addSkillExp(((WeaponInfo) weapon.getInfo()).getSkill(), 5*level);
     }
 
     /**
@@ -210,9 +212,18 @@ public class BattleController {
     public static void applyDamageToMapCell(MapCellInfo mapCellInfo, Items weapon) {
         applyDamageToMapCell(mapCellInfo, ((WeaponInfo) weapon.getInfo()).getDamage(),
                 DamageTypeEnum.valueOf(((WeaponInfo) weapon.getInfo()).getDamageType()));
-        if (weapon.getEffects().stream().anyMatch(i -> i.getStrId().equals("MOLD_STRIKE")) &&
+        if (weapon.getEffects() != null && weapon.getEffects().stream().anyMatch(i -> i.getStrId().equals("MOLD_STRIKE")) &&
                 mapCellInfo.getTile1Type().equals(TileTypeEnum.EARTH)) {
             mapCellInfo.setTile1Id(MapController.getMoldGround()); // если в руке оружие с эффектом "плесневелый удар", то заражаем землю плесенью
+        }
+        String tileType = mapCellInfo.getTile2Info().getType();
+        if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.TRAINING_DUMMY)) { // если ударить тренировочный манекен, добавится опыт
+            var skill = Game.getMap().getPlayer().getParams().getSkills().get(((WeaponInfo) weapon.getInfo()).getSkill());
+            if (skill.getRealValue() < Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("maxTrainingLevel"))) { // опыт добавится, только если реальный навык ниже максимального уровня, до которого позволяет качаться манекен
+                CharactersController.addSkillExp(((WeaponInfo) weapon.getInfo()).getSkill(), 5);
+            } else {
+                Game.showMessage(String.format(Game.getText("TRAIN_IMPOSSIBLE"), Game.getText(((WeaponInfo) weapon.getInfo()).getSkill() + "_PARAM_NAME")));
+            }
         }
     }
 

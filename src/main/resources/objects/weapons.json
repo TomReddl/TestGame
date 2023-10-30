@@ -332,5 +332,31 @@
         "strId": "MOLD_STRIKE"
       }
     ]
+  },
+  {
+    "id": 265,
+    "weight": "2000",
+    "volume": "3000",
+    "price": "20",
+    "stackable": false,
+    "damage": 1,
+    "maxStrength": 120,
+    "damageType": "CRUSHING_DAMAGE",
+    "skill": "LIGHT_WEAPON",
+    "oneHand": true,
+    "types": ["WEAPON"]
+  },
+  {
+    "id": 266,
+    "weight": "3000",
+    "volume": "4000",
+    "price": "25",
+    "stackable": false,
+    "damage": 2,
+    "maxStrength": 160,
+    "damageType": "CRUSHING_DAMAGE",
+    "skill": "HEAVY_WEAPON",
+    "oneHand": false,
+    "types": ["WEAPON"]
   }
 ]

@@ -27,7 +27,8 @@ public enum  TileTypeEnum {
     DUPLICATOR("Дубликатор ингредиентов"),
     INLAYER_DUPLICATOR("Дубликатор инкрустатов"),
     JEWELRY_TABLE("Стол для зачарования"),
-    CRAFTING_PLACE("Место для крафта");
+    CRAFTING_PLACE("Место для крафта"),
+    TRAINING_DUMMY("Тренировочный манекен");
 
     @Getter
     private final String desc;
