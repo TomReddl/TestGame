@@ -2491,5 +2491,29 @@
     "params": {
       "maxTrainingLevel": "30"
     }
+  },
+  {
+    "id": 303,
+    "strength": 100,
+    "passability": false,
+    "visibly": true
+  },
+  {
+    "id": 304,
+    "strength": 100,
+    "passability": false,
+    "visibly": true
+  },
+  {
+    "id": 305,
+    "strength": 100,
+    "passability": false,
+    "visibly": true
+  },
+  {
+    "id": 306,
+    "strength": 100,
+    "passability": false,
+    "visibly": true
   }
 ]
