@@ -134,6 +134,8 @@ public class Game {
                 stopTestGameImage.setVisible(false);
                 MainMenu.getPane().setVisible(false);
                 Editor.getMapInfoLabel().setVisible(true);
+                Editor.getMapInfoLabel().setLayoutX(380);
+                Editor.getMapInfoLabel().setLayoutY(620);
                 PlayerIndicatorsPanel.showPanel(false);
                 GameMenuPanel.getPane().setVisible(false);
                 Game.getTimeLabel().setVisible(false);
@@ -146,6 +148,8 @@ public class Game {
                 stopTestGameImage.setVisible(true);
                 MainMenu.getPane().setVisible(false);
                 Editor.getMapInfoLabel().setVisible(true);
+                Editor.getMapInfoLabel().setLayoutX(10 + tileSize * viewSize);
+                Editor.getMapInfoLabel().setLayoutY(30);
                 Game.getTimeLabel().setVisible(true);
                 timeLabel.setText(TimeController.getCurrentDataStr(false));
                 break;

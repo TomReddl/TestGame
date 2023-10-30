@@ -183,7 +183,7 @@ public class Editor {
 
         mapInfoLabel.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         mapInfoLabel.setLayoutX(380);
-        mapInfoLabel.setLayoutY(610);
+        mapInfoLabel.setLayoutY(620);
         mapInfoLabel.setVisible(false);
         root.getChildren().add(mapInfoLabel);
 
