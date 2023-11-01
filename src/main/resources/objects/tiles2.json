@@ -2515,5 +2515,53 @@
     "strength": 100,
     "passability": false,
     "visibly": true
+  },
+  {
+    "id": 307,
+    "strength": 100,
+    "passability": false,
+    "visibly": true
+  },
+  {
+    "id": 308,
+    "strength": 100,
+    "passability": false,
+    "visibly": true
+  },
+  {
+    "id": 309,
+    "strength": 100,
+    "passability": false,
+    "visibly": true
+  },
+  {
+    "id": 310,
+    "strength": 100,
+    "passability": false,
+    "visibly": true
+  },
+  {
+    "id": 311,
+    "strength": 50,
+    "passability": true,
+    "visibly": true
+  },
+  {
+    "id": 312,
+    "strength": 50,
+    "passability": true,
+    "visibly": true
+  },
+  {
+    "id": 313,
+    "strength": 50,
+    "passability": true,
+    "visibly": true
+  },
+  {
+    "id": 314,
+    "strength": 50,
+    "passability": true,
+    "visibly": true
   }
 ]
