@@ -994,5 +994,29 @@
     "strength": 0,
     "passability": true,
     "visibly": true
+  },
+  {
+    "id": 122,
+    "strength": 0,
+    "passability": true,
+    "visibly": true
+  },
+  {
+    "id": 123,
+    "strength": 0,
+    "passability": true,
+    "visibly": true
+  },
+  {
+    "id": 124,
+    "strength": 0,
+    "passability": true,
+    "visibly": true
+  },
+  {
+    "id": 125,
+    "strength": 0,
+    "passability": true,
+    "visibly": true
   }
 ]

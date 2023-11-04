@@ -2357,5 +2357,49 @@
     "params": {
       "inlayerSize": "MEDIUM"
     }
+  },
+  {
+    "id": 267,
+    "weight": "50",
+    "volume": "100",
+    "price": "30",
+    "maxStrength": 20,
+    "stackable": true,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 268,
+    "weight": "50",
+    "volume": "100",
+    "price": "30",
+    "maxStrength": 20,
+    "stackable": true,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 269,
+    "weight": "50",
+    "volume": "100",
+    "price": "30",
+    "maxStrength": 20,
+    "stackable": true,
+    "types": [
+      "COMMON"
+    ]
+  },
+  {
+    "id": 270,
+    "weight": "50",
+    "volume": "100",
+    "price": "30",
+    "maxStrength": 20,
+    "stackable": true,
+    "types": [
+      "COMMON"
+    ]
   }
 ]

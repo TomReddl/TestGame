@@ -19,6 +19,7 @@ public enum  TileTypeEnum {
     WATER("Вода"),
     EARTH("Земля"),
     ORE("Руда"),
+    CRYSTAL("Кристалл"),
     WOOD("Дерево"),
     CROPS("Посевы"), // тип тайла, который можно собрать косой
     ALCHEMY_TABLE("Алхимический стол"),

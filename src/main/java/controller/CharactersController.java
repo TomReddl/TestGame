@@ -7,7 +7,6 @@ import javafx.util.Pair;
 import model.editor.TileInfo;
 import model.editor.TileTypeEnum;
 import model.editor.items.BodyPartEnum;
-import model.editor.items.WeaponInfo;
 import model.entity.DirectionEnum;
 import model.entity.Event;
 import model.entity.GameCalendar;
@@ -27,7 +26,6 @@ import view.Game;
 import view.SelectTimePanel;
 import view.inventory.InventoryPanel;
 import view.inventory.PlayerIndicatorsPanel;
-import view.params.ParamPanel;
 
 import java.io.File;
 import java.util.*;
@@ -107,7 +105,7 @@ public class CharactersController {
                 }
             } else if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.PICKAXE)) { // если в руках кирка
                 String tileType = mapCellInfo.getTile2Info().getType();
-                if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.ORE)) {
+                if (tileType != null && (TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.ORE) || TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CRYSTAL))) {
                     int oreId = (mapCellInfo.getTile2Info().getParams() != null && mapCellInfo.getTile2Info().getParams().get("ore") != null) ? // у каждой рудной жилы своя руда
                             Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("ore")) :
                             ItemsController.stoneId;
@@ -115,7 +113,7 @@ public class CharactersController {
                     BattleController.applyDamageToMapCell(mapCellInfo, itemInRightHand);
                     applyDamage = true;
                     tileType = mapCellInfo.getTile2Info().getType();
-                    if (tileType == null || !TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.ORE)) {
+                    if (tileType == null || !(TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.ORE) || TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CRYSTAL))) {
                         ItemsController.addItem(new Items(oreId, 5), player.getInventory(), player); // если добыли руду, добавляем ее в инвентарь
                     }
                 }

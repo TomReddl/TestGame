@@ -242,7 +242,9 @@ public class BattleController {
                     mapCellInfo.setTile2Id(0);
                 } else {
                     String tile2Type = mapCellInfo.getTile2Info().getType();
-                    if (tile2Type != null && TileTypeEnum.valueOf(tile2Type).equals(TileTypeEnum.WOOD)) {
+                    if (mapCellInfo.getTile2Info().getParams() != null && mapCellInfo.getTile2Info().getParams().get("wreckageId") != null) { // если явно указаны обломки, то берем их
+                        mapCellInfo.setTile2Id(Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("wreckageId")));
+                    } else if (tile2Type != null && TileTypeEnum.valueOf(tile2Type).equals(TileTypeEnum.WOOD)) {
                         mapCellInfo.setTile2Id(3); // пень
                         mapCellInfo.setTile2Strength(Editor.getTiles2().get(3).getStrength());
                     } else if (tile2Type != null && TileTypeEnum.valueOf(tile2Type).equals(TileTypeEnum.ORE)) {
@@ -254,8 +256,8 @@ public class BattleController {
                         MapController.addItemOnMap(mapCellInfo.getX(), mapCellInfo.getY(), new Items(ItemsController.stoneId, 10));
                         mapCellInfo.setTile2Id(0);
                     } else {
-                        mapCellInfo.setTile2Id(150); // обломки
-                        mapCellInfo.setTile2Strength(Editor.getTiles2().get(150).getStrength());
+                        mapCellInfo.setTile2Id(0); // пустой тайл
+                        mapCellInfo.setTile2Strength(Editor.getTiles2().get(0).getStrength());
                     }
                 }
             }
