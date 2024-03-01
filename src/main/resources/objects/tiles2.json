@@ -3029,5 +3029,68 @@
     "params": {
       "wreckageId": "150"
     }
+  },
+  {
+    "id": 316,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "params": {
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 317,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "params": {
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 318,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "params": {
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 319,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "params": {
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 320,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "params": {
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 321,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "params": {
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 322,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "params": {
+      "wreckageId": "150"
+    }
   }
 ]

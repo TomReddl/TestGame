@@ -7,12 +7,12 @@
     <packaging>jar</packaging>
 
     <properties>
-        <jfx.version>11.0.1</jfx.version>
+        <jfx.version>21.0.2</jfx.version>
         <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <org.projectlombok.version>1.18.16</org.projectlombok.version>
+        <org.projectlombok.version>1.18.30</org.projectlombok.version>
     </properties>
 
     <dependencies>
