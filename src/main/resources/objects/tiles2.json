@@ -3267,5 +3267,19 @@
       "anotherDoorState": "336",
       "wreckageId": "150"
     }
+  },
+  {
+    "id": 339,
+    "strength": 300,
+    "passability": false,
+    "params": {
+      "wreckageId": "340"
+    }
+  },
+  {
+    "id": 340,
+    "strength": 100,
+    "passability": false,
+    "visibly": true
   }
 ]
