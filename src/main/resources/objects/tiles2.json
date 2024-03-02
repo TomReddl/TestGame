@@ -3035,6 +3035,7 @@
     "strength": 100,
     "passability": false,
     "visibly": true,
+    "burn": true,
     "params": {
       "wreckageId": "150"
     }
@@ -3044,6 +3045,7 @@
     "strength": 100,
     "passability": false,
     "visibly": true,
+    "burn": true,
     "params": {
       "wreckageId": "150"
     }
@@ -3053,6 +3055,7 @@
     "strength": 100,
     "passability": false,
     "visibly": true,
+    "burn": true,
     "params": {
       "wreckageId": "150"
     }
@@ -3062,6 +3065,7 @@
     "strength": 100,
     "passability": false,
     "visibly": true,
+    "burn": true,
     "params": {
       "wreckageId": "150"
     }
@@ -3071,6 +3075,7 @@
     "strength": 100,
     "passability": false,
     "visibly": true,
+    "burn": true,
     "params": {
       "wreckageId": "150"
     }
@@ -3080,6 +3085,7 @@
     "strength": 100,
     "passability": false,
     "visibly": true,
+    "burn": true,
     "params": {
       "wreckageId": "150"
     }
@@ -3089,7 +3095,176 @@
     "strength": 100,
     "passability": false,
     "visibly": true,
+    "burn": true,
     "params": {
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 323,
+    "strength": 100,
+    "passability": true,
+    "visibly": true,
+    "params": {
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 324,
+    "strength": 200,
+    "passability": true,
+    "visibly": true,
+    "params": {
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 325,
+    "strength": 0,
+    "passability": true,
+    "visibly": true,
+    "type": "CONTAINER",
+    "params": {
+      "volume": "100000"
+    }
+  },
+  {
+    "id": 326,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 327,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 328,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 329,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 330,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 331,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 332,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 333,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "type": "DOOR",
+    "params": {
+      "anotherDoorState": "334",
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 334,
+    "strength": 100,
+    "passability": true,
+    "visibly": true,
+    "type": "DOOR",
+    "params": {
+      "anotherDoorState": "333",
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 335,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "type": "DOOR",
+    "params": {
+      "anotherDoorState": "337",
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 336,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "type": "DOOR",
+    "params": {
+      "anotherDoorState": "338",
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 337,
+    "strength": 100,
+    "passability": true,
+    "visibly": true,
+    "burn": true,
+    "type": "DOOR",
+    "params": {
+      "anotherDoorState": "335",
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 338,
+    "strength": 100,
+    "passability": true,
+    "visibly": true,
+    "burn": true,
+    "type": "DOOR",
+    "params": {
+      "anotherDoorState": "336",
       "wreckageId": "150"
     }
   }
