@@ -3317,5 +3317,14 @@
     },
     "burn": true,
     "visibly": true
+  },
+  {
+    "id": 344,
+    "strength": 150,
+    "passability": false,
+    "params": {
+      "ore": "273"
+    },
+    "type": "ORE"
   }
 ]

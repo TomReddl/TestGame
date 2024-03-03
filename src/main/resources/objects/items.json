@@ -2413,5 +2413,15 @@
     "params": {
       "plantId": "343"
     }
+  },
+  {
+    "id": 273,
+    "weight": "6000",
+    "volume": "1000",
+    "price": "60",
+    "stackable": true,
+    "types": [
+      "RESOURCE"
+    ]
   }
 ]
