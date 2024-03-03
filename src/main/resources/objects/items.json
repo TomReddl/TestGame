@@ -2401,5 +2401,17 @@
     "types": [
       "COMMON"
     ]
+  },
+  {
+    "id": 272,
+    "weight": "30",
+    "volume": "30",
+    "price": "60",
+    "stackable": true,
+    "maxStrength": 20,
+    "types": ["SEED"],
+    "params": {
+      "plantId": "343"
+    }
   }
 ]

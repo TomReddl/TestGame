@@ -3281,5 +3281,41 @@
     "strength": 100,
     "passability": false,
     "visibly": true
+  },
+  {
+    "id": 341,
+    "strength": 50,
+    "passability": true,
+    "visibly": false,
+    "type": "PLANT",
+    "params": {
+      "harvestedId": "342",
+      "harvestId1": "271",
+      "harvestCount1": "5",
+      "harvestId2": "272",
+      "harvestCount2": "3"
+    }
+  },
+  {
+    "id": 342,
+    "strength": 50,
+    "passability": true,
+    "type": "PLANT",
+    "params": {
+      "nextGrowthStage": "341"
+    },
+    "burn": true,
+    "visibly": false
+  },
+  {
+    "id": 343,
+    "strength": 50,
+    "passability": true,
+    "type": "PLANT",
+    "params": {
+      "nextGrowthStage": "341"
+    },
+    "burn": true,
+    "visibly": true
   }
 ]

@@ -688,5 +688,24 @@
     "types": [
       "EAT"
     ]
+  },
+  {
+    "id": 271,
+    "weight": "150",
+    "volume": "200",
+    "price": "120",
+    "stackable": true,
+    "burn": true,
+    "taste": 1,
+    "hunger": 1,
+    "thirst": 0,
+    "types": [
+      "INGREDIENT"
+    ],
+    "effects": [
+      {
+        "strId": "PERCEPTION_DEC"
+      }
+    ]
   }
 ]
