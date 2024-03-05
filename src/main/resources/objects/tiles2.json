@@ -3326,5 +3326,75 @@
       "ore": "273"
     },
     "type": "ORE"
+  },
+  {
+    "id": 345,
+    "strength": 50,
+    "passability": true,
+    "visibly": true,
+    "burn": true
+  },
+  {
+    "id": 346,
+    "strength": 50,
+    "passability": false,
+    "visibly": true,
+    "burn": true
+  },
+  {
+    "id": 347,
+    "strength": 100,
+    "passability": false,
+    "visibly": false,
+    "burn": true
+  },
+  {
+    "id": 348,
+    "strength": 10,
+    "passability": true,
+    "visibly": true,
+    "burn": true
+  },
+  {
+    "id": 349,
+    "strength": 50,
+    "passability": false,
+    "visibly": true,
+    "burn": true
+  },
+  {
+    "id": 350,
+    "strength": 50,
+    "passability": false,
+    "visibly": true,
+    "burn": true
+  },
+  {
+    "id": 351,
+    "strength": 50,
+    "passability": false,
+    "visibly": true,
+    "burn": true
+  },
+  {
+    "id": 352,
+    "strength": 50,
+    "passability": false,
+    "visibly": true,
+    "burn": true
+  },
+  {
+    "id": 353,
+    "strength": 50,
+    "passability": false,
+    "visibly": true,
+    "burn": true
+  },
+  {
+    "id": 354,
+    "strength": 50,
+    "passability": false,
+    "visibly": true,
+    "burn": true
   }
 ]
