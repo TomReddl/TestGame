@@ -126,6 +126,7 @@ public class EffectsController {
 
         effects.put("WATER_WALK", new EffectInfo(Game.getEffectText("WATER_WALK"), "BLUE"));
         effects.put("MOLD_STRIKE", new EffectInfo(Game.getEffectText("MOLD_STRIKE"), "GREEN"));
+        effects.put("LIFE_DETECTION", new EffectInfo(Game.getEffectText("LIFE_DETECTION"), "BLUE"));
 
         setAdditionalEffects();
     }
@@ -746,6 +747,7 @@ public class EffectsController {
             }
 
             case "EPIPHANY":
+            case "LIFE_DETECTION":
             case "BLIND": {
                 if (isFirstTime) {
                     MapController.drawCurrentMap();
@@ -1185,6 +1187,7 @@ public class EffectsController {
                 break;
             }
             case "EPIPHANY":
+            case "LIFE_DETECTION":
             case "BLIND": {
                 MapController.drawCurrentMap();
                 break;

@@ -20,6 +20,7 @@ import view.Editor;
 import view.Game;
 import view.SelectTimePanel;
 import view.TileEditPanel;
+import view.dialog.DialogPanel;
 import view.inventory.BookPanel;
 import view.inventory.ItemCountPanel;
 import view.menu.MainMenu;
@@ -37,6 +38,7 @@ import static game.GameParams.*;
 public class MapController {
     private static final ImageView bag = new ImageView("/graphics/items/bag.png");
     private static final ImageView ore = new ImageView("/graphics/gui/ore.png");
+    private static final ImageView alive = new ImageView("/graphics/gui/alive.png");
     private static final ImageView emptiness = new ImageView("/graphics/gui/emptiness.png");
     private static final ImageView dark = new ImageView("/graphics/tiles/Dark.png");
     @Getter
@@ -586,7 +588,7 @@ public class MapController {
         if (code == KeyCode.ESCAPE) {
             MainMenu.getPane().setVisible(false);
             Game.setGameMode(GameModeEnum.GAME_MENU);
-        } else if (!TileEditPanel.getPane().isVisible()) {
+        } else if (editorPressButtonEnabled()) {
             int xMapPos = player.getXMapPos();
             int yMapPos = player.getYMapPos();
             switch (code) {
@@ -595,7 +597,11 @@ public class MapController {
                     int x = ((int) (robot.getMousePosition().getX() - Game.getStage().getX()) / tileSize);
                     int y = ((int) (robot.getMousePosition().getY() - Game.getStage().getY() - headerSize) / tileSize);
                     MapCellInfo cellInfo = Game.getMap().getTiles()[xMapPos + x][yMapPos + y];
-                    TileEditPanel.showPanel(cellInfo);
+                    if (cellInfo.getNpcId() != null) {
+                        Game.getEditor().getDialogPanel().showPanel("");
+                    } else {
+                        TileEditPanel.showPanel(cellInfo);
+                    }
                     break;
                 }
                 case W: {
@@ -626,6 +632,15 @@ public class MapController {
                 }
             }
         }
+    }
+
+    /**
+     * Доступно ли взаимодействие с редактором по нажатию клавишь клавиатуры
+     * @return
+     */
+    private static boolean editorPressButtonEnabled() {
+        return !TileEditPanel.getPane().isVisible() &&
+                !Game.getEditor().getDialogPanel().getPane().isVisible();
     }
 
     /**
@@ -711,17 +726,21 @@ public class MapController {
                     int y = ((int) (robot.getMousePosition().getY() - Game.getStage().getY() - headerSize) / tileSize);
                     if (isReachable(player, x, y)) {
                         var mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y];
-                        player.setInteractMapPoint(mapCellInfo);
-                        List<Items> itemsList = mapCellInfo.getItems();
-                        if (mapCellInfo.getCreatureId() != null) {
-                            Creature creature = Game.getMap().getCreaturesList().get(mapCellInfo.getCreatureId());
-                            if (!creature.isAlive()) {
-                                Game.getGameMenu().showContainerInventory(creature.getInventory(), x, y, "creature");
-                            }
-                        } else if (itemsList != null || mapCellInfo.getTile2Type().equals(TileTypeEnum.CONTAINER) || mapCellInfo.getTile2Type().equals(TileTypeEnum.MANNEQUIN)) {
-                            CharactersController.pickUpItems(itemsList, x, y);
+                        if (mapCellInfo.getNpcId() != null) {
+                            Game.getEditor().getGameDialogPanel().showPanel(mapCellInfo.getNpcId());
                         } else {
-                            CharactersController.interactionWithMap(x, y);
+                            player.setInteractMapPoint(mapCellInfo);
+                            List<Items> itemsList = mapCellInfo.getItems();
+                            if (mapCellInfo.getCreatureId() != null) {
+                                Creature creature = Game.getMap().getCreaturesList().get(mapCellInfo.getCreatureId());
+                                if (!creature.isAlive()) {
+                                    Game.getGameMenu().showContainerInventory(creature.getInventory(), x, y, "creature");
+                                }
+                            } else if (itemsList != null || mapCellInfo.getTile2Type().equals(TileTypeEnum.CONTAINER) || mapCellInfo.getTile2Type().equals(TileTypeEnum.MANNEQUIN)) {
+                                CharactersController.pickUpItems(itemsList, x, y);
+                            } else {
+                                CharactersController.interactionWithMap(x, y);
+                            }
                         }
                     }
                 }
@@ -810,6 +829,9 @@ public class MapController {
                     drawUpperLayer(XPos, YPos, x, y, !Game.getGameMode().equals(GameModeEnum.GAME) || visiblyPoints[x][y]);
                 }
             }
+            if (player.getAppliedEffects().stream().anyMatch(i -> i.getStrId().equals("LIFE_DETECTION"))) {
+                MapController.drawAlive();
+            }
         }
     }
 
@@ -888,6 +910,24 @@ public class MapController {
                 TileInfo tile2Info = Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y].getTile2Info();
                 if (tile1Info.isPassability() && tile2Info.isPassability()) {
                     gc.drawImage(emptiness.getImage(),
+                            x * tileSize, y * tileSize);
+                }
+            }
+        }
+    }
+
+    /**
+     * Отрисовать подсветку живых существ, если на персонажа действует эффект "обнаружение жизни"
+     */
+    public static void drawAlive() {
+        var player = Game.getMap().getPlayer();
+        GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
+        for (int x = 0; x < viewSize; x++) {
+            for (int y = 0; y < viewSize; y++) {
+                MapCellInfo mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y];
+                if (mapCellInfo.getNpcId() != null && Game.getMap().getNpcList().get(mapCellInfo.getNpcId()).isAlive() ||
+                        mapCellInfo.getCreatureId() != null && Game.getMap().getCreaturesList().get(mapCellInfo.getCreatureId()).isAlive()) {
+                    gc.drawImage(alive.getImage(),
                             x * tileSize, y * tileSize);
                 }
             }

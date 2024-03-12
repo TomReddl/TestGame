@@ -358,5 +358,18 @@
     "skill": "HEAVY_WEAPON",
     "oneHand": false,
     "types": ["WEAPON"]
+  },
+  {
+    "id": 277,
+    "weight": "1500",
+    "volume": "3000",
+    "price": "25",
+    "stackable": false,
+    "damage": 1,
+    "maxStrength": 50,
+    "damageType": "CRUSHING_DAMAGE",
+    "skill": "HEAVY_WEAPON",
+    "oneHand": true,
+    "types": ["UMBRELLA", "WEAPON"]
   }
 ]

@@ -20,6 +20,8 @@ import model.editor.items.RecipeInfo;
 import model.entity.GameModeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.map.WeatherEnum;
+import view.dialog.DialogPanel;
+import view.dialog.GameDialogPanel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -115,6 +117,10 @@ public class Editor {
     private final EnchantmentPanel enchantmentPanel;
     @Getter
     private final InlayerDuplicatorPanel inlayerDuplicatorPanel;
+    @Getter
+    private final DialogPanel dialogPanel;
+    @Getter
+    private final GameDialogPanel gameDialogPanel;
 
     public Editor() {
         Game.getRoot().getChildren().add(canvas);
@@ -127,6 +133,8 @@ public class Editor {
         craftPanel = new CraftPanel();
         enchantmentPanel = new EnchantmentPanel();
         inlayerDuplicatorPanel = new InlayerDuplicatorPanel();
+        dialogPanel = new DialogPanel();
+        gameDialogPanel = new GameDialogPanel();
     }
 
     private void drawEditorButtons() {

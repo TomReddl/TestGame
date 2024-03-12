@@ -3,7 +3,9 @@ package controller;
 import model.editor.items.BodyPartEnum;
 import model.entity.Event;
 import model.entity.GameCalendar;
+import model.entity.ItemTypeEnum;
 import model.entity.battle.DamageTypeEnum;
+import model.entity.map.Items;
 import model.entity.map.MapCellInfo;
 import model.entity.map.WeatherEnum;
 import view.Game;
@@ -64,8 +66,11 @@ public class TimeController {
         }
 
         if (Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.ACID_RAIN)) {
-            // Если идет кислотный дождь, он наносит урон персонажу
-            BattleController.applyDamageToPlayer(baseAcidRainDamage, DamageTypeEnum.FIRE_DAMAGE);
+            Items itemInRightHand = Game.getMap().getPlayer().getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).getValue();
+            if (!itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.UMBRELLA)) {
+                // Если идет кислотный дождь и у персонажа нет зонта в руке, кислота наносит урон персонажу
+                BattleController.applyDamageToPlayer(baseAcidRainDamage, DamageTypeEnum.FIRE_DAMAGE);
+            }
         }
 
         // эффекты действуют каждый ход

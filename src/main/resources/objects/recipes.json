@@ -305,5 +305,33 @@
     "elements": {
       "170": 1
     }
+  },
+  {
+    "name": "Карамелизированный флокстер",
+    "recipeId": 24,
+    "itemId": 275,
+    "craftingPlace": "cookingTable",
+    "level": 0,
+    "skillId": "COOKING",
+    "timeToCraft": 5,
+    "group": "well-known",
+    "exp": 2,
+    "elements": {
+      "1": 1
+    }
+  },
+  {
+    "name": "Сушеный флокстер",
+    "recipeId": 25,
+    "itemId": 276,
+    "craftingPlace": "cookingTable",
+    "level": 0,
+    "skillId": "COOKING",
+    "timeToCraft": 10,
+    "group": "well-known",
+    "exp": 2,
+    "elements": {
+      "1": 1
+    }
   }
 ]

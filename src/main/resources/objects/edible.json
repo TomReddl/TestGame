@@ -8,7 +8,7 @@
     "burn": true,
     "taste": 10,
     "hunger": 10,
-    "thirst": 1,
+    "thirst": 5,
     "remainder": 16,
     "types": [
       "EAT",
@@ -706,6 +706,35 @@
       {
         "strId": "PERCEPTION_DEC"
       }
+    ]
+  },
+  {
+    "id": 275,
+    "weight": "220",
+    "volume": "260",
+    "price": "50",
+    "stackable": true,
+    "burn": true,
+    "taste": 30,
+    "hunger": 20,
+    "thirst": 1,
+    "remainder": 16,
+    "types": [
+      "EAT"
+    ]
+  },
+  {
+    "id": 276,
+    "weight": "30",
+    "volume": "30",
+    "price": "5",
+    "stackable": true,
+    "burn": true,
+    "taste": 4,
+    "hunger": 10,
+    "thirst": 0,
+    "types": [
+      "EAT"
     ]
   }
 ]

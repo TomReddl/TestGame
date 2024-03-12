@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
+import model.entity.player.GenderEnum;
 
 import java.io.Serializable;
 
@@ -20,4 +21,5 @@ public class NPCInfo implements Serializable {
     private String name;
     @JsonIgnore
     private String desc;
+    private GenderEnum gender;
 }

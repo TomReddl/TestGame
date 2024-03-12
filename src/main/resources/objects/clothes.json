@@ -537,5 +537,25 @@
         "strId": "BLIND"
       }
     ]
+  },
+  {
+    "id": 274,
+    "weight": "350",
+    "volume": "250",
+    "price": "400",
+    "stackable": false,
+    "armor": 5,
+    "maxStrength": 50,
+    "skill": "ARMORLESS",
+    "bodyPart": "FACE",
+    "covering": 5,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "effects": [
+      {
+        "strId": "LIFE_DETECTION"
+      }
+    ]
   }
 ]

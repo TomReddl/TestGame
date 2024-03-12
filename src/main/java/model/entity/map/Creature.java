@@ -41,6 +41,7 @@ public class Creature implements Serializable {
         if (health == null) { // если здоровье не задано, установим стандартное значение
             health = 100;
         }
+        this.isAlive = true;
         this.inventory = new ArrayList<>();
     }
 
