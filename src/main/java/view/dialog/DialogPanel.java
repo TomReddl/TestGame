@@ -218,7 +218,7 @@ public class DialogPanel {
         if (dialog == null) {
             dialog = new Dialog();
             selectedPhrase = new Phrase();
-            dialog.getPhrases().put("", selectedPhrase);
+           // dialog.getPhrases().put("", selectedPhrase);
         }
     }
 
@@ -234,46 +234,58 @@ public class DialogPanel {
      */
     private void savePhrase() {
         if (!phraseEdit.getText().trim().equals("") && !textEdit.getText().trim().equals("")) {
-            Phrase phrase = null;
             Label newPhraseLabel = null;
             Optional<Label> optionalLabel = phraseLabels.stream().filter(e -> e.getId().equals(phraseEdit.getText())).findFirst();
             if (optionalLabel.isPresent()) {
                 newPhraseLabel = optionalLabel.get();
-                phrase = dialog.getPhrases().get(phraseEdit.getText());
             } else {
-                phrase = new Phrase();
-                newPhraseLabel = new Label();
-                newPhraseLabel.setId(phraseEdit.getText());
-                newPhraseLabel.setLayoutX(10);
-                newPhraseLabel.setLayoutY(10 + phraseLabels.size() * 30);
-                final Label label = newPhraseLabel;
-                newPhraseLabel.setOnMouseClicked(event -> phraseLabelClick(label.getId()));
-                scrollContentPane.getChildren().add(newPhraseLabel);
-                phraseLabels.add(newPhraseLabel);
-                dialog.getPhrases().put(phraseEdit.getText(), phrase);
+                newPhraseLabel = addNewPhrase(phraseEdit.getText());
             }
-            setPhraseFields(phrase);
+            setPhraseFields(dialog.getPhrases().get(phraseEdit.getText()));
             newPhraseLabel.setText(phraseEdit.getText() + " " + textEdit.getText());
         }
     }
 
-    private void phraseLabelClick(String id) {
+    private Label addNewPhrase(String id) {
+        Phrase phrase = new Phrase();
+        Label newPhraseLabel = new Label();
+        newPhraseLabel.setId(id);
+        newPhraseLabel.setLayoutX(10);
+        newPhraseLabel.setLayoutY(10 + phraseLabels.size() * 30);
+        final Label label = newPhraseLabel;
+        newPhraseLabel.setOnMouseClicked(event -> phraseLabelClick(label.getId()));
+        scrollContentPane.getChildren().add(newPhraseLabel);
+        phraseLabels.add(newPhraseLabel);
+        dialog.getPhrases().put(id, phrase);
+        return newPhraseLabel;
+    }
+
+    public void phraseLabelClick(String id) {
         selectedPhrase = dialog.getPhrases().get(id);
-        phraseEdit.setText(selectedPhrase.getId());
-        textEdit.setText(selectedPhrase.getText());
-        scriptEdit.setText(selectedPhrase.getScript());
-        answersScrollContentPane.getChildren().remove(1, answersScrollContentPane.getChildren().size());
-        answerPanels = new ArrayList<>();
-        int i = 0;
-        for (Answer answer : selectedPhrase.getAnswers()) {
-            var answerPanel = new AnswerPanel(i);
-            answerPanel.getPane().setLayoutY(i * AnswerPanel.getPaneHeight());
-            answerPanels.add(answerPanel);
-            answerPanel.getTextEdit().setText(answer.getText());
-            answerPanel.getNextPhraseConditionEdit().setText(answer.getNextPhraseCondition());
-            answerPanel.getVisiblyConditionEdit().setText(answer.getVisiblyCondition());
-            answersScrollContentPane.getChildren().add(answerPanel.getPane());
-            i++;
+        if (selectedPhrase == null) {
+            addNewPhrase(id);
+            phraseEdit.setText(id);
+            textEdit.setText("");
+            scriptEdit.setText("");
+            answersScrollContentPane.getChildren().remove(1, answersScrollContentPane.getChildren().size());
+            addAnswerButton.setLayoutY(10);
+        } else {
+            phraseEdit.setText(selectedPhrase.getId());
+            textEdit.setText(selectedPhrase.getText());
+            scriptEdit.setText(selectedPhrase.getScript());
+            answersScrollContentPane.getChildren().remove(1, answersScrollContentPane.getChildren().size());
+            answerPanels = new ArrayList<>();
+            int i = 0;
+            for (Answer answer : selectedPhrase.getAnswers()) {
+                var answerPanel = new AnswerPanel(i);
+                answerPanel.getPane().setLayoutY(i * AnswerPanel.getPaneHeight());
+                answerPanels.add(answerPanel);
+                answerPanel.getTextEdit().setText(answer.getText());
+                answerPanel.getNextPhraseConditionEdit().setText(answer.getNextPhraseCondition());
+                answerPanel.getVisiblyConditionEdit().setText(answer.getVisiblyCondition());
+                answersScrollContentPane.getChildren().add(answerPanel.getPane());
+                i++;
+            }
         }
     }
 
@@ -298,6 +310,9 @@ public class DialogPanel {
      * Добавить ответ
      */
     private void addAnswer() {
+        if (selectedPhrase == null) {
+            selectedPhrase = new Phrase();
+        }
         if (selectedPhrase.getAnswers() == null) {
             selectedPhrase.setAnswers(new ArrayList<>());
         }

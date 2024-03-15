@@ -1,5 +1,6 @@
 package view.dialog;
 
+import controller.ItemsController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -17,6 +18,8 @@ import lombok.Setter;
 import model.entity.dialogs.Answer;
 import model.entity.dialogs.Dialog;
 import model.entity.dialogs.Phrase;
+import model.entity.map.Items;
+import model.entity.player.Player;
 import view.Game;
 import view.inventory.BookPanel;
 
@@ -45,6 +48,7 @@ public class GameDialogPanel {
     @Setter
     private Dialog dialog;
     private Phrase selectedPhrase;
+    private int npcId;
 
     private Font font;
 
@@ -116,6 +120,7 @@ public class GameDialogPanel {
         if (!pane.isVisible()) {
             pane.setVisible(true);
         }
+        this.npcId = npcId;
         if (dialog == null) {
             dialog = new Dialog();
             selectedPhrase = new Phrase();
@@ -133,36 +138,41 @@ public class GameDialogPanel {
      * @param phrase - фраза
      */
     private void setPhrase(Integer npcId, Phrase phrase) {
-        selectedPhrase = phrase;
-        ((Text) textFlow.getChildren().get(0)).setText(Game.getMap().getNpcList().get(npcId).getName() + ": " + selectedPhrase.getText());
-        int i = 0;
-        answers.clear();
-        answersScrollContentPane.getChildren().clear();
-        for (Answer answer : selectedPhrase.getAnswers()) {
-            Label answerLabel = new Label();
-            answerLabel.setFont(font);
-            answerLabel.setTextFill(Color.web("#4a3710"));
-            answerLabel.setLayoutX(5);
-            answerLabel.setOnMouseEntered(event -> onAnswerMouseEnter(answerLabel));
-            answerLabel.setOnMouseExited(event -> onAnswerMouseExited(answerLabel));
-            answerLabel.setOnMouseClicked(event -> setPhrase(npcId, dialog.getPhrases().get(answer.getNextPhraseCondition())));
-            answerLabel.setLayoutY(5 + i*20);
-            answerLabel.setText(answer.getText());
-            answersScrollContentPane.getChildren().add(answerLabel);
-            answers.add(answerLabel);
-            i++;
+        if (phrase != null) {
+            selectedPhrase = phrase;
+            applyPhraseScript(selectedPhrase.getScript());
+            ((Text) textFlow.getChildren().get(0)).setText(Game.getMap().getNpcList().get(npcId).getName() + ": " + replaceDialogText(selectedPhrase.getText()));
+            int i = 0;
+            answers.clear();
+            answersScrollContentPane.getChildren().clear();
+            for (Answer answer : selectedPhrase.getAnswers()) {
+                if (checkAnswerVisibly(answer.getVisiblyCondition())) {
+                    Label answerLabel = new Label();
+                    answerLabel.setFont(font);
+                    answerLabel.setTextFill(Color.web("#4a3710"));
+                    answerLabel.setLayoutX(5);
+                    answerLabel.setOnMouseEntered(event -> onAnswerMouseEnter(answerLabel));
+                    answerLabel.setOnMouseExited(event -> onAnswerMouseExited(answerLabel));
+                    answerLabel.setOnMouseClicked(event -> setPhrase(npcId, dialog.getPhrases().get(applyNextPhraseCondition(answer.getNextPhraseCondition()))));
+                    answerLabel.setLayoutY(5 + i * 20);
+                    answerLabel.setText(replaceDialogText(answer.getText()));
+                    answersScrollContentPane.getChildren().add(answerLabel);
+                    answers.add(answerLabel);
+                    i++;
+                }
+            }
+            Label exitDialogLabel = new Label();
+            exitDialogLabel.setFont(font);
+            exitDialogLabel.setTextFill(Color.web("#4a3710"));
+            exitDialogLabel.setLayoutX(5);
+            exitDialogLabel.setOnMouseEntered(event -> onAnswerMouseEnter(exitDialogLabel));
+            exitDialogLabel.setOnMouseExited(event -> onAnswerMouseExited(exitDialogLabel));
+            exitDialogLabel.setOnMouseClicked(event -> closeDialog());
+            exitDialogLabel.setLayoutY(5 + i * 20);
+            exitDialogLabel.setText("[" + Game.getText("CLOSE_DIALOG") + "]");
+            answersScrollContentPane.getChildren().add(exitDialogLabel);
+            answers.add(exitDialogLabel);
         }
-        Label exitDialogLabel = new Label();
-        exitDialogLabel.setFont(font);
-        exitDialogLabel.setTextFill(Color.web("#4a3710"));
-        exitDialogLabel.setLayoutX(5);
-        exitDialogLabel.setOnMouseEntered(event -> onAnswerMouseEnter(exitDialogLabel));
-        exitDialogLabel.setOnMouseExited(event -> onAnswerMouseExited(exitDialogLabel));
-        exitDialogLabel.setOnMouseClicked(event -> closeDialog());
-        exitDialogLabel.setLayoutY(5 + i*20);
-        exitDialogLabel.setText("[" + Game.getText("CLOSE_DIALOG") + "]");
-        answersScrollContentPane.getChildren().add(exitDialogLabel);
-        answers.add(exitDialogLabel);
     }
 
     private void onAnswerMouseEnter(Label answerLabel) {
@@ -171,5 +181,101 @@ public class GameDialogPanel {
 
     private void onAnswerMouseExited(Label answerLabel) {
         answerLabel.setTextFill(Color.web("#4a3710"));
+    }
+
+    /**
+     * Подстановка значений в текст диалога
+     * @param text - текст диалога
+     * @return - обработанный текст диалога
+     */
+    private String replaceDialogText(String text) {
+        text = text.replaceAll("%playerName", Game.getMap().getPlayer().getName());
+        text = text.replaceAll("%NPCName", Game.getMap().getNpcList().get(npcId).getName());
+
+        return text;
+    }
+
+    /**
+     * Проверить условие видимости ответа в диалоге
+     * @param condition - условие
+     * @return - true, если ответ видим в диалоге, false, если не виден
+     */
+    private boolean checkAnswerVisibly(String condition) {
+        if (condition == null || condition.equals("")) {
+            return true;
+        } else {
+            String[] words = condition.split(" ");
+            boolean result = true;
+            for (int i = 0; i < words.length; i++) {
+                String word = words[i++];
+                switch (word) {
+                    case "playerHasItem": {
+                        word = words[i++];
+                        result = ItemsController.findItemInInventory(Integer.parseInt(word), Game.getMap().getPlayer().getInventory()) != null;
+                    }
+                }
+            }
+            return result;
+        }
+    }
+
+    /**
+     * Применить условие для выбора следующей фразы в диалоге
+     * @param condition
+     * @return
+     */
+    private String applyNextPhraseCondition(String condition) {
+        if (condition == null || condition.equals("")) {
+            return "";
+        } else {
+            try {
+                Integer.parseInt(condition);
+                return condition;
+            } catch(NumberFormatException ignored){
+            }
+            String[] words = condition.split(" ");
+            try {
+                for (int i = 0; i < words.length; i++) {
+                    String word = words[i++];
+                    switch (word) {
+                        case "playerHasItem": {
+                            word = words[i++];
+                            if (ItemsController.findItemInInventory(Integer.parseInt(word), Game.getMap().getPlayer().getInventory()) != null) {
+                                return words[i];
+                            } else {
+                                i++;
+                                return words[++i];
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Ошибка при определении id следующей фразы в диалоге: " + e);
+            }
+        }
+        return "";
+    }
+
+    /**
+     * Применить скрипт, срабатывающий при выборе фразы
+     * @param script - скрипт
+     */
+    private void applyPhraseScript(String script) {
+        if (script != null && !script.equals("")) {
+            String[] words = script.split(" ");
+            try {
+                Player player = Game.getMap().getPlayer();
+                for (int i = 0; i < words.length; i++) {
+                    String word = words[i++];
+                    switch (word) {
+                        case "playerAddItem": {
+                            ItemsController.addItem(new Items(Integer.parseInt(words[i++]), Integer.parseInt(words[i++])), player.getInventory(), player);
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("Ошибка при применении скрипта в диалоге: " + e);
+            }
+        }
     }
 }

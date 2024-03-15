@@ -557,5 +557,23 @@
         "strId": "LIFE_DETECTION"
       }
     ]
+  },
+  {
+    "id": 278,
+    "weight": "650",
+    "volume": "2300",
+    "price": "500",
+    "stackable": false,
+    "armor": 17,
+    "maxStrength": 180,
+    "skill": "HEAVY_ARMOR",
+    "bodyPart": "HEAD",
+    "covering": 20,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
   }
 ]

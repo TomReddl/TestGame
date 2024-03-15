@@ -31,6 +31,7 @@ public class AnswerPanel {
     @Getter
     private final TextField nextPhraseConditionEdit;
     private final Button deleteAnswerButton;
+    private final Button goToPhraseButton;
     @Getter
     @Setter
     private int id;
@@ -82,6 +83,7 @@ public class AnswerPanel {
         nextPhraseConditionEdit.setLayoutX(160);
         nextPhraseConditionEdit.setLayoutY(70);
         nextPhraseConditionEdit.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        nextPhraseConditionEdit.setOnKeyTyped(event -> nextPhraseConditionEdit());
         pane.getChildren().add(nextPhraseConditionEdit);
 
         deleteAnswerButton = new Button(Game.getText("DELETE_ANSWER"));
@@ -90,5 +92,17 @@ public class AnswerPanel {
         deleteAnswerButton.setPrefWidth(150);
         deleteAnswerButton.setOnAction(event -> Game.getEditor().getDialogPanel().deleteAnswer(this));
         pane.getChildren().add(deleteAnswerButton);
+
+        goToPhraseButton = new Button(Game.getText("GO_TO_PHRASE"));
+        goToPhraseButton.setLayoutX(320);
+        goToPhraseButton.setLayoutY(70);
+        goToPhraseButton.setPrefWidth(150);
+        goToPhraseButton.setVisible(false);
+        goToPhraseButton.setOnAction(event -> Game.getEditor().getDialogPanel().phraseLabelClick(nextPhraseConditionEdit.getText()));
+        pane.getChildren().add(goToPhraseButton);
+    }
+
+    private void nextPhraseConditionEdit() {
+        goToPhraseButton.setVisible(!nextPhraseConditionEdit.getText().trim().equals(""));
     }
 }

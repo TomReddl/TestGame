@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.Setter;
 import model.editor.items.BodyPartEnum;
 import model.editor.items.ClothesStyleEnum;
-import model.editor.items.RecipeInfo;
 import model.entity.DirectionEnum;
 import model.entity.effects.EffectParams;
 import model.entity.map.Creature;
@@ -43,6 +42,8 @@ public class Player implements Serializable {
     private int yViewPos;
     @JsonProperty("direction")
     private DirectionEnum direction; // направление движения персонажа
+    @JsonProperty("name")
+    private String name; // имя
     @JsonProperty("gender")
     private GenderEnum gender; // пол
     @JsonProperty("hairColor")
@@ -102,6 +103,7 @@ public class Player implements Serializable {
         beardLength = 0;
         hairColor = HairColorEnum.Brown;
         gender = GenderEnum.MALE;
+        name = "Путник";
 
         for (BodyPartEnum partEnum : BodyPartEnum.values()) {
             wearingItems.add(new Pair<>(partEnum, null));

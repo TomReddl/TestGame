@@ -20,7 +20,6 @@ import view.Editor;
 import view.Game;
 import view.SelectTimePanel;
 import view.TileEditPanel;
-import view.dialog.DialogPanel;
 import view.inventory.BookPanel;
 import view.inventory.ItemCountPanel;
 import view.menu.MainMenu;
@@ -726,7 +725,7 @@ public class MapController {
                     int y = ((int) (robot.getMousePosition().getY() - Game.getStage().getY() - headerSize) / tileSize);
                     if (isReachable(player, x, y)) {
                         var mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y];
-                        if (mapCellInfo.getNpcId() != null) {
+                        if (mapCellInfo.getNpcId() != null && Game.getMap().getNpcList().get(mapCellInfo.getNpcId()).isAlive()) {
                             Game.getEditor().getGameDialogPanel().showPanel(mapCellInfo.getNpcId());
                         } else {
                             player.setInteractMapPoint(mapCellInfo);
