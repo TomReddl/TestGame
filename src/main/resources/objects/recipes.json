@@ -333,5 +333,70 @@
     "elements": {
       "1": 1
     }
+  },
+  {
+    "name": "Зирконитовый нагрудник",
+    "recipeId": 26,
+    "itemId": 279,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "142": 12
+    }
+  },
+  {
+    "name": "Зирконитовые поножи",
+    "recipeId": 27,
+    "itemId": 280,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "142": 8
+    }
+  },
+  {
+    "name": "Зирконитовый шлем",
+    "recipeId": 28,
+    "itemId": 278,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "142": 6
+    }
+  },
+  {
+    "name": "Зирконитовые сапоги",
+    "recipeId": 29,
+    "itemId": 281,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "142": 6
+    }
+  },
+  {
+    "name": "Зирконитовые наручи",
+    "recipeId": 30,
+    "itemId": 282,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "142": 4
+    }
   }
 ]

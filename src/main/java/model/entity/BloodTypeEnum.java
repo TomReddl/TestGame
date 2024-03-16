@@ -7,11 +7,11 @@ import view.Game;
  * Тип крови существа
  */
 public enum BloodTypeEnum {
-    BLOOD(Game.getPollutionsText("0"), 1, 2, 3),
-    OIL(Game.getPollutionsText("2"), 7, 8, 9),
-    MUCUS(Game.getPollutionsText("3"), 10, 11, 12),
-    ACID(Game.getPollutionsText("4"), 13, 14, 15),
-    DIRT(Game.getPollutionsText("5"), 16, 17, 18);
+    BLOOD(Game.getPollutionsText("0"), 1, 2, 3),    // кровь
+    OIL(Game.getPollutionsText("2"), 7, 8, 9),      // масло
+    MUCUS(Game.getPollutionsText("3"), 10, 11, 12), // слизь
+    ACID(Game.getPollutionsText("4"), 13, 14, 15),  // кислота
+    DIRT(Game.getPollutionsText("5"), 16, 17, 18);  // грязь
 
     @Getter
     private final String desc;

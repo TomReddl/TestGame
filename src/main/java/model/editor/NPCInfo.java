@@ -22,4 +22,5 @@ public class NPCInfo implements Serializable {
     @JsonIgnore
     private String desc;
     private GenderEnum gender;
+    private String bloodType; // тип крови NPC
 }

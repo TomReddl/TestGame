@@ -65,27 +65,33 @@
   },
   {
     "imageId": 16,
-    "gender": "MALE"
+    "gender": "MALE",
+    "bloodType": "MUCUS"
   },
   {
     "imageId": 17,
-    "gender": "MALE"
+    "gender": "FEMALE",
+    "bloodType": "MUCUS"
   },
   {
     "imageId": 18,
-    "gender": "MALE"
+    "gender": "MALE",
+    "bloodType": "OIL"
   },
   {
     "imageId": 19,
-    "gender": "MALE"
+    "gender": "MALE",
+    "bloodType": "OIL"
   },
   {
     "imageId": 20,
-    "gender": "MALE"
+    "gender": "MALE",
+    "bloodType": "OIL"
   },
   {
     "imageId": 21,
-    "gender": "MALE"
+    "gender": "MALE",
+    "bloodType": "OIL"
   },
   {
     "imageId": 22,

@@ -13,10 +13,7 @@ import model.entity.GameCalendar;
 import model.entity.ItemTypeEnum;
 import model.entity.battle.DamageTypeEnum;
 import model.entity.effects.EffectParams;
-import model.entity.map.ClosableCellInfo;
-import model.entity.map.Creature;
-import model.entity.map.Items;
-import model.entity.map.MapCellInfo;
+import model.entity.map.*;
 import model.entity.player.GenderEnum;
 import model.entity.player.ParamsInfo;
 import model.entity.player.Player;
@@ -169,7 +166,14 @@ public class CharactersController {
             if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.WEAPON) && !applyDamage) { // если в руках оружие
                 if (mapCellInfo.getCreatureId() != null) {
                     Creature creature = Game.getMap().getCreaturesList().get(mapCellInfo.getCreatureId());
-                    BattleController.attackCreature(player, itemInRightHand, creature);
+                    if (creature.isAlive()) {
+                        BattleController.attackCreature(player, itemInRightHand, creature);
+                    }
+                } else if (mapCellInfo.getNpcId() != null) {
+                    NPC npc = Game.getMap().getNpcList().get(mapCellInfo.getNpcId());
+                    if (npc.isAlive()) {
+                        BattleController.attackNPC(player, itemInRightHand, npc);
+                    }
                 } else {
                     BattleController.applyDamageToMapCell(mapCellInfo, itemInRightHand);
                 }

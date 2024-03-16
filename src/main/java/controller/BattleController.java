@@ -11,6 +11,7 @@ import model.entity.effects.EffectParams;
 import model.entity.map.Creature;
 import model.entity.map.Items;
 import model.entity.map.MapCellInfo;
+import model.entity.map.NPC;
 import model.entity.player.Player;
 import view.Editor;
 import view.Game;
@@ -48,6 +49,25 @@ public class BattleController {
     }
 
     /**
+     * Персонаж атакует NPC
+     *
+     * @param player   - персонаж
+     * @param weapon   - оружие, которым он атакует
+     * @param npc      - атакуемый npc
+     */
+    public static void attackNPC(Player player, Items weapon, NPC npc) {
+        WeaponInfo weaponInfo = ((WeaponInfo) weapon.getInfo());
+        boolean isKilled = applyDamageToCreature(((WeaponInfo) weapon.getInfo()).getDamage(), DamageTypeEnum.valueOf(weaponInfo.getDamageType()), npc); // TODO учесть броню npc
+        if (isKilled) {
+            if (Game.getMap().getPlayer() == player) { // выводим сообщение, только если атаковал текущий выбранный персонаж
+                Game.showMessage(npc.getName() + " " + Game.getText("KILLED"), Color.GREEN);
+            }
+        }
+        ItemsController.damageItem(weapon, 1, Game.getMap().getPlayer().getInventory(), Game.getMap().getPlayer());
+        CharactersController.addSkillExp(((WeaponInfo) weapon.getInfo()).getSkill(), 10); // TODO скейл опыта от прокачки npc
+    }
+
+    /**
      * Наносит урон существу
      *
      * @param damagePoints - урон
@@ -60,6 +80,24 @@ public class BattleController {
         setBloodSplatter(damagePoints, damageType, creature);
         if (creature.getHealth() <= 0) {
             creature.setAlive(false);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Наносит урон npc
+     *
+     * @param damagePoints - урон
+     * @param damageType   - тип наносимого урона
+     * @param npc          - неигровой персонаж
+     * @return true- npc убит
+     */
+    public static boolean applyDamageToCreature(int damagePoints, DamageTypeEnum damageType, NPC npc) {
+        npc.setHealth(npc.getHealth() - damagePoints);
+       // setBloodSplatter(damagePoints, damageType, npc); // TODO сделать брызки крови для NPC
+        if (npc.getHealth() <= 0) {
+            npc.setAlive(false);
             return true;
         }
         return false;

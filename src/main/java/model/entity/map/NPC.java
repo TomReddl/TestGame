@@ -31,6 +31,7 @@ public class NPC implements Serializable {
     private String dialogPhase; // этап диалога. Используется для изменения диалога при повторных общениях с NPC
     @JsonProperty("name")
     private String name; // имя NPC
+    private Integer health;
 
     public NPC(int npcTypeId, int id, int xPos, int yPos) {
         this.npcTypeId = npcTypeId;
@@ -39,5 +40,6 @@ public class NPC implements Serializable {
         this.yPos = yPos;
         this.isAlive = true;
         this.name = NPCGenerator.generateName(npcTypeId);
+        this.health = 100;
     }
 }
