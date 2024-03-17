@@ -398,5 +398,70 @@
     "elements": {
       "142": 4
     }
+  },
+  {
+    "name": "Пайроналовый шлем",
+    "recipeId": 31,
+    "itemId": 283,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "143": 6
+    }
+  },
+  {
+    "name": "Пайроналовая кираса",
+    "recipeId": 32,
+    "itemId": 284,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "143": 12
+    }
+  },
+  {
+    "name": "Пайроналовые поножи",
+    "recipeId": 33,
+    "itemId": 285,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "143": 8
+    }
+  },
+  {
+    "name": "Пайроналовые сапоги",
+    "recipeId": 34,
+    "itemId": 286,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "143": 6
+    }
+  },
+  {
+    "name": "Пайроналовые наручи",
+    "recipeId": 35,
+    "itemId": 287,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "143": 4
+    }
   }
 ]
