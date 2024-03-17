@@ -463,5 +463,70 @@
     "elements": {
       "143": 4
     }
+  },
+  {
+    "name": "Люмериевый шлем",
+    "recipeId": 36,
+    "itemId": 288,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "161": 6
+    }
+  },
+  {
+    "name": "Люмериевый нагрудник",
+    "recipeId": 37,
+    "itemId": 289,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "161": 12
+    }
+  },
+  {
+    "name": "Люмериевые поножи",
+    "recipeId": 38,
+    "itemId": 290,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "161": 8
+    }
+  },
+  {
+    "name": "Люмериевый сапоги",
+    "recipeId": 39,
+    "itemId": 291,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "161": 6
+    }
+  },
+  {
+    "name": "Люмериевый наручи",
+    "recipeId": 40,
+    "itemId": 292,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "161": 4
+    }
   }
 ]
