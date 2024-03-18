@@ -474,7 +474,7 @@
     "timeToCraft": 60,
     "group": "well-known",
     "elements": {
-      "161": 6
+      "146": 6
     }
   },
   {
@@ -487,7 +487,7 @@
     "timeToCraft": 120,
     "group": "well-known",
     "elements": {
-      "161": 12
+      "146": 12
     }
   },
   {
@@ -500,7 +500,7 @@
     "timeToCraft": 80,
     "group": "well-known",
     "elements": {
-      "161": 8
+      "146": 8
     }
   },
   {
@@ -513,7 +513,7 @@
     "timeToCraft": 60,
     "group": "well-known",
     "elements": {
-      "161": 6
+      "146": 6
     }
   },
   {
@@ -526,7 +526,72 @@
     "timeToCraft": 60,
     "group": "well-known",
     "elements": {
-      "161": 4
+      "146": 4
+    }
+  },
+  {
+    "name": "Деагаровый шлем",
+    "recipeId": 41,
+    "itemId": 293,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "147": 6
+    }
+  },
+  {
+    "name": "Деагаровая кираса",
+    "recipeId": 42,
+    "itemId": 294,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "147": 12
+    }
+  },
+  {
+    "name": "Деагаровые поножи",
+    "recipeId": 43,
+    "itemId": 295,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "147": 8
+    }
+  },
+  {
+    "name": "Деагаровые сапоги",
+    "recipeId": 44,
+    "itemId": 296,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "147": 6
+    }
+  },
+  {
+    "name": "Деагаровые перчатки",
+    "recipeId": 45,
+    "itemId": 297,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "147": 4
     }
   }
 ]
