@@ -469,7 +469,7 @@
     "recipeId": 36,
     "itemId": 288,
     "craftingPlace": "anvil",
-    "level": 2,
+    "level": 3,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 60,
     "group": "well-known",
@@ -482,7 +482,7 @@
     "recipeId": 37,
     "itemId": 289,
     "craftingPlace": "anvil",
-    "level": 2,
+    "level": 3,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 120,
     "group": "well-known",
@@ -495,7 +495,7 @@
     "recipeId": 38,
     "itemId": 290,
     "craftingPlace": "anvil",
-    "level": 2,
+    "level": 3,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 80,
     "group": "well-known",
@@ -508,7 +508,7 @@
     "recipeId": 39,
     "itemId": 291,
     "craftingPlace": "anvil",
-    "level": 2,
+    "level": 3,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 60,
     "group": "well-known",
@@ -521,7 +521,7 @@
     "recipeId": 40,
     "itemId": 292,
     "craftingPlace": "anvil",
-    "level": 2,
+    "level": 3,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 60,
     "group": "well-known",
@@ -534,7 +534,7 @@
     "recipeId": 41,
     "itemId": 293,
     "craftingPlace": "anvil",
-    "level": 2,
+    "level": 3,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 60,
     "group": "well-known",
@@ -547,7 +547,7 @@
     "recipeId": 42,
     "itemId": 294,
     "craftingPlace": "anvil",
-    "level": 2,
+    "level": 3,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 120,
     "group": "well-known",
@@ -560,7 +560,7 @@
     "recipeId": 43,
     "itemId": 295,
     "craftingPlace": "anvil",
-    "level": 2,
+    "level": 3,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 80,
     "group": "well-known",
@@ -573,7 +573,7 @@
     "recipeId": 44,
     "itemId": 296,
     "craftingPlace": "anvil",
-    "level": 2,
+    "level": 3,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 60,
     "group": "well-known",
@@ -586,12 +586,77 @@
     "recipeId": 45,
     "itemId": 297,
     "craftingPlace": "anvil",
-    "level": 2,
+    "level": 3,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 60,
     "group": "well-known",
     "elements": {
       "147": 4
+    }
+  },
+  {
+    "name": "Эонитиевая кираса",
+    "recipeId": 46,
+    "itemId": 298,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "148": 12
+    }
+  },
+  {
+    "name": "Эонитиевый шлем",
+    "recipeId": 47,
+    "itemId": 299,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "148": 6
+    }
+  },
+  {
+    "name": "Эонитиевая юбка",
+    "recipeId": 48,
+    "itemId": 300,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "148": 8
+    }
+  },
+  {
+    "name": "Эонитиевые сапоги",
+    "recipeId": 49,
+    "itemId": 301,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "148": 6
+    }
+  },
+  {
+    "name": "Эонитиевые перчатки",
+    "recipeId": 50,
+    "itemId": 302,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "148": 4
     }
   }
 ]

@@ -835,7 +835,7 @@
     "price": "750",
     "stackable": false,
     "armor": 26,
-    "maxStrength": 260,
+    "maxStrength": 200,
     "skill": "HEAVY_ARMOR",
     "bodyPart": "HEAD",
     "covering": 20,
@@ -907,6 +907,96 @@
     "price": "550",
     "stackable": false,
     "armor": 26,
+    "maxStrength": 200,
+    "skill": "HEAVY_ARMOR",
+    "bodyPart": "GLOVES",
+    "covering": 20,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 298,
+    "weight": "870",
+    "volume": "2400",
+    "price": "900",
+    "stackable": false,
+    "armor": 28,
+    "maxStrength": 200,
+    "skill": "HEAVY_ARMOR",
+    "bodyPart": "TORSO",
+    "covering": 20,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "GREAT"
+    }
+  },
+  {
+    "id": 299,
+    "weight": "780",
+    "volume": "2400",
+    "price": "800",
+    "stackable": false,
+    "armor": 28,
+    "maxStrength": 200,
+    "skill": "HEAVY_ARMOR",
+    "bodyPart": "HEAD",
+    "covering": 20,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 300,
+    "weight": "820",
+    "volume": "2200",
+    "price": "800",
+    "stackable": false,
+    "armor": 28,
+    "maxStrength": 200,
+    "skill": "HEAVY_ARMOR",
+    "bodyPart": "LEGS",
+    "covering": 20,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 301,
+    "weight": "630",
+    "volume": "2000",
+    "price": "750",
+    "stackable": false,
+    "armor": 28,
+    "maxStrength": 200,
+    "skill": "HEAVY_ARMOR",
+    "bodyPart": "SHOES",
+    "covering": 20,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 302,
+    "weight": "480",
+    "volume": "650",
+    "price": "650",
+    "stackable": false,
+    "armor": 28,
     "maxStrength": 200,
     "skill": "HEAVY_ARMOR",
     "bodyPart": "GLOVES",
