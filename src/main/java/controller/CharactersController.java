@@ -808,11 +808,11 @@ public class CharactersController {
             gc.drawImage(img,
                     0, 0, tileSize, tileSize,
                     player.getXViewPos() * tileSize + tileSize,
-                    player.getYViewPos() * tileSize,
+                    player.getYViewPos() * tileSize - (height - tileSize),
                     -width, height);
         } else {
             gc.drawImage(img,
-                    player.getXViewPos() * tileSize, player.getYViewPos() * tileSize);
+                    player.getXViewPos() * tileSize, player.getYViewPos() * tileSize - (img.getHeight() - tileSize));
         }
     }
 

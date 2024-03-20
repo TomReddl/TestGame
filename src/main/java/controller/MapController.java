@@ -1002,7 +1002,8 @@ public class MapController {
                         var path = "/graphics/items/" + item.getTypeId() + "doll.png";
                         var f = new File("/" + Player.class.getProtectionDomain().getCodeSource().getLocation().getPath() + path);
                         if (f.exists()) {
-                            gc.drawImage(new Image(path), x * tileSize, y * tileSize -3); // спрайт манекена смещен на 3 пикселя вверх относительно спрайта персонажа и спрайтов всех надеваемых предметов
+                            var image = new Image(path);
+                            gc.drawImage(image, x * tileSize, y * tileSize -(3 + (image.getHeight()-tileSize))); // спрайт манекена смещен на 3 пикселя вверх относительно спрайта персонажа и спрайтов всех надеваемых предметов
                         }
                     }
                 }

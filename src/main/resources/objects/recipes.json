@@ -658,5 +658,83 @@
     "elements": {
       "148": 4
     }
+  },
+  {
+    "name": "Сайдаловый шлем",
+    "recipeId": 51,
+    "itemId": 303,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "149": 6
+    }
+  },
+  {
+    "name": "Сайдаловая кираса",
+    "recipeId": 52,
+    "itemId": 304,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "149": 12
+    }
+  },
+  {
+    "name": "Сайдаловые поножи",
+    "recipeId": 53,
+    "itemId": 305,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "149": 8
+    }
+  },
+  {
+    "name": "Сайдаловые перчатки",
+    "recipeId": 54,
+    "itemId": 306,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "149": 4
+    }
+  },
+  {
+    "name": "Сайдаловые ботинки",
+    "recipeId": 55,
+    "itemId": 307,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "149": 6
+    }
+  },
+  {
+    "name": "Аригитовые перчатки",
+    "recipeId": 56,
+    "itemId": 308,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "139": 4
+    }
   }
 ]
