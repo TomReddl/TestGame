@@ -801,5 +801,70 @@
     "elements": {
       "150": 4
     }
+  },
+  {
+    "name": "Курамиевый шлем",
+    "recipeId": 62,
+    "itemId": 314,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "151": 6
+    }
+  },
+  {
+    "name": "Курамиевая кираса",
+    "recipeId": 63,
+    "itemId": 315,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "151": 12
+    }
+  },
+  {
+    "name": "Курамиевые поножи",
+    "recipeId": 64,
+    "itemId": 316,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "151": 8
+    }
+  },
+  {
+    "name": "Курамиевые перчатки",
+    "recipeId": 65,
+    "itemId": 317,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "151": 4
+    }
+  },
+  {
+    "name": "Курамиевые ботинки",
+    "recipeId": 66,
+    "itemId": 318,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "151": 6
+    }
   }
 ]
