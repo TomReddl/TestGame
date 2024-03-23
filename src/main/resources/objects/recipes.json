@@ -931,5 +931,70 @@
     "elements": {
       "138": 4
     }
+  },
+  {
+    "name": "Стальной шлем",
+    "recipeId": 72,
+    "itemId": 324,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "152": 6
+    }
+  },
+  {
+    "name": "Стальная кираса",
+    "recipeId": 73,
+    "itemId": 325,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "152": 12
+    }
+  },
+  {
+    "name": "Стальные поножи",
+    "recipeId": 74,
+    "itemId": 326,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "152": 8
+    }
+  },
+  {
+    "name": "Стальные ботинки",
+    "recipeId": 75,
+    "itemId": 327,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "152": 6
+    }
+  },
+  {
+    "name": "Стальные перчатки",
+    "recipeId": 76,
+    "itemId": 328,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "152": 4
+    }
   }
 ]

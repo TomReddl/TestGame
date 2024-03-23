@@ -1475,5 +1475,95 @@
     "params": {
       "inlayerSize": "SMALL"
     }
+  },
+  {
+    "id": 324,
+    "weight": "650",
+    "volume": "2000",
+    "price": "350",
+    "stackable": false,
+    "armor": 13,
+    "maxStrength": 120,
+    "skill": "HEAVY_ARMOR",
+    "bodyPart": "HEAD",
+    "covering": 20,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 325,
+    "weight": "2700",
+    "volume": "2400",
+    "price": "700",
+    "stackable": false,
+    "armor": 13,
+    "maxStrength": 120,
+    "skill": "HEAVY_ARMOR",
+    "bodyPart": "TORSO",
+    "covering": 20,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "GREAT"
+    }
+  },
+  {
+    "id": 326,
+    "weight": "1700",
+    "volume": "2200",
+    "price": "450",
+    "stackable": false,
+    "armor": 13,
+    "maxStrength": 120,
+    "skill": "HEAVY_ARMOR",
+    "bodyPart": "LEGS",
+    "covering": 20,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 327,
+    "weight": "1400",
+    "volume": "2000",
+    "price": "350",
+    "stackable": false,
+    "armor": 13,
+    "maxStrength": 120,
+    "skill": "HEAVY_ARMOR",
+    "bodyPart": "SHOES",
+    "covering": 20,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
+  },
+  {
+    "id": 328,
+    "weight": "1000",
+    "volume": "650",
+    "price": "250",
+    "stackable": false,
+    "armor": 13,
+    "maxStrength": 120,
+    "skill": "HEAVY_ARMOR",
+    "bodyPart": "GLOVES",
+    "covering": 20,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
   }
 ]
