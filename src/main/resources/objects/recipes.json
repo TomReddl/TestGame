@@ -866,5 +866,70 @@
     "elements": {
       "151": 6
     }
+  },
+  {
+    "name": "Железный шлем",
+    "recipeId": 67,
+    "itemId": 319,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "138": 6
+    }
+  },
+  {
+    "name": "Железная кираса",
+    "recipeId": 68,
+    "itemId": 320,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "138": 12
+    }
+  },
+  {
+    "name": "Железные поножи",
+    "recipeId": 69,
+    "itemId": 321,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "138": 8
+    }
+  },
+  {
+    "name": "Железные ботинки",
+    "recipeId": 70,
+    "itemId": 322,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "138": 6
+    }
+  },
+  {
+    "name": "Железные перчатки",
+    "recipeId": 71,
+    "itemId": 323,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "138": 4
+    }
   }
 ]
