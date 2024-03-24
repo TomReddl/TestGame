@@ -996,5 +996,70 @@
     "elements": {
       "152": 4
     }
+  },
+  {
+    "name": "Свинцовый шлем",
+    "recipeId": 77,
+    "itemId": 329,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "153": 6
+    }
+  },
+  {
+    "name": "Свинцовая кираса",
+    "recipeId": 78,
+    "itemId": 330,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "153": 12
+    }
+  },
+  {
+    "name": "Свинцовые поножи",
+    "recipeId": 79,
+    "itemId": 331,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "153": 8
+    }
+  },
+  {
+    "name": "Свинцовые ботинки",
+    "recipeId": 80,
+    "itemId": 332,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "153": 6
+    }
+  },
+  {
+    "name": "Свинцовые перчатки",
+    "recipeId": 81,
+    "itemId": 333,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "153": 4
+    }
   }
 ]
