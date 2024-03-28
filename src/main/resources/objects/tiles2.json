@@ -3396,5 +3396,11 @@
     "passability": false,
     "visibly": true,
     "burn": true
+  },
+  {
+    "id": 355,
+    "strength": 300,
+    "passability": false,
+    "visibly": true
   }
 ]
