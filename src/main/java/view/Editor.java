@@ -20,9 +20,11 @@ import model.editor.items.RecipeInfo;
 import model.entity.GameModeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.map.WeatherEnum;
+import model.entity.player.Player;
 import view.dialog.DialogPanel;
 import view.dialog.GameDialogPanel;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -425,7 +427,13 @@ public class Editor {
             if (i == 0) {
                 tile = new ImageView("/graphics/gui/Delete.png");
             } else {
-                tile = new ImageView("/graphics/items/icons/" + i + ".png");
+                var path = "/graphics/items/icons/" + i + ".png";
+                var f = new File("/" + Player.class.getProtectionDomain().getCodeSource().getLocation().getPath() + path);
+                if (f.exists()) {
+                    tile = new ImageView(path);
+                } else {
+                    tile = new ImageView(MapController.getBag().getImage()); // если нет иконки предмета, берем вместо нее изображение мешка
+                }
             }
             tile.setFitWidth(tileSize);
             tile.setPreserveRatio(true);

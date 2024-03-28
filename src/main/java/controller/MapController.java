@@ -35,6 +35,7 @@ import static game.GameParams.*;
  * Действия с картой
  */
 public class MapController {
+    @Getter
     private static final ImageView bag = new ImageView("/graphics/items/bag.png");
     private static final ImageView ore = new ImageView("/graphics/gui/ore.png");
     private static final ImageView alive = new ImageView("/graphics/gui/alive.png");
