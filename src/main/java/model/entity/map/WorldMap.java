@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import model.entity.effects.EffectParams;
-import model.entity.player.Player;
+import model.entity.player.Character;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -24,15 +24,16 @@ import static game.GameParams.mapSize;
 @Slf4j
 public class WorldMap implements Serializable {
     private MapCellInfo[][] tiles = new MapCellInfo[mapSize][mapSize];
-    List<NPC> npcList = new ArrayList<>();
+    List<Character> characterList = new ArrayList<>();
     List<Creature> creaturesList = new ArrayList<>();
     private String mapName;
-    private Player player = new Player();
+    private Character selecterCharacter = new Character(32, 1, 0, 0, 0, 0);
     private Pair<WeatherEnum, Integer> currentWeather; // текущая погода и ее сила
     private Map<WeatherEnum, Integer> accessibleWeathers = new HashMap<>(); // доступная погода и вероятность ее наступления
     private Map<Integer, EffectParams> additionalEffect = new HashMap<>(); // дополнительные эффекты ингредиентов (генерируются случайно при старте новой игры)
 
     public WorldMap() {
+        selecterCharacter.setActiveCharacter(true);
         accessibleWeathers.put(WeatherEnum.CLEAR, 1);
         currentWeather = new Pair(WeatherEnum.CLEAR, 1);
         mapName = "1";

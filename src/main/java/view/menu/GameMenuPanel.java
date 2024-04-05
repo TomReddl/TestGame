@@ -80,15 +80,15 @@ public class GameMenuPanel {
         GameMenuPanel.getTabPane().getSelectionModel().select(Integer.parseInt(tabName));
     }
 
-    public void showContainerInventory(List<Items> itemsList, int x, int y, String type) {
+    public void showContainerInventory(List<Items> itemsList, int x, int y, String type, Integer characterId) {
         showGameMenuPanel("0");
-        Game.getContainerInventory().show(itemsList, x, y, InventoryPanel.ShowModeEnum.DEFAULT, type);
+        Game.getContainerInventory().show(itemsList, x, y, InventoryPanel.ShowModeEnum.DEFAULT, type, characterId);
     }
 
     private void setPanelsVisible(Boolean show) {
         GameMenuPanel.getPane().setVisible(show);
         if (show) {
-            Game.getInventory().show(Game.getMap().getPlayer().getInventory(), 0, 0, InventoryPanel.ShowModeEnum.DEFAULT, "");
+            Game.getInventory().show(Game.getMap().getSelecterCharacter().getInventory(), 0, 0, InventoryPanel.ShowModeEnum.DEFAULT, "player", null);
             PlayerIndicatorsPanel.showPanel(true);
             Game.getParams().refreshParamsValueViews();
             Game.getEffectsPanel().refreshEffectsPanel();
@@ -109,7 +109,7 @@ public class GameMenuPanel {
         GameMenuPanel.getPane().setVisible(show);
         GameMenuPanel.getTabPane().getSelectionModel().select(0);
         if (show) {
-            Game.getInventory().show(Game.getMap().getPlayer().getInventory(), 0, 0, showMode, "");
+            Game.getInventory().show(Game.getMap().getSelecterCharacter().getInventory(), 0, 0, showMode, "player", null);
             Game.getInventory().drawItems(InventoryPanel.SortType.NAME, true, itemType);
         } else {
             Game.getInventory().hide();

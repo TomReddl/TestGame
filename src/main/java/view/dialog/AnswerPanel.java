@@ -16,7 +16,7 @@ import lombok.Setter;
 import view.Game;
 
 /**
- * Панель редактирования ответа на фразу NPC в диалоге
+ * Панель редактирования ответа на фразу персонажа в диалоге
  */
 public class AnswerPanel {
     @Getter

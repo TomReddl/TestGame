@@ -19,7 +19,7 @@ import model.entity.dialogs.Answer;
 import model.entity.dialogs.Dialog;
 import model.entity.dialogs.Phrase;
 import model.entity.map.Items;
-import model.entity.player.Player;
+import model.entity.player.Character;
 import view.Game;
 import view.inventory.BookPanel;
 
@@ -48,7 +48,7 @@ public class GameDialogPanel {
     @Setter
     private Dialog dialog;
     private Phrase selectedPhrase;
-    private int npcId;
+    private int characterId;
 
     private Font font;
 
@@ -116,32 +116,32 @@ public class GameDialogPanel {
         pane.setVisible(false);
     }
 
-    public void showPanel(Integer npcId) {
+    public void showPanel(Integer characterId) {
         if (!pane.isVisible()) {
             pane.setVisible(true);
         }
-        this.npcId = npcId;
+        this.characterId = characterId;
         if (dialog == null) {
             dialog = new Dialog();
             selectedPhrase = new Phrase();
             dialog.getPhrases().put("", selectedPhrase);
             ((Text) textFlow.getChildren().get(0)).setText("");
         } else {
-            setPhrase(npcId, dialog.getPhrases().get("1"));
+            setPhrase(characterId, dialog.getPhrases().get("1"));
         }
     }
 
     /**
      * Установить фразу
      *
-     * @param npcId  - id персонажа
-     * @param phrase - фраза
+     * @param characterId  - id персонажа
+     * @param phrase       - фраза
      */
-    private void setPhrase(Integer npcId, Phrase phrase) {
+    private void setPhrase(Integer characterId, Phrase phrase) {
         if (phrase != null) {
             selectedPhrase = phrase;
             applyPhraseScript(selectedPhrase.getScript());
-            ((Text) textFlow.getChildren().get(0)).setText(Game.getMap().getNpcList().get(npcId).getName() + ": " + replaceDialogText(selectedPhrase.getText()));
+            ((Text) textFlow.getChildren().get(0)).setText(Game.getMap().getCharacterList().get(characterId).getName() + ": " + replaceDialogText(selectedPhrase.getText()));
             int i = 0;
             answers.clear();
             answersScrollContentPane.getChildren().clear();
@@ -153,7 +153,7 @@ public class GameDialogPanel {
                     answerLabel.setLayoutX(5);
                     answerLabel.setOnMouseEntered(event -> onAnswerMouseEnter(answerLabel));
                     answerLabel.setOnMouseExited(event -> onAnswerMouseExited(answerLabel));
-                    answerLabel.setOnMouseClicked(event -> setPhrase(npcId, dialog.getPhrases().get(applyNextPhraseCondition(answer.getNextPhraseCondition()))));
+                    answerLabel.setOnMouseClicked(event -> setPhrase(characterId, dialog.getPhrases().get(applyNextPhraseCondition(answer.getNextPhraseCondition()))));
                     answerLabel.setLayoutY(5 + i * 20);
                     answerLabel.setText(replaceDialogText(answer.getText()));
                     answersScrollContentPane.getChildren().add(answerLabel);
@@ -189,8 +189,8 @@ public class GameDialogPanel {
      * @return - обработанный текст диалога
      */
     private String replaceDialogText(String text) {
-        text = text.replaceAll("%playerName", Game.getMap().getPlayer().getName());
-        text = text.replaceAll("%NPCName", Game.getMap().getNpcList().get(npcId).getName());
+        text = text.replaceAll("%playerName", Game.getMap().getSelecterCharacter().getName());
+        text = text.replaceAll("%NPCName", Game.getMap().getCharacterList().get(characterId).getName());
 
         return text;
     }
@@ -211,7 +211,7 @@ public class GameDialogPanel {
                 switch (word) {
                     case "playerHasItem": {
                         word = words[i++];
-                        result = ItemsController.findItemInInventory(Integer.parseInt(word), Game.getMap().getPlayer().getInventory()) != null;
+                        result = ItemsController.findItemInInventory(Integer.parseInt(word), Game.getMap().getSelecterCharacter().getInventory()) != null;
                     }
                 }
             }
@@ -240,7 +240,7 @@ public class GameDialogPanel {
                     switch (word) {
                         case "playerHasItem": {
                             word = words[i++];
-                            if (ItemsController.findItemInInventory(Integer.parseInt(word), Game.getMap().getPlayer().getInventory()) != null) {
+                            if (ItemsController.findItemInInventory(Integer.parseInt(word), Game.getMap().getSelecterCharacter().getInventory()) != null) {
                                 return words[i];
                             } else {
                                 i++;
@@ -264,12 +264,12 @@ public class GameDialogPanel {
         if (script != null && !script.equals("")) {
             String[] words = script.split(" ");
             try {
-                Player player = Game.getMap().getPlayer();
+                Character character = Game.getMap().getSelecterCharacter();
                 for (int i = 0; i < words.length; i++) {
                     String word = words[i++];
                     switch (word) {
                         case "playerAddItem": {
-                            ItemsController.addItem(new Items(Integer.parseInt(words[i++]), Integer.parseInt(words[i++])), player.getInventory(), player);
+                            ItemsController.addItem(new Items(Integer.parseInt(words[i++]), Integer.parseInt(words[i++])), character.getInventory(), character);
                         }
                     }
                 }

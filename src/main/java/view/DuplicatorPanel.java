@@ -20,7 +20,7 @@ import lombok.Setter;
 import model.editor.TileTypeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.map.Items;
-import model.entity.player.Player;
+import model.entity.player.Character;
 import view.inventory.InventoryPanel;
 
 import static controller.ItemsController.biomassId;
@@ -142,7 +142,7 @@ public class DuplicatorPanel {
         pane.setVisible(false);
         ingredientCountLabel.setText("");
         biomassCountLabel.setText("");
-        Game.getMap().getPlayer().setInteractMapPoint(null);
+        Game.getMap().getSelecterCharacter().setInteractMapPoint(null);
     }
 
     /**
@@ -150,17 +150,17 @@ public class DuplicatorPanel {
      */
     private void duplicate() {
         if (selectedIngredient.getTypeId() != 0 && biomass.getTypeId() != 0) {
-            Player player = Game.getMap().getPlayer();
+            Character character = Game.getMap().getSelecterCharacter();
             TimeController.tic(timeToDuplicate);
             // проверяем, на месте ли наш стол, а то за время дублирования он мог куда-то деться
-            String tileType = player.getInteractMapPoint().getTile2Info().getType();
+            String tileType = character.getInteractMapPoint().getTile2Info().getType();
             if (tileType == null || !TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.DUPLICATOR)) {
-                Game.showMessage(player.getInteractMapPoint().getTile2Info().getName() + Game.getText("DESTROYED"));
+                Game.showMessage(character.getInteractMapPoint().getTile2Info().getName() + Game.getText("DESTROYED"));
                 closePanel();
             } else {
-                ItemsController.addItem(selectedIngredient, 1, player.getInventory(), player);
+                ItemsController.addItem(selectedIngredient, 1, character.getInventory(), character);
                 ingredientCountLabel.setText(String.valueOf(selectedIngredient.getCount()));
-                ItemsController.deleteItem(biomass, 1, player.getInventory(), player);
+                ItemsController.deleteItem(biomass, 1, character.getInventory(), character);
                 if (biomass.getCount() <= 0) {
                     biomass = new Items();
                     biomassImage.setImage(null);
@@ -189,7 +189,7 @@ public class DuplicatorPanel {
 
     public void showPanel() {
         pane.setVisible(true);
-        biomass = ItemsController.findItemInInventory(biomassId, Game.getMap().getPlayer().getInventory());
+        biomass = ItemsController.findItemInInventory(biomassId, Game.getMap().getSelecterCharacter().getInventory());
         if (biomass != null) {
             biomassImage.setImage(biomass.getInfo().getIcon().getImage());
             biomassCountLabel.setText(String.valueOf(biomass.getCount()));

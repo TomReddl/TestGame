@@ -23,7 +23,7 @@ import model.entity.InlayerSizeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.effects.EffectParams;
 import model.entity.map.Items;
-import model.entity.player.Player;
+import model.entity.player.Character;
 import view.inventory.InventoryPanel;
 
 import java.util.List;
@@ -149,7 +149,7 @@ public class EnchantmentPanel {
         clearPanel();
         enchantButton.setDisable(true);
         pane.setVisible(false);
-        Game.getMap().getPlayer().setInteractMapPoint(null);
+        Game.getMap().getSelecterCharacter().setInteractMapPoint(null);
     }
 
     private void clearPanel() {
@@ -166,7 +166,7 @@ public class EnchantmentPanel {
      */
     private void enchantItem() {
         if (item.getTypeId() != 0 && inlayer.getTypeId() != 0) {
-            Player player = Game.getMap().getPlayer();
+            Character character = Game.getMap().getSelecterCharacter();
             if (item.getInlayerId() == null || item.getInlayerId() == 0) { // зачаровываем
                 Integer inlayerSize = (item.getParams() != null && item.getParams().get("inlayerSize") != null) ? InlayerSizeEnum.valueOf(item.getParams().get("inlayerSize")).getSize() : null;
                 if (inlayerSize == null) {
@@ -174,8 +174,8 @@ public class EnchantmentPanel {
                 } else if (tableLevel + 1 < inlayerSize) {
                     Game.showMessage(Game.getText("WRONG_TABLE_SIZE")); // если стол не подходит, выводим ошибку
                 } else if (inlayerSize >= InlayerSizeEnum.valueOf(inlayer.getParams().get("inlayerSize")).getSize()) {
-                    setItemEffectsAndPrice(item, inlayer, player);
-                    ItemsController.deleteItem(inlayer, 1, player.getInventory(), player);
+                    setItemEffectsAndPrice(item, inlayer, character);
+                    ItemsController.deleteItem(inlayer, 1, character.getInventory(), character);
                     clearPanel();
                     Game.showMessage(Game.getText("SUCCESS_ENCHANTED"), Color.GREEN);
                     setEnchantButtonDisabled();
@@ -186,8 +186,8 @@ public class EnchantmentPanel {
                 }
             } else if (item.getInlayerId() != null) {  // извлекаем инкрустат
                 var extractedInlayer = new Items(item.getInlayerId(), 1);
-                ItemsController.addItem(extractedInlayer, player.getInventory(), player);
-                ItemsController.deleteItem(item, 1, player.getInventory(), player);
+                ItemsController.addItem(extractedInlayer, character.getInventory(), character);
+                ItemsController.deleteItem(item, 1, character.getInventory(), character);
                 clearPanel();
                 Game.showMessage(Game.getText("SUCCESS_EXTRACT"), Color.GREEN);
                 setEnchantButtonDisabled();
@@ -202,10 +202,10 @@ public class EnchantmentPanel {
      * Установливает силу зачарования и цену зачарованного предмета в зависимости от навыка ENCHANTMENT
      * @param item    - предмет, который зачаровываем
      * @param inlayer - инкрустат
-     * @param player  - персонаж, который зачаровывает
+     * @param character  - персонаж, который зачаровывает
      */
-    private void setItemEffectsAndPrice(Items item, Items inlayer, Player player) {
-        int enchantmentSkill = player.getParams().getSkills().get("ENCHANTMENT").getCurrentValue();
+    private void setItemEffectsAndPrice(Items item, Items inlayer, Character character) {
+        int enchantmentSkill = character.getParams().getSkills().get("ENCHANTMENT").getCurrentValue();
         List<EffectParams> effects = inlayer.getEffects();
         for (EffectParams effect : effects) {
             Integer power = effect.getPower();

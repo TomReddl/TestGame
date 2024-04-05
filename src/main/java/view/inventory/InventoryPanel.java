@@ -21,7 +21,7 @@ import model.entity.ItemTypeEnum;
 import model.entity.map.Creature;
 import model.entity.map.Items;
 import model.entity.map.MapCellInfo;
-import model.entity.player.Player;
+import model.entity.player.Character;
 import view.Game;
 
 import java.math.BigDecimal;
@@ -43,7 +43,8 @@ public class InventoryPanel {
     // Тип инвентаря
     public enum InventoryTypeEnum {
         PLAYER, // инвентарь персонажа игрока
-        CONTAINER; // инвентарь контейнера или торговца
+        CONTAINER, // инвентарь контейнера
+        CHARACTER; // инвентарь неигрового персонажа
     }
 
     // Режим открытия инвентаря
@@ -104,11 +105,15 @@ public class InventoryPanel {
     private boolean descending = false;
     @Getter
     @Setter
-    private List<Items> items = Game.getMap().getPlayer().getInventory();
+    private List<Items> items = Game.getMap().getSelecterCharacter().getInventory();
+    @Getter
+    @Setter
+    private Integer characterId = null; // id персонажа, чей инвентарь открыт
     @Getter
     private int x; // координаты нужны для панели инвентаря контейнера, чтобы перерисовывать тайл, если игрок забирает с него все предметы
     @Getter
     private int y;
+    @Getter
     private InventoryTypeEnum inventoryType; // текущий тип инвентаря
     @Getter
     private ShowModeEnum showMode; // тип открытия инвентаря
@@ -268,8 +273,8 @@ public class InventoryPanel {
     }
 
     public static void setWeightText() {
-        var currentWeight = Game.getMap().getPlayer().getCurrentWeight();
-        var maxWeight = Game.getMap().getPlayer().getMaxWeight();
+        var currentWeight = Game.getMap().getSelecterCharacter().getCurrentWeight();
+        var maxWeight = Game.getMap().getSelecterCharacter().getMaxWeight();
         if (currentWeight != null && maxWeight != null) {
             totalWeightLabel.setTextFill(currentWeight.compareTo(maxWeight) > 0 ? Color.web("#FF0000") : Color.web("#000000"));
             totalWeightLabel.setText(Game.getText("TOTAL_WEIGHT") + " " + formatter.format(currentWeight) + "/" +
@@ -281,9 +286,9 @@ public class InventoryPanel {
     public void setVolumeText() {
         var currentVolume = ItemsController.getCurrVolume(items);
         BigDecimal maxVolume = null;
-        MapCellInfo interactMapPoint = Game.getMap().getPlayer().getInteractMapPoint();
+        MapCellInfo interactMapPoint = Game.getMap().getSelecterCharacter().getInteractMapPoint();
         if (inventoryType.equals(InventoryTypeEnum.PLAYER)) {
-            maxVolume = Game.getMap().getPlayer().getMaxVolume();
+            maxVolume = Game.getMap().getSelecterCharacter().getMaxVolume();
         } else if (interactMapPoint != null) {
             String tileType = interactMapPoint.getTile2Info().getType();
             if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CONTAINER)) {
@@ -354,18 +359,26 @@ public class InventoryPanel {
         setVolumeText();
     }
 
-    public void show(List<Items> itemsList, int x, int y, ShowModeEnum showMode, String type) {
+    public void show(List<Items> itemsList, int x, int y, ShowModeEnum showMode, String type, Integer characterId) {
+        if (type.equals("character")) {
+            inventoryType = InventoryTypeEnum.CHARACTER;
+        } else if (type.equals("")) {
+            inventoryType = InventoryTypeEnum.CONTAINER;
+        } else {
+            inventoryType = InventoryTypeEnum.PLAYER;
+        }
+        this.characterId = characterId;
         this.x = x;
         this.y = y;
         items = itemsList;
         refreshInventory();
         tabPane.setVisible(true);
         storeTrashButton.setVisible(type.equals("trashCan"));
-        Creature creature = Game.getMap().getPlayer().getInteractCreature();
+        Creature creature = Game.getMap().getSelecterCharacter().getInteractCreature();
         butcherButton.setVisible(type.equals("creature") && creature != null && !creature.isButchering());
         this.showMode = showMode;
         totalVolumeLabel.setVisible(false);
-        MapCellInfo interactMapPoint = Game.getMap().getPlayer().getInteractMapPoint();
+        MapCellInfo interactMapPoint = Game.getMap().getSelecterCharacter().getInteractMapPoint();
         if (interactMapPoint != null) {
             String tileType = interactMapPoint.getTile2Info().getType();
             if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CONTAINER)) {
@@ -417,9 +430,9 @@ public class InventoryPanel {
     public List<Items> getItems() {
         if (inventoryType.equals(InventoryTypeEnum.CONTAINER)) {
             if (items == null) {
-                Player player = Game.getMap().getPlayer();
+                Character character = Game.getMap().getSelecterCharacter();
                 items = new ArrayList<>();
-                Game.getMap().getTiles()[player.getXMapPos() + Game.getContainerInventory().getX()][player.getYMapPos() + Game.getContainerInventory().getY()].setItems(items);
+                Game.getMap().getTiles()[character.getXMapPos() + Game.getContainerInventory().getX()][character.getYMapPos() + Game.getContainerInventory().getY()].setItems(items);
             }
         }
         return items;

@@ -63,7 +63,7 @@ public class ParamRecord {
      */
     private String getParamValueText(Parameter parameter, int index, String paramType) {
         String result = "";
-        for (EffectParams effect : Game.getMap().getPlayer().getAppliedEffects()) {
+        for (EffectParams effect : Game.getMap().getSelecterCharacter().getAppliedEffects()) {
             if (effect.getStrId().equals(parameter.getStrId() + "_INC")) {
                 result = result.concat("+" + effect.getPower() + " (" + effect.getBaseItem().getName() + ")");
             } else if (effect.getStrId().equals(parameter.getStrId() + "_DEC")) {

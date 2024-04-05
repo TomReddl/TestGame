@@ -15,7 +15,6 @@ import model.entity.ItemTypeEnum;
 import model.entity.effects.EffectParams;
 import model.entity.map.Items;
 import view.Game;
-import view.params.ParamPanel;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -100,7 +99,7 @@ public class ItemDetailPanel {
                 for (EffectParams effect : item.getEffects()) {
                     boolean showEffectInfo = true;
                     if (item.getInfo().getTypes().contains(ItemTypeEnum.INGREDIENT)) {
-                        List<String> effects = Game.getMap().getPlayer().getKnowledgeInfo().getKnowEffects().get(item.getTypeId());
+                        List<String> effects = Game.getMap().getSelecterCharacter().getKnowledgeInfo().getKnowEffects().get(item.getTypeId());
                         if (effects == null || !effects.contains(effect.getStrId())) {
                             showEffectInfo = false; // для ингредиентов не показывает эффекты, которые персонаж еще не открыл
                         }

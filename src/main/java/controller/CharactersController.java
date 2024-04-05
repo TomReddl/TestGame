@@ -16,7 +16,7 @@ import model.entity.effects.EffectParams;
 import model.entity.map.*;
 import model.entity.player.GenderEnum;
 import model.entity.player.ParamsInfo;
-import model.entity.player.Player;
+import model.entity.player.Character;
 import view.CodeLockPanel;
 import view.Editor;
 import view.Game;
@@ -41,14 +41,14 @@ public class CharactersController {
      * Рост волос
      */
     public static void growingHair() {
-        var hairLength = Game.getMap().getPlayer().getHairLength();
+        var hairLength = Game.getMap().getSelecterCharacter().getHairLength();
         if (hairLength < 3) {
-            Game.getMap().getPlayer().setHairLength(hairLength + 1);
+            Game.getMap().getSelecterCharacter().setHairLength(hairLength + 1);
         }
-        if (Game.getMap().getPlayer().getGender().equals(GenderEnum.MALE)) { // борода растет только у мужчин
-            var beardLength = Game.getMap().getPlayer().getBeardLength();
+        if (Game.getMap().getSelecterCharacter().getGender().equals(GenderEnum.MALE)) { // борода растет только у мужчин
+            var beardLength = Game.getMap().getSelecterCharacter().getBeardLength();
             if (beardLength < 3) {
-                Game.getMap().getPlayer().setBeardLength(beardLength + 1);
+                Game.getMap().getSelecterCharacter().setBeardLength(beardLength + 1);
             }
         }
     }
@@ -63,7 +63,7 @@ public class CharactersController {
     public static void gameMapClick(double x, double y, boolean isRightMouse) {
         var tileX = (((int) x) / tileSize);
         var tileY = (((int) y) / tileSize);
-        var player = Game.getMap().getPlayer();
+        var player = Game.getMap().getSelecterCharacter();
         var showOres = false;
         var showEmptiness = false;
         var applyDamage = false;
@@ -169,10 +169,10 @@ public class CharactersController {
                     if (creature.isAlive()) {
                         BattleController.attackCreature(player, itemInRightHand, creature);
                     }
-                } else if (mapCellInfo.getNpcId() != null) {
-                    NPC npc = Game.getMap().getNpcList().get(mapCellInfo.getNpcId());
-                    if (npc.isAlive()) {
-                        BattleController.attackNPC(player, itemInRightHand, npc);
+                } else if (mapCellInfo.getCharacterId() != null) {
+                    Character character = Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId());
+                    if (character.isAlive()) {
+                        BattleController.attackCharacter(player, itemInRightHand, character);
                     }
                 } else {
                     BattleController.applyDamageToMapCell(mapCellInfo, itemInRightHand);
@@ -196,27 +196,27 @@ public class CharactersController {
      * @param mapCellInfo
      * @param tileX
      * @param tileY
-     * @param player
+     * @param character
      */
-    private static void watering(Items itemInRightHand, MapCellInfo mapCellInfo, int tileX, int tileY, Player player) {
-        wateringMapCell(itemInRightHand, mapCellInfo, player);
+    private static void watering(Items itemInRightHand, MapCellInfo mapCellInfo, int tileX, int tileY, Character character) {
+        wateringMapCell(itemInRightHand, mapCellInfo, character);
         if (itemInRightHand.getTypeId() == 111) { // Лейка с широкой насадкой поливает сразу 4 тайла
             try {
-                wateringMapCell(itemInRightHand, Game.getMap().getTiles()[player.getXMapPos() + tileX - 1]
-                        [player.getYMapPos() + tileY], player);
-                MapController.drawTile(player, tileX - 1, tileY);
+                wateringMapCell(itemInRightHand, Game.getMap().getTiles()[character.getXMapPos() + tileX - 1]
+                        [character.getYMapPos() + tileY], character);
+                MapController.drawTile(character, tileX - 1, tileY);
             } catch (Exception ignored) {
             }
             try {
-                wateringMapCell(itemInRightHand, Game.getMap().getTiles()[player.getXMapPos() + tileX]
-                        [player.getYMapPos() + tileY - 1], player);
-                MapController.drawTile(player, tileX, tileY - 1);
+                wateringMapCell(itemInRightHand, Game.getMap().getTiles()[character.getXMapPos() + tileX]
+                        [character.getYMapPos() + tileY - 1], character);
+                MapController.drawTile(character, tileX, tileY - 1);
             } catch (Exception ignored) {
             }
             try {
-                wateringMapCell(itemInRightHand, Game.getMap().getTiles()[player.getXMapPos() + tileX - 1]
-                        [player.getYMapPos() + tileY - 1], player);
-                MapController.drawTile(player, tileX - 1, tileY - 1);
+                wateringMapCell(itemInRightHand, Game.getMap().getTiles()[character.getXMapPos() + tileX - 1]
+                        [character.getYMapPos() + tileY - 1], character);
+                MapController.drawTile(character, tileX - 1, tileY - 1);
             } catch (Exception ignored) {
             }
         }
@@ -227,9 +227,9 @@ public class CharactersController {
      *
      * @param itemInRightHand - предмет, который персонаж держит в руке
      * @param mapCellInfo     - точка на карте, которую нужно полить
-     * @param player          - персонаж
+     * @param character          - персонаж
      */
-    private static void wateringMapCell(Items itemInRightHand, MapCellInfo mapCellInfo, Player player) {
+    private static void wateringMapCell(Items itemInRightHand, MapCellInfo mapCellInfo, Character character) {
         int currentCapacity = Integer.parseInt(itemInRightHand.getParams().get("currentCapacity"));
         if (mapCellInfo.getTile1Type().equals(TileTypeEnum.WATER)) {
             itemInRightHand.getParams().put("currentCapacity", itemInRightHand.getParams().get("capacity"));
@@ -252,7 +252,7 @@ public class CharactersController {
                 Game.showMessage(Game.getText("ERROR_EMPTY"));
             }
         }
-        player.setCurrentWeight(ItemsController.getCurrWeight(player.getInventory())); // обновляем вес лейки
+        character.setCurrentWeight(ItemsController.getCurrWeight(character.getInventory())); // обновляем вес лейки
     }
 
     /**
@@ -262,7 +262,7 @@ public class CharactersController {
      * @param skillPoints на сколько пунктов увеличить
      */
     public static void increaseSkill(String skillId, int skillPoints) {
-        var skills = Game.getMap().getPlayer().getParams().getSkills();
+        var skills = Game.getMap().getSelecterCharacter().getParams().getSkills();
 
         skills.get(skillId).setRealValue(skills.get(skillId).getRealValue() + skillPoints);
         if (skills.get(skillId).getRealValue() > 100) {
@@ -285,13 +285,13 @@ public class CharactersController {
      * @param expPoints сколько опыта нужно добавить
      */
     public static void addSkillExp(String skillId, int expPoints) {
-        Player player = Game.getMap().getPlayer();
-        for (EffectParams effect : player.getAppliedEffects()) {
+        Character character = Game.getMap().getSelecterCharacter();
+        for (EffectParams effect : character.getAppliedEffects()) {
             if (effect.getStrId().equals("ADD_EXP")) { // если на персонаже эффект "Увеличенный опыт", добавляем его к каждому получению опыта
                 expPoints += effect.getPower();
             }
         }
-        var skill = Game.getMap().getPlayer().getParams().getSkills().get(skillId);
+        var skill = Game.getMap().getSelecterCharacter().getParams().getSkills().get(skillId);
         skill.setExperience(skill.getExperience() + expPoints);
         while (skill.getExperience() >= skill.getRealValue() * 10) {
             skill.setExperience(skill.getExperience() - skill.getRealValue() * 10);
@@ -308,7 +308,7 @@ public class CharactersController {
      */
     public static void pickUpItems(List<Items> itemsList, int x, int y) {
         TimeController.tic(true);
-        var player = Game.getMap().getPlayer();
+        var player = Game.getMap().getSelecterCharacter();
         var mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y];
 
         if (isClosedCell(mapCellInfo)) {
@@ -320,7 +320,7 @@ public class CharactersController {
                 // показываем вторую панель инвентаря, если на тайле лежит больше 1 предмета, или если это контейнер/манекен
                 String subtype = mapCellInfo.getTile2Info().getParams() != null ? mapCellInfo.getTile2Info().getParams().get("subtype") : "";
                 boolean isTrashCan = subtype != null && subtype.equals("trashCan");
-                Game.getGameMenu().showContainerInventory(itemsList, x, y, isTrashCan ? "trashCan" : "");
+                Game.getGameMenu().showContainerInventory(itemsList, x, y, isTrashCan ? "trashCan" : "", null);
             } else if (itemsList != null) {
                 List<Items> removeList = new ArrayList<>();
                 for (Items items : itemsList) {
@@ -363,7 +363,7 @@ public class CharactersController {
      * @param y - координата y предметов на карте
      */
     public static void interactionWithMap(int x, int y) {
-        var player = Game.getMap().getPlayer();
+        var player = Game.getMap().getSelecterCharacter();
         int Xpos = player.getXMapPos();
         int YPos = player.getYMapPos();
         var mapCellInfo = Game.getMap().getTiles()[Xpos + x][YPos + y];
@@ -447,30 +447,30 @@ public class CharactersController {
      * @param mapCellInfo - точка на карте
      */
     public static void washInBath(MapCellInfo mapCellInfo) {
-        Player player = Game.getMap().getPlayer();
-        ParamsInfo params = player.getParams();
+        Character character = Game.getMap().getSelecterCharacter();
+        ParamsInfo params = character.getParams();
         int currentCleanness = params.getIndicators().get(4).getCurrentValue(); // текущее значение чистоты
         if (currentCleanness < 70) {
             currentCleanness = 70; // без мочалки и мыла можно довести чистоту только до 70
         }
 
         if (currentCleanness < 85) {
-            Items washcloth = ItemsController.findItemInInventory(204, player.getInventory());
+            Items washcloth = ItemsController.findItemInInventory(204, character.getInventory());
             if (washcloth != null) {
                 currentCleanness = 85; // с мочалкой можно довести уровень чистоты до 85
             }
         }
         if (currentCleanness < 100) {
-            Items soap = ItemsController.findItemInInventory(206, player.getInventory()); // сначала ищем в инвентаре душистое мыло
+            Items soap = ItemsController.findItemInInventory(206, character.getInventory()); // сначала ищем в инвентаре душистое мыло
             if (soap != null) {
                 currentCleanness = 100;
-                EffectsController.applyEffects(soap, player); // вешаем на персонажа эффект мыла
-                ItemsController.deleteItem(soap, 1, player.getInventory(), player); // мыло тратися при мытье
+                EffectsController.applyEffects(soap, character); // вешаем на персонажа эффект мыла
+                ItemsController.deleteItem(soap, 1, character.getInventory(), character); // мыло тратися при мытье
             } else {
-                soap = ItemsController.findItemInInventory(205, player.getInventory()); // ищем обычное мыло
+                soap = ItemsController.findItemInInventory(205, character.getInventory()); // ищем обычное мыло
                 if (soap != null) {
                     currentCleanness = 100;
-                    ItemsController.deleteItem(soap, 1, player.getInventory(), player);
+                    ItemsController.deleteItem(soap, 1, character.getInventory(), character);
                 }
             }
         }
@@ -486,7 +486,7 @@ public class CharactersController {
     public static void harvest(MapCellInfo mapCellInfo) {
         if (mapCellInfo.getTile2Info().getParams() != null &&
                 mapCellInfo.getTile2Info().getParams().get("harvestId1") != null) {
-            var player = Game.getMap().getPlayer();
+            var player = Game.getMap().getSelecterCharacter();
             int i = 1;
             List<Pair<Integer, Integer>> harvests = new ArrayList<>();
             while (mapCellInfo.getTile2Info().getParams().get("harvestId" + i) != null) {
@@ -515,7 +515,7 @@ public class CharactersController {
      */
     private static void closableInteract(MapCellInfo mapCellInfo) {
         TileInfo tileInfo = mapCellInfo.getTile2Info();
-        var player = Game.getMap().getPlayer();
+        var player = Game.getMap().getSelecterCharacter();
         var closableCellInfo = (ClosableCellInfo) mapCellInfo;
         if (closableCellInfo.isLocked()) {
             if (closableCellInfo.isCodeLock()) {
@@ -543,7 +543,7 @@ public class CharactersController {
                 if (sapperTools == null) {
                     closableCellInfo.setTrap(false);
                     Game.showMessage(Game.getText("TRAP_TRIGGERED"));
-                    BattleController.applyDamageToPlayer(closableCellInfo.getTrapLevel(), DamageTypeEnum.PIERCING_DAMAGE);
+                    BattleController.applyDamageToCharacter(closableCellInfo.getTrapLevel(), DamageTypeEnum.PIERCING_DAMAGE, Game.getMap().getSelecterCharacter());
                 } else {
                     trapDeactivation(closableCellInfo, sapperTools);
                 }
@@ -562,15 +562,15 @@ public class CharactersController {
      * @param hackingTools     - инструменты для взлома
      */
     private static void hackLock(ClosableCellInfo closableCellInfo, Items hackingTools) {
-        var hackingSkill = Game.getMap().getPlayer().getParams().getSkills().get("LOCKPICKING").getCurrentValue(); // уровень навыка
-        var dexterity = Game.getMap().getPlayer().getParams().getCharacteristics().get(2).getCurrentValue(); // уровень ловкости
+        var hackingSkill = Game.getMap().getSelecterCharacter().getParams().getSkills().get("LOCKPICKING").getCurrentValue(); // уровень навыка
+        var dexterity = Game.getMap().getSelecterCharacter().getParams().getCharacteristics().get(2).getCurrentValue(); // уровень ловкости
         var skillBonus = Integer.parseInt(hackingTools.getInfo().getParams().get("skillBonus")); // бонус к навыку от инструментов инструментов
         var lockLevel = closableCellInfo.getLockLevel(); // уровень замка
         var hackChance = hackingSkill * 1.5 + dexterity * 0.25 + skillBonus * 1.5 - lockLevel; // формула рассчета вероятности взлома замка
         if (hackChance < 0) {
             Game.showMessage(Game.getText("CANT_HACK")); // если шанс взлома меньше 0, вообще не пытаемся взломать
         } else {
-            ItemsController.damageItem(hackingTools, 1, Game.getMap().getPlayer().getInventory(), Game.getMap().getPlayer());
+            ItemsController.damageItem(hackingTools, 1, Game.getMap().getSelecterCharacter().getInventory(), Game.getMap().getSelecterCharacter());
             if (random.nextInt(100) < hackChance) {
                 closableCellInfo.setLocked(false);
                 Game.showMessage(
@@ -592,15 +592,15 @@ public class CharactersController {
      * @param sapperTools      - сапёрные инструменты
      */
     private static void trapDeactivation(ClosableCellInfo closableCellInfo, Items sapperTools) {
-        var hackingSkill = Game.getMap().getPlayer().getParams().getSkills().get("LOCKPICKING").getCurrentValue(); // уровень навыка
-        var dexterity = Game.getMap().getPlayer().getParams().getCharacteristics().get(2).getCurrentValue(); // уровень ловкости
+        var hackingSkill = Game.getMap().getSelecterCharacter().getParams().getSkills().get("LOCKPICKING").getCurrentValue(); // уровень навыка
+        var dexterity = Game.getMap().getSelecterCharacter().getParams().getCharacteristics().get(2).getCurrentValue(); // уровень ловкости
         var skillBonus = Integer.parseInt(sapperTools.getInfo().getParams().get("skillBonus")); // бонус инструментов
         var trapLevel = closableCellInfo.getTrapLevel(); // уровень замка
         var defuseChance = hackingSkill * 1.5 + dexterity * 0.25 + skillBonus * 1.5 - trapLevel; // формула рассчета вероятности взлома замка
         if (defuseChance < 0) {
             Game.showMessage(Game.getText("CANT_DEFUSE")); // если шанс взлома меньше 0, вообще не пытаемся взломать
         } else {
-            ItemsController.damageItem(sapperTools, 1, Game.getMap().getPlayer().getInventory(), Game.getMap().getPlayer());
+            ItemsController.damageItem(sapperTools, 1, Game.getMap().getSelecterCharacter().getInventory(), Game.getMap().getSelecterCharacter());
             if (random.nextInt(100) < defuseChance) {
                 closableCellInfo.setTrap(false);
                 Game.showMessage(
@@ -621,7 +621,7 @@ public class CharactersController {
      * @return true, если персонаж может сдвинуть тайл
      */
     private static boolean canMoveTile2() {
-        var player = Game.getMap().getPlayer();
+        var player = Game.getMap().getSelecterCharacter();
         int x = player.getXPosition();
         int y = player.getYPosition();
 
@@ -672,18 +672,18 @@ public class CharactersController {
     /**
      * Движение персонажа вверх
      *
-     * @param player - персонаж
+     * @param character - персонаж
      */
-    public static void heroMoveUp(Player player) {
-        player.setDirection(DirectionEnum.UP);
-        if (player.getYPosition() > 0 && tilePassability(player.getXPosition(), player.getYPosition() - 1, player)) {
-            if (player.getYPosition() > 0) {
-                player.setYPosition(player.getYPosition() - 1);
+    public static void heroMoveUp(Character character) {
+        character.setDirection(DirectionEnum.UP);
+        if (character.getYPosition() > 0 && tilePassability(character.getXPosition(), character.getYPosition() - 1, character)) {
+            if (character.getYPosition() > 0) {
+                character.setYPosition(character.getYPosition() - 1);
             }
-            if (player.getYMapPos() > 0 && player.getYPosition() - 3 < player.getYMapPos()) {
-                player.setYMapPos(player.getYMapPos() - 1);
+            if (character.getYMapPos() > 0 && character.getYPosition() - 3 < character.getYMapPos()) {
+                character.setYMapPos(character.getYMapPos() - 1);
             } else {
-                player.setYViewPos(player.getYViewPos() - 1);
+                character.setYViewPos(character.getYViewPos() - 1);
             }
             TimeController.tic(true);
         }
@@ -692,18 +692,18 @@ public class CharactersController {
     /**
      * Движение персонажа вниз
      *
-     * @param player - персонаж
+     * @param character - персонаж
      */
-    public static void heroMoveDown(Player player) {
-        player.setDirection(DirectionEnum.DOWN);
-        if (player.getYPosition() < (mapSize - 1) && tilePassability(player.getXPosition(), player.getYPosition() + 1, player)) {
-            if (player.getYPosition() < mapSize) {
-                player.setYPosition(player.getYPosition() + 1);
+    public static void heroMoveDown(Character character) {
+        character.setDirection(DirectionEnum.DOWN);
+        if (character.getYPosition() < (mapSize - 1) && tilePassability(character.getXPosition(), character.getYPosition() + 1, character)) {
+            if (character.getYPosition() < mapSize) {
+                character.setYPosition(character.getYPosition() + 1);
             }
-            if (player.getYMapPos() < 285 && player.getYPosition() + 3 > player.getYMapPos() + 12) {
-                player.setYMapPos(player.getYMapPos() + 1);
+            if (character.getYMapPos() < 285 && character.getYPosition() + 3 > character.getYMapPos() + 12) {
+                character.setYMapPos(character.getYMapPos() + 1);
             } else {
-                player.setYViewPos(player.getYViewPos() + 1);
+                character.setYViewPos(character.getYViewPos() + 1);
             }
             TimeController.tic(true);
         }
@@ -712,18 +712,18 @@ public class CharactersController {
     /**
      * Движение персонажа влево
      *
-     * @param player - персонаж
+     * @param character - персонаж
      */
-    public static void heroMoveLeft(Player player) {
-        player.setDirection(DirectionEnum.LEFT);
-        if (player.getXPosition() > 0 && tilePassability(player.getXPosition() - 1, player.getYPosition(), player)) {
-            if (player.getXPosition() > 0) {
-                player.setXPosition(player.getXPosition() - 1);
+    public static void heroMoveLeft(Character character) {
+        character.setDirection(DirectionEnum.LEFT);
+        if (character.getXPosition() > 0 && tilePassability(character.getXPosition() - 1, character.getYPosition(), character)) {
+            if (character.getXPosition() > 0) {
+                character.setXPosition(character.getXPosition() - 1);
             }
-            if (player.getXMapPos() > 0 && player.getXPosition() - 3 < player.getXMapPos()) {
-                player.setXMapPos(player.getXMapPos() - 1);
+            if (character.getXMapPos() > 0 && character.getXPosition() - 3 < character.getXMapPos()) {
+                character.setXMapPos(character.getXMapPos() - 1);
             } else {
-                player.setXViewPos(player.getXViewPos() - 1);
+                character.setXViewPos(character.getXViewPos() - 1);
             }
             TimeController.tic(true);
         }
@@ -732,18 +732,18 @@ public class CharactersController {
     /**
      * Движение персонажа вправо
      *
-     * @param player - персонаж
+     * @param character - персонаж
      */
-    public static void heroMoveRight(Player player) {
-        player.setDirection(DirectionEnum.RIGHT);
-        if (player.getXPosition() < (mapSize - 1) && tilePassability(player.getXPosition() + 1, player.getYPosition(), player)) {
-            if (player.getXPosition() < mapSize) {
-                player.setXPosition(player.getXPosition() + 1);
+    public static void heroMoveRight(Character character) {
+        character.setDirection(DirectionEnum.RIGHT);
+        if (character.getXPosition() < (mapSize - 1) && tilePassability(character.getXPosition() + 1, character.getYPosition(), character)) {
+            if (character.getXPosition() < mapSize) {
+                character.setXPosition(character.getXPosition() + 1);
             }
-            if (player.getXMapPos() < 285 && player.getXPosition() + 3 > player.getXMapPos() + 12) {
-                player.setXMapPos(player.getXMapPos() + 1);
+            if (character.getXMapPos() < 285 && character.getXPosition() + 3 > character.getXMapPos() + 12) {
+                character.setXMapPos(character.getXMapPos() + 1);
             } else {
-                player.setXViewPos(player.getXViewPos() + 1);
+                character.setXViewPos(character.getXViewPos() + 1);
             }
             TimeController.tic(true);
         }
@@ -753,12 +753,12 @@ public class CharactersController {
      * Проверка проходимости тайла, на который хочет переместиться персонаж
      * @param x
      * @param y
-     * @param player
+     * @param character
      * @return
      */
-    private static boolean tilePassability(int x, int y, Player player) {
+    private static boolean tilePassability(int x, int y, Character character) {
         return  (Game.getMap().getTiles()[x][y].getTile1Info().isPassability() ||
-                (player.getAppliedEffects().stream().anyMatch(i -> i.getStrId().equals("WATER_WALK")) &&
+                (character.getAppliedEffects().stream().anyMatch(i -> i.getStrId().equals("WATER_WALK")) &&
                         Game.getMap().getTiles()[x][y].getTile1Type().equals(TileTypeEnum.WATER))) &&
                 (Game.getMap().getTiles()[x][y].getTile2Info().isPassability() || canMoveTile2());
     }
@@ -766,32 +766,32 @@ public class CharactersController {
     /**
      * Нарисовать персонажа игрока и все экипированные на нем предметы
      *
-     * @param player - персонаж
+     * @param character - персонаж
      */
-    public static void drawPlayerImage(Player player) {
-        var playerImage = player.getImage().getImage();
+    public static void drawPlayerImage(Character character) {
+        var playerImage = character.getImage().getImage();
 
-        var isLeft = player.getDirection().equals(DirectionEnum.LEFT) ||
-                player.getDirection().equals(DirectionEnum.UP);
-        drawImg(player, playerImage, isLeft);
-        if (player.getGender().equals(GenderEnum.MALE)) {
-            if (player.getBeardLength() > 0) { // рисуем бороду персонажа
-                var image = new Image("/graphics/characters/body/beard" + player.getHairColor().name() + player.getBeardLength() + ".png");
-                drawImg(player, image, isLeft);
+        var isLeft = character.getDirection().equals(DirectionEnum.LEFT) ||
+                character.getDirection().equals(DirectionEnum.UP);
+        drawImg(character, playerImage, isLeft);
+        if (character.getGender().equals(GenderEnum.MALE)) {
+            if (character.getBeardLength() > 0) { // рисуем бороду персонажа
+                var image = new Image("/graphics/characters/body/beard" + character.getHairColor().name() + character.getBeardLength() + ".png");
+                drawImg(character, image, isLeft);
             }
         }
-        if (player.getHairLength() > 0) { // рисуем волосы персонажа
-            var image = new Image("/graphics/characters/body/hair" + player.getHairColor().name() + player.getHairLength() + ".png");
-            drawImg(player, image, isLeft);
+        if (character.getHairLength() > 0) { // рисуем волосы персонажа
+            var image = new Image("/graphics/characters/body/hair" + character.getHairColor().name() + character.getHairLength() + ".png");
+            drawImg(character, image, isLeft);
         }
 
-        for (Pair<BodyPartEnum, Items> bodyPart : player.getWearingItems()) {
+        for (Pair<BodyPartEnum, Items> bodyPart : character.getWearingItems()) {
             if (bodyPart.getValue() != null) {
                 var path = "/graphics/items/" + bodyPart.getValue().getTypeId() + "doll.png";
-                var f = new File("/" + Player.class.getProtectionDomain().getCodeSource().getLocation().getPath() + path);
+                var f = new File("/" + Character.class.getProtectionDomain().getCodeSource().getLocation().getPath() + path);
                 if (f.exists()) {
                     var image = new Image(path);
-                    drawImg(player, image, isLeft);
+                    drawImg(character, image, isLeft);
                 }
             }
         }
@@ -800,19 +800,19 @@ public class CharactersController {
         writableImage = gc.getCanvas().snapshot(sp, writableImage);*/
     }
 
-    private static void drawImg(Player player, Image img, boolean isLeft) {
+    private static void drawImg(Character character, Image img, boolean isLeft) {
         GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
         if (isLeft) {
             double width = img.getWidth();
             double height = img.getHeight();
             gc.drawImage(img,
                     0, 0, tileSize, tileSize,
-                    player.getXViewPos() * tileSize + tileSize,
-                    player.getYViewPos() * tileSize - (height - tileSize),
+                    character.getXViewPos() * tileSize + tileSize,
+                    character.getYViewPos() * tileSize - (height - tileSize),
                     -width, height);
         } else {
             gc.drawImage(img,
-                    player.getXViewPos() * tileSize, player.getYViewPos() * tileSize - (img.getHeight() - tileSize));
+                    character.getXViewPos() * tileSize, character.getYViewPos() * tileSize - (img.getHeight() - tileSize));
         }
     }
 
@@ -821,75 +821,75 @@ public class CharactersController {
      *
      * @return true, если персонаж перегружен
      */
-    public static Boolean isOverloaded(Player player) {
-        return player.getCurrentWeight().compareTo(player.getMaxWeight()) > 0;
+    public static Boolean isOverloaded(Character character) {
+        return character.getCurrentWeight().compareTo(character.getMaxWeight()) > 0;
     }
 
     /**
      * Устанавливает стартовые настройки персонажа (знания и предметы в инвентаре)
      *
-     * @param player - персонаж
+     * @param character - персонаж
      */
-    public static void setPlayerStartParams(Player player) {
-        player.getKnowledgeRecipes().add(1);
-        player.getKnowledgeRecipes().add(2);
-        player.getKnowledgeRecipes().add(3);
+    public static void setPlayerStartParams(Character character) {
+        character.getKnowledgeRecipes().add(1);
+        character.getKnowledgeRecipes().add(2);
+        character.getKnowledgeRecipes().add(3);
 
-        ItemsController.addItem(new Items(1, 2), player.getInventory(), player);
-        ItemsController.addItem(new Items(3, 1), player.getInventory(), player);
-        ItemsController.addItem(new Items(11, 10), player.getInventory(), player);
-        ItemsController.addItem(new Items(10, 1), player.getInventory(), player);
-        ItemsController.addItem(new Items(113, 3), player.getInventory(), player);
-        ItemsController.addItem(new Items(114, 3), player.getInventory(), player);
-        ItemsController.addItem(new Items(115, 3), player.getInventory(), player);
-        ItemsController.addItem(new Items(117, 3), player.getInventory(), player);
+        ItemsController.addItem(new Items(1, 2), character.getInventory(), character);
+        ItemsController.addItem(new Items(3, 1), character.getInventory(), character);
+        ItemsController.addItem(new Items(11, 10), character.getInventory(), character);
+        ItemsController.addItem(new Items(10, 1), character.getInventory(), character);
+        ItemsController.addItem(new Items(113, 3), character.getInventory(), character);
+        ItemsController.addItem(new Items(114, 3), character.getInventory(), character);
+        ItemsController.addItem(new Items(115, 3), character.getInventory(), character);
+        ItemsController.addItem(new Items(117, 3), character.getInventory(), character);
 
         ItemsController.equipItem(
                 ItemsController.addItem(new Items(23, 1),
-                        player.getInventory(),
-                        player),
-                player);
+                        character.getInventory(),
+                        character),
+                character);
 
         ItemsController.equipItem(
                 ItemsController.addItem(new Items(25, 1),
-                        player.getInventory(),
-                        player),
-                player);
+                        character.getInventory(),
+                        character),
+                character);
 
         ItemsController.equipItem(
                 ItemsController.addItem(new Items(26, 1),
-                        player.getInventory(),
-                        player),
-                player);
+                        character.getInventory(),
+                        character),
+                character);
 
         ItemsController.equipItem(
                 ItemsController.addItem(new Items(20, 1),
-                        player.getInventory(),
-                        player),
-                player);
+                        character.getInventory(),
+                        character),
+                character);
 
         ItemsController.equipItem(
                 ItemsController.addItem(new Items(21, 1),
-                        player.getInventory(),
-                        player),
-                player);
+                        character.getInventory(),
+                        character),
+                character);
 
         var items6 = new Items(22, 1);
-        ItemsController.addItem(items6, player.getInventory(), player);
+        ItemsController.addItem(items6, character.getInventory(), character);
         ItemsController.equipItem(
-                ItemsController.findItemInInventory(items6.getTypeId(), player.getInventory()),
-                player);
+                ItemsController.findItemInInventory(items6.getTypeId(), character.getInventory()),
+                character);
 
         var items7 = new Items(30, 1);
         items7.setCurrentStrength(0);
-        ItemsController.addItem(items7, player.getInventory(), player);
+        ItemsController.addItem(items7, character.getInventory(), character);
 
-        PlayerIndicatorsPanel.setClothesStyle(player.getWearingItems());
+        PlayerIndicatorsPanel.setClothesStyle(character.getWearingItems());
 
-        player.setMaxVolume(ItemsController.getMaximumVolume(player));
-        player.setCurrentVolume(ItemsController.getCurrVolume(player.getInventory()));
-        player.setMaxWeight(ItemsController.getMaximumWeight(player));
-        player.setCurrentWeight(ItemsController.getCurrWeight(player.getInventory()));
+        character.setMaxVolume(ItemsController.getMaximumVolume(character));
+        character.setCurrentVolume(ItemsController.getCurrVolume(character.getInventory()));
+        character.setMaxWeight(ItemsController.getMaximumWeight(character));
+        character.setCurrentWeight(ItemsController.getCurrWeight(character.getInventory()));
 
         InventoryPanel.setWeightText();
         Game.getInventory().setVolumeText();
@@ -899,10 +899,10 @@ public class CharactersController {
     /**
      * Изменение голода и жажды персонажа с течением времени
      *
-     * @param player - персонаж
+     * @param character - персонаж
      */
-    public static void changeHungerAndThirst(Player player) {
-        ParamsInfo params = player.getParams();
+    public static void changeHungerAndThirst(Character character) {
+        ParamsInfo params = character.getParams();
         PlayerIndicatorsPanel.setIndicatorValue(2, params.getIndicators().get(2).getCurrentValue() - 5);
         PlayerIndicatorsPanel.setIndicatorValue(3, params.getIndicators().get(3).getCurrentValue() - 5);
     }
@@ -910,21 +910,21 @@ public class CharactersController {
     /**
      * Убывание чистоты персонажа с течением времени
      *
-     * @param player - персонаж
+     * @param character - персонаж
      */
-    public static void changeCleanness(Player player) {
-        ParamsInfo params = player.getParams();
+    public static void changeCleanness(Character character) {
+        ParamsInfo params = character.getParams();
         PlayerIndicatorsPanel.setIndicatorValue(4, params.getIndicators().get(4).getCurrentValue() - 5);
     }
 
     /**
      * Найти все видимые персонажем точки на карте
      *
-     * @param player - персонаж
+     * @param character - персонаж
      */
-    public static boolean[][] findVisibleMapPoints(Player player) {
-        int viewX = player.getXViewPos();
-        int viewY = player.getYViewPos();
+    public static boolean[][] findVisibleMapPoints(Character character) {
+        int viewX = character.getXViewPos();
+        int viewY = character.getYViewPos();
         int width = viewSize;
         int height = viewSize;
         boolean[][] result = new boolean[width][height];
@@ -940,7 +940,7 @@ public class CharactersController {
                     for (int k = 1; k < steps; k++) {
                         int px = viewX + k * dx / steps;
                         int py = viewY + k * dy / steps;
-                        if (!Game.getMap().getTiles()[player.getXMapPos() + px][player.getYMapPos() + py].isVisibly()) {
+                        if (!Game.getMap().getTiles()[character.getXMapPos() + px][character.getYMapPos() + py].isVisibly()) {
                             visible = false;
                             break;
                         }
@@ -954,11 +954,11 @@ public class CharactersController {
 
     /**
      * Проверяет, наложен ли на персонажа эффект "слепота"
-     * @param player
+     * @param character
      * @return
      */
-    public static boolean isBlind(Player player) {
-        for (EffectParams effect : player.getAppliedEffects()) {
+    public static boolean isBlind(Character character) {
+        for (EffectParams effect : character.getAppliedEffects()) {
             if (effect.getStrId().equals("BLIND")) {
                 return true;
             }

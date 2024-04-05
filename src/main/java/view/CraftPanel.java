@@ -81,7 +81,7 @@ public class CraftPanel {
         showOnlyAvailable.setLayoutX(170);
         showOnlyAvailable.setLayoutY(35);
         showOnlyAvailable.setText(Game.getText("ONLY_AVAILABLE"));
-        showOnlyAvailable.setOnAction(event -> showPanel(Game.getMap().getPlayer().getInteractMapPoint().getTile2Info()));
+        showOnlyAvailable.setOnAction(event -> showPanel(Game.getMap().getSelecterCharacter().getInteractMapPoint().getTile2Info()));
         pane.getChildren().add(showOnlyAvailable);
 
         closeButton = new Button(Game.getText("CLOSE"));
@@ -99,7 +99,7 @@ public class CraftPanel {
      */
     private void closePanel() {
         pane.setVisible(false);
-        Game.getMap().getPlayer().setInteractMapPoint(null);
+        Game.getMap().getSelecterCharacter().setInteractMapPoint(null);
     }
 
     /**
@@ -117,9 +117,9 @@ public class CraftPanel {
         int i = 0;
         for (RecipeInfo recipeInfo : Editor.getRecipes().stream().filter(
                 showOnlyAvailable.isSelected() ?
-                        recipe -> isRecipeVisibly(tileInfo, recipe) && (ItemsController.getCraftElements(recipe, Game.getMap().getPlayer()) != null) :
+                        recipe -> isRecipeVisibly(tileInfo, recipe) && (ItemsController.getCraftElements(recipe, Game.getMap().getSelecterCharacter()) != null) :
                         recipe -> isRecipeVisibly(tileInfo, recipe)).
-                sorted(Comparator.comparing(o -> ItemsController.getCraftElements(o, Game.getMap().getPlayer()) == null))
+                sorted(Comparator.comparing(o -> ItemsController.getCraftElements(o, Game.getMap().getSelecterCharacter()) == null))
                 .collect(Collectors.toList())) {
             var recipeRecord = new CraftRecipeRecord(recipeInfo);
             recipeRecord.getPane().setLayoutY(i++ * tileSize);
@@ -136,7 +136,7 @@ public class CraftPanel {
      * @return - true, если рецепт доступен на данном столе
      */
     private boolean isRecipeVisibly(TileInfo tileInfo, RecipeInfo recipeInfo) {
-        return (Game.getMap().getPlayer().getKnowledgeRecipes().contains(recipeInfo.getRecipeId()) ||   // персонаж знает рецепт
+        return (Game.getMap().getSelecterCharacter().getKnowledgeRecipes().contains(recipeInfo.getRecipeId()) ||   // персонаж знает рецепт
                 (recipeInfo.getGroup() != null && recipeInfo.getGroup().equals("well-known"))) &&       // или это общеизвестный рецепт
                 recipeInfo.getCraftingPlace().name().equals(tileInfo.getParams().get("subtype")) &&     // тип стола подходит для рецепта
                 recipeInfo.getLevel() <= Integer.parseInt(tileInfo.getParams().get("level"));           // уровень стола подходит для рецепта

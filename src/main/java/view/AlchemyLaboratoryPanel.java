@@ -21,7 +21,7 @@ import lombok.Setter;
 import model.editor.TileTypeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.map.Items;
-import model.entity.player.Player;
+import model.entity.player.Character;
 import view.inventory.InventoryPanel;
 
 import java.util.ArrayList;
@@ -109,7 +109,7 @@ public class AlchemyLaboratoryPanel {
         ingredientImage.setImage(null);
         exploreButton.setDisable(true);
         pane.setVisible(false);
-        Game.getMap().getPlayer().setInteractMapPoint(null);
+        Game.getMap().getSelecterCharacter().setInteractMapPoint(null);
     }
 
     /**
@@ -119,24 +119,24 @@ public class AlchemyLaboratoryPanel {
      */
     private void exploreEffect() {
         if (selectedIngredient.getTypeId() != 0) {
-            List<String> effects = Game.getMap().getPlayer().getKnowledgeInfo().getKnowEffects().get(selectedIngredient.getTypeId());
+            List<String> effects = Game.getMap().getSelecterCharacter().getKnowledgeInfo().getKnowEffects().get(selectedIngredient.getTypeId());
             if (effects == null) {
-                Player player = Game.getMap().getPlayer();
+                Character character = Game.getMap().getSelecterCharacter();
                 TimeController.tic(timeToExplore);
                 // проверяем, на месте ли наш стол, а то за время исследования он мог сгореть
-                String tileType = player.getInteractMapPoint().getTile2Info().getType();
+                String tileType = character.getInteractMapPoint().getTile2Info().getType();
                 if (tileType == null || !TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.ALCHEMY_LABORATORY)) {
-                    Game.showMessage(player.getInteractMapPoint().getTile2Info().getName() + Game.getText("DESTROYED"));
+                    Game.showMessage(character.getInteractMapPoint().getTile2Info().getName() + Game.getText("DESTROYED"));
                     closePanel();
                 } else {
                     effects = new ArrayList<>();
                     String newEffect = selectedIngredient.getEffects().get(0).getStrId();
                     effects.add(newEffect);
-                    Game.getMap().getPlayer().getKnowledgeInfo().getKnowEffects().put(selectedIngredient.getTypeId(), effects);
+                    Game.getMap().getSelecterCharacter().getKnowledgeInfo().getKnowEffects().put(selectedIngredient.getTypeId(), effects);
                     Game.showMessage(Game.getText("NEW_EFFECT_EXPLORED") + ": " +
                             EffectsController.getEffects().get(newEffect).getName(), Color.GREEN);
 
-                    ItemsController.deleteItem(selectedIngredient, 1, player.getInventory(), player);
+                    ItemsController.deleteItem(selectedIngredient, 1, character.getInventory(), character);
                     selectedIngredient = new Items();
                     ingredientImage.setImage(null);
                     exploreButton.setDisable(true);

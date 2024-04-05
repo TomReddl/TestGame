@@ -11,8 +11,7 @@ import model.entity.effects.EffectParams;
 import model.entity.map.Creature;
 import model.entity.map.Items;
 import model.entity.map.MapCellInfo;
-import model.entity.map.NPC;
-import model.entity.player.Player;
+import model.entity.player.Character;
 import view.Editor;
 import view.Game;
 import view.menu.MainMenu;
@@ -31,40 +30,40 @@ public class BattleController {
     /**
      * Персонаж атакует существо
      *
-     * @param player   - персонаж
+     * @param character   - персонаж
      * @param weapon   - оружие, которым он атакует
      * @param creature - атакуемое существо
      */
-    public static void attackCreature(Player player, Items weapon, Creature creature) {
+    public static void attackCreature(Character character, Items weapon, Creature creature) {
         WeaponInfo weaponInfo = ((WeaponInfo) weapon.getInfo());
         boolean isKilled = applyDamageToCreature(getDamageWithEffects(weapon, creature), DamageTypeEnum.valueOf(weaponInfo.getDamageType()), creature);
         if (isKilled) {
-            if (Game.getMap().getPlayer() == player) { // выводим сообщение, только если атаковал текущий выбранный персонаж
+            if (Game.getMap().getSelecterCharacter() == character) { // выводим сообщение, только если атаковал текущий выбранный персонаж
                 Game.showMessage(creature.getInfo().getName() + " " + Game.getText("KILLED"), Color.GREEN);
             }
         }
-        ItemsController.damageItem(weapon, 1, Game.getMap().getPlayer().getInventory(), Game.getMap().getPlayer());
+        ItemsController.damageItem(weapon, 1, Game.getMap().getSelecterCharacter().getInventory(), Game.getMap().getSelecterCharacter());
         int level = creature.getInfo().getLevel() != null ? creature.getInfo().getLevel() : 1;
         CharactersController.addSkillExp(((WeaponInfo) weapon.getInfo()).getSkill(), 5*level);
     }
 
     /**
-     * Персонаж атакует NPC
+     * Персонаж игрока атакует другого персонажа
      *
-     * @param player   - персонаж
-     * @param weapon   - оружие, которым он атакует
-     * @param npc      - атакуемый npc
+     * @param character          - персонаж игрока
+     * @param weapon             - оружие, которым он атакует
+     * @param attackedCharacter  - атакуемый attackedCharacter
      */
-    public static void attackNPC(Player player, Items weapon, NPC npc) {
+    public static void attackCharacter(Character character, Items weapon, Character attackedCharacter) {
         WeaponInfo weaponInfo = ((WeaponInfo) weapon.getInfo());
-        boolean isKilled = applyDamageToCreature(((WeaponInfo) weapon.getInfo()).getDamage(), DamageTypeEnum.valueOf(weaponInfo.getDamageType()), npc); // TODO учесть броню npc
+        boolean isKilled = applyDamageToCharacter(((WeaponInfo) weapon.getInfo()).getDamage(), DamageTypeEnum.valueOf(weaponInfo.getDamageType()), attackedCharacter); // TODO учесть броню attackedCharacter
         if (isKilled) {
-            if (Game.getMap().getPlayer() == player) { // выводим сообщение, только если атаковал текущий выбранный персонаж
-                Game.showMessage(npc.getName() + " " + Game.getText("KILLED"), Color.GREEN);
+            if (Game.getMap().getSelecterCharacter() == character) { // выводим сообщение, только если атаковал текущий выбранный персонаж
+                Game.showMessage(attackedCharacter.getName() + " " + Game.getText("KILLED"), Color.GREEN);
             }
         }
-        ItemsController.damageItem(weapon, 1, Game.getMap().getPlayer().getInventory(), Game.getMap().getPlayer());
-        CharactersController.addSkillExp(((WeaponInfo) weapon.getInfo()).getSkill(), 10); // TODO скейл опыта от прокачки npc
+        ItemsController.damageItem(weapon, 1, Game.getMap().getSelecterCharacter().getInventory(), Game.getMap().getSelecterCharacter());
+        CharactersController.addSkillExp(((WeaponInfo) weapon.getInfo()).getSkill(), 10); // TODO скейл опыта от прокачки attackedCharacter
     }
 
     /**
@@ -80,24 +79,6 @@ public class BattleController {
         setBloodSplatter(damagePoints, damageType, creature);
         if (creature.getHealth() <= 0) {
             creature.setAlive(false);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Наносит урон npc
-     *
-     * @param damagePoints - урон
-     * @param damageType   - тип наносимого урона
-     * @param npc          - неигровой персонаж
-     * @return true- npc убит
-     */
-    public static boolean applyDamageToCreature(int damagePoints, DamageTypeEnum damageType, NPC npc) {
-        npc.setHealth(npc.getHealth() - damagePoints);
-       // setBloodSplatter(damagePoints, damageType, npc); // TODO сделать брызки крови для NPC
-        if (npc.getHealth() <= 0) {
-            npc.setAlive(false);
             return true;
         }
         return false;
@@ -171,20 +152,24 @@ public class BattleController {
      *
      * @param damagePoints - урон
      */
-    public static void applyDamageToPlayer(int damagePoints, DamageTypeEnum damageType) {
-        var player = Game.getMap().getPlayer();
-        damagePoints = getDamagePoint(damagePoints, damageType, player);
-        var playerHealth = player.getParams().getIndicators().get(0).getCurrentValue();
-        playerHealth = playerHealth - damagePoints;
+    public static boolean applyDamageToCharacter(int damagePoints, DamageTypeEnum damageType, Character character) {
+        damagePoints = getDamagePoint(damagePoints, damageType, character);
+        var characterHealth = character.getParams().getIndicators().get(0).getCurrentValue();
+        characterHealth = characterHealth - damagePoints;
         // при нанесение урона на земле остается кровь
         if (damageType.isBloody()) {
-            Game.getMap().getTiles()[player.getXPosition()][player.getYPosition()].setPollutionId(1);
-            MapController.drawPlayerTile();
+            Game.getMap().getTiles()[character.getXPosition()][character.getYPosition()].setPollutionId(1);
+            MapController.drawTile(Game.getMap().getSelecterCharacter(), character.getXPos(), character.getYPos());
         }
-        if (playerHealth <= 0) {
-            killPlayer();
+        if (characterHealth <= 0) {
+            character.setAlive(false);
+            if (character.isActiveCharacter()) {
+                killActiveCharacter();
+            }
+            return true;
         } else {
-            player.getParams().getIndicators().get(0).setCurrentValue(playerHealth);
+            character.getParams().getIndicators().get(0).setCurrentValue(characterHealth);
+            return false;
         }
     }
 
@@ -192,34 +177,34 @@ public class BattleController {
      * Получить урон с учетом сопротивлений персонажа
      * @param damagePoints - входящий урон без учета сопротивлений
      * @param damageType   - тип урона
-     * @param player       - персонаж
+     * @param character       - персонаж
      * @return             - урон с учетом сопротивлений персонажа
      */
-    private static int getDamagePoint(int damagePoints, DamageTypeEnum damageType, Player player) {
+    private static int getDamagePoint(int damagePoints, DamageTypeEnum damageType, Character character) {
         switch (damageType) {
             case FIRE_DAMAGE: {
-                for (EffectParams effect : player.getAppliedEffects()) {
+                for (EffectParams effect : character.getAppliedEffects()) {
                     if (effect.getStrId().equals("FIRE_DAMAGE_RESIST")) {
                         damagePoints -= effect.getPower();
                     }
                 }
             }
             case ELECTRIC_DAMAGE: {
-                for (EffectParams effect : player.getAppliedEffects()) {
+                for (EffectParams effect : character.getAppliedEffects()) {
                     if (effect.getStrId().equals("ELECTRIC_DAMAGE_RESIST")) {
                         damagePoints -= effect.getPower();
                     }
                 }
             }
             case FROST_DAMAGE: {
-                for (EffectParams effect : player.getAppliedEffects()) {
+                for (EffectParams effect : character.getAppliedEffects()) {
                     if (effect.getStrId().equals("FROST_DAMAGE_RESIST")) {
                         damagePoints -= effect.getPower();
                     }
                 }
             }
             case ACID_DAMAGE: {
-                for (EffectParams effect : player.getAppliedEffects()) {
+                for (EffectParams effect : character.getAppliedEffects()) {
                     if (effect.getStrId().equals("ACID_DAMAGE_RESIST")) {
                         damagePoints -= effect.getPower();
                     }
@@ -234,9 +219,9 @@ public class BattleController {
     }
 
     /**
-     * Убивает персонажа игрока
+     * Убивает выбранного персонажа игрока
      */
-    public static void killPlayer() {
+    public static void killActiveCharacter() {
         MainMenu.getPane().setVisible(true);
         Game.setGameMode(GameModeEnum.GAME_MENU);
         Game.showMessage(Game.getText("PLAYER_DIED"));
@@ -256,7 +241,7 @@ public class BattleController {
         }
         String tileType = mapCellInfo.getTile2Info().getType();
         if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.TRAINING_DUMMY)) { // если ударить тренировочный манекен, добавится опыт
-            var skill = Game.getMap().getPlayer().getParams().getSkills().get(((WeaponInfo) weapon.getInfo()).getSkill());
+            var skill = Game.getMap().getSelecterCharacter().getParams().getSkills().get(((WeaponInfo) weapon.getInfo()).getSkill());
             if (skill.getRealValue() < Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("maxTrainingLevel"))) { // опыт добавится, только если реальный навык ниже максимального уровня, до которого позволяет качаться манекен
                 CharactersController.addSkillExp(((WeaponInfo) weapon.getInfo()).getSkill(), 5);
             } else {

@@ -16,7 +16,7 @@ import lombok.Getter;
 import model.entity.GameCalendar;
 import model.entity.map.Items;
 import model.entity.map.MapCellInfo;
-import model.entity.player.Player;
+import model.entity.player.Character;
 import view.inventory.ItemCountPanel;
 
 import static game.GameParams.tileSize;
@@ -141,10 +141,10 @@ public class SelectTimePanel {
         if (mapCell != null) {
             var params = mapCell.getTile2Info().getParams();
             mapCell.setTile2Id(0);
-            Player player = Game.getMap().getPlayer();
+            Character character = Game.getMap().getSelecterCharacter();
             var packingItemId = params.get("packingItem");
             if (packingItemId != null) {
-                ItemsController.addItem(new Items(Integer.parseInt(packingItemId), 1), player.getInventory(), player);
+                ItemsController.addItem(new Items(Integer.parseInt(packingItemId), 1), character.getInventory(), character);
             }
             TimeController.tic(params.get("packingTime") != null ? Integer.parseInt(params.get("packingTime")) : 5);
             hide();

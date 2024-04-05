@@ -7,13 +7,14 @@ import lombok.Setter;
 import model.entity.player.GenderEnum;
 
 import java.io.Serializable;
+import java.util.Map;
 
 /**
- * Данные типа NPC в редакторе
+ * Данные типа персонажа в редакторе
  */
 @Getter
 @Setter
-public class NPCInfo implements Serializable {
+public class CharacterInfo implements Serializable {
     private int imageId;
     @JsonIgnore
     private ImageView image;
@@ -22,5 +23,6 @@ public class NPCInfo implements Serializable {
     @JsonIgnore
     private String desc;
     private GenderEnum gender;
-    private String bloodType; // тип крови NPC
+    private String bloodType; // тип крови персонажа
+    private Map<String, String> items; // предметы
 }

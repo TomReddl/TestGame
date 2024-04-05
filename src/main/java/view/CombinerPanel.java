@@ -21,7 +21,7 @@ import model.editor.TileTypeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.effects.EffectParams;
 import model.entity.map.Items;
-import model.entity.player.Player;
+import model.entity.player.Character;
 import view.inventory.InventoryPanel;
 
 import java.util.*;
@@ -171,7 +171,7 @@ public class CombinerPanel {
         chanceLabel.setText("");
         pane.setVisible(false);
         biomassCountLabel.setText("");
-        Game.getMap().getPlayer().setInteractMapPoint(null);
+        Game.getMap().getSelecterCharacter().setInteractMapPoint(null);
     }
 
     /**
@@ -179,17 +179,17 @@ public class CombinerPanel {
      */
     private void combineIngredients() {
         if (firstIngredient.getTypeId() != 0 && secondIngredient.getTypeId() != 0) {
-            List<String> knowEffects1 = Game.getMap().getPlayer().getKnowledgeInfo().getKnowEffects().get(firstIngredient.getTypeId());
+            List<String> knowEffects1 = Game.getMap().getSelecterCharacter().getKnowledgeInfo().getKnowEffects().get(firstIngredient.getTypeId());
             List<String> effects1 = firstIngredient.getEffects().stream().map(EffectParams::getStrId).collect(Collectors.toList());
-            List<String> knowEffects2 = Game.getMap().getPlayer().getKnowledgeInfo().getKnowEffects().get(secondIngredient.getTypeId());
+            List<String> knowEffects2 = Game.getMap().getSelecterCharacter().getKnowledgeInfo().getKnowEffects().get(secondIngredient.getTypeId());
             List<String> effects2 = secondIngredient.getEffects().stream().map(EffectParams::getStrId).collect(Collectors.toList());
             if (effects1.equals(knowEffects1) && effects2.equals(knowEffects2)) {
-                Player player = Game.getMap().getPlayer();
+                Character character = Game.getMap().getSelecterCharacter();
                 TimeController.tic(timeToCombine);
                 // проверяем, на месте ли наш стол, а то за время объединения он мог куда-то деться
-                String tileType = player.getInteractMapPoint().getTile2Info().getType();
+                String tileType = character.getInteractMapPoint().getTile2Info().getType();
                 if (tileType == null || !TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.INGREDIENTS_COMBINER)) {
-                    Game.showMessage(player.getInteractMapPoint().getTile2Info().getName() + Game.getText("DESTROYED"));
+                    Game.showMessage(character.getInteractMapPoint().getTile2Info().getName() + Game.getText("DESTROYED"));
                     closePanel();
                 } else {
                     if (random.nextInt(100) < chance) {
@@ -197,12 +197,12 @@ public class CombinerPanel {
                         Set<EffectParams> effects = new HashSet<>(firstIngredient.getEffects());
                         effects.addAll(secondIngredient.getEffects());
                         mutantIngredient.setEffects(new ArrayList<>(effects));
-                        ItemsController.addItem(mutantIngredient, player.getInventory(), player);
+                        ItemsController.addItem(mutantIngredient, character.getInventory(), character);
                     } else {
                         Game.showMessage(Game.getText("COMBINING_FAILED"));
                     }
 
-                    ItemsController.deleteItem(biomass, 1, player.getInventory(), player);
+                    ItemsController.deleteItem(biomass, 1, character.getInventory(), character);
                     if (biomass.getCount() <= 0) {
                         biomass = new Items();
                         biomassImage.setImage(null);
@@ -211,10 +211,10 @@ public class CombinerPanel {
                     } else {
                         biomassCountLabel.setText(String.valueOf(biomass.getCount()));
                     }
-                    ItemsController.deleteItem(firstIngredient, 1, player.getInventory(), player);
+                    ItemsController.deleteItem(firstIngredient, 1, character.getInventory(), character);
                     firstIngredient = new Items();
                     firstIngredientImage.setImage(null);
-                    ItemsController.deleteItem(secondIngredient, 1, player.getInventory(), player);
+                    ItemsController.deleteItem(secondIngredient, 1, character.getInventory(), character);
                     secondIngredient = new Items();
                     secondIngredientImage.setImage(null);
                     combineButton.setDisable(true);
@@ -239,7 +239,7 @@ public class CombinerPanel {
 
     public void showPanel() {
         pane.setVisible(true);
-        biomass = ItemsController.findItemInInventory(biomassId, Game.getMap().getPlayer().getInventory());
+        biomass = ItemsController.findItemInInventory(biomassId, Game.getMap().getSelecterCharacter().getInventory());
         if (biomass != null) {
             biomassImage.setImage(biomass.getInfo().getIcon().getImage());
             biomassCountLabel.setText(String.valueOf(biomass.getCount()));
@@ -268,7 +268,7 @@ public class CombinerPanel {
                     }
                 }
             }
-            int alchemySkill = Game.getMap().getPlayer().getParams().getSkills().get("POTIONS").getCurrentValue();
+            int alchemySkill = Game.getMap().getSelecterCharacter().getParams().getSkills().get("POTIONS").getCurrentValue();
             if (count == 0) {
                 chance = 10 + alchemySkill / 2;
             } else if (count == 1) {

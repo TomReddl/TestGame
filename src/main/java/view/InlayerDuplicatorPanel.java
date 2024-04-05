@@ -21,7 +21,7 @@ import model.editor.TileTypeEnum;
 import model.entity.InlayerSizeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.map.Items;
-import model.entity.player.Player;
+import model.entity.player.Character;
 import view.inventory.InventoryPanel;
 
 import static controller.ItemsController.inlayerBlankId;
@@ -143,7 +143,7 @@ public class InlayerDuplicatorPanel {
         pane.setVisible(false);
         inlayerCountLabel.setText("");
         blankCountLabel.setText("");
-        Game.getMap().getPlayer().setInteractMapPoint(null);
+        Game.getMap().getSelecterCharacter().setInteractMapPoint(null);
     }
 
     /**
@@ -154,21 +154,21 @@ public class InlayerDuplicatorPanel {
             if (selectedInlayer.getParams().get("inlayerSize").equals(InlayerSizeEnum.GREAT.name())) {
                 Game.showMessage(Game.getText("DUPLICATE_GREAT_IMPOSSIBLE")); // великие инкрустаты нельзя дублировать
             } else {
-                Player player = Game.getMap().getPlayer();
+                Character character = Game.getMap().getSelecterCharacter();
                 TimeController.tic(timeToDuplicate);
                 // проверяем, на месте ли наш стол, а то за время дублирования он мог куда-то деться
-                String tileType = player.getInteractMapPoint().getTile2Info().getType();
+                String tileType = character.getInteractMapPoint().getTile2Info().getType();
                 if (tileType == null || !TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.INLAYER_DUPLICATOR)) {
-                    Game.showMessage(player.getInteractMapPoint().getTile2Info().getName() + Game.getText("DESTROYED"));
+                    Game.showMessage(character.getInteractMapPoint().getTile2Info().getName() + Game.getText("DESTROYED"));
                     closePanel();
                 } else {
                     Items doubleInlayer = new Items(inlayerBlankId, 1);
                     doubleInlayer.setPrice(selectedInlayer.getPrice());
                     doubleInlayer.setName(selectedInlayer.getName());
                     doubleInlayer.setEffects(selectedInlayer.getEffects());
-                    ItemsController.addItem(doubleInlayer, player.getInventory(), player);
+                    ItemsController.addItem(doubleInlayer, character.getInventory(), character);
                     inlayerCountLabel.setText(String.valueOf(selectedInlayer.getCount()));
-                    ItemsController.deleteItem(blank, 1, player.getInventory(), player);
+                    ItemsController.deleteItem(blank, 1, character.getInventory(), character);
                     if (blank.getCount() <= 0) {
                         blank = new Items();
                         blankImage.setImage(null);
@@ -198,7 +198,7 @@ public class InlayerDuplicatorPanel {
 
     public void showPanel() {
         pane.setVisible(true);
-        blank = ItemsController.findItemInInventory(inlayerBlankId, Game.getMap().getPlayer().getInventory());
+        blank = ItemsController.findItemInInventory(inlayerBlankId, Game.getMap().getSelecterCharacter().getInventory());
         if (blank != null) {
             blankImage.setImage(blank.getInfo().getIcon().getImage());
             blankCountLabel.setText(String.valueOf(blank.getCount()));

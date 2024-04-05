@@ -8,6 +8,7 @@ import model.entity.battle.DamageTypeEnum;
 import model.entity.map.Items;
 import model.entity.map.MapCellInfo;
 import model.entity.map.WeatherEnum;
+import model.entity.player.Character;
 import view.Game;
 
 import java.util.*;
@@ -50,31 +51,32 @@ public class TimeController {
     private static boolean incTime(boolean show) {
         var currentDate = GameCalendar.getCurrentDate();
         currentDate.setTic(currentDate.getTic() + 1);
+        Character character = Game.getMap().getSelecterCharacter();
 
-        MapCellInfo playerMapCell = Game.getMap().getTiles()[Game.getMap().getPlayer().getXPosition()][Game.getMap().getPlayer().getYPosition()];
+        MapCellInfo playerMapCell = Game.getMap().getTiles()[character.getXPosition()][character.getYPosition()];
         if (playerMapCell.getFireId() != 0) {
             // Если персонаж стоит на горящем тайле, урон огнем наносится ему каждый ход
-            BattleController.applyDamageToPlayer(playerMapCell.getFireId() * baseFireDamage, DamageTypeEnum.FIRE_DAMAGE);
+            BattleController.applyDamageToCharacter(playerMapCell.getFireId() * baseFireDamage, DamageTypeEnum.FIRE_DAMAGE, character);
         }
 
         Integer pollutionId = playerMapCell.getPollutionId();
         if (pollutionId >= 13 && pollutionId <= 15) {
             // Если персонаж стоит на кислотном загрязнении без обуви, урон кислотой наносится ему каждый ход
-            if (Game.getMap().getPlayer().getWearingItems().get(BodyPartEnum.SHOES.ordinal()).getValue() == null) {
-                BattleController.applyDamageToPlayer((pollutionId - 12) * baseAcidPollutionDamage, DamageTypeEnum.ACID_DAMAGE);
+            if (character.getWearingItems().get(BodyPartEnum.SHOES.ordinal()).getValue() == null) {
+                BattleController.applyDamageToCharacter((pollutionId - 12) * baseAcidPollutionDamage, DamageTypeEnum.ACID_DAMAGE, character);
             }
         }
 
         if (Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.ACID_RAIN)) {
-            Items itemInRightHand = Game.getMap().getPlayer().getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).getValue();
+            Items itemInRightHand = character.getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).getValue();
             if (!itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.UMBRELLA)) {
                 // Если идет кислотный дождь и у персонажа нет зонта в руке, кислота наносит урон персонажу
-                BattleController.applyDamageToPlayer(baseAcidRainDamage, DamageTypeEnum.FIRE_DAMAGE);
+                BattleController.applyDamageToCharacter(baseAcidRainDamage, DamageTypeEnum.FIRE_DAMAGE, character);
             }
         }
 
         // эффекты действуют каждый ход
-        EffectsController.executeEffects(Game.getMap().getPlayer());
+        EffectsController.executeEffects(character);
 
         if (currentDate.getTic() % 10 == 0) {
             MapController.fireSpread(); // распространение огня каждые 10 тиков
@@ -88,7 +90,7 @@ public class TimeController {
                 MapController.moldGrowth(); // рост плесени каждые 4 часа
             }
 
-            CharactersController.changeHungerAndThirst(Game.getMap().getPlayer()); // жажда и голод убывают каждый час
+            CharactersController.changeHungerAndThirst(character); // жажда и голод убывают каждый час
 
             if (currentDate.getHour() > 23) {
                 currentDate.setHour(0);
@@ -103,7 +105,7 @@ public class TimeController {
 
                 currentDate.setDay(currentDate.getDay() + 1);
 
-                CharactersController.changeCleanness(Game.getMap().getPlayer()); // чистота убывает каждый день
+                CharactersController.changeCleanness(character); // чистота убывает каждый день
 
                 if (currentDate.getDay() > GameCalendar.MonthEnum.getMonth(currentDate.getMonth()).getDays()) {
                     currentDate.setDay(1);

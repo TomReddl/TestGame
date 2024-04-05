@@ -123,7 +123,7 @@ public class ParamPanel {
         pane.getChildren().add(legacyLabel);
 
         var i = 0;
-        for (Parameter legacyParam : Game.getMap().getPlayer().getParams().getLegacy()) {
+        for (Parameter legacyParam : Game.getMap().getSelecterCharacter().getParams().getLegacy()) {
             var paramRecord = new ParamRecord(legacyParam, i, legacy);
             legacyLabels.add((Label) paramRecord.getBox().getChildrenUnmodifiable().get(1));
             paramRecord.getBox().setLayoutY(20 + (i++) * 18);
@@ -136,7 +136,7 @@ public class ParamPanel {
         pane.getChildren().add(characteristicsLabel);
 
         i = 0;
-        for (Parameter getCharacteristicParam : Game.getMap().getPlayer().getParams().getCharacteristics()) {
+        for (Parameter getCharacteristicParam : Game.getMap().getSelecterCharacter().getParams().getCharacteristics()) {
             var paramRecord = new ParamRecord(getCharacteristicParam, i, characteristic);
             characteristicsLabels.add((Label) paramRecord.getBox().getChildrenUnmodifiable().get(1));
             paramRecord.getBox().setLayoutY(150 + (i++) * 18);
@@ -171,7 +171,7 @@ public class ParamPanel {
                 skillsPane.getChildren().add(label);
                 j += 18;
             }
-            var paramRecord = new ParamRecord(Game.getMap().getPlayer().getParams().getSkills().get(paramName), i, skill);
+            var paramRecord = new ParamRecord(Game.getMap().getSelecterCharacter().getParams().getSkills().get(paramName), i, skill);
             skillsLabels.put(paramName, (Label) paramRecord.getBox().getChildrenUnmodifiable().get(1));
             paramRecord.getBox().setLayoutY((i++) * 18 + j);
             skillsPane.getChildren().add(paramRecord.getBox());
@@ -183,7 +183,7 @@ public class ParamPanel {
 
     // обновить показываемые значения параметров персонажа
     public void refreshParamsValueViews() {
-        ParamsInfo paramsInfo = Game.getMap().getPlayer().getParams();
+        ParamsInfo paramsInfo = Game.getMap().getSelecterCharacter().getParams();
         for (int i = 0; i < 6; i++) {
             legacyLabels.get(i).setText(paramsInfo.getLegacy().get(i).getCurrentValue().toString());
         }
@@ -198,8 +198,8 @@ public class ParamPanel {
                 ParamPanel.getCharacteristicsLabels().get(i).setTextFill(Color.BLACK);
             }
         }
-        for (String paramName : Game.getMap().getPlayer().getParams().getSkills().keySet()) {
-            Parameter parameter = Game.getMap().getPlayer().getParams().getSkills().get(paramName);
+        for (String paramName : Game.getMap().getSelecterCharacter().getParams().getSkills().keySet()) {
+            Parameter parameter = Game.getMap().getSelecterCharacter().getParams().getSkills().get(paramName);
             skillsLabels.get(paramName).setText(parameter.getCurrentValue().toString());
 
             if (parameter.getCurrentValue() > parameter.getRealValue()) {

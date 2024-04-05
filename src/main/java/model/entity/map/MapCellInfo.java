@@ -25,7 +25,7 @@ public class MapCellInfo implements Serializable {
     private int pollutionId; // загрязнение на тайле
     private int fireId; // огонь на тайле
     private int zoneId; // к какой зоне принадлежит тайл
-    private Integer npcId; // если на тайле стоит NPC, здесь отображается его id
+    private Integer characterId; // если на тайле стоит персонаж, здесь отображается его id
     private Integer creatureId; // если на тайле стоит существо, здесь отображается его id
     private List<Items> items; // лежащие на тайле предметы
     private String desc; // кастомное описание тайла
@@ -40,7 +40,7 @@ public class MapCellInfo implements Serializable {
         this.pollutionId = oldInfo.getFireId();
         this.fireId = oldInfo.getPollutionId();
         this.zoneId = oldInfo.getZoneId();
-        this.npcId = oldInfo.getNpcId();
+        this.characterId = oldInfo.getCharacterId();
         this.creatureId = oldInfo.getCreatureId();
         this.items = oldInfo.getItems();
         this.desc = oldInfo.getDesc();

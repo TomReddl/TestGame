@@ -5,7 +5,14 @@
   },
   {
     "imageId": 1,
-    "gender": "MALE"
+    "gender": "MALE",
+    "items": {
+      "35": "1",
+      "36": "1",
+      "37": "1",
+      "23": "1",
+      "24": "1"
+    }
   },
   {
     "imageId": 2,
@@ -132,5 +139,21 @@
   {
     "imageId": 31,
     "gender": "MALE"
+  },
+  {
+    "imageId": 32,
+    "gender": "MALE"
+  },
+  {
+    "imageId": 33,
+    "gender": "MALE"
+  },
+  {
+    "imageId": 34,
+    "gender": "FEMALE"
+  },
+  {
+    "imageId": 35,
+    "gender": "FEMALE"
   }
 ]

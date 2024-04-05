@@ -55,7 +55,7 @@ public class JsonUtils {
         }
     }
 
-    public static List<NPCInfo> getNPC() {
+    public static List<CharacterInfo> getCharacters() {
         try {
             var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/characters.json";
             return objectMapper.readValue(new File(path), new TypeReference<>() {

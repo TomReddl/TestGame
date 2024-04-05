@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Панель редактирования диалога с NPC
+ * Панель редактирования диалога с неигровым персонажем
  */
 public class DialogPanel {
     @Getter

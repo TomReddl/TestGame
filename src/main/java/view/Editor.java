@@ -20,7 +20,7 @@ import model.editor.items.RecipeInfo;
 import model.entity.GameModeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.map.WeatherEnum;
-import model.entity.player.Player;
+import model.entity.player.Character;
 import view.dialog.DialogPanel;
 import view.dialog.GameDialogPanel;
 
@@ -78,7 +78,7 @@ public class Editor {
     private static List<TileInfo> tiles2 = JsonUtils.getTiles2();
     @Setter
     @Getter
-    private static List<NPCInfo> npcs = JsonUtils.getNPC();
+    private static List<CharacterInfo> characters = JsonUtils.getCharacters();
     @Setter
     @Getter
     private static List<CreatureInfo> creatures = JsonUtils.getCreatures();
@@ -311,10 +311,10 @@ public class Editor {
         searchNPCTF.setLayoutX(5);
         searchNPCTF.setLayoutY(5);
         searchNPCTF.setPromptText(Game.getText("NPC_NAME"));
-        searchNPCTF.setOnAction(event -> filterNPC(searchNPCTF.getText()));
+        searchNPCTF.setOnAction(event -> filterCharacters(searchNPCTF.getText()));
         pane3.getChildren().add(searchNPCTF);
 
-        for (int i = 0; i < npcs.size(); i++) {
+        for (int i = 0; i < characters.size(); i++) {
             ImageView tile;
             if (i == 0) {
                 tile = new ImageView("/graphics/gui/Delete.png");
@@ -329,15 +329,15 @@ public class Editor {
             tile.setOnMouseExited(event -> Popover.hidePopover());
             tile.setOnMouseClicked(event -> {
                 setBorder(pane3);
-                selectTile = npcs.get(Integer.parseInt(tile.getId())).getImageId();
-                selectedType = EditorObjectType.NPC;
-                border.setX(npcs.get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
-                border.setY(npcs.get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+                selectTile = characters.get(Integer.parseInt(tile.getId())).getImageId();
+                selectedType = EditorObjectType.CHARACTER;
+                border.setX(characters.get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+                border.setY(characters.get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
             });
 
-            npcs.get(i).setImage(tile);
-            npcs.get(i).setName(Game.getNPCText(i + "NAME"));
-            npcs.get(i).setDesc(Game.getNPCText(i + "DESC"));
+            characters.get(i).setImage(tile);
+            characters.get(i).setName(Game.getNPCText(i + "NAME"));
+            characters.get(i).setDesc(Game.getNPCText(i + "DESC"));
             pane3.getChildren().add(tile);
         }
         pane3.setOnMouseEntered(event -> Popover.setPane(pane3));
@@ -428,7 +428,7 @@ public class Editor {
                 tile = new ImageView("/graphics/gui/Delete.png");
             } else {
                 var path = "/graphics/items/icons/" + i + ".png";
-                var f = new File("/" + Player.class.getProtectionDomain().getCodeSource().getLocation().getPath() + path);
+                var f = new File("/" + Character.class.getProtectionDomain().getCodeSource().getLocation().getPath() + path);
                 if (f.exists()) {
                     tile = new ImageView(path);
                 } else {
@@ -700,13 +700,13 @@ public class Editor {
     }
 
     // Фильтрует персонажей в редакторе при поиске по имени
-    private void filterNPC(String searchString) {
+    private void filterCharacters(String searchString) {
         int i = 0;
         boolean visible;
-        for (NPCInfo npcInfo : npcs) {
-            ImageView npcTile = npcInfo.getImage();
-            visible = (npcInfo.getImageId() == 0 || (npcInfo.getDesc().toLowerCase().contains(searchString.toLowerCase())) ||
-                    (npcInfo.getName().toLowerCase().contains(searchString.toLowerCase())));
+        for (CharacterInfo characterInfo : characters) {
+            ImageView npcTile = characterInfo.getImage();
+            visible = (characterInfo.getImageId() == 0 || (characterInfo.getDesc().toLowerCase().contains(searchString.toLowerCase())) ||
+                    (characterInfo.getName().toLowerCase().contains(searchString.toLowerCase())));
             npcTile.setVisible(visible);
             if (npcTile.isVisible()) {
                 npcTile.setX(5 + (i / 12) * (tileSize + 5));

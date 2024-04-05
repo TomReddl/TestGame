@@ -7,15 +7,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.robot.Robot;
+import javafx.util.Pair;
 import lombok.Getter;
 import model.editor.TileInfo;
 import model.editor.TileTypeEnum;
+import model.editor.items.BodyPartEnum;
 import model.entity.GameCalendar;
 import model.entity.GameModeEnum;
 import model.entity.battle.DamageTypeEnum;
 import model.entity.effects.EffectParams;
 import model.entity.map.*;
-import model.entity.player.Player;
+import model.entity.player.Character;
 import view.Editor;
 import view.Game;
 import view.SelectTimePanel;
@@ -67,8 +69,8 @@ public class MapController {
             if (tileX != Game.getXMapInfoPos() || tileY != Game.getYMapInfoPos()) {
                 MapController.showMapPointInfo(x, y, Editor.getMapInfoLabel());
 
-                Game.setXMapInfoPos(Game.getMap().getPlayer().getXMapPos() + (((int) x) / tileSize));
-                Game.setYMapInfoPos(Game.getMap().getPlayer().getYMapPos() + (((int) y) / tileSize));
+                Game.setXMapInfoPos(Game.getMap().getSelecterCharacter().getXMapPos() + (((int) x) / tileSize));
+                Game.setYMapInfoPos(Game.getMap().getSelecterCharacter().getYMapPos() + (((int) y) / tileSize));
             }
         }
     }
@@ -88,8 +90,8 @@ public class MapController {
                 MapController.drawTileOnMap(x, y,
                         isRightMouse, Editor.getCanvas());
 
-                Game.setXMapInfoPos(Game.getMap().getPlayer().getXMapPos() + (((int) x) / tileSize));
-                Game.setYMapInfoPos(Game.getMap().getPlayer().getYMapPos() + (((int) y) / tileSize));
+                Game.setXMapInfoPos(Game.getMap().getSelecterCharacter().getXMapPos() + (((int) x) / tileSize));
+                Game.setYMapInfoPos(Game.getMap().getSelecterCharacter().getYMapPos() + (((int) y) / tileSize));
             }
         }
     }
@@ -189,6 +191,7 @@ public class MapController {
 
     /**
      * Поджечь точку на карте, если она горит
+     *
      * @param mapCellInfo
      */
     public static void setFire(MapCellInfo mapCellInfo) {
@@ -281,7 +284,7 @@ public class MapController {
      * @param mapInfoLabel - лэйбл для показа подсказки
      */
     public static void showMapPointInfo(double x, double y, Label mapInfoLabel) {
-        var player = Game.getMap().getPlayer();
+        var player = Game.getMap().getSelecterCharacter();
         if (x < viewSize * tileSize && y < viewSize * tileSize && needShowPointInfo(x, y)) {
             int xPos = player.getXMapPos() + (((int) x) / tileSize);
             int yPos = player.getYMapPos() + (((int) y) / tileSize);
@@ -317,7 +320,7 @@ public class MapController {
         return Game.getGameMode().equals(GameModeEnum.EDITOR) ||
                 !Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.FOG) ||
                 (Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.FOG) &&
-                        tileDistance(Game.getMap().getPlayer(), (((int) x) / tileSize), (((int) y) / tileSize)) < Game.getMap().getCurrentWeather().getValue());
+                        tileDistance(Game.getMap().getSelecterCharacter(), (((int) x) / tileSize), (((int) y) / tileSize)) < Game.getMap().getCurrentWeather().getValue());
     }
 
     /**
@@ -332,7 +335,7 @@ public class MapController {
         if (Game.getGameMode().equals(GameModeEnum.EDITOR)) {
             var tileX = (((int) x) / tileSize);
             var tileY = (((int) y) / tileSize);
-            var player = Game.getMap().getPlayer();
+            var player = Game.getMap().getSelecterCharacter();
             MapCellInfo mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + tileX]
                     [player.getYMapPos() + tileY];
             switch (Editor.getSelectedType()) {
@@ -341,14 +344,15 @@ public class MapController {
                     mapCellInfo = getNewMapCellInfo(mapCellInfo, isRightMouse);
                     break;
                 }
-                case NPC: {
+                case CHARACTER: {
                     if (isRightMouse || Editor.getSelectTile() == 0) {
-                        mapCellInfo.setNpcId(null);
-                    } else if (mapCellInfo.getNpcId() == null) {
-                        Game.getMap().getNpcList().add(new NPC(Editor.getSelectTile(), Game.getMap().getNpcList().size(),
+                        mapCellInfo.setCharacterId(null);
+                    } else if (mapCellInfo.getCharacterId() == null) {
+                        Game.getMap().getCharacterList().add(new Character(Editor.getSelectTile(), Game.getMap().getCharacterList().size(),
                                 player.getXMapPos() + tileX,
-                                player.getYMapPos() + tileY));
-                        mapCellInfo.setNpcId(Game.getMap().getNpcList().get(Game.getMap().getNpcList().size() - 1).getId());
+                                player.getYMapPos() + tileY,
+                                player.getXMapPos(), player.getYMapPos()));
+                        mapCellInfo.setCharacterId(Game.getMap().getCharacterList().get(Game.getMap().getCharacterList().size() - 1).getId());
                     }
                     break;
                 }
@@ -365,10 +369,17 @@ public class MapController {
                     break;
                 }
                 case ITEM: {
-                    addItemOnMap(
-                            player.getXMapPos() + tileX,
-                            player.getYMapPos() + tileY,
-                            new Items(isRightMouse ? 0 : Editor.getSelectTile(), Game.isShiftPressed() ? 10 : 1));
+                    if (mapCellInfo.getCharacterId() != null) {
+                        // добавляем предмет в инвентарь персонажа
+                        Items addedItem = new Items(isRightMouse ? 0 : Editor.getSelectTile(), Game.isShiftPressed() ? 10 : 1);
+                        ItemsController.addItemToCharacter(addedItem, addedItem.getCount(), Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId()));
+                    } else {
+                        // добавляем предмет на карту
+                        addItemOnMap(
+                                player.getXMapPos() + tileX,
+                                player.getYMapPos() + tileY,
+                                new Items(isRightMouse ? 0 : Editor.getSelectTile(), Game.isShiftPressed() ? 10 : 1));
+                    }
                     break;
                 }
                 case POLLUTION: {
@@ -441,7 +452,7 @@ public class MapController {
                 Game.getMap().getTiles()[XPos][YPos].setTile1Id(getWallVariantId(XPos, YPos, "7"));
             }
         }
-        var player = Game.getMap().getPlayer();
+        var player = Game.getMap().getSelecterCharacter();
         drawTile(player, XPos - player.getXMapPos(), YPos - player.getYMapPos());
     }
 
@@ -584,7 +595,7 @@ public class MapController {
      * @param code - код нажатой кнопки
      */
     private static void onEditorKeyReleased(KeyCode code) {
-        var player = Game.getMap().getPlayer();
+        var player = Game.getMap().getSelecterCharacter();
         if (code == KeyCode.ESCAPE) {
             MainMenu.getPane().setVisible(false);
             Game.setGameMode(GameModeEnum.GAME_MENU);
@@ -597,7 +608,7 @@ public class MapController {
                     int x = ((int) (robot.getMousePosition().getX() - Game.getStage().getX()) / tileSize);
                     int y = ((int) (robot.getMousePosition().getY() - Game.getStage().getY() - headerSize) / tileSize);
                     MapCellInfo cellInfo = Game.getMap().getTiles()[xMapPos + x][yMapPos + y];
-                    if (cellInfo.getNpcId() != null) {
+                    if (cellInfo.getCharacterId() != null) {
                         Game.getEditor().getDialogPanel().showPanel("");
                     } else {
                         TileEditPanel.showPanel(cellInfo);
@@ -636,6 +647,7 @@ public class MapController {
 
     /**
      * Доступно ли взаимодействие с редактором по нажатию клавишь клавиатуры
+     *
      * @return
      */
     private static boolean editorPressButtonEnabled() {
@@ -649,7 +661,7 @@ public class MapController {
      * @param code - код нажатой кнопки
      */
     private static void onGameKeyReleased(KeyCode code) {
-        var player = Game.getMap().getPlayer();
+        var player = Game.getMap().getSelecterCharacter();
         Game.hideMessage();
         int xPos = player.getXPosition();
         int yPos = player.getYPosition();
@@ -726,15 +738,20 @@ public class MapController {
                     int y = ((int) (robot.getMousePosition().getY() - Game.getStage().getY() - headerSize) / tileSize);
                     if (isReachable(player, x, y)) {
                         var mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y];
-                        if (mapCellInfo.getNpcId() != null && Game.getMap().getNpcList().get(mapCellInfo.getNpcId()).isAlive()) {
-                            Game.getEditor().getGameDialogPanel().showPanel(mapCellInfo.getNpcId());
+                        if (mapCellInfo.getCharacterId() != null) {
+                            Character character = Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId());
+                            if (character.isAlive()) {
+                                Game.getEditor().getGameDialogPanel().showPanel(mapCellInfo.getCharacterId());
+                            } else {
+                                Game.getGameMenu().showContainerInventory(character.getInventory(), x, y, "character", character.getId());
+                            }
                         } else {
                             player.setInteractMapPoint(mapCellInfo);
                             List<Items> itemsList = mapCellInfo.getItems();
                             if (mapCellInfo.getCreatureId() != null) {
                                 Creature creature = Game.getMap().getCreaturesList().get(mapCellInfo.getCreatureId());
                                 if (!creature.isAlive()) {
-                                    Game.getGameMenu().showContainerInventory(creature.getInventory(), x, y, "creature");
+                                    Game.getGameMenu().showContainerInventory(creature.getInventory(), x, y, "creature", null);
                                 }
                             } else if (itemsList != null || mapCellInfo.getTile2Type().equals(TileTypeEnum.CONTAINER) || mapCellInfo.getTile2Type().equals(TileTypeEnum.MANNEQUIN)) {
                                 CharactersController.pickUpItems(itemsList, x, y);
@@ -760,14 +777,14 @@ public class MapController {
     /**
      * Проверка досягаемости точки на карте для персонажа
      *
-     * @param player - игрок, для которого проверяется досягаемость
+     * @param character - игрок, для которого проверяется досягаемость
      * @param x      - координата x точки
      * @param y      - координата x точки
      * @return true, если персонаж может дотянуться до точки
      */
-    public static boolean isReachable(Player player, double x, double y) {
-        return (Math.abs(player.getXPosition() - (player.getXMapPos() + x)) < 2) &&
-                (Math.abs(player.getYPosition() - (player.getYMapPos() + y)) < 2);
+    public static boolean isReachable(Character character, double x, double y) {
+        return (Math.abs(character.getXPosition() - (character.getXMapPos() + x)) < 2) &&
+                (Math.abs(character.getYPosition() - (character.getYMapPos() + y)) < 2);
     }
 
     private static void drawMapStart(double x, double y, boolean isRightMouse) {
@@ -802,7 +819,7 @@ public class MapController {
      * Отрисовать текущую область карты
      */
     public static void drawCurrentMap() {
-        var player = Game.getMap().getPlayer();
+        var player = Game.getMap().getSelecterCharacter();
         drawMap(player.getXMapPos(), player.getYMapPos());
     }
 
@@ -813,23 +830,23 @@ public class MapController {
      * @param YPos - координата y левого верхнего угла отрисовываемой области
      */
     public static void drawMap(int XPos, int YPos) {
-        Player player = Game.getMap().getPlayer();
-        if (CharactersController.isBlind(player)) { // если персонаж под действием эффекта "слепота"
-            drawBlindMap(player);
+        Character character = Game.getMap().getSelecterCharacter();
+        if (CharactersController.isBlind(character)) { // если персонаж под действием эффекта "слепота"
+            drawBlindMap(character);
         } else {
-            boolean[][] visiblyPoints = CharactersController.findVisibleMapPoints(Game.getMap().getPlayer());
+            boolean[][] visiblyPoints = CharactersController.findVisibleMapPoints(Game.getMap().getSelecterCharacter());
             for (int x = 0; x < viewSize; x++) {
                 for (int y = 0; y < viewSize; y++) {
                     drawBottomLayer(XPos, YPos, x, y, !Game.getGameMode().equals(GameModeEnum.GAME) || visiblyPoints[x][y]);
                 }
             }
 
-            for (int x = 0; x < viewSize; x++) { // NPC и существа рисуются в отдельном цикле, чтобы быть поверх уже отрисованной карты
+            for (int x = 0; x < viewSize; x++) { // персонажи и существа рисуются в отдельном цикле, чтобы быть поверх уже отрисованной карты
                 for (int y = 0; y < viewSize; y++) {
                     drawUpperLayer(XPos, YPos, x, y, !Game.getGameMode().equals(GameModeEnum.GAME) || visiblyPoints[x][y]);
                 }
             }
-            if (player.getAppliedEffects().stream().anyMatch(i -> i.getStrId().equals("LIFE_DETECTION"))) {
+            if (character.getAppliedEffects().stream().anyMatch(i -> i.getStrId().equals("LIFE_DETECTION"))) {
                 MapController.drawAlive();
             }
         }
@@ -837,9 +854,10 @@ public class MapController {
 
     /**
      * Отрисовать карту для персонажа под действием эффекта "слепота"
-     * @param player
+     *
+     * @param character
      */
-    private static void drawBlindMap(Player player) {
+    private static void drawBlindMap(Character character) {
         GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
         for (int x = 0; x < viewSize; x++) {
             for (int y = 0; y < viewSize; y++) {
@@ -847,8 +865,8 @@ public class MapController {
                         x * tileSize, y * tileSize);
                 if ((Game.getGameMode().equals(GameModeEnum.GAME) ||
                         Game.getGameMode().equals(GameModeEnum.GAME_MENU)) &&
-                        (player.getXViewPos() == x) && (player.getYViewPos() == y)) {
-                    MapController.drawTile(player, x, y);
+                        (character.getXViewPos() == x) && (character.getYViewPos() == y)) {
+                    MapController.drawTile(character, x, y);
                 }
             }
         }
@@ -857,14 +875,14 @@ public class MapController {
     /**
      * Нарисовать тайл
      *
-     * @param player -персонаж игрока
+     * @param character -персонаж игрока
      * @param x      -координата тайла по горизонтали
      * @param y      -координата тайла по вертикали
      */
-    public static void drawTile(Player player, int x, int y) {
+    public static void drawTile(Character character, int x, int y) {
         if (x > -1 && y > -1 && x < viewSize && y < viewSize) {
-            drawBottomLayer(player.getXMapPos(), player.getYMapPos(), x, y, true);
-            drawUpperLayer(player.getXMapPos(), player.getYMapPos(), x, y, true);
+            drawBottomLayer(character.getXMapPos(), character.getYMapPos(), x, y, true);
+            drawUpperLayer(character.getXMapPos(), character.getYMapPos(), x, y, true);
         }
     }
 
@@ -872,15 +890,15 @@ public class MapController {
      * Перерисовать тайл, на которой стоит персонаж
      */
     public static void drawPlayerTile() {
-        Player player = Game.getMap().getPlayer();
-        drawTile(player, player.getXViewPos(), player.getYViewPos());
+        Character character = Game.getMap().getSelecterCharacter();
+        drawTile(character, character.getXViewPos(), character.getYViewPos());
     }
 
     /**
      * Отрисовать руду при подстветке металлоискателем
      */
     public static void drawOres(int itemId) {
-        var player = Game.getMap().getPlayer();
+        var player = Game.getMap().getSelecterCharacter();
         GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
         for (int x = 0; x < viewSize; x++) {
             for (int y = 0; y < viewSize; y++) {
@@ -902,7 +920,7 @@ public class MapController {
      * Отрисовать пустоты при подстветке эхолокатором
      */
     public static void drawEmptiness() {
-        var player = Game.getMap().getPlayer();
+        var player = Game.getMap().getSelecterCharacter();
         GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
         for (int x = 0; x < viewSize; x++) {
             for (int y = 0; y < viewSize; y++) {
@@ -920,12 +938,12 @@ public class MapController {
      * Отрисовать подсветку живых существ, если на персонажа действует эффект "обнаружение жизни"
      */
     public static void drawAlive() {
-        var player = Game.getMap().getPlayer();
+        var player = Game.getMap().getSelecterCharacter();
         GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
         for (int x = 0; x < viewSize; x++) {
             for (int y = 0; y < viewSize; y++) {
                 MapCellInfo mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y];
-                if (mapCellInfo.getNpcId() != null && Game.getMap().getNpcList().get(mapCellInfo.getNpcId()).isAlive() ||
+                if (mapCellInfo.getCharacterId() != null && Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId()).isAlive() ||
                         mapCellInfo.getCreatureId() != null && Game.getMap().getCreaturesList().get(mapCellInfo.getCreatureId()).isAlive()) {
                     gc.drawImage(alive.getImage(),
                             x * tileSize, y * tileSize);
@@ -1001,10 +1019,10 @@ public class MapController {
                 if (mapCellInfo.getItems() != null) {
                     for (Items item : mapCellInfo.getItems()) {
                         var path = "/graphics/items/" + item.getTypeId() + "doll.png";
-                        var f = new File("/" + Player.class.getProtectionDomain().getCodeSource().getLocation().getPath() + path);
+                        var f = new File("/" + Character.class.getProtectionDomain().getCodeSource().getLocation().getPath() + path);
                         if (f.exists()) {
                             var image = new Image(path);
-                            gc.drawImage(image, x * tileSize, y * tileSize -(3 + (image.getHeight()-tileSize))); // спрайт манекена смещен на 3 пикселя вверх относительно спрайта персонажа и спрайтов всех надеваемых предметов
+                            gc.drawImage(image, x * tileSize, y * tileSize - (3 + (image.getHeight() - tileSize))); // спрайт манекена смещен на 3 пикселя вверх относительно спрайта персонажа и спрайтов всех надеваемых предметов
                         }
                     }
                 }
@@ -1014,8 +1032,8 @@ public class MapController {
 
     // отрисовка верхнего уровня тайла
     private static void drawUpperLayer(int Xpos, int YPos, int x, int y, boolean visibly) {
-        var player = Game.getMap().getPlayer();
-        List<NPC> npcList = Game.getMap().getNpcList();
+        var player = Game.getMap().getSelecterCharacter();
+        List<Character> characterList = Game.getMap().getCharacterList();
         List<Creature> creaturesList = Game.getMap().getCreaturesList();
         GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
         var mapCellInfo = Game.getMap().getTiles()[Xpos + x][YPos + y];
@@ -1024,10 +1042,22 @@ public class MapController {
 
         if (visibly) {
             // NPC
-            if (mapCellInfo.getNpcId() != null) {
-                gc.drawImage(Editor.getNpcs().get(npcList.get(
-                        mapCellInfo.getNpcId()).getNpcTypeId()).getImage().getImage(),
+            if (mapCellInfo.getCharacterId() != null) {
+                Character character = characterList.get(mapCellInfo.getCharacterId());
+                gc.drawImage(Editor.getCharacters().get(character.getCharacterTypeId()).getImage().getImage(),
                         x * tileSize, y * tileSize);
+
+                // отрисовываем надетые на персонажа вещи
+                for (Pair<BodyPartEnum, Items> bodyPart : character.getWearingItems()) {
+                    if (bodyPart.getValue() != null) {
+                        var path = "/graphics/items/" + bodyPart.getValue().getTypeId() + "doll.png";
+                        var f = new File("/" + Character.class.getProtectionDomain().getCodeSource().getLocation().getPath() + path);
+                        if (f.exists()) {
+                            var image = new Image(path);
+                            gc.drawImage(image, x * tileSize, y * tileSize);
+                        }
+                    }
+                }
             }
 
             // существа
@@ -1047,7 +1077,7 @@ public class MapController {
                 CharactersController.drawPlayerImage(player);
             }
 
-            // если у тайла есть верхний уровень или его высота больше размера тайла, рисуем его поверх персонажа или NPC
+            // если у тайла есть верхний уровень или его высота больше размера тайла, рисуем его поверх персонажей
             Image tile2Img = tileInfo2.getImage().getImage();
             if (tileInfo2.isTwoLayer() || (tile2Img.getHeight() > tileSize)) {
                 gc.drawImage(tile2Img, x * tileSize, y * tileSize - (tile2Img.getHeight() - tileSize));
@@ -1106,7 +1136,7 @@ public class MapController {
      */
     private static boolean showCreature(int creatureId) {
         boolean epiphany = false;
-        for (EffectParams effect : Game.getMap().getPlayer().getAppliedEffects()) {
+        for (EffectParams effect : Game.getMap().getSelecterCharacter().getAppliedEffects()) {
             if (effect.getStrId().equals("EPIPHANY")) {
                 epiphany = true;
                 break;
@@ -1115,8 +1145,8 @@ public class MapController {
         return Game.getGameMode().equals(GameModeEnum.EDITOR) || !CreaturesController.invisibleCreatures.contains(creatureId) || epiphany;
     }
 
-    public static int tileDistance(Player player, double x, double y) {
-        return (int) Math.round(Math.sqrt((Math.pow(player.getXPosition() - (player.getXMapPos() + x), 2)) +
-                (Math.pow(player.getYPosition() - (player.getYMapPos() + y), 2))));
+    public static int tileDistance(Character character, double x, double y) {
+        return (int) Math.round(Math.sqrt((Math.pow(character.getXPosition() - (character.getXMapPos() + x), 2)) +
+                (Math.pow(character.getYPosition() - (character.getYMapPos() + y), 2))));
     }
 }

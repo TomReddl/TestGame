@@ -6,7 +6,7 @@ import lombok.Setter;
 import java.io.Serializable;
 
 /**
- * Ответ персонажа на фразу NPC
+ * Ответ персонажа игрока на фразу неигрового персонажа
  */
 @Getter
 @Setter

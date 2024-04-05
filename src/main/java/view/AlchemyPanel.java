@@ -25,7 +25,7 @@ import model.editor.items.QualityGradationEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.effects.EffectParams;
 import model.entity.map.Items;
-import model.entity.player.Player;
+import model.entity.player.Character;
 import view.inventory.InventoryPanel;
 
 import java.util.*;
@@ -229,7 +229,7 @@ public class AlchemyPanel {
      * Сварить зелье
      */
     private void cookPotion() {
-        Player player = Game.getMap().getPlayer();
+        Character character = Game.getMap().getSelecterCharacter();
 
         Map<String, Integer> effectsMap = new HashMap<>();
         for (Items item : selectedIngredients) {
@@ -262,7 +262,7 @@ public class AlchemyPanel {
                         if (ingredient.getEffects().stream()
                                 .map(EffectParams::getStrId)
                                 .collect(Collectors.toList()).contains(key)) {
-                            List<String> effects = Game.getMap().getPlayer().getKnowledgeInfo().getKnowEffects().get(ingredient.getTypeId());
+                            List<String> effects = Game.getMap().getSelecterCharacter().getKnowledgeInfo().getKnowEffects().get(ingredient.getTypeId());
                             if (effects == null) {
                                 effects = new ArrayList<>();
                                 effects.add(key);
@@ -273,7 +273,7 @@ public class AlchemyPanel {
                                     newEffectExplored = true;
                                 }
                             }
-                            Game.getMap().getPlayer().getKnowledgeInfo().getKnowEffects().put(ingredient.getTypeId(), effects);
+                            Game.getMap().getSelecterCharacter().getKnowledgeInfo().getKnowEffects().put(ingredient.getTypeId(), effects);
                         }
                     }
                 }
@@ -282,19 +282,19 @@ public class AlchemyPanel {
         TimeController.tic(timeToCook); // варка зелья занимает время
 
         // проверяем, на месте ли наш стол, а то за время варки зелья он мог сгореть
-        String tileType = player.getInteractMapPoint().getTile2Info().getType();
+        String tileType = character.getInteractMapPoint().getTile2Info().getType();
         if (tileType == null || !TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.ALCHEMY_TABLE)) {
-            Game.showMessage(player.getInteractMapPoint().getTile2Info().getName() + Game.getText("DESTROYED"));
+            Game.showMessage(character.getInteractMapPoint().getTile2Info().getName() + Game.getText("DESTROYED"));
             closePanel();
         } else {
             if (potionCreate) {
-                ItemsController.deleteItem(selectedBottle, 1, player.getInventory(), player);
+                ItemsController.deleteItem(selectedBottle, 1, character.getInventory(), character);
                 Items potion = new Items(13, 1);
                 potion.setEffects(effectParams);
                 potion.setPrice(price);
                 setEffectsText();
                 potion.setName(potionNameEdit.getText() + " (" + quality.getName() + ")"); // к названию предмета приписываем его качество
-                ItemsController.addItem(potion, player.getInventory(), player);
+                ItemsController.addItem(potion, character.getInventory(), character);
 
                 Game.showMessage(newEffectExplored ?
                                 Game.getText("POTION_CRAFTED") + ". " + Game.getText("NEW_EFFECT_EXPLORED") :
@@ -307,11 +307,11 @@ public class AlchemyPanel {
             CharactersController.addSkillExp("POTIONS", expPoints);
 
             // удаляем потраченные предметы в любом случае, даже, если зелье не получилось.
-            ItemsController.deleteItem(selectedIngredients.get(0), 1, player.getInventory(), player);
-            ItemsController.deleteItem(selectedIngredients.get(1), 1, player.getInventory(), player);
-            ItemsController.deleteItem(selectedIngredients.get(2), 1, player.getInventory(), player);
-            ItemsController.deleteItem(selectedIngredients.get(3), 1, player.getInventory(), player);
-            ItemsController.deleteItem(selectedIngredients.get(4), 1, player.getInventory(), player);
+            ItemsController.deleteItem(selectedIngredients.get(0), 1, character.getInventory(), character);
+            ItemsController.deleteItem(selectedIngredients.get(1), 1, character.getInventory(), character);
+            ItemsController.deleteItem(selectedIngredients.get(2), 1, character.getInventory(), character);
+            ItemsController.deleteItem(selectedIngredients.get(3), 1, character.getInventory(), character);
+            ItemsController.deleteItem(selectedIngredients.get(4), 1, character.getInventory(), character);
 
             for (int i = 0; i < 5; i++) {
                 selectedIngredientsCount.get(i).setText(String.valueOf(selectedIngredients.get(i).getCount()));
@@ -346,7 +346,7 @@ public class AlchemyPanel {
         potionEffectsLabel.setText("");
         potionNameEdit.setText("");
         cookButton.setDisable(true);
-        Game.getMap().getPlayer().setInteractMapPoint(null);
+        Game.getMap().getSelecterCharacter().setInteractMapPoint(null);
     }
 
     private void addIngredient(int index, boolean isRightMouse) {
@@ -390,7 +390,7 @@ public class AlchemyPanel {
         ingredientBackgroundsImages.get(4).setVisible(level > 2); // пятый ингредиент можно добавлять начиная с 3 уровня стола
         ingredientImages.get(4).setVisible(level > 2);
 
-        selectedBottle = ItemsController.findItemInInventory(bottleOfWaterId, Game.getMap().getPlayer().getInventory());
+        selectedBottle = ItemsController.findItemInInventory(bottleOfWaterId, Game.getMap().getSelecterCharacter().getInventory());
         if (selectedBottle != null) {
             bottleImage.setImage(selectedBottle.getInfo().getIcon().getImage());
             selectedBottlesCount.setText(String.valueOf(selectedBottle.getCount()));
@@ -403,7 +403,7 @@ public class AlchemyPanel {
     public void setCookButtonDisabled() {
         cookButton.setDisable(!canCook());
 
-        quality = ItemsController.getQuality(Game.getMap().getPlayer().getParams().getSkills().get("POTIONS"));
+        quality = ItemsController.getQuality(Game.getMap().getSelecterCharacter().getParams().getSkills().get("POTIONS"));
         durability = (int) (1 + 5 * quality.getQualityLevel()) + random.nextInt(5);
         power = (int) (1 + 5 * quality.getQualityLevel()) + random.nextInt(5);
     }
@@ -427,7 +427,7 @@ public class AlchemyPanel {
      */
     public void setEffectsText() {
         Map<String, Integer> effectsMap = new HashMap<>();
-        var knowEffects = Game.getMap().getPlayer().getKnowledgeInfo().getKnowEffects();
+        var knowEffects = Game.getMap().getSelecterCharacter().getKnowledgeInfo().getKnowEffects();
         for (Items item : selectedIngredients) {
             if (item.getTypeId() != 0 && item.getEffects() != null) {
                 for (String effect : item.getEffects().stream()

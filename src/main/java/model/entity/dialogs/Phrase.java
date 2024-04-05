@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Фраза NPC в диалоге
+ * Фраза неигрового персонажа в диалоге
  */
 @Getter
 @Setter

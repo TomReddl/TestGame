@@ -129,6 +129,6 @@ public class ItemRecord {
 
         pane.setOnMouseEntered(event -> ItemDetailPanel.showDetailPanel(items, pane.getLayoutY()));
         pane.setOnMouseExited(event -> ItemDetailPanel.hideDetailPanel());
-        pane.setOnMouseClicked(event -> ItemsController.clickItem(items, Game.getMap().getPlayer()));
+        pane.setOnMouseClicked(event -> ItemsController.clickItem(items, Game.getMap().getSelecterCharacter()));
     }
 }
