@@ -3402,5 +3402,12 @@
     "strength": 300,
     "passability": false,
     "visibly": true
+  },
+  {
+    "id": 356,
+    "strength": 200,
+    "passability": false,
+    "visibly": true,
+    "burn": true
   }
 ]
