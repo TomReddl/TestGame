@@ -1745,5 +1745,26 @@
     "params": {
       "inlayerSize": "SMALL"
     }
+  },
+  {
+    "id": 339,
+    "weight": "720",
+    "volume": "2400",
+    "price": "2400",
+    "stackable": false,
+    "armor": 19,
+    "maxStrength": 170,
+    "skill": "HEAVY_ARMOR",
+    "bodyPart": "TORSO",
+    "covering": 20,
+    "style": "NOBLEMAN",
+    "gender": "UNISEX",
+    "types": ["CLOTHES", "TREASURE"],
+    "effects": [
+      {
+        "strId": "HEALTH_RESTORE",
+        "power": "4"
+      }
+    ]
   }
 ]

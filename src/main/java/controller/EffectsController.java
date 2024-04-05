@@ -182,16 +182,16 @@ public class EffectsController {
     public static void executeEffects(Character character) {
         List<EffectParams> removedEffects = new ArrayList<>();
         for (EffectParams effect : character.getAppliedEffects()) {
-            if (effect.getBaseItem().getInfo().getTypes().contains(ItemTypeEnum.POTION)) {
-                if (effect.getDurability() < 0) {
+                if (effect.getDurability() != null && effect.getDurability() < 0) {
                     removedEffects.add(effect);
                     Game.getParams().refreshParamsValueViews(); // перерисовывает параметры персонажа
                     Game.getEffectsPanel().refreshEffectsPanel();
                 } else {
                     executeEffect(character, effect, false);
-                    effect.setDurability(effect.getDurability() - 1);
+                    if (effect.getDurability() != null) {
+                        effect.setDurability(effect.getDurability() - 1);
+                    }
                 }
-            }
         }
         removedEffects.forEach(effect -> removeEffect(character, effect));
     }
@@ -206,9 +206,11 @@ public class EffectsController {
     private static void executeEffect(Character character, EffectParams effect, boolean isFirstTime) {
         switch (effect.getStrId()) {
             case "HEALTH_RESTORE": {
-                character.getParams().getIndicators().get(0).setCurrentValue(
-                        character.getParams().getIndicators().get(0).getCurrentValue() + effect.getPower()
-                );
+                if (character.getParams().getIndicators().get(0).getCurrentValue() < character.getParams().getIndicators().get(0).getMaxValue()) {
+                    character.getParams().getIndicators().get(0).setCurrentValue(
+                            character.getParams().getIndicators().get(0).getCurrentValue() + effect.getPower()
+                    );
+                }
                 break;
             }
             // увеличение характеристик
