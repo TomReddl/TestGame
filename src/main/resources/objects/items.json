@@ -963,7 +963,7 @@
     "price": "800",
     "stackable": false,
     "maxStrength": 100,
-    "types": ["METAL_DETECTOR", "TOOL"]
+    "types": ["METAL_DETECTOR", "TOOL", "TREASURE"]
   },
   {
     "id": 174,
@@ -972,7 +972,7 @@
     "price": "200",
     "stackable": false,
     "maxStrength": 100,
-    "types": ["ECHOLOCATOR", "TOOL"]
+    "types": ["ECHOLOCATOR", "TOOL", "TREASURE"]
   },
   {
     "id": 175,
@@ -2126,7 +2126,7 @@
     "price": "4000",
     "stackable": true,
     "types": [
-      "ENCHANTMENT"
+      "ENCHANTMENT", "TREASURE"
     ],
     "effects": [
       {
@@ -2144,7 +2144,7 @@
     "price": "5000",
     "stackable": true,
     "types": [
-      "ENCHANTMENT"
+      "ENCHANTMENT", "TREASURE"
     ],
     "effects": [
       {

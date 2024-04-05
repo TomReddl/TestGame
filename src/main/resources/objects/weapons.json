@@ -65,7 +65,7 @@
     "skill": "HEAVY_WEAPON",
     "damageType": "CUTTING_DAMAGE",
     "oneHand": true,
-    "types": ["WEAPON"]
+    "types": ["WEAPON", "TREASURE"]
   },
   {
     "id": 67,
@@ -326,7 +326,7 @@
     "damageType": "CUTTING_DAMAGE",
     "skill": "HEAVY_WEAPON",
     "oneHand": false,
-    "types": ["WEAPON"],
+    "types": ["WEAPON", "TREASURE"],
     "effects": [
       {
         "strId": "MOLD_STRIKE"

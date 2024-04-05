@@ -551,7 +551,7 @@
     "covering": 5,
     "style": "NALHAIM",
     "gender": "UNISEX",
-    "types": ["CLOTHES"],
+    "types": ["CLOTHES", "TREASURE"],
     "effects": [
       {
         "strId": "LIFE_DETECTION"
