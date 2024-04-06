@@ -1,5 +1,6 @@
 package view;
 
+import controller.CharactersController;
 import controller.MapController;
 import controller.utils.JsonUtils;
 import javafx.scene.Group;
@@ -11,7 +12,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.util.Pair;
 import lombok.Getter;
 import lombok.Setter;
 import model.editor.*;
@@ -25,9 +25,7 @@ import view.dialog.DialogPanel;
 import view.dialog.GameDialogPanel;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static game.GameParams.*;
 
@@ -169,6 +167,7 @@ public class Editor {
         loadMapImage.setOnMousePressed(event -> {
             Game.setMap(JsonUtils.loadMap(mapNameTextField.getText()));
             MapController.drawCurrentMap();
+            CharactersController.setPlayerStartParams(Game.getMap().getSelecterCharacter());
         });
         buttonsPane.getChildren().add(loadMapImage);
 
@@ -599,7 +598,9 @@ public class Editor {
 
     // установить текущую погоду
     private void setWeather(WeatherEnum selected) {
-        Game.getMap().setCurrentWeather(new Pair(selected, 6));
+        Map<WeatherEnum, Integer> weather = new HashMap<>();
+        weather.put(selected, 6);
+        Game.getMap().setCurrentWeather(weather);
     }
 
     // Получить доступные для текущей карты погоды
@@ -615,7 +616,7 @@ public class Editor {
         } else {
             Game.getMap().getAccessibleWeathers().remove(WeatherEnum.valueOf(checkBoxId));
         }
-        WeatherEnum currentWeather = Game.getMap().getCurrentWeather().getKey();
+        WeatherEnum currentWeather = Game.getMap().getCurrentWeather().keySet().iterator().next();
         weatherCB.getItems().clear();
         weatherCB.getItems().addAll(getAccessibleWeathers());
         if (weatherCB.getItems().contains(currentWeather)) {

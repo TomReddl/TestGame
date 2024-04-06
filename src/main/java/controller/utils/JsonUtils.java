@@ -143,8 +143,7 @@ public class JsonUtils {
     public static WorldMap loadMap(String mapName) {
         try {
             var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "world/" + mapName + ".json";
-            return objectMapper.readValue(new File(path), new TypeReference<>() {
-            });
+            return objectMapper.readValue(new File(path), new TypeReference<>() {});
         } catch (Exception ex) {
             throw new RuntimeException("can not read map, cause=%s" + ex.getMessage());
         }

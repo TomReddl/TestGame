@@ -1,5 +1,6 @@
 package model.entity.map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -86,6 +87,7 @@ public class Items {
         comparators.put(InventoryPanel.SortType.PRICE, compareByPrice);
     }
 
+    @JsonIgnore
     public ItemInfo getInfo() {
         return Editor.getItems().get(getTypeId());
     }

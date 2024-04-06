@@ -62,13 +62,13 @@ public class TimeController {
         Integer pollutionId = playerMapCell.getPollutionId();
         if (pollutionId >= 13 && pollutionId <= 15) {
             // Если персонаж стоит на кислотном загрязнении без обуви, урон кислотой наносится ему каждый ход
-            if (character.getWearingItems().get(BodyPartEnum.SHOES.ordinal()).getValue() == null) {
+            if (character.getWearingItems().get(BodyPartEnum.SHOES.ordinal()).values().iterator().next() == null) {
                 BattleController.applyDamageToCharacter((pollutionId - 12) * baseAcidPollutionDamage, DamageTypeEnum.ACID_DAMAGE, character);
             }
         }
 
-        if (Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.ACID_RAIN)) {
-            Items itemInRightHand = character.getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).getValue();
+        if (Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.ACID_RAIN)) {
+            Items itemInRightHand = character.getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).values().iterator().next();
             if (!itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.UMBRELLA)) {
                 // Если идет кислотный дождь и у персонажа нет зонта в руке, кислота наносит урон персонажу
                 BattleController.applyDamageToCharacter(baseAcidRainDamage, DamageTypeEnum.FIRE_DAMAGE, character);

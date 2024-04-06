@@ -70,7 +70,7 @@ public class CharactersController {
         if (MapController.isReachable(player, tileX, tileY)) {
             MapCellInfo mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + tileX]
                     [player.getYMapPos() + tileY];
-            var itemInRightHand = player.getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).getValue();
+            var itemInRightHand = player.getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).values().iterator().next();
 
             if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.TOOL)) { //если в руках инструмент
                 if (itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.WATERING_CAN)) { // если в руках лейка
@@ -427,7 +427,7 @@ public class CharactersController {
         if (tile1Info.getType() != null) {
             switch (TileTypeEnum.valueOf(tile1Info.getType())) {
                 case WATER: {
-                    var itemInRightHand = player.getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).getValue();
+                    var itemInRightHand = player.getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).values().iterator().next();
                     if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.BOTTLE)) {
                         ItemsController.deleteItem(itemInRightHand, 1, player.getInventory(), player);
                         Items bottleOfWater = new Items(117, 1);
@@ -785,9 +785,10 @@ public class CharactersController {
             drawImg(character, image, isLeft);
         }
 
-        for (Pair<BodyPartEnum, Items> bodyPart : character.getWearingItems()) {
-            if (bodyPart.getValue() != null) {
-                var path = "/graphics/items/" + bodyPart.getValue().getTypeId() + "doll.png";
+        for (Map<BodyPartEnum, Items> bodyPart : character.getWearingItems()) {
+            Items items = bodyPart.values().iterator().next();
+            if (items != null) {
+                var path = "/graphics/items/" + items.getTypeId() + "doll.png";
                 var f = new File("/" + Character.class.getProtectionDomain().getCodeSource().getLocation().getPath() + path);
                 if (f.exists()) {
                     var image = new Image(path);

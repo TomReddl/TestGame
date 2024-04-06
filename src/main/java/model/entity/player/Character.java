@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import controller.ItemsController;
 import controller.utils.generation.CharacterGenerator;
 import javafx.scene.image.ImageView;
-import javafx.util.Pair;
 import lombok.Getter;
 import lombok.Setter;
 import model.editor.items.BodyPartEnum;
@@ -21,6 +20,7 @@ import view.Game;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -75,7 +75,7 @@ public class Character implements Serializable {
 
     @JsonProperty("inventory")
     private List<Items> inventory = new ArrayList<>(); // предметы в инвентаре персонажа
-    private List<Pair<BodyPartEnum, Items>> wearingItems = new ArrayList<>(); // надетые предметы
+    private List<Map<BodyPartEnum, Items>> wearingItems = new ArrayList<>(); // надетые предметы
 
     @JsonProperty("appliedEffects")
     private List<EffectParams> appliedEffects; // примененные эффекты
@@ -103,6 +103,16 @@ public class Character implements Serializable {
 
     private boolean isActiveCharacter; // признак персонажа, которым в данный момент управляет игрок
 
+    public Character() {
+        image = new ImageView("/graphics/characters/32.png");
+        image.setVisible(false);
+        for (BodyPartEnum partEnum : BodyPartEnum.values()) {
+            Map<BodyPartEnum, Items> map = new HashMap();
+            map.put(partEnum, null);
+            wearingItems.add(map);
+        }
+    }
+
     public Character(int characterTypeId, int id, int xPosition, int yPosition, int xPos, int yPos) {
         this.characterTypeId = characterTypeId;
         this.id = id;
@@ -121,7 +131,9 @@ public class Character implements Serializable {
         this.name = CharacterGenerator.generateName(characterTypeId);
 
         for (BodyPartEnum partEnum : BodyPartEnum.values()) {
-            wearingItems.add(new Pair<>(partEnum, null));
+            Map<BodyPartEnum, Items> map = new HashMap();
+            map.put(partEnum, null);
+            wearingItems.add(map);
         }
 
         Map<String, String> items = Editor.getCharacters().get(characterTypeId).getItems();
@@ -139,6 +151,7 @@ public class Character implements Serializable {
      * Получить существо, с которым взаимодействует персонаж
      * @return
      */
+    @JsonIgnore
     public Creature getInteractCreature() {
         if (interactMapPoint != null && interactMapPoint.getCreatureId() != null) {
             return Game.getMap().getCreaturesList().get(interactMapPoint.getCreatureId());

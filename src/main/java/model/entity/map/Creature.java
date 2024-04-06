@@ -1,5 +1,6 @@
 package model.entity.map;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,6 +46,7 @@ public class Creature implements Serializable {
         this.inventory = new ArrayList<>();
     }
 
+    @JsonIgnore
     public CreatureInfo getInfo() {
         return Editor.getCreatures().get(creatureTypeId);
     }

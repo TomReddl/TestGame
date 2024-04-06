@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.robot.Robot;
-import javafx.util.Pair;
 import lombok.Getter;
 import model.editor.TileInfo;
 import model.editor.TileTypeEnum;
@@ -29,6 +28,7 @@ import view.menu.MainMenu;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static controller.BattleController.baseFireDamage;
 import static game.GameParams.*;
@@ -318,9 +318,9 @@ public class MapController {
     // Нужно ли отображать информацию о точке на карте
     private static boolean needShowPointInfo(double x, double y) {
         return Game.getGameMode().equals(GameModeEnum.EDITOR) ||
-                !Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.FOG) ||
-                (Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.FOG) &&
-                        tileDistance(Game.getMap().getSelecterCharacter(), (((int) x) / tileSize), (((int) y) / tileSize)) < Game.getMap().getCurrentWeather().getValue());
+                !Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.FOG) ||
+                (Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.FOG) &&
+                        tileDistance(Game.getMap().getSelecterCharacter(), (((int) x) / tileSize), (((int) y) / tileSize)) < Game.getMap().getCurrentWeather().values().iterator().next());
     }
 
     /**
@@ -1048,9 +1048,10 @@ public class MapController {
                         x * tileSize, y * tileSize);
 
                 // отрисовываем надетые на персонажа вещи
-                for (Pair<BodyPartEnum, Items> bodyPart : character.getWearingItems()) {
-                    if (bodyPart.getValue() != null) {
-                        var path = "/graphics/items/" + bodyPart.getValue().getTypeId() + "doll.png";
+                for (Map<BodyPartEnum, Items> bodyPart : character.getWearingItems()) {
+                    Items items = bodyPart.values().iterator().next();
+                    if (items != null) {
+                        var path = "/graphics/items/" + items.getTypeId() + "doll.png";
                         var f = new File("/" + Character.class.getProtectionDomain().getCodeSource().getLocation().getPath() + path);
                         if (f.exists()) {
                             var image = new Image(path);
@@ -1090,26 +1091,26 @@ public class MapController {
             }
 
             // погодные эффекты рисуем только в режиме игры
-            if (Game.getGameMode().equals(GameModeEnum.GAME) && !Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.CLEAR)) {
-                if (Game.getMap().getCurrentWeather().getKey().equals(WeatherEnum.FOG)) {
-                    if (tileDistance(player, x, y) >= Game.getMap().getCurrentWeather().getValue()) { // рисуем сплошной туман
-                        gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage1(),
+            if (Game.getGameMode().equals(GameModeEnum.GAME) && !Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.CLEAR)) {
+                if (Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.FOG)) {
+                    if (tileDistance(player, x, y) >= Game.getMap().getCurrentWeather().values().iterator().next()) { // рисуем сплошной туман
+                        gc.drawImage(Game.getMap().getCurrentWeather().keySet().iterator().next().getImage1(),
                                 x * tileSize, y * tileSize);
                     }
-                    if (tileDistance(player, x, y) == Game.getMap().getCurrentWeather().getValue() - 1) { // рисуем полупрозрачный туман
-                        gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage2(),
+                    if (tileDistance(player, x, y) == Game.getMap().getCurrentWeather().values().iterator().next() - 1) { // рисуем полупрозрачный туман
+                        gc.drawImage(Game.getMap().getCurrentWeather().keySet().iterator().next().getImage2(),
                                 x * tileSize, y * tileSize);
                     }
-                    if (tileDistance(player, x, y) == Game.getMap().getCurrentWeather().getValue() - 2) { // и рисуем едва видимую дымку
-                        gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage3(),
+                    if (tileDistance(player, x, y) == Game.getMap().getCurrentWeather().values().iterator().next() - 2) { // и рисуем едва видимую дымку
+                        gc.drawImage(Game.getMap().getCurrentWeather().keySet().iterator().next().getImage3(),
                                 x * tileSize, y * tileSize);
                     }
                 } else {
                     if (GameCalendar.getCurrentDate().getTic() % 2 == 0) {
-                        gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage1(),
+                        gc.drawImage(Game.getMap().getCurrentWeather().keySet().iterator().next().getImage1(),
                                 x * tileSize, y * tileSize);
                     } else {
-                        gc.drawImage(Game.getMap().getCurrentWeather().getKey().getImage2(),
+                        gc.drawImage(Game.getMap().getCurrentWeather().keySet().iterator().next().getImage2(),
                                 x * tileSize, y * tileSize);
                     }
                 }

@@ -1,7 +1,6 @@
 package controller;
 
 import javafx.scene.paint.Color;
-import javafx.util.Pair;
 import lombok.Getter;
 import model.editor.TileTypeEnum;
 import model.editor.items.*;
@@ -19,9 +18,7 @@ import view.menu.GameMenuPanel;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -255,7 +252,7 @@ public class ItemsController {
      * Разделать тушу существа
      */
     public static void butcheringCreature() {
-        Items itemInRightHand = Game.getMap().getSelecterCharacter().getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).getValue();
+        Items itemInRightHand = Game.getMap().getSelecterCharacter().getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).values().iterator().next();
         if (itemInRightHand != null && ((WeaponInfo) itemInRightHand.getInfo()).getDamageType().equals(DamageTypeEnum.CUTTING_DAMAGE.name())) {
             Creature creature = Game.getMap().getSelecterCharacter().getInteractCreature();
             if (creature != null && !creature.isAlive() && creature.getInfo().getOrgans() != null) {
@@ -401,7 +398,7 @@ public class ItemsController {
      * @param character   - персонаж
      * @return true, если в инвентаре персонажа достаточно объема, чтобы экипировать/снять предмет
      */
-    private static Boolean canEquipItem(Items item, Pair<BodyPartEnum, Items> bodyPart, Character character) {
+    private static Boolean canEquipItem(Items item, Map<BodyPartEnum, Items> bodyPart, Character character) {
         var itemVolume = BigDecimal.valueOf(item.getInfo().getVolume()).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
         var itemAddVolume = BigDecimal.ZERO;
 
@@ -412,11 +409,13 @@ public class ItemsController {
                 ((ClothesInfo) item.getInfo()).getBodyPart().equals(BodyPartEnum.BELT.name())) {
             itemAddVolume = BigDecimal.valueOf(Long.parseLong(item.getInfo().getParams().get("addVolume"))).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
         }
-        if (bodyPart.getValue() != null) {
+        Items items = bodyPart.values().iterator().next();
+        if (items != null) {
             equipItemVolume = BigDecimal.valueOf(item.getInfo().getVolume()).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
-            if (bodyPart.getKey().equals(BodyPartEnum.BACKPACK) ||
-                    bodyPart.getKey().equals(BodyPartEnum.BELT)) {
-                equipItemAddVolume = BigDecimal.valueOf(Long.parseLong(bodyPart.getValue().getInfo().getParams().get("addVolume"))).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
+            BodyPartEnum bodyPartEnum = bodyPart.keySet().iterator().next();
+            if (bodyPartEnum.equals(BodyPartEnum.BACKPACK) ||
+                    bodyPartEnum.equals(BodyPartEnum.BELT)) {
+                equipItemAddVolume = BigDecimal.valueOf(Long.parseLong(items.getInfo().getParams().get("addVolume"))).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
             }
         }
 
@@ -728,11 +727,13 @@ public class ItemsController {
      * @return true, если удалось экипировать/снять предмет
      */
     public static boolean equipItem(Items wearingItem, Character character) {
-        List<Pair<BodyPartEnum, Items>> wearingItems = character.getWearingItems();
+        List<Map<BodyPartEnum, Items>> wearingItems = character.getWearingItems();
         if (wearingItem.getCurrentStrength() > 0) {
             if (wearingItem.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES)) {
                 var index = BodyPartEnum.valueOf(((ClothesInfo) wearingItem.getInfo()).getBodyPart()).ordinal();
                 var bodyPart = wearingItems.get(index);
+                Items items = bodyPart.values().iterator().next();
+                BodyPartEnum bodyPartEnum = bodyPart.keySet().iterator().next();
                 if (canEquipItem(wearingItem, bodyPart, character)) {
                     wearingItem.setEquipment(!wearingItem.isEquipment());
                     if (wearingItem.isEquipment()) {
@@ -741,14 +742,18 @@ public class ItemsController {
                         EffectsController.removeEffects(wearingItem, character);
                     }
 
-                    if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {
-                        wearingItems.set(index, new Pair<>(bodyPart.getKey(), null));
+                    if (items != null && items.equals(wearingItem)) {
+                        Map<BodyPartEnum, Items> itemsMap = new HashMap<>();
+                        itemsMap.put(bodyPartEnum, null);
+                        wearingItems.set(index, itemsMap);
                     } else {
-                        if (bodyPart.getValue() != null) {
-                            bodyPart.getValue().setEquipment(false);
-                            EffectsController.removeEffects(bodyPart.getValue(), character);
+                        if (items != null) {
+                            items.setEquipment(false);
+                            EffectsController.removeEffects(items, character);
                         }
-                        wearingItems.set(index, new Pair<>(bodyPart.getKey(), wearingItem));
+                        Map<BodyPartEnum, Items> itemsMap = new HashMap<>();
+                        itemsMap.put(bodyPartEnum, wearingItem);
+                        wearingItems.set(index, itemsMap);
                     }
                 } else {
                     if (character.isActiveCharacter()) {
@@ -766,29 +771,42 @@ public class ItemsController {
                 }
 
                 var bodyPart = wearingItems.get(BodyPartEnum.RIGHT_ARM.ordinal());
-                if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {
-                    wearingItems.set(BodyPartEnum.RIGHT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), null));
+                Items items = bodyPart.values().iterator().next();
+                BodyPartEnum bodyPartEnum = bodyPart.keySet().iterator().next();
+                if (items != null && items.equals(wearingItem)) {
+                    Map<BodyPartEnum, Items> itemsMap = new HashMap<>();
+                    itemsMap.put(bodyPartEnum, null);
+                    wearingItems.set(BodyPartEnum.RIGHT_ARM.ordinal(), itemsMap);
                 } else {
-                    if (bodyPart.getValue() != null) {
-                        bodyPart.getValue().setEquipment(false);
-                        EffectsController.removeEffects(bodyPart.getValue(), character);
+                    if (items != null) {
+                        items.setEquipment(false);
+                        EffectsController.removeEffects(items, character);
                     }
-                    wearingItems.set(BodyPartEnum.RIGHT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), wearingItem));
+                    Map<BodyPartEnum, Items> itemsMap = new HashMap<>();
+                    itemsMap.put(bodyPartEnum, wearingItem);
+                    wearingItems.set(BodyPartEnum.RIGHT_ARM.ordinal(), itemsMap);
                 }
 
                 bodyPart = wearingItems.get(BodyPartEnum.LEFT_ARM.ordinal());
-                if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {
-                    wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), null));
+                items = bodyPart.values().iterator().next();
+                if (items!= null && items.equals(wearingItem)) {
+                    Map<BodyPartEnum, Items> itemsMap = new HashMap<>();
+                    itemsMap.put(bodyPartEnum, null);
+                    wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), itemsMap);
                 } else {
-                    if (bodyPart.getValue() != null) {
-                        if (!((WeaponInfo) bodyPart.getValue().getInfo()).getOneHand()) {
-                            bodyPart.getValue().setEquipment(false);
-                            EffectsController.removeEffects(bodyPart.getValue(), character);
+                    if (items != null) {
+                        if (!((WeaponInfo) items.getInfo()).getOneHand()) {
+                            items.setEquipment(false);
+                            EffectsController.removeEffects(items, character);
                         }
                         if (!weapon.getOneHand()) {
-                            wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), wearingItem));
+                            Map<BodyPartEnum, Items> itemsMap = new HashMap<>();
+                            itemsMap.put(bodyPartEnum, wearingItem);
+                            wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), itemsMap);
                         } else {
-                            wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), null));
+                            Map<BodyPartEnum, Items> itemsMap = new HashMap<>();
+                            itemsMap.put(bodyPartEnum, null);
+                            wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), itemsMap);
                         }
                     }
                 }
@@ -798,24 +816,36 @@ public class ItemsController {
                     wearingItem.getInfo().getTypes().contains(ItemTypeEnum.EXPLOSIVES)) {
                 wearingItem.setEquipment(!wearingItem.isEquipment());
                 var bodyPart = wearingItems.get(BodyPartEnum.RIGHT_ARM.ordinal());
-                if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {
-                    wearingItems.set(BodyPartEnum.RIGHT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), null));
+                Items items = bodyPart.values().iterator().next();
+                BodyPartEnum bodyPartEnum = bodyPart.keySet().iterator().next();
+                if (items != null && items.equals(wearingItem)) {
+                    Map<BodyPartEnum, Items> itemsMap = new HashMap<>();
+                    itemsMap.put(bodyPartEnum, null);
+                    wearingItems.set(BodyPartEnum.RIGHT_ARM.ordinal(), itemsMap);
                 } else {
-                    if (bodyPart.getValue() != null) {
-                        bodyPart.getValue().setEquipment(false);
+                    if (items != null) {
+                        items.setEquipment(false);
                     }
-                    wearingItems.set(BodyPartEnum.RIGHT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), wearingItem));
+                    Map<BodyPartEnum, Items> itemsMap = new HashMap<>();
+                    itemsMap.put(bodyPartEnum, wearingItem);
+                    wearingItems.set(BodyPartEnum.RIGHT_ARM.ordinal(), itemsMap);
                 }
 
                 bodyPart = wearingItems.get(BodyPartEnum.LEFT_ARM.ordinal());
-                if (bodyPart.getValue() != null && bodyPart.getValue().equals(wearingItem)) {
-                    wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), null));
+                items = bodyPart.values().iterator().next();
+                bodyPartEnum = bodyPart.keySet().iterator().next();
+                if (items != null && items.equals(wearingItem)) {
+                    Map<BodyPartEnum, Items> itemsMap = new HashMap<>();
+                    itemsMap.put(bodyPartEnum, null);
+                    wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), itemsMap);
                 } else {
-                    if (bodyPart.getValue() != null) {
-                        if (!((WeaponInfo) bodyPart.getValue().getInfo()).getOneHand()) {
-                            bodyPart.getValue().setEquipment(false);
+                    if (items != null) {
+                        if (!((WeaponInfo) items.getInfo()).getOneHand()) {
+                            items.setEquipment(false);
                         }
-                        wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), new Pair<>(bodyPart.getKey(), null));
+                        Map<BodyPartEnum, Items> itemsMap = new HashMap<>();
+                        itemsMap.put(bodyPartEnum, null);
+                        wearingItems.set(BodyPartEnum.LEFT_ARM.ordinal(), itemsMap);
                     }
                 }
             }
@@ -897,8 +927,8 @@ public class ItemsController {
      * @return максимальный переносимый персонажем объем предметов
      */
     public static BigDecimal getMaximumVolume(Character character) {
-        var belt = character.getWearingItems().get(BodyPartEnum.BELT.ordinal()).getValue();
-        var backpack = character.getWearingItems().get(BodyPartEnum.BACKPACK.ordinal()).getValue();
+        var belt = character.getWearingItems().get(BodyPartEnum.BELT.ordinal()).values().iterator().next();
+        var backpack = character.getWearingItems().get(BodyPartEnum.BACKPACK.ordinal()).values().iterator().next();
         var maxVol = Character.getBaseVolume() +
                 (belt != null ? Integer.parseInt(belt.getInfo().getParams().get("addVolume")) : 0) +
                 (backpack != null ? Integer.parseInt(backpack.getInfo().getParams().get("addVolume")) : 0);

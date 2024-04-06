@@ -167,13 +167,14 @@ public class PlayerIndicatorsPanel {
     /*
      * Получить стиль надетой одежды
      */
-    public static void setClothesStyle(List<Pair<BodyPartEnum, Items>> wearingItems) {
+    public static void setClothesStyle(List<Map<BodyPartEnum, Items>> wearingItems) {
         var styles = new HashMap<String, Integer>();
 
-        for (Pair<BodyPartEnum, Items> wearingItem : wearingItems) {
-            if (wearingItem.getValue() != null) {
-                var style = ((ClothesInfo) wearingItem.getValue().getInfo()).getStyle();
-                switch (wearingItem.getKey()) {
+        for (Map<BodyPartEnum, Items> wearingItem : wearingItems) {
+            Items items = wearingItem.values().iterator().next();
+            if (items != null) {
+                var style = ((ClothesInfo) items.getInfo()).getStyle();
+                switch (wearingItem.keySet().iterator().next()) {
                     case HEAD:
                     case SHIRT:
                     case FACE:
