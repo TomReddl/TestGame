@@ -1184,5 +1184,19 @@
       "wallVariant": "8"
     },
     "passability": false
+  },
+  {
+    "id": 143,
+    "strength": 0,
+    "type": "EARTH",
+    "passability": true,
+    "visibly": true
+  },
+  {
+    "id": 144,
+    "strength": 0,
+    "type": "EARTH",
+    "passability": true,
+    "visibly": true
   }
 ]

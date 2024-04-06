@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.robot.Robot;
 import lombok.Getter;
+import model.editor.EditorObjectType;
 import model.editor.TileInfo;
 import model.editor.TileTypeEnum;
 import model.editor.items.BodyPartEnum;
@@ -338,62 +339,68 @@ public class MapController {
             var player = Game.getMap().getSelecterCharacter();
             MapCellInfo mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + tileX]
                     [player.getYMapPos() + tileY];
-            switch (Editor.getSelectedType()) {
-                case GROUND:
-                case OBJECT: {
-                    mapCellInfo = getNewMapCellInfo(mapCellInfo, isRightMouse);
-                    break;
-                }
-                case CHARACTER: {
-                    if (isRightMouse || Editor.getSelectTile() == 0) {
-                        mapCellInfo.setCharacterId(null);
-                    } else if (mapCellInfo.getCharacterId() == null) {
-                        Game.getMap().getCharacterList().add(new Character(Editor.getSelectTile(), Game.getMap().getCharacterList().size(),
-                                player.getXMapPos() + tileX,
-                                player.getYMapPos() + tileY,
-                                player.getXMapPos(), player.getYMapPos()));
-                        mapCellInfo.setCharacterId(Game.getMap().getCharacterList().get(Game.getMap().getCharacterList().size() - 1).getId());
+            if (Game.isShiftPressed() && Editor.getSelectedType().equals(EditorObjectType.GROUND)) {
+                // при зажатой клавише shift заливаем все одинаковые тайлы выбранным тайлом
+                mapFill(player.getXMapPos() + tileX, player.getYMapPos() + tileY, Editor.getSelectTile(), mapCellInfo.getTile1Id());
+                drawCurrentMap();
+            } else {
+                switch (Editor.getSelectedType()) {
+                    case GROUND:
+                    case OBJECT: {
+                        mapCellInfo = getNewMapCellInfo(mapCellInfo, isRightMouse);
+                        break;
                     }
-                    break;
-                }
-                case CREATURE: {
-                    if (isRightMouse || Editor.getSelectTile() == 0) {
-                        mapCellInfo.setCreatureId(null);
-                    } else if (mapCellInfo.getCreatureId() == null) {
-                        Game.getMap().getCreaturesList().add(new Creature(Editor.getSelectTile(), Game.getMap().getCreaturesList().size(),
-                                player.getXMapPos() + tileX,
-                                player.getYMapPos() + tileY));
+                    case CHARACTER: {
+                        if (isRightMouse || Editor.getSelectTile() == 0) {
+                            mapCellInfo.setCharacterId(null);
+                        } else if (mapCellInfo.getCharacterId() == null) {
+                            Game.getMap().getCharacterList().add(new Character(Editor.getSelectTile(), Game.getMap().getCharacterList().size(),
+                                    player.getXMapPos() + tileX,
+                                    player.getYMapPos() + tileY,
+                                    player.getXMapPos(), player.getYMapPos()));
+                            mapCellInfo.setCharacterId(Game.getMap().getCharacterList().get(Game.getMap().getCharacterList().size() - 1).getId());
+                        }
+                        break;
+                    }
+                    case CREATURE: {
+                        if (isRightMouse || Editor.getSelectTile() == 0) {
+                            mapCellInfo.setCreatureId(null);
+                        } else if (mapCellInfo.getCreatureId() == null) {
+                            Game.getMap().getCreaturesList().add(new Creature(Editor.getSelectTile(), Game.getMap().getCreaturesList().size(),
+                                    player.getXMapPos() + tileX,
+                                    player.getYMapPos() + tileY));
 
-                        mapCellInfo.setCreatureId(Game.getMap().getCreaturesList().get(Game.getMap().getCreaturesList().size() - 1).getId());
+                            mapCellInfo.setCreatureId(Game.getMap().getCreaturesList().get(Game.getMap().getCreaturesList().size() - 1).getId());
+                        }
+                        break;
                     }
-                    break;
-                }
-                case ITEM: {
-                    if (mapCellInfo.getCharacterId() != null) {
-                        // добавляем предмет в инвентарь персонажа
-                        Items addedItem = new Items(isRightMouse ? 0 : Editor.getSelectTile(), Game.isShiftPressed() ? 10 : 1);
-                        ItemsController.addItemToCharacter(addedItem, addedItem.getCount(), Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId()));
-                    } else {
-                        // добавляем предмет на карту
-                        addItemOnMap(
-                                player.getXMapPos() + tileX,
-                                player.getYMapPos() + tileY,
-                                new Items(isRightMouse ? 0 : Editor.getSelectTile(), Game.isShiftPressed() ? 10 : 1));
+                    case ITEM: {
+                        if (mapCellInfo.getCharacterId() != null) {
+                            // добавляем предмет в инвентарь персонажа
+                            Items addedItem = new Items(isRightMouse ? 0 : Editor.getSelectTile(), Game.isShiftPressed() ? 10 : 1);
+                            ItemsController.addItemToCharacter(addedItem, addedItem.getCount(), Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId()));
+                        } else {
+                            // добавляем предмет на карту
+                            addItemOnMap(
+                                    player.getXMapPos() + tileX,
+                                    player.getYMapPos() + tileY,
+                                    new Items(isRightMouse ? 0 : Editor.getSelectTile(), Game.isShiftPressed() ? 10 : 1));
+                        }
+                        break;
                     }
-                    break;
+                    case POLLUTION: {
+                        mapCellInfo.setPollutionId(isRightMouse ? 0 : Editor.getSelectTile());
+                        break;
+                    }
+                    case ZONE: {
+                        mapCellInfo.setZoneId(isRightMouse ? 0 : Editor.getSelectTile());
+                        break;
+                    }
                 }
-                case POLLUTION: {
-                    mapCellInfo.setPollutionId(isRightMouse ? 0 : Editor.getSelectTile());
-                    break;
-                }
-                case ZONE: {
-                    mapCellInfo.setZoneId(isRightMouse ? 0 : Editor.getSelectTile());
-                    break;
-                }
+
+                Game.getMap().getTiles()[player.getXMapPos() + tileX][player.getYMapPos() + tileY] = mapCellInfo;
+                drawTilesAround(player.getXMapPos() + tileX, player.getYMapPos() + tileY);
             }
-
-            Game.getMap().getTiles()[player.getXMapPos() + tileX][player.getYMapPos() + tileY] = mapCellInfo;
-            drawTilesAround(player.getXMapPos() + tileX, player.getYMapPos() + tileY);
             canvas.requestFocus();
         }
     }
@@ -809,6 +816,29 @@ public class MapController {
         } else if (Game.getGameMode().equals(GameModeEnum.GAME)) {
             CharactersController.gameMapClick(x, y, isRightMouse);
         }
+    }
+
+    /**
+     * Заливка области карты. Заливает все тайлы одинакового типа
+     * @param posX - координата X
+     * @param posY - координата Y
+     * @param newTileId - id тайла, которым заливаем карту
+     * @param oldTileId - id тайла, который был на месте клика
+     */
+    private static void mapFill(int posX, int posY, int newTileId, int oldTileId) {
+        try {
+            MapCellInfo mapCellInfo = Game.getMap().getTiles()[posX][posY];
+            int currentTileId = mapCellInfo.getTile1Id();
+            if (posX >= 0 && posY >= 0 && posX < mapSize && posY < mapSize && currentTileId == oldTileId && newTileId != oldTileId) {
+                mapCellInfo.setTile1Id(newTileId);
+                mapCellInfo.setTile1Strength(Editor.getTiles1().get(newTileId).getStrength());
+
+                mapFill(posX + 1, posY, newTileId, oldTileId);
+                mapFill(posX - 1, posY, newTileId, oldTileId);
+                mapFill(posX, posY + 1, newTileId, oldTileId);
+                mapFill(posX, posY - 1, newTileId, oldTileId);
+            }
+        } catch (Exception | Error ignored) {}
     }
 
     public static void drawMapEnd() {
