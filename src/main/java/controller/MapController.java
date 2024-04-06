@@ -14,6 +14,7 @@ import model.editor.TileTypeEnum;
 import model.editor.items.BodyPartEnum;
 import model.entity.GameCalendar;
 import model.entity.GameModeEnum;
+import model.entity.ItemTypeEnum;
 import model.entity.battle.DamageTypeEnum;
 import model.entity.effects.EffectParams;
 import model.entity.map.*;
@@ -272,6 +273,7 @@ public class MapController {
                 !Game.getInventory().getTabPane().isVisible() &&
                 !ItemCountPanel.getPane().isVisible() &&
                 !TileEditPanel.getPane().isVisible() &&
+                !BookPanel.getPane().isVisible() &&
                 Game.isDrawingMap() &&
                 x < viewSize * tileSize &&
                 y < viewSize * tileSize;
@@ -646,6 +648,12 @@ public class MapController {
                     Editor.setShowZones(!Editor.isShowZones());
                     Editor.getShowZonesCheckBox().setSelected(Editor.isShowZones());
                     MapController.drawCurrentMap();
+                    break;
+                }
+                case R: {
+                    if (Editor.getSelectedType().equals(EditorObjectType.ITEM) && Editor.getItems().get(Editor.getSelectTile()).getTypes().contains(ItemTypeEnum.BOOK)) {
+                        BookPanel.showBookPanel(Editor.getSelectTile());
+                    }
                     break;
                 }
             }

@@ -10,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import lombok.Getter;
+import model.entity.GameModeEnum;
 import model.entity.WorldLangEnum;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -24,7 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**
- * Панель чтения книг/списков/записок
+ * Панель чтения книг/свитков/записок
  */
 public class BookPanel {
     @Getter
@@ -129,13 +130,14 @@ public class BookPanel {
     public static void showBookPanel(int bookTypeId) {
         currentPageNumber = 1;
         pane.setVisible(true);
-        Game.getGameMenu().showGameMenuPanel("0");
         loadBook(bookTypeId);
     }
 
     public static void closeBookPanelAndShowInvent() {
         pane.setVisible(false);
-        Game.getGameMenu().showGameMenuPanel("0");
+        if (!Game.getGameMode().equals(GameModeEnum.EDITOR)) {
+            Game.getGameMenu().showGameMenuPanel("0");
+        }
         Game.hideMessage();
     }
 
