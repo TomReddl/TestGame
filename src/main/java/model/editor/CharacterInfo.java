@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
+import model.entity.creatures.CreatureSizeEnum;
 import model.entity.player.GenderEnum;
 
 import java.io.Serializable;
@@ -25,4 +26,5 @@ public class CharacterInfo implements Serializable {
     private GenderEnum gender;
     private String bloodType; // тип крови персонажа
     private Map<String, String> items; // предметы
+    private CreatureSizeEnum size; // размер персонажа
 }

@@ -744,6 +744,10 @@ public class MapController {
                 SelectTimePanel.show(SelectTimePanel.TimeSkipType.WAIT, null);
                 break;
             }
+            case F: {
+                BattleController.kick();
+                break;
+            }
             case E: {
                 if (BookPanel.getPane().isVisible()) {
                     BookPanel.closeBookPanel();
@@ -1187,5 +1191,19 @@ public class MapController {
     public static int tileDistance(Character character, double x, double y) {
         return (int) Math.round(Math.sqrt((Math.pow(character.getXPosition() - (character.getXMapPos() + x), 2)) +
                 (Math.pow(character.getYPosition() - (character.getYMapPos() + y), 2))));
+    }
+
+    /**
+     * Проверяет, является ли клетка карты пустой (можно ли туда переместить персонажа или существо)
+     * @param mapCellInfo - проверяемая клетка карты
+     * @return true, если клетка проходима и там не стоит другое существо или персонаж
+     */
+    public static boolean isEmptyMapPoint(MapCellInfo mapCellInfo) {
+        return mapCellInfo.getTile1Info().isPassability() &&
+                mapCellInfo.getTile2Info().isPassability() &&
+                mapCellInfo.getCreatureId() == null &&
+                mapCellInfo.getCharacterId() == null &&
+                mapCellInfo.getX() >= 0 && mapCellInfo.getX() < mapSize &&
+                mapCellInfo.getY() >= 0 && mapCellInfo.getY() < mapSize;
     }
 }

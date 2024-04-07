@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 import model.editor.TileTypeEnum;
 import model.editor.items.WeaponInfo;
 import model.entity.BloodTypeEnum;
+import model.entity.DirectionEnum;
 import model.entity.GameModeEnum;
 import model.entity.battle.DamageTypeEnum;
 import model.entity.creatures.CreatureTypeEnum;
@@ -18,6 +19,8 @@ import view.menu.MainMenu;
 
 import java.util.List;
 
+import static game.GameParams.mapSize;
+
 /**
  * Боевые действия
  */
@@ -30,9 +33,9 @@ public class BattleController {
     /**
      * Персонаж атакует существо
      *
-     * @param character   - персонаж
-     * @param weapon   - оружие, которым он атакует
-     * @param creature - атакуемое существо
+     * @param character - персонаж
+     * @param weapon    - оружие, которым он атакует
+     * @param creature  - атакуемое существо
      */
     public static void attackCreature(Character character, Items weapon, Creature creature) {
         WeaponInfo weaponInfo = ((WeaponInfo) weapon.getInfo());
@@ -44,15 +47,33 @@ public class BattleController {
         }
         ItemsController.damageItem(weapon, 1, Game.getMap().getSelecterCharacter().getInventory(), Game.getMap().getSelecterCharacter());
         int level = creature.getInfo().getLevel() != null ? creature.getInfo().getLevel() : 1;
-        CharactersController.addSkillExp(((WeaponInfo) weapon.getInfo()).getSkill(), 5*level);
+        CharactersController.addSkillExp(((WeaponInfo) weapon.getInfo()).getSkill(), 5 * level);
+    }
+
+    /**
+     * Персонаж атакует существо без оружия
+     *
+     * @param character - персонаж
+     * @param damage    - наносимый урон
+     * @param creature  - атакуемое существо
+     */
+    public static void attackCreature(Character character, int damage, Creature creature) {
+        boolean isKilled = applyDamageToCreature(damage, DamageTypeEnum.CRUSHING_DAMAGE, creature);
+        if (isKilled) {
+            if (Game.getMap().getSelecterCharacter() == character) { // выводим сообщение, только если атаковал текущий выбранный персонаж
+                Game.showMessage(creature.getInfo().getName() + " " + Game.getText("KILLED"), Color.GREEN);
+            }
+        }
+        int level = creature.getInfo().getLevel() != null ? creature.getInfo().getLevel() : 1;
+        CharactersController.addSkillExp("HAND_COMBAT", 5 * level);
     }
 
     /**
      * Персонаж игрока атакует другого персонажа
      *
-     * @param character          - персонаж игрока
-     * @param weapon             - оружие, которым он атакует
-     * @param attackedCharacter  - атакуемый attackedCharacter
+     * @param character         - персонаж игрока
+     * @param weapon            - оружие, которым он атакует
+     * @param attackedCharacter - атакуемый attackedCharacter
      */
     public static void attackCharacter(Character character, Items weapon, Character attackedCharacter) {
         WeaponInfo weaponInfo = ((WeaponInfo) weapon.getInfo());
@@ -64,6 +85,23 @@ public class BattleController {
         }
         ItemsController.damageItem(weapon, 1, Game.getMap().getSelecterCharacter().getInventory(), Game.getMap().getSelecterCharacter());
         CharactersController.addSkillExp(((WeaponInfo) weapon.getInfo()).getSkill(), 10); // TODO скейл опыта от прокачки attackedCharacter
+    }
+
+    /**
+     * Персонаж игрока атакует другого персонажа без оружия
+     *
+     * @param character         - персонаж игрока
+     * @param damage            - наносимый урон
+     * @param attackedCharacter - атакуемый attackedCharacter
+     */
+    public static void attackCharacter(Character character, int damage, Character attackedCharacter) {
+        boolean isKilled = applyDamageToCharacter(damage, DamageTypeEnum.CRUSHING_DAMAGE, attackedCharacter); // TODO учесть броню attackedCharacter
+        if (isKilled) {
+            if (Game.getMap().getSelecterCharacter() == character) { // выводим сообщение, только если атаковал текущий выбранный персонаж
+                Game.showMessage(attackedCharacter.getName() + " " + Game.getText("KILLED"), Color.GREEN);
+            }
+        }
+        CharactersController.addSkillExp("HAND_COMBAT", 10); // TODO скейл опыта от прокачки attackedCharacter
     }
 
     /**
@@ -86,6 +124,7 @@ public class BattleController {
 
     /**
      * Получить урон с модификаторами, наложенными на оружие
+     *
      * @return значение урона с модификаторами
      */
     private static int getDamageWithEffects(Items weapon, Creature creature) {
@@ -175,10 +214,11 @@ public class BattleController {
 
     /**
      * Получить урон с учетом сопротивлений персонажа
+     *
      * @param damagePoints - входящий урон без учета сопротивлений
      * @param damageType   - тип урона
-     * @param character       - персонаж
-     * @return             - урон с учетом сопротивлений персонажа
+     * @param character    - персонаж
+     * @return - урон с учетом сопротивлений персонажа
      */
     private static int getDamagePoint(int damagePoints, DamageTypeEnum damageType, Character character) {
         switch (damageType) {
@@ -229,8 +269,9 @@ public class BattleController {
 
     /**
      * Наносит урон по карте оружием
-     * @param mapCellInfo  - точка карты
-     * @param weapon       - оружие, которым наносится урон
+     *
+     * @param mapCellInfo - точка карты
+     * @param weapon      - оружие, которым наносится урон
      */
     public static void applyDamageToMapCell(MapCellInfo mapCellInfo, Items weapon) {
         applyDamageToMapCell(mapCellInfo, ((WeaponInfo) weapon.getInfo()).getDamage(),
@@ -304,7 +345,7 @@ public class BattleController {
         }
 
         if (damageType.equals(DamageTypeEnum.FIRE_DAMAGE) && mapCellInfo.getFireId() > 1) { // все загрязнения сгорают в огне
-                mapCellInfo.setPollutionId(0);
+            mapCellInfo.setPollutionId(0);
         }
 
         // Предметы, лежащие не в контейнере могут сгореть или быть уничтожены взрывом
@@ -326,5 +367,93 @@ public class BattleController {
                 mapCellInfo.setItems(null);
             }
         }
+    }
+
+    /**
+     * Пинок персонажа или существа
+     */
+    public static void kick() {
+        Character selectedCharacter = Game.getMap().getSelecterCharacter();
+        DirectionEnum direction = selectedCharacter.getDirection();
+        int targetX = selectedCharacter.getXPosition() + getKickShiftX(direction);
+        int targetY = selectedCharacter.getYPosition() + getKickShiftY(direction);
+        if (targetX >= 0 && targetY >= 0 && targetX < mapSize && targetY < mapSize) {
+            MapCellInfo mapCellInfo = Game.getMap().getTiles()[targetX][targetY];
+            if (mapCellInfo.getCreatureId() != null) {
+                Creature creature = Game.getMap().getCreaturesList().get(mapCellInfo.getCreatureId());
+                if (creature.isAlive()) {
+                    BattleController.attackCreature(selectedCharacter, getKickDamagePoints(selectedCharacter), creature);
+                }
+                try {
+                    MapCellInfo newMapCellInfo = Game.getMap().getTiles()[targetX + getKickShiftX(direction)][targetY + getKickShiftY(direction)];
+                    if (MapController.isEmptyMapPoint(newMapCellInfo) &&
+                            selectedCharacter.getInfo().getSize().getValue() >= creature.getInfo().getSize().getValue()) { // после пинка существа, равные либо меньше по размеру чем пинающий персонаж, отлетают в сторону
+                        creature.setXPos(newMapCellInfo.getX());
+                        creature.setYPos(newMapCellInfo.getY());
+                        newMapCellInfo.setCreatureId(mapCellInfo.getCreatureId());
+                        mapCellInfo.setCreatureId(null);
+                    }
+                } catch (ArrayIndexOutOfBoundsException ignored) {
+                }
+            } else if (mapCellInfo.getCharacterId() != null) {
+                Character character = Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId());
+                if (character.isAlive()) {
+                    BattleController.attackCharacter(selectedCharacter, getKickDamagePoints(selectedCharacter), character);
+                }
+                try {
+                    MapCellInfo newMapCellInfo = Game.getMap().getTiles()[targetX + getKickShiftX(direction)][targetY + getKickShiftY(direction)];
+                    if (MapController.isEmptyMapPoint(newMapCellInfo) &&
+                            selectedCharacter.getInfo().getSize().getValue() >= character.getInfo().getSize().getValue()) { // после пинка персонажи, равные либо меньше по размеру чем пинающий персонаж, отлетают в сторону
+                        character.setXPosition(newMapCellInfo.getX());
+                        character.setYPosition(newMapCellInfo.getY());
+                        newMapCellInfo.setCharacterId(mapCellInfo.getCharacterId());
+                        mapCellInfo.setCharacterId(null);
+                    }
+                } catch (ArrayIndexOutOfBoundsException ignored) {
+                }
+            }
+        }
+        MapController.drawCurrentMap();
+    }
+
+    private static int getKickShiftX(DirectionEnum directionEnum) {
+        switch (directionEnum) {
+            case UP:
+            case DOWN: {
+                return 0;
+            }
+            case LEFT: {
+                return -1;
+            }
+            case RIGHT: {
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    private static int getKickShiftY(DirectionEnum directionEnum) {
+        switch (directionEnum) {
+            case LEFT:
+            case RIGHT: {
+                return 0;
+            }
+            case UP: {
+                return -1;
+            }
+            case DOWN: {
+                return 1;
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Получить размер урона, наносимого персонажем при помощи пинка
+     *
+     * @return размер урона
+     */
+    private static int getKickDamagePoints(Character character) {
+        return 2;
     }
 }

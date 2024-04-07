@@ -4,23 +4,28 @@
   },
   {
     "imageId": 1,
-    "level": 1
+    "level": 1,
+    "size": "LARGE"
   },
   {
     "imageId": 2,
-    "level": 1
+    "level": 1,
+    "size": "LARGE"
   },
   {
     "imageId": 3,
-    "level": 1
+    "level": 1,
+    "size": "LARGE"
   },
   {
     "imageId": 4,
-    "level": 1
+    "level": 1,
+    "size": "LARGE"
   },
   {
     "imageId": 5,
-    "level": 1
+    "level": 1,
+    "size": "LARGE"
   },
   {
     "imageId": 6,
@@ -28,27 +33,33 @@
     "level": 3,
     "types": [
       "INSECT"
-    ]
+    ],
+    "size": "LARGE"
   },
   {
     "imageId": 7,
-    "level": 2
+    "level": 2,
+    "size": "MEDIUM"
   },
   {
     "imageId": 8,
-    "level": 2
+    "level": 2,
+    "size": "LARGE"
   },
   {
     "imageId": 9,
-    "level": 1
+    "level": 1,
+    "size": "MEDIUM"
   },
   {
     "imageId": 10,
-    "level": 2
+    "level": 2,
+    "size": "LARGE"
   },
   {
     "imageId": 11,
-    "level": 2
+    "level": 2,
+    "size": "LARGE"
   },
   {
     "imageId": 12,
@@ -67,241 +78,306 @@
       "131": "5-10",
       "133": "1"
     },
-    "bloodType": "BLOOD"
+    "bloodType": "BLOOD",
+    "size": "LARGE"
   },
   {
     "imageId": 13,
-    "level": 2
+    "level": 2,
+    "size": "MEDIUM"
   },
   {
     "imageId": 14,
-    "level": 2
+    "level": 2,
+    "size": "MEDIUM"
   },
   {
     "imageId": 15,
-    "level": 1
+    "level": 1,
+    "size": "SMALL"
   },
   {
-    "imageId": 16
+    "imageId": 16,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 17
+    "imageId": 17,
+    "size": "LARGE"
   },
   {
-    "imageId": 18
+    "imageId": 18,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 19
+    "imageId": 19,
+    "size": "SMALL"
   },
   {
     "imageId": 20,
     "types": [
       "INSECT"
-    ]
+    ],
+    "size": "MEDIUM"
   },
   {
     "imageId": 21,
     "types": [
       "INSECT"
-    ]
+    ],
+    "size": "LARGE"
   },
   {
-    "imageId": 22
+    "imageId": 22,
+    "size": "SMALL"
   },
   {
-    "imageId": 23
+    "imageId": 23,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 24
+    "imageId": 24,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 25
+    "imageId": 25,
+    "size": "LARGE"
   },
   {
     "imageId": 26,
     "types": [
       "INSECT"
-    ]
+    ],
+    "size": "MEDIUM"
   },
   {
     "imageId": 27,
     "types": [
       "INSECT"
-    ]
+    ],
+    "size": "MEDIUM"
   },
   {
-    "imageId": 28
+    "imageId": 28,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 29
+    "imageId": 29,
+    "size": "LARGE"
   },
   {
-    "imageId": 30
+    "imageId": 30,
+    "size": "LARGE"
   },
   {
-    "imageId": 31
+    "imageId": 31,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 32
+    "imageId": 32,
+    "size": "LARGE"
   },
   {
-    "imageId": 33
+    "imageId": 33,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 34
+    "imageId": 34,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 35
+    "imageId": 35,
+    "size": "LARGE"
   },
   {
-    "imageId": 36
+    "imageId": 36,
+    "size": "SMALL"
   },
   {
-    "imageId": 37
+    "imageId": 37,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 38
+    "imageId": 38,
+    "size": "LARGE"
   },
   {
     "imageId": 39,
     "types": [
       "INSECT"
-    ]
+    ],
+    "size": "MEDIUM"
   },
   {
     "imageId": 40,
     "types": [
       "INSECT"
-    ]
+    ],
+    "size": "LARGE"
   },
   {
     "imageId": 41,
     "types": [
       "INSECT"
-    ]
+    ],
+    "size": "LARGE"
   },
   {
     "imageId": 42,
     "types": [
       "INSECT"
-    ]
+    ],
+    "size": "LARGE"
   },
   {
     "imageId": 43,
     "types": [
       "INSECT"
-    ]
+    ],
+    "size": "LARGE"
   },
   {
-    "imageId": 44
+    "imageId": 44,
+    "size": "LARGE"
   },
   {
-    "imageId": 45
+    "imageId": 45,
+    "size": "LARGE"
   },
   {
-    "imageId": 46
+    "imageId": 46,
+    "size": "LARGE"
   },
   {
     "imageId": 47,
     "types": [
       "INSECT"
-    ]
+    ],
+    "size": "TINY"
   },
   {
     "imageId": 48,
     "types": [
       "INSECT"
-    ]
+    ],
+    "size": "LARGE"
   },
   {
     "imageId": 49,
     "types": [
       "INSECT"
-    ]
+    ],
+    "size": "LARGE"
   },
   {
     "imageId": 50,
     "types": [
       "INSECT"
-    ]
+    ],
+    "size": "LARGE"
   },
   {
-    "imageId": 51
+    "imageId": 51,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 52
+    "imageId": 52,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 53
+    "imageId": 53,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 54
+    "imageId": 54,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 55
+    "imageId": 55,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 56
+    "imageId": 56,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 57
+    "imageId": 57,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 58
+    "imageId": 58,
+    "size": "LARGE"
   },
   {
-    "imageId": 59
+    "imageId": 59,
+    "size": "LARGE"
   },
   {
-    "imageId": 60
+    "imageId": 60,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 61
+    "imageId": 61,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 62
+    "imageId": 62,
+    "size": "SMALL"
   },
   {
-    "imageId": 63
+    "imageId": 63,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 64
+    "imageId": 64,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 65
+    "imageId": 65,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 66
+    "imageId": 66,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 67
+    "imageId": 67,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 68
+    "imageId": 68,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 69
+    "imageId": 69,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 70
+    "imageId": 70,
+    "size": "SMALL"
   },
   {
-    "imageId": 71
+    "imageId": 71,
+    "size": "LARGE"
   },
   {
-    "imageId": 72
+    "imageId": 72,
+    "size": "SMALL"
   },
   {
-    "imageId": 73
+    "imageId": 73,
+    "size": "SMALL"
   },
   {
-    "imageId": 74
+    "imageId": 74,
+    "size": "SMALL"
   },
   {
-    "imageId": 75
+    "imageId": 75,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 76
+    "imageId": 76,
+    "size": "MEDIUM"
   },
   {
     "imageId": 77,
@@ -311,7 +387,8 @@
       "137": "5-10",
       "120": "0-2"
     },
-    "bloodType": "BLOOD"
+    "bloodType": "BLOOD",
+    "size": "MEDIUM"
   },
   {
     "imageId": 78,
@@ -321,7 +398,8 @@
       "137": "2-5",
       "120": "0-1"
     },
-    "bloodType": "BLOOD"
+    "bloodType": "BLOOD",
+    "size": "SMALL"
   },
   {
     "imageId": 79,
@@ -330,7 +408,8 @@
       "129": "2",
       "137": "1-2"
     },
-    "bloodType": "BLOOD"
+    "bloodType": "BLOOD",
+    "size": "TINY"
   },
   {
     "imageId": 80,
@@ -340,7 +419,8 @@
       "137": "2-6",
       "120": "0-1"
     },
-    "bloodType": "BLOOD"
+    "bloodType": "BLOOD",
+    "size": "SMALL"
   },
   {
     "imageId": 81,
@@ -350,7 +430,8 @@
       "137": "2-6",
       "120": "0-1"
     },
-    "bloodType": "BLOOD"
+    "bloodType": "BLOOD",
+    "size": "SMALL"
   },
   {
     "imageId": 82,
@@ -360,7 +441,8 @@
       "137": "2-4",
       "120": "0-1"
     },
-    "bloodType": "BLOOD"
+    "bloodType": "BLOOD",
+    "size": "SMALL"
   },
   {
     "imageId": 83,
@@ -370,7 +452,8 @@
       "137": "2-6",
       "120": "0-1"
     },
-    "bloodType": "BLOOD"
+    "bloodType": "BLOOD",
+    "size": "SMALL"
   },
   {
     "imageId": 84,
@@ -381,102 +464,134 @@
       "127": "4-8",
       "120": "1-3"
     },
-    "bloodType": "BLOOD"
+    "bloodType": "BLOOD",
+    "size": "LARGE"
   },
   {
-    "imageId": 85
+    "imageId": 85,
+    "size": "SMALL"
   },
   {
-    "imageId": 86
+    "imageId": 86,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 87
+    "imageId": 87,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 88
+    "imageId": 88,
+    "size": "LARGE"
   },
   {
-    "imageId": 89
+    "imageId": 89,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 90
+    "imageId": 90,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 91
+    "imageId": 91,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 92
+    "imageId": 92,
+    "size": "SMALL"
   },
   {
-    "imageId": 93
+    "imageId": 93,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 94
+    "imageId": 94,
+    "size": "SMALL"
   },
   {
-    "imageId": 95
+    "imageId": 95,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 96
+    "imageId": 96,
+    "size": "LARGE"
   },
   {
-    "imageId": 97
+    "imageId": 97,
+    "size": "LARGE"
   },
   {
-    "imageId": 98
+    "imageId": 98,
+    "size": "SMALL"
   },
   {
-    "imageId": 99
+    "imageId": 99,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 100
+    "imageId": 100,
+    "size": "MEDIUM"
   },
   {
     "imageId": 101,
     "health": 100,
-    "bloodType": "BLOOD"
+    "bloodType": "BLOOD",
+    "size": "MEDIUM"
   },
   {
-    "imageId": 102
+    "imageId": 102,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 103
+    "imageId": 103,
+    "size": "LARGE"
   },
   {
-    "imageId": 104
+    "imageId": 104,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 105
+    "imageId": 105,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 106
+    "imageId": 106,
+    "size": "LARGE"
   },
   {
-    "imageId": 107
+    "imageId": 107,
+    "size": "LARGE"
   },
   {
-    "imageId": 108
+    "imageId": 108,
+    "size": "SMALL"
   },
   {
-    "imageId": 109
+    "imageId": 109,
+    "size": "SMALL"
   },
   {
-    "imageId": 110
+    "imageId": 110,
+    "size": "LARGE"
   },
   {
-    "imageId": 111
+    "imageId": 111,
+    "size": "LARGE"
   },
   {
-    "imageId": 112
+    "imageId": 112,
+    "size": "LARGE"
   },
   {
-    "imageId": 113
+    "imageId": 113,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 114
+    "imageId": 114,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 115
+    "imageId": 115,
+    "size": "LARGE"
   },
   {
     "imageId": 116,
@@ -484,57 +599,75 @@
     "organs": {
       "136": "5-10"
     },
-    "bloodType": "DIRT"
+    "bloodType": "DIRT",
+    "size": "MEDIUM"
   },
   {
-    "imageId": 117
+    "imageId": 117,
+    "size": "SMALL"
   },
   {
-    "imageId": 118
+    "imageId": 118,
+    "size": "LARGE"
   },
   {
-    "imageId": 119
+    "imageId": 119,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 120
+    "imageId": 120,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 121
+    "imageId": 121,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 122
+    "imageId": 122,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 123
+    "imageId": 123,
+    "size": "LARGE"
   },
   {
-    "imageId": 124
+    "imageId": 124,
+    "size": "LARGE"
   },
   {
-    "imageId": 125
+    "imageId": 125,
+    "size": "LARGE"
   },
   {
-    "imageId": 126
+    "imageId": 126,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 127
+    "imageId": 127,
+    "size": "MEDIUM"
   },
   {
-    "imageId": 128
+    "imageId": 128,
+    "size": "LARGE"
   },
   {
-    "imageId": 129
+    "imageId": 129,
+    "size": "SMALL"
   },
   {
-    "imageId": 130
+    "imageId": 130,
+    "size": "SMALL"
   },
   {
-    "imageId": 131
+    "imageId": 131,
+    "size": "SMALL"
   },
   {
-    "imageId": 132
+    "imageId": 132,
+    "size": "SMALL"
   },
   {
-    "imageId": 133
+    "imageId": 133,
+    "size": "LARGE"
   }
 ]

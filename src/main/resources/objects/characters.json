@@ -1,7 +1,8 @@
 [
   {
     "imageId": 0,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 1,
@@ -12,117 +13,144 @@
       "37": "1",
       "23": "1",
       "24": "1"
-    }
+    },
+    "size": "MEDIUM"
   },
   {
     "imageId": 2,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 3,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 4,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 5,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 6,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 7,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 8,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 9,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 10,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 11,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 12,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 13,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 14,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 15,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 16,
     "gender": "MALE",
-    "bloodType": "MUCUS"
+    "bloodType": "MUCUS",
+    "size": "MEDIUM"
   },
   {
     "imageId": 17,
     "gender": "FEMALE",
-    "bloodType": "MUCUS"
+    "bloodType": "MUCUS",
+    "size": "MEDIUM"
   },
   {
     "imageId": 18,
     "gender": "MALE",
-    "bloodType": "OIL"
+    "bloodType": "OIL",
+    "size": "MEDIUM"
   },
   {
     "imageId": 19,
     "gender": "MALE",
-    "bloodType": "OIL"
+    "bloodType": "OIL",
+    "size": "MEDIUM"
   },
   {
     "imageId": 20,
     "gender": "MALE",
-    "bloodType": "OIL"
+    "bloodType": "OIL",
+    "size": "MEDIUM"
   },
   {
     "imageId": 21,
     "gender": "MALE",
-    "bloodType": "OIL"
+    "bloodType": "OIL",
+    "size": "MEDIUM"
   },
   {
     "imageId": 22,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 23,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 24,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 25,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 26,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 27,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 28,
@@ -130,30 +158,37 @@
   },
   {
     "imageId": 29,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 30,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 31,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 32,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 33,
-    "gender": "MALE"
+    "gender": "MALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 34,
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "size": "MEDIUM"
   },
   {
     "imageId": 35,
-    "gender": "FEMALE"
+    "gender": "FEMALE",
+    "size": "MEDIUM"
   }
 ]

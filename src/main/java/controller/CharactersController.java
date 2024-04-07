@@ -2,6 +2,7 @@ package controller;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.util.Pair;
 import model.editor.TileInfo;
@@ -36,6 +37,11 @@ import static game.GameParams.*;
  */
 public class CharactersController {
     private static final Random random = new Random();
+
+    private static final ImageView downDirection = new ImageView("/graphics/gui/downDirection.png");
+    private static final ImageView upDirection = new ImageView("/graphics/gui/upDirection.png");
+    private static final ImageView leftDirection = new ImageView("/graphics/gui/leftDirection.png");
+    private static final ImageView rightDirection = new ImageView("/graphics/gui/rightDirection.png");
 
     /**
      * Рост волос
@@ -676,7 +682,7 @@ public class CharactersController {
      */
     public static void heroMoveUp(Character character) {
         character.setDirection(DirectionEnum.UP);
-        if (character.getYPosition() > 0 && tilePassability(character.getXPosition(), character.getYPosition() - 1, character)) {
+        if (!Game.isShiftPressed() && character.getYPosition() > 0 && tilePassability(character.getXPosition(), character.getYPosition() - 1, character)) {
             if (character.getYPosition() > 0) {
                 character.setYPosition(character.getYPosition() - 1);
             }
@@ -686,6 +692,8 @@ public class CharactersController {
                 character.setYViewPos(character.getYViewPos() - 1);
             }
             TimeController.tic(true);
+        } else if (Game.isShiftPressed()) {
+            MapController.drawPlayerTile();
         }
     }
 
@@ -696,7 +704,7 @@ public class CharactersController {
      */
     public static void heroMoveDown(Character character) {
         character.setDirection(DirectionEnum.DOWN);
-        if (character.getYPosition() < (mapSize - 1) && tilePassability(character.getXPosition(), character.getYPosition() + 1, character)) {
+        if (!Game.isShiftPressed() && character.getYPosition() < (mapSize - 1) && tilePassability(character.getXPosition(), character.getYPosition() + 1, character)) {
             if (character.getYPosition() < mapSize) {
                 character.setYPosition(character.getYPosition() + 1);
             }
@@ -706,6 +714,8 @@ public class CharactersController {
                 character.setYViewPos(character.getYViewPos() + 1);
             }
             TimeController.tic(true);
+        } else if (Game.isShiftPressed()) {
+            MapController.drawPlayerTile();
         }
     }
 
@@ -716,7 +726,7 @@ public class CharactersController {
      */
     public static void heroMoveLeft(Character character) {
         character.setDirection(DirectionEnum.LEFT);
-        if (character.getXPosition() > 0 && tilePassability(character.getXPosition() - 1, character.getYPosition(), character)) {
+        if (!Game.isShiftPressed() && character.getXPosition() > 0 && tilePassability(character.getXPosition() - 1, character.getYPosition(), character)) {
             if (character.getXPosition() > 0) {
                 character.setXPosition(character.getXPosition() - 1);
             }
@@ -726,6 +736,8 @@ public class CharactersController {
                 character.setXViewPos(character.getXViewPos() - 1);
             }
             TimeController.tic(true);
+        } else if (Game.isShiftPressed()) {
+            MapController.drawPlayerTile();
         }
     }
 
@@ -736,7 +748,7 @@ public class CharactersController {
      */
     public static void heroMoveRight(Character character) {
         character.setDirection(DirectionEnum.RIGHT);
-        if (character.getXPosition() < (mapSize - 1) && tilePassability(character.getXPosition() + 1, character.getYPosition(), character)) {
+        if (!Game.isShiftPressed() && character.getXPosition() < (mapSize - 1) && tilePassability(character.getXPosition() + 1, character.getYPosition(), character)) {
             if (character.getXPosition() < mapSize) {
                 character.setXPosition(character.getXPosition() + 1);
             }
@@ -746,6 +758,8 @@ public class CharactersController {
                 character.setXViewPos(character.getXViewPos() + 1);
             }
             TimeController.tic(true);
+        } else if (Game.isShiftPressed()) {
+            MapController.drawPlayerTile();
         }
     }
 
@@ -794,6 +808,24 @@ public class CharactersController {
                     var image = new Image(path);
                     drawImg(character, image, isLeft);
                 }
+            }
+        }
+        switch (character.getDirection()) {
+            case UP: {
+                drawImg(character, upDirection.getImage(), false);
+                break;
+            }
+            case DOWN: {
+                drawImg(character, downDirection.getImage(), false);
+                break;
+            }
+            case LEFT: {
+                drawImg(character, leftDirection.getImage(), false);
+                break;
+            }
+            case RIGHT: {
+                drawImg(character, rightDirection.getImage(), false);
+                break;
             }
         }
         /*var sp = new SnapshotParameters();

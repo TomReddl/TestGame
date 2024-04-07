@@ -7,6 +7,8 @@ import controller.utils.generation.CharacterGenerator;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
+import model.editor.CharacterInfo;
+import model.editor.CreatureInfo;
 import model.editor.items.BodyPartEnum;
 import model.editor.items.ClothesStyleEnum;
 import model.entity.DirectionEnum;
@@ -157,5 +159,10 @@ public class Character implements Serializable {
             return Game.getMap().getCreaturesList().get(interactMapPoint.getCreatureId());
         }
         return null;
+    }
+
+    @JsonIgnore
+    public CharacterInfo getInfo() {
+        return Editor.getCharacters().get(characterTypeId);
     }
 }
