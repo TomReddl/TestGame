@@ -1126,5 +1126,70 @@
     "elements": {
       "138": 2
     }
+  },
+  {
+    "name": "Легкий стальной нагрудник",
+    "recipeId": 86,
+    "itemId": 340,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "152": 6
+    }
+  },
+  {
+    "name": "Легкие стальные штаны",
+    "recipeId": 87,
+    "itemId": 341,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "152": 4
+    }
+  },
+  {
+    "name": "Легкий стальной шлем",
+    "recipeId": 88,
+    "itemId": 342,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "152": 3
+    }
+  },
+  {
+    "name": "Легкие стальные перчатки",
+    "recipeId": 89,
+    "itemId": 343,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "152": 2
+    }
+  },
+  {
+    "name": "Легкие стальные ботинки",
+    "recipeId": 90,
+    "itemId": 344,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "152": 3
+    }
   }
 ]
