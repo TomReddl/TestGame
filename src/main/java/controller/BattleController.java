@@ -39,7 +39,7 @@ public class BattleController {
      */
     public static void attackCreature(Character character, Items weapon, Creature creature) {
         WeaponInfo weaponInfo = ((WeaponInfo) weapon.getInfo());
-        boolean isKilled = applyDamageToCreature(getDamageWithEffects(weapon, creature), DamageTypeEnum.valueOf(weaponInfo.getDamageType()), creature);
+        boolean isKilled = applyDamageToCreature(getDamageWithEffects(weapon, creature, true), DamageTypeEnum.valueOf(weaponInfo.getDamageType()), creature);
         if (isKilled) {
             if (Game.getMap().getSelecterCharacter() == character) { // выводим сообщение, только если атаковал текущий выбранный персонаж
                 Game.showMessage(creature.getInfo().getName() + " " + Game.getText("KILLED"), Color.GREEN);
@@ -53,12 +53,24 @@ public class BattleController {
     /**
      * Персонаж атакует существо без оружия
      *
-     * @param character - персонаж
+     * @param character - атакующий персонаж
      * @param damage    - наносимый урон
      * @param creature  - атакуемое существо
      */
-    public static void attackCreature(Character character, int damage, Creature creature) {
-        boolean isKilled = applyDamageToCreature(damage, DamageTypeEnum.CRUSHING_DAMAGE, creature);
+    public static void attackCreature(Character character, int damage, DamageTypeEnum damageType, Creature creature) {
+        if (creature.getInfo().getEffects() != null) {
+            for (EffectParams creatureEffect : creature.getInfo().getEffects()) {
+                // если есть иммунитет к типу урона
+                if (creatureEffect.getStrId().equals(damageType + "_IMMUNITY")) {
+                    if (Game.getMap().getSelecterCharacter() == character) {
+                        Game.showMessage(Game.getGameText("TARGET_HAS") + " " + Game.getEffectText(damageType + "_IMMUNITY").toLowerCase());
+                    }
+                } else if (creatureEffect.getStrId().equals(damageType + "_RESIST")) {
+                    damage -= creatureEffect.getPower();
+                }
+            }
+        }
+        boolean isKilled = applyDamageToCreature(damage, damageType, creature);
         if (isKilled) {
             if (Game.getMap().getSelecterCharacter() == character) { // выводим сообщение, только если атаковал текущий выбранный персонаж
                 Game.showMessage(creature.getInfo().getName() + " " + Game.getText("KILLED"), Color.GREEN);
@@ -73,7 +85,7 @@ public class BattleController {
      *
      * @param character         - персонаж игрока
      * @param weapon            - оружие, которым он атакует
-     * @param attackedCharacter - атакуемый attackedCharacter
+     * @param attackedCharacter - атакуемый персонаж
      */
     public static void attackCharacter(Character character, Items weapon, Character attackedCharacter) {
         WeaponInfo weaponInfo = ((WeaponInfo) weapon.getInfo());
@@ -92,7 +104,7 @@ public class BattleController {
      *
      * @param character         - персонаж игрока
      * @param damage            - наносимый урон
-     * @param attackedCharacter - атакуемый attackedCharacter
+     * @param attackedCharacter - атакуемый персонаж
      */
     public static void attackCharacter(Character character, int damage, Character attackedCharacter) {
         boolean isKilled = applyDamageToCharacter(damage, DamageTypeEnum.CRUSHING_DAMAGE, attackedCharacter); // TODO учесть броню attackedCharacter
@@ -123,18 +135,56 @@ public class BattleController {
     }
 
     /**
-     * Получить урон с модификаторами, наложенными на оружие
+     * Получить урон с учетом эффектов оружия и атакуемого существа
      *
      * @return значение урона с модификаторами
      */
-    private static int getDamageWithEffects(Items weapon, Creature creature) {
-        int damagePoints = ((WeaponInfo) weapon.getInfo()).getDamage();
+    private static int getDamageWithEffects(Items weapon, Creature creature, boolean isSelectedCharacterAttack) {
+        WeaponInfo weaponInfo = ((WeaponInfo) weapon.getInfo());
+        int damagePoints = weaponInfo.getDamage();
+        String weaponDamageType = weaponInfo.getDamageType();
+
+        if (creature.getInfo().getEffects() != null) {
+            for (EffectParams creatureEffect : creature.getInfo().getEffects()) {
+                // если есть иммунитет к типу урона оружия, то основное значение урона становится равным 0
+                if (creatureEffect.getStrId().equals(weaponDamageType + "_IMMUNITY")) {
+                    damagePoints = 0;
+                    if (isSelectedCharacterAttack) {
+                        Game.showMessage(Game.getGameText("TARGET_HAS") + " " + Game.getEffectText(weaponDamageType + "_IMMUNITY").toLowerCase());
+                    }
+                } else if (creatureEffect.getStrId().equals(weaponDamageType + "_RESIST")) {
+                    damagePoints -= creatureEffect.getPower();
+                }
+            }
+            if (damagePoints < 0) {
+                damagePoints = 0;
+            }
+        }
         List<CreatureTypeEnum> creatureTypeEnums = creature.getInfo().getTypes();
-        if (creatureTypeEnums != null && weapon.getEffects() != null) {
-            for (CreatureTypeEnum type : creatureTypeEnums) {
-                for (EffectParams effectParams : weapon.getEffects()) {
-                    if (effectParams.getStrId().replaceAll("_DAMAGE_ADD", "").equals(type.name())) {
-                        damagePoints += effectParams.getPower();
+        if (weapon.getEffects() != null) {
+            for (EffectParams weaponEffect : weapon.getEffects()) {
+                // добавляем урон от эффектов, влияющих на типы существ
+                if (weaponEffect.getStrId().contains("_DAMAGE_ADD") && creatureTypeEnums != null) {
+                    for (CreatureTypeEnum type : creatureTypeEnums) {
+                        if (weaponEffect.getStrId().replaceAll("_DAMAGE_ADD", "").equals(type.name())) {
+                            damagePoints += weaponEffect.getPower();
+                        }
+                    }
+                } else if (weaponEffect.getStrId().endsWith("_DAMAGE")) {
+                    if (creature.getInfo().getEffects() != null) {
+                        for (EffectParams creatureEffect : creature.getInfo().getEffects()) {
+                            weaponDamageType = weaponEffect.getStrId();
+                            // если есть иммунитет к эффекту, наложенному оружием, то игнорируем этот эффект
+                            if (creatureEffect.getStrId().equals(weaponDamageType + "_IMMUNITY")) {
+                                if (isSelectedCharacterAttack) {
+                                    Game.showMessage(Game.getGameText("TARGET_HAS") + " " + Game.getEffectText(weaponDamageType + "_IMMUNITY").toLowerCase());
+                                }
+                            } else if (creatureEffect.getStrId().equals(weaponDamageType + "_RESIST")) {
+                                damagePoints -= creatureEffect.getPower();
+                            } else {
+                                damagePoints += weaponEffect.getPower();
+                            }
+                        }
                     }
                 }
             }
@@ -143,7 +193,7 @@ public class BattleController {
     }
 
     /**
-     * Установить брызки крови при ударе по существу
+     * Установить брызги крови при ударе по существу
      */
     private static void setBloodSplatter(int damagePoints, DamageTypeEnum damageType, Creature creature) {
         switch (damageType) {
@@ -221,40 +271,19 @@ public class BattleController {
      * @return - урон с учетом сопротивлений персонажа
      */
     private static int getDamagePoint(int damagePoints, DamageTypeEnum damageType, Character character) {
-        switch (damageType) {
-            case FIRE_DAMAGE: {
-                for (EffectParams effect : character.getAppliedEffects()) {
-                    if (effect.getStrId().equals("FIRE_DAMAGE_RESIST")) {
-                        damagePoints -= effect.getPower();
-                    }
-                }
-            }
-            case ELECTRIC_DAMAGE: {
-                for (EffectParams effect : character.getAppliedEffects()) {
-                    if (effect.getStrId().equals("ELECTRIC_DAMAGE_RESIST")) {
-                        damagePoints -= effect.getPower();
-                    }
-                }
-            }
-            case FROST_DAMAGE: {
-                for (EffectParams effect : character.getAppliedEffects()) {
-                    if (effect.getStrId().equals("FROST_DAMAGE_RESIST")) {
-                        damagePoints -= effect.getPower();
-                    }
-                }
-            }
-            case ACID_DAMAGE: {
-                for (EffectParams effect : character.getAppliedEffects()) {
-                    if (effect.getStrId().equals("ACID_DAMAGE_RESIST")) {
-                        damagePoints -= effect.getPower();
-                    }
+        for (EffectParams effect : character.getAppliedEffects()) {
+            if (effect.getStrId().equals(damageType.name() + "_RESIST")) {
+                damagePoints -= effect.getPower();
+            } else if (effect.getStrId().equals(damageType + "_IMMUNITY")) {
+                damagePoints = 0;
+                if (Game.getMap().getSelecterCharacter() == character) {
+                    Game.showMessage(Game.getGameText("CHARACTER_HAS") + " " + Game.getEffectText(damageType + "_IMMUNITY").toLowerCase(), Color.GREEN);
                 }
             }
         }
         if (damagePoints < 0) {
             damagePoints = 0;
         }
-
         return damagePoints;
     }
 
@@ -382,7 +411,7 @@ public class BattleController {
             if (mapCellInfo.getCreatureId() != null) {
                 Creature creature = Game.getMap().getCreaturesList().get(mapCellInfo.getCreatureId());
                 if (creature.isAlive()) {
-                    BattleController.attackCreature(selectedCharacter, getKickDamagePoints(selectedCharacter), creature);
+                    BattleController.attackCreature(selectedCharacter, getKickDamagePoints(selectedCharacter), DamageTypeEnum.CRUSHING_DAMAGE, creature);
                 }
                 try {
                     MapCellInfo newMapCellInfo = Game.getMap().getTiles()[targetX + getKickShiftX(direction)][targetY + getKickShiftY(direction)];

@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import model.entity.creatures.CreatureSizeEnum;
 import model.entity.creatures.CreatureTypeEnum;
+import model.entity.effects.EffectParams;
 
 import java.util.List;
 import java.util.Map;
@@ -28,4 +29,5 @@ public class CreatureInfo {
     private Integer level; // уровень существа (агрегированный показатель силы, используется для определения получаемого опыта, лута с существа и т.д.)
     private String bloodType; // тип крови существа
     private CreatureSizeEnum size; // размер существа
+    private List<EffectParams> effects; // эффекты
 }

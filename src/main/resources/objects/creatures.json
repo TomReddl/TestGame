@@ -237,15 +237,30 @@
   },
   {
     "imageId": 44,
-    "size": "LARGE"
+    "size": "LARGE",
+    "effects": [
+      {
+        "strId": "ACID_DAMAGE_IMMUNITY"
+      }
+    ]
   },
   {
     "imageId": 45,
-    "size": "LARGE"
+    "size": "LARGE",
+    "effects": [
+      {
+        "strId": "ACID_DAMAGE_IMMUNITY"
+      }
+    ]
   },
   {
     "imageId": 46,
-    "size": "LARGE"
+    "size": "LARGE",
+    "effects": [
+      {
+        "strId": "ACID_DAMAGE_IMMUNITY"
+      }
+    ]
   },
   {
     "imageId": 47,
@@ -517,7 +532,13 @@
   },
   {
     "imageId": 97,
-    "size": "LARGE"
+    "size": "LARGE",
+    "health": 450,
+    "effects": [
+      {
+        "strId": "FIRE_DAMAGE_IMMUNITY"
+      }
+    ]
   },
   {
     "imageId": 98,

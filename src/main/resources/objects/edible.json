@@ -736,5 +736,53 @@
     "types": [
       "EAT"
     ]
+  },
+  {
+    "id": 351,
+    "weight": "400",
+    "volume": "200",
+    "price": "5000",
+    "stackable": true,
+    "taste": 5,
+    "hunger": 1,
+    "thirst": 10,
+    "remainder": 116,
+    "types": [
+      "POTION"
+    ],
+    "effects": [
+      {
+        "strId": "PIERCING_DAMAGE_IMMUNITY",
+        "durability": 10
+      },
+      {
+        "strId": "CUTTING_DAMAGE_IMMUNITY",
+        "durability": 10
+      },
+      {
+        "strId": "CRUSHING_DAMAGE_IMMUNITY",
+        "durability": 10
+      },
+      {
+        "strId": "EXPLOSIVE_DAMAGE_IMMUNITY",
+        "durability": 10
+      },
+      {
+        "strId": "FIRE_DAMAGE_IMMUNITY",
+        "durability": 10
+      },
+      {
+        "strId": "ELECTRIC_DAMAGE_IMMUNITY",
+        "durability": 10
+      },
+      {
+        "strId": "FROST_DAMAGE_IMMUNITY",
+        "durability": 10
+      },
+      {
+        "strId": "ACID_DAMAGE_IMMUNITY",
+        "durability": 10
+      }
+    ]
   }
 ]

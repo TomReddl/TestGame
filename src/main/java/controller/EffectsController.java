@@ -128,6 +128,24 @@ public class EffectsController {
         effects.put("MOLD_STRIKE", new EffectInfo(Game.getEffectText("MOLD_STRIKE"), "GREEN"));
         effects.put("LIFE_DETECTION", new EffectInfo(Game.getEffectText("LIFE_DETECTION"), "BLUE"));
 
+        effects.put("PIERCING_DAMAGE_IMMUNITY", new EffectInfo(Game.getEffectText("PIERCING_DAMAGE_IMMUNITY"), "BLUE"));
+        effects.put("CUTTING_DAMAGE_IMMUNITY", new EffectInfo(Game.getEffectText("CUTTING_DAMAGE_IMMUNITY"), "BLUE"));
+        effects.put("CRUSHING_DAMAGE_IMMUNITY", new EffectInfo(Game.getEffectText("CRUSHING_DAMAGE_IMMUNITY"), "GREEN"));
+        effects.put("EXPLOSIVE_DAMAGE_IMMUNITY", new EffectInfo(Game.getEffectText("EXPLOSIVE_DAMAGE_IMMUNITY"), "GREEN"));
+        effects.put("FIRE_DAMAGE_IMMUNITY", new EffectInfo(Game.getEffectText("FIRE_DAMAGE_IMMUNITY"), "RED"));
+        effects.put("ELECTRIC_DAMAGE_IMMUNITY", new EffectInfo(Game.getEffectText("ELECTRIC_DAMAGE_IMMUNITY"), "BLUE"));
+        effects.put("FROST_DAMAGE_IMMUNITY", new EffectInfo(Game.getEffectText("FROST_DAMAGE_IMMUNITY"), "BLUE"));
+        effects.put("ACID_DAMAGE_IMMUNITY", new EffectInfo(Game.getEffectText("ACID_DAMAGE_IMMUNITY"), "GREEN"));
+
+        effects.put("PIERCING_DAMAGE", new EffectInfo(Game.getEffectText("PIERCING_DAMAGE"), "BLUE"));
+        effects.put("CUTTING_DAMAGE", new EffectInfo(Game.getEffectText("CUTTING_DAMAGE"), "BLUE"));
+        effects.put("CRUSHING_DAMAGE", new EffectInfo(Game.getEffectText("CRUSHING_DAMAGE"), "GREEN"));
+        effects.put("EXPLOSIVE_DAMAGE", new EffectInfo(Game.getEffectText("EXPLOSIVE_DAMAGE"), "GREEN"));
+        effects.put("FIRE_DAMAGE", new EffectInfo(Game.getEffectText("FIRE_DAMAGE"), "RED"));
+        effects.put("ELECTRIC_DAMAGE", new EffectInfo(Game.getEffectText("ELECTRIC_DAMAGE"), "BLUE"));
+        effects.put("FROST_DAMAGE", new EffectInfo(Game.getEffectText("FROST_DAMAGE"), "BLUE"));
+        effects.put("ACID_DAMAGE", new EffectInfo(Game.getEffectText("ACID_DAMAGE"), "GREEN"));
+
         setAdditionalEffects();
     }
 

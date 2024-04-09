@@ -1874,5 +1874,85 @@
     "params": {
       "inlayerSize": "MEDIUM"
     }
+  },
+  {
+    "id": 347,
+    "weight": "2400",
+    "volume": "2400",
+    "price": "1500",
+    "stackable": false,
+    "armor": 13,
+    "maxStrength": 100,
+    "skill": "LIGHT_ARMOR",
+    "bodyPart": "TORSO",
+    "covering": 20,
+    "style": "CATTGAR",
+    "gender": "UNISEX",
+    "types": ["CLOTHES", "TREASURE"],
+    "effects": [
+      {
+        "strId": "ACID_DAMAGE_IMMUNITY"
+      }
+    ]
+  },
+  {
+    "id": 348,
+    "weight": "2200",
+    "volume": "2400",
+    "price": "1100",
+    "stackable": false,
+    "armor": 12,
+    "maxStrength": 110,
+    "skill": "LIGHT_ARMOR",
+    "bodyPart": "TORSO",
+    "covering": 20,
+    "style": "CATTGAR",
+    "gender": "UNISEX",
+    "types": ["CLOTHES", "TREASURE"],
+    "effects": [
+      {
+        "strId": "FROST_DAMAGE_IMMUNITY"
+      }
+    ]
+  },
+  {
+    "id": 349,
+    "weight": "2300",
+    "volume": "2400",
+    "price": "1700",
+    "stackable": false,
+    "armor": 13,
+    "maxStrength": 120,
+    "skill": "LIGHT_ARMOR",
+    "bodyPart": "TORSO",
+    "covering": 20,
+    "style": "CATTGAR",
+    "gender": "UNISEX",
+    "types": ["CLOTHES", "TREASURE"],
+    "effects": [
+      {
+        "strId": "ELECTRIC_DAMAGE_IMMUNITY"
+      }
+    ]
+  },
+  {
+    "id": 350,
+    "weight": "2200",
+    "volume": "2200",
+    "price": "1900",
+    "stackable": false,
+    "armor": 10,
+    "maxStrength": 100,
+    "skill": "LIGHT_ARMOR",
+    "bodyPart": "TORSO",
+    "covering": 20,
+    "style": "CATTGAR",
+    "gender": "UNISEX",
+    "types": ["CLOTHES", "TREASURE"],
+    "effects": [
+      {
+        "strId": "FIRE_DAMAGE_IMMUNITY"
+      }
+    ]
   }
 ]

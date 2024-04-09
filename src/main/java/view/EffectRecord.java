@@ -34,7 +34,9 @@ public class EffectRecord {
         effectNameLabel.setLayoutY(10);
         pane.getChildren().add(effectNameLabel);
 
-        effectSourceLabel = new Label(effect.getBaseItem().getName());
+        String baseItemName = effect.getBaseItem().getName();
+        baseItemName = baseItemName.length() > 16 ? baseItemName.substring(0, 16).concat(".") : baseItemName;
+        effectSourceLabel = new Label(baseItemName);
         effectSourceLabel.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
         effectSourceLabel.setLayoutX(Game.getEffectsPanel().getEffectSourceLabel().getLayoutX());
         effectSourceLabel.setLayoutY(10);

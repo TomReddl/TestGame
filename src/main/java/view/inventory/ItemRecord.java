@@ -57,7 +57,7 @@ public class ItemRecord {
         pane.setBackground(new Background(new BackgroundFill(
                 ((items.isEquipment()) ? Color.GAINSBORO : Color.WHITESMOKE), CornerRadii.EMPTY, Insets.EMPTY)));
 
-        if (items.getInfo().getTypes().contains(ItemTypeEnum.POTION) && items.getEffects() != null && !items.getEffects().isEmpty()) {
+        if (items.getInfo().getTypes().contains(ItemTypeEnum.POTION) && items.getEffects() != null && !items.getEffects().isEmpty() && items.getTypeId() == 13) {
             EffectInfo effectInfo = EffectsController.getEffects().get(items.getEffects().get(0).getStrId());
             Image image = EffectsController.getPotionImages().get(effectInfo.getPotionColor());
             if (image != null) {
