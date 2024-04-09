@@ -1191,5 +1191,18 @@
     "elements": {
       "152": 3
     }
+  },
+  {
+    "name": "Легкий стальной шлем",
+    "recipeId": 91,
+    "itemId": 345,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "152": 4
+    }
   }
 ]

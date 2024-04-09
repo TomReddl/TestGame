@@ -1856,5 +1856,23 @@
     "params": {
       "inlayerSize": "MEDIUM"
     }
+  },
+  {
+    "id": 345,
+    "weight": "700",
+    "volume": "2200",
+    "price": "350",
+    "stackable": false,
+    "armor": 15,
+    "maxStrength": 120,
+    "skill": "LIGHT_ARMOR",
+    "bodyPart": "HEAD",
+    "covering": 25,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "MEDIUM"
+    }
   }
 ]
