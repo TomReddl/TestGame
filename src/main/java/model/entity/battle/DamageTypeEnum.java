@@ -14,7 +14,8 @@ public enum DamageTypeEnum {
     FIRE_DAMAGE(Game.getText("FIRE_DAMAGE"), false),            // Урон огнем
     ELECTRIC_DAMAGE(Game.getText("ELECTRIC_DAMAGE"), false),    // Урон электричеством
     FROST_DAMAGE(Game.getText("FROST_DAMAGE"), false),          // Урон холодом
-    ACID_DAMAGE(Game.getText("ACID_DAMAGE"), false);            // Урон кислотой
+    ACID_DAMAGE(Game.getText("ACID_DAMAGE"), false),            // Урон кислотой
+    ROT_DAMAGE(Game.getText("ROT_DAMAGE"), false);              // Урон гнилью
 
     @Getter
     private final String desc;

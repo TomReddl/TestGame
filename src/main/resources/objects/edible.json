@@ -748,7 +748,7 @@
     "thirst": 10,
     "remainder": 116,
     "types": [
-      "POTION"
+      "POTION", "TREASURE"
     ],
     "effects": [
       {
@@ -782,6 +782,10 @@
       {
         "strId": "ACID_DAMAGE_IMMUNITY",
         "durability": 10
+      },
+      {
+        "strId": "ROT_DAMAGE_IMMUNITY",
+        "durability": 10
       }
     ]
   },
@@ -796,7 +800,7 @@
     "thirst": 10,
     "remainder": 116,
     "types": [
-      "POTION"
+      "POTION", "TREASURE"
     ],
     "effects": [
       {

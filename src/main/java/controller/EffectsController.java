@@ -117,6 +117,7 @@ public class EffectsController {
         effects.put("ELECTRIC_DAMAGE_RESIST", new EffectInfo(Game.getEffectText("ELECTRIC_DAMAGE_RESIST"), "BLUE"));
         effects.put("FROST_DAMAGE_RESIST", new EffectInfo(Game.getEffectText("FROST_DAMAGE_RESIST"), "BLUE"));
         effects.put("ACID_DAMAGE_RESIST", new EffectInfo(Game.getEffectText("ACID_DAMAGE_RESIST"), "GREEN"));
+        effects.put("ROT_DAMAGE_RESIST", new EffectInfo(Game.getEffectText("ROT_DAMAGE_RESIST"), "RED"));
 
         effects.put("INSECT_DAMAGE_ADD", new EffectInfo(Game.getEffectText("INSECT_DAMAGE_ADD"), "GREEN"));
         effects.put("REPTILE_DAMAGE_ADD", new EffectInfo(Game.getEffectText("REPTILE_DAMAGE_ADD"), "GREEN"));
@@ -136,6 +137,7 @@ public class EffectsController {
         effects.put("ELECTRIC_DAMAGE_IMMUNITY", new EffectInfo(Game.getEffectText("ELECTRIC_DAMAGE_IMMUNITY"), "BLUE"));
         effects.put("FROST_DAMAGE_IMMUNITY", new EffectInfo(Game.getEffectText("FROST_DAMAGE_IMMUNITY"), "BLUE"));
         effects.put("ACID_DAMAGE_IMMUNITY", new EffectInfo(Game.getEffectText("ACID_DAMAGE_IMMUNITY"), "GREEN"));
+        effects.put("ROT_DAMAGE_IMMUNITY", new EffectInfo(Game.getEffectText("ROT_DAMAGE_IMMUNITY"), "RED"));
 
         effects.put("PIERCING_DAMAGE", new EffectInfo(Game.getEffectText("PIERCING_DAMAGE"), "BLUE"));
         effects.put("CUTTING_DAMAGE", new EffectInfo(Game.getEffectText("CUTTING_DAMAGE"), "BLUE"));
@@ -145,6 +147,7 @@ public class EffectsController {
         effects.put("ELECTRIC_DAMAGE", new EffectInfo(Game.getEffectText("ELECTRIC_DAMAGE"), "BLUE"));
         effects.put("FROST_DAMAGE", new EffectInfo(Game.getEffectText("FROST_DAMAGE"), "BLUE"));
         effects.put("ACID_DAMAGE", new EffectInfo(Game.getEffectText("ACID_DAMAGE"), "GREEN"));
+        effects.put("ROT_DAMAGE", new EffectInfo(Game.getEffectText("ROT_DAMAGE"), "RED"));
 
         effects.put("PHASING", new EffectInfo(Game.getEffectText("PHASING"), "RED"));
 

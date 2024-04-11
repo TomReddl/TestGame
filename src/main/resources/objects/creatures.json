@@ -550,7 +550,12 @@
   },
   {
     "imageId": 100,
-    "size": "MEDIUM"
+    "size": "MEDIUM",
+    "effects": [
+      {
+        "strId": "ROT_DAMAGE_IMMUNITY"
+      }
+    ]
   },
   {
     "imageId": 101,
@@ -572,7 +577,12 @@
   },
   {
     "imageId": 105,
-    "size": "MEDIUM"
+    "size": "MEDIUM",
+    "effects": [
+      {
+        "strId": "ROT_DAMAGE_IMMUNITY"
+      }
+    ]
   },
   {
     "imageId": 106,
