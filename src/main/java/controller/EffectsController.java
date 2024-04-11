@@ -146,6 +146,8 @@ public class EffectsController {
         effects.put("FROST_DAMAGE", new EffectInfo(Game.getEffectText("FROST_DAMAGE"), "BLUE"));
         effects.put("ACID_DAMAGE", new EffectInfo(Game.getEffectText("ACID_DAMAGE"), "GREEN"));
 
+        effects.put("PHASING", new EffectInfo(Game.getEffectText("PHASING"), "RED"));
+
         setAdditionalEffects();
     }
 
@@ -768,7 +770,8 @@ public class EffectsController {
 
             case "EPIPHANY":
             case "LIFE_DETECTION":
-            case "BLIND": {
+            case "BLIND":
+            case "PHASING":{
                 if (isFirstTime) {
                     MapController.drawCurrentMap();
                 }

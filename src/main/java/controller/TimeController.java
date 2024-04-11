@@ -1,10 +1,12 @@
 package controller;
 
+import model.editor.TileTypeEnum;
 import model.editor.items.BodyPartEnum;
 import model.entity.Event;
 import model.entity.GameCalendar;
 import model.entity.ItemTypeEnum;
 import model.entity.battle.DamageTypeEnum;
+import model.entity.effects.EffectParams;
 import model.entity.map.Items;
 import model.entity.map.MapCellInfo;
 import model.entity.map.WeatherEnum;
@@ -59,6 +61,15 @@ public class TimeController {
             BattleController.applyDamageToCharacter(playerMapCell.getFireId() * baseFireDamage, DamageTypeEnum.FIRE_DAMAGE, character);
         }
 
+        // если персонаж стоит внутри непроходимого блока (но не внутри блока воды), он получает дробящий урон
+        if ((!playerMapCell.getTile1Info().isPassability() && !TileTypeEnum.valueOf(playerMapCell.getTile1Info().getType()).equals(TileTypeEnum.WATER)) || !playerMapCell.getTile2Info().isPassability()) {
+            boolean isPhasing = character.getAppliedEffects().stream().anyMatch(e -> e.getStrId().equals("PHASING"));
+            // если на персонажа действует эффект "фазирование", то он не получает урон от нахождения внутри твердого объекта
+            if (!isPhasing) {
+                BattleController.applyDamageToCharacter(crushingWallDamage, DamageTypeEnum.CRUSHING_DAMAGE, character);
+            }
+        }
+
         Integer pollutionId = playerMapCell.getPollutionId();
         if (pollutionId >= 13 && pollutionId <= 15) {
             // Если персонаж стоит на кислотном загрязнении без обуви, урон кислотой наносится ему каждый ход
@@ -105,7 +116,7 @@ public class TimeController {
 
                 currentDate.setDay(currentDate.getDay() + 1);
 
-                CharactersController.changeCleanness(character); // чистота убывает каждый день
+                CharactersController.changeCleanness(character); // чистота персонажа убывает каждый день
 
                 if (currentDate.getDay() > GameCalendar.MonthEnum.getMonth(currentDate.getMonth()).getDays()) {
                     currentDate.setDay(1);

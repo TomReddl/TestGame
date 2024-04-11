@@ -70,10 +70,11 @@ public class CharactersController {
         var tileX = (((int) x) / tileSize);
         var tileY = (((int) y) / tileSize);
         var player = Game.getMap().getSelecterCharacter();
+        boolean isPhasing = player.getAppliedEffects().stream().anyMatch(e -> e.getStrId().equals("PHASING"));
         var showOres = false;
         var showEmptiness = false;
         var applyDamage = false;
-        if (MapController.isReachable(player, tileX, tileY)) {
+        if (MapController.isReachable(player, tileX, tileY) && !isPhasing) {
             MapCellInfo mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + tileX]
                     [player.getYMapPos() + tileY];
             var itemInRightHand = player.getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).values().iterator().next();
@@ -771,10 +772,20 @@ public class CharactersController {
      * @return
      */
     private static boolean tilePassability(int x, int y, Character character) {
-        return  (Game.getMap().getTiles()[x][y].getTile1Info().isPassability() ||
-                (character.getAppliedEffects().stream().anyMatch(i -> i.getStrId().equals("WATER_WALK")) &&
-                        Game.getMap().getTiles()[x][y].getTile1Type().equals(TileTypeEnum.WATER))) &&
-                (Game.getMap().getTiles()[x][y].getTile2Info().isPassability() || canMoveTile2());
+        MapCellInfo mapCellInfo = Game.getMap().getTiles()[x][y];
+        boolean isPhasing = character.getAppliedEffects().stream().anyMatch(e -> e.getStrId().equals("PHASING"));
+        boolean isWaterWalk = character.getAppliedEffects().stream().anyMatch(i -> i.getStrId().equals("WATER_WALK"));
+        boolean isWaterTile = mapCellInfo.getTile1Type().equals(TileTypeEnum.WATER);
+        if (isPhasing) {
+            Map<String, String> params = mapCellInfo.getTile2Info().getParams();
+            if (params != null && params.get("subtype") != null && params.get("subtype").equals("phase")) {
+                return false;
+            }
+            return !isWaterTile || isWaterWalk;
+        }
+        return  (mapCellInfo.getTile1Info().isPassability() ||
+                (isWaterWalk && isWaterTile)) &&
+                (mapCellInfo.getTile2Info().isPassability() || canMoveTile2());
     }
 
     /**
@@ -828,6 +839,14 @@ public class CharactersController {
                 break;
             }
         }
+
+        // для персонажа под действием эффекта "фазированиек" рисуем сверху фазовые помехи
+        boolean isPhasing = character.getAppliedEffects().stream().anyMatch(e -> e.getStrId().equals("PHASING"));
+        if (isPhasing) {
+            var image = new Image("/graphics/gui/phase.png");
+            drawImg(character, MapController.getPhase().getImage(), isLeft);
+        }
+
         /*var sp = new SnapshotParameters();
         WritableImage writableImage = new WritableImage(40, 40);
         writableImage = gc.getCanvas().snapshot(sp, writableImage);*/

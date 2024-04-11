@@ -784,5 +784,25 @@
         "durability": 10
       }
     ]
+  },
+  {
+    "id": 353,
+    "weight": "400",
+    "volume": "200",
+    "price": "3000",
+    "stackable": true,
+    "taste": 1,
+    "hunger": 1,
+    "thirst": 10,
+    "remainder": 116,
+    "types": [
+      "POTION"
+    ],
+    "effects": [
+      {
+        "strId": "PHASING",
+        "durability": 10
+      }
+    ]
   }
 ]

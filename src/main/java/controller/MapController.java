@@ -46,6 +46,8 @@ public class MapController {
     private static final ImageView emptiness = new ImageView("/graphics/gui/emptiness.png");
     private static final ImageView dark = new ImageView("/graphics/tiles/Dark.png");
     @Getter
+    private static final ImageView phase = new ImageView("/graphics/gui/phase.png");
+    @Getter
     private static final int dugUpGroundId = 109; // вскопанная земля
     @Getter
     private static final int wetGround = 110; // увлажнённая земля
@@ -757,14 +759,17 @@ public class MapController {
                     int y = ((int) (robot.getMousePosition().getY() - Game.getStage().getY() - headerSize) / tileSize);
                     if (isReachable(player, x, y)) {
                         var mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y];
+                        boolean isPhasing = player.getAppliedEffects().stream().anyMatch(e -> e.getStrId().equals("PHASING"));
                         if (mapCellInfo.getCharacterId() != null) {
                             Character character = Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId());
                             if (character.isAlive()) {
                                 Game.getEditor().getGameDialogPanel().showPanel(mapCellInfo.getCharacterId());
                             } else {
-                                Game.getGameMenu().showContainerInventory(character.getInventory(), x, y, "character", character.getId());
+                                if (!isPhasing) {
+                                    Game.getGameMenu().showContainerInventory(character.getInventory(), x, y, "character", character.getId());
+                                }
                             }
-                        } else {
+                        } else if (!isPhasing) {
                             player.setInteractMapPoint(mapCellInfo);
                             List<Items> itemsList = mapCellInfo.getItems();
                             if (mapCellInfo.getCreatureId() != null) {
@@ -1130,6 +1135,13 @@ public class MapController {
             if (mapCellInfo.getFireId() != 0) {
                 gc.drawImage(Editor.getFires().get(mapCellInfo.getFireId()),
                         x * tileSize, y * tileSize);
+            }
+
+            // если на персонажа действует эффект "фазирование", то он видит помехи на фазовых объектах
+            boolean isPhasing = player.getAppliedEffects().stream().anyMatch(e -> e.getStrId().equals("PHASING"));
+            Map<String, String> params = mapCellInfo.getTile2Info().getParams();
+            if (isPhasing && params != null && params.get("subtype") != null && params.get("subtype").equals("phase")) {
+                gc.drawImage(phase.getImage(), x * tileSize, y * tileSize);
             }
 
             // погодные эффекты рисуем только в режиме игры

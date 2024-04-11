@@ -27,6 +27,7 @@ import static game.GameParams.mapSize;
 public class BattleController {
 
     public static final int baseFireDamage = 15; // базовый урон от горения
+    public static final int crushingWallDamage = 100; // урон от нахождения внутри стены
     public static final int baseAcidRainDamage = 3; // базовый урон от кислотного дождя
     public static final int baseAcidPollutionDamage = 3; // базовый урон от кислотного загрязнения
 
