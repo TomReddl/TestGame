@@ -1,5 +1,6 @@
 package controller;
 
+import controller.utils.ParamsUtils;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -301,19 +302,16 @@ public class MapController {
                                     mapCellInfo.getTile2Info().getDesc().toLowerCase()) +
                             (mapCellInfo.getDesc() != null ? "\n" + mapCellInfo.getDesc() : ""));
 
-            if (mapCellInfo instanceof ClosableCellInfo) {
-                var closableCellInfo = (ClosableCellInfo) mapCellInfo;
-                if (closableCellInfo.isLocked()) {
-                    if (closableCellInfo.isCodeLock()) {
-                        mapInfoLabel.setText(mapInfoLabel.getText() + "\n" + Game.getText("IS_LOCKED"));
-                    } else {
-                        mapInfoLabel.setText(mapInfoLabel.getText() + "\n" +
-                                String.format(Game.getText("LOCKED"), closableCellInfo.getLockLevel()));
-                    }
+            if (ParamsUtils.getBoolean(mapCellInfo, "locked")) {
+                if (ParamsUtils.getBoolean(mapCellInfo, "codeLock")) {
+                    mapInfoLabel.setText(mapInfoLabel.getText() + "\n" + Game.getText("IS_LOCKED"));
+                } else {
+                    mapInfoLabel.setText(mapInfoLabel.getText() + "\n" +
+                            String.format(Game.getText("LOCKED"), ParamsUtils.getInteger(mapCellInfo, "LockLevel")));
                 }
-                if (closableCellInfo.isTrap()) {
-                    mapInfoLabel.setText(mapInfoLabel.getText() + "\n" + Game.getText("TRAPPED"));
-                }
+            }
+            if (ParamsUtils.getBoolean(mapCellInfo, "trap")) {
+                mapInfoLabel.setText(mapInfoLabel.getText() + "\n" + Game.getText("TRAPPED"));
             }
         } else {
             mapInfoLabel.setText("");
@@ -524,9 +522,6 @@ public class MapController {
 
                 if (newType == null && (oldType != null)) {
                     mapCellInfo = new MapCellInfo(mapCellInfo);
-                } else if (newType != null && (TileTypeEnum.valueOf(newType).equals(TileTypeEnum.DOOR) ||
-                        TileTypeEnum.valueOf(newType).equals(TileTypeEnum.CONTAINER))) {
-                    mapCellInfo = new ClosableCellInfo(mapCellInfo);
                 }
             }
         }
@@ -802,8 +797,8 @@ public class MapController {
      * Проверка досягаемости точки на карте для персонажа
      *
      * @param character - игрок, для которого проверяется досягаемость
-     * @param x      - координата x точки
-     * @param y      - координата x точки
+     * @param x         - координата x точки
+     * @param y         - координата x точки
      * @return true, если персонаж может дотянуться до точки
      */
     public static boolean isReachable(Character character, double x, double y) {
@@ -837,8 +832,9 @@ public class MapController {
 
     /**
      * Заливка области карты. Заливает все тайлы одинакового типа
-     * @param posX - координата X
-     * @param posY - координата Y
+     *
+     * @param posX      - координата X
+     * @param posY      - координата Y
      * @param newTileId - id тайла, которым заливаем карту
      * @param oldTileId - id тайла, который был на месте клика
      */
@@ -855,7 +851,8 @@ public class MapController {
                 mapFill(posX, posY + 1, newTileId, oldTileId);
                 mapFill(posX, posY - 1, newTileId, oldTileId);
             }
-        } catch (Exception | Error ignored) {}
+        } catch (Exception | Error ignored) {
+        }
     }
 
     public static void drawMapEnd() {
@@ -923,8 +920,8 @@ public class MapController {
      * Нарисовать тайл
      *
      * @param character -персонаж игрока
-     * @param x      -координата тайла по горизонтали
-     * @param y      -координата тайла по вертикали
+     * @param x         -координата тайла по горизонтали
+     * @param y         -координата тайла по вертикали
      */
     public static void drawTile(Character character, int x, int y) {
         if (x > -1 && y > -1 && x < viewSize && y < viewSize) {
@@ -1207,6 +1204,7 @@ public class MapController {
 
     /**
      * Проверяет, является ли клетка карты пустой (можно ли туда переместить персонажа или существо)
+     *
      * @param mapCellInfo - проверяемая клетка карты
      * @return true, если клетка проходима и там не стоит другое существо или персонаж
      */

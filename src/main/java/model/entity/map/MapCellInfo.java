@@ -1,6 +1,7 @@
 package model.entity.map;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import view.Editor;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Данные о точке на карте мира
@@ -31,6 +33,8 @@ public class MapCellInfo implements Serializable {
     private String desc; // кастомное описание тайла
     private int x; // координата x на карте мира
     private int y; // координата y на карте мира
+    @JsonProperty("params")
+    private Map<String, String> params; // дополнительные параметры
 
     public MapCellInfo(MapCellInfo oldInfo) {
         this.tile1Id = oldInfo.getTile1Id();
@@ -46,6 +50,7 @@ public class MapCellInfo implements Serializable {
         this.desc = oldInfo.getDesc();
         this.x = oldInfo.getX();
         this.y = oldInfo.getY();
+        this.params = oldInfo.getParams();
     }
 
     /**

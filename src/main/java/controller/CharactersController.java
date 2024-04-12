@@ -1,5 +1,6 @@
 package controller;
 
+import controller.utils.ParamsUtils;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -357,8 +358,7 @@ public class CharactersController {
     private static boolean isClosedCell(MapCellInfo mapCellInfo) {
         TileInfo tileInfo = mapCellInfo.getTile2Info();
         if (tileInfo.getType() != null && TileTypeEnum.valueOf(tileInfo.getType()).equals(TileTypeEnum.CONTAINER)) {
-            var closableCellInfo = (ClosableCellInfo) mapCellInfo;
-            return closableCellInfo.isLocked() || closableCellInfo.isTrap();
+            return ParamsUtils.getBoolean(mapCellInfo, "locked") || ParamsUtils.getBoolean(mapCellInfo, "trap");
         }
         return false;
     }
@@ -523,15 +523,14 @@ public class CharactersController {
     private static void closableInteract(MapCellInfo mapCellInfo) {
         TileInfo tileInfo = mapCellInfo.getTile2Info();
         var player = Game.getMap().getSelecterCharacter();
-        var closableCellInfo = (ClosableCellInfo) mapCellInfo;
-        if (closableCellInfo.isLocked()) {
-            if (closableCellInfo.isCodeLock()) {
-                CodeLockPanel.showPanel(closableCellInfo);
+        if (ParamsUtils.getBoolean(mapCellInfo, "locked")) {
+            if (ParamsUtils.getBoolean(mapCellInfo, "codeLock")) {
+                CodeLockPanel.showPanel(mapCellInfo);
             } else {
-                var doorKey = ItemsController.findItemInInventory(closableCellInfo.getKeyId(), player.getInventory());
+                var doorKey = ItemsController.findItemInInventory(ParamsUtils.getInteger(mapCellInfo, "keyId"), player.getInventory());
                 if (doorKey != null) {
-                    closableCellInfo.setTile2Id(Integer.parseInt(tileInfo.getParams().get("anotherDoorState")));
-                    closableCellInfo.setLocked(false);
+                    mapCellInfo.setTile2Id(Integer.parseInt(tileInfo.getParams().get("anotherDoorState")));
+                    ParamsUtils.setParam(mapCellInfo, "locked", "false");
                     Game.showMessage(
                             String.format(Game.getText("OPENED"), doorKey.getInfo().getName()),
                             Color.GREEN);
@@ -540,23 +539,23 @@ public class CharactersController {
                     if (pickLock == null) {
                         Game.showMessage(Game.getText("CLOSED"));
                     } else {
-                        hackLock(closableCellInfo, pickLock);
+                        hackLock(mapCellInfo, pickLock);
                     }
                 }
             }
         } else {
-            if (closableCellInfo.isTrap()) {
+            if (ParamsUtils.getBoolean(mapCellInfo, "Trap")) {
                 Items sapperTools = ItemsController.findSapperToolsInInventory(player.getInventory());
                 if (sapperTools == null) {
-                    closableCellInfo.setTrap(false);
+                    ParamsUtils.setParam(mapCellInfo, "Trap", "false");
                     Game.showMessage(Game.getText("TRAP_TRIGGERED"));
-                    BattleController.applyDamageToCharacter(closableCellInfo.getTrapLevel(), DamageTypeEnum.PIERCING_DAMAGE, Game.getMap().getSelecterCharacter());
+                    BattleController.applyDamageToCharacter(ParamsUtils.getInteger(mapCellInfo, "TrapLevel"), DamageTypeEnum.PIERCING_DAMAGE, Game.getMap().getSelecterCharacter());
                 } else {
-                    trapDeactivation(closableCellInfo, sapperTools);
+                    trapDeactivation(mapCellInfo, sapperTools);
                 }
             } else {
                 if (tileInfo.getParams() != null) {
-                    closableCellInfo.setTile2Id(Integer.parseInt(tileInfo.getParams().get("anotherDoorState")));
+                    mapCellInfo.setTile2Id(Integer.parseInt(tileInfo.getParams().get("anotherDoorState")));
                 }
             }
         }
@@ -565,21 +564,21 @@ public class CharactersController {
     /**
      * Взлом замка
      *
-     * @param closableCellInfo - точка на карте с замком
+     * @param mapCellInfo - точка на карте с замком
      * @param hackingTools     - инструменты для взлома
      */
-    private static void hackLock(ClosableCellInfo closableCellInfo, Items hackingTools) {
+    private static void hackLock(MapCellInfo mapCellInfo, Items hackingTools) {
         var hackingSkill = Game.getMap().getSelecterCharacter().getParams().getSkills().get("LOCKPICKING").getCurrentValue(); // уровень навыка
         var dexterity = Game.getMap().getSelecterCharacter().getParams().getCharacteristics().get(2).getCurrentValue(); // уровень ловкости
         var skillBonus = Integer.parseInt(hackingTools.getInfo().getParams().get("skillBonus")); // бонус к навыку от инструментов инструментов
-        var lockLevel = closableCellInfo.getLockLevel(); // уровень замка
+        var lockLevel = ParamsUtils.getInteger(mapCellInfo, "lockLevel"); // уровень замка
         var hackChance = hackingSkill * 1.5 + dexterity * 0.25 + skillBonus * 1.5 - lockLevel; // формула рассчета вероятности взлома замка
         if (hackChance < 0) {
             Game.showMessage(Game.getText("CANT_HACK")); // если шанс взлома меньше 0, вообще не пытаемся взломать
         } else {
             ItemsController.damageItem(hackingTools, 1, Game.getMap().getSelecterCharacter().getInventory(), Game.getMap().getSelecterCharacter());
             if (random.nextInt(100) < hackChance) {
-                closableCellInfo.setLocked(false);
+                ParamsUtils.setParam(mapCellInfo, "locked", "false");
                 Game.showMessage(
                         String.format(Game.getText("OPENED"), hackingTools.getInfo().getName()),
                         Color.GREEN);
@@ -595,21 +594,21 @@ public class CharactersController {
     /**
      * Обезвреживание ловушки
      *
-     * @param closableCellInfo - точка на карте с ловушкой
+     * @param mapCellInfo - точка на карте с ловушкой
      * @param sapperTools      - сапёрные инструменты
      */
-    private static void trapDeactivation(ClosableCellInfo closableCellInfo, Items sapperTools) {
+    private static void trapDeactivation(MapCellInfo mapCellInfo, Items sapperTools) {
         var hackingSkill = Game.getMap().getSelecterCharacter().getParams().getSkills().get("LOCKPICKING").getCurrentValue(); // уровень навыка
         var dexterity = Game.getMap().getSelecterCharacter().getParams().getCharacteristics().get(2).getCurrentValue(); // уровень ловкости
         var skillBonus = Integer.parseInt(sapperTools.getInfo().getParams().get("skillBonus")); // бонус инструментов
-        var trapLevel = closableCellInfo.getTrapLevel(); // уровень замка
+        var trapLevel = ParamsUtils.getInteger(mapCellInfo, "TrapLevel"); // уровень замка
         var defuseChance = hackingSkill * 1.5 + dexterity * 0.25 + skillBonus * 1.5 - trapLevel; // формула рассчета вероятности взлома замка
         if (defuseChance < 0) {
             Game.showMessage(Game.getText("CANT_DEFUSE")); // если шанс взлома меньше 0, вообще не пытаемся взломать
         } else {
             ItemsController.damageItem(sapperTools, 1, Game.getMap().getSelecterCharacter().getInventory(), Game.getMap().getSelecterCharacter());
             if (random.nextInt(100) < defuseChance) {
-                closableCellInfo.setTrap(false);
+                ParamsUtils.setParam(mapCellInfo, "trap", "false");
                 Game.showMessage(
                         String.format(Game.getText("DEFUSED"), sapperTools.getInfo().getName()),
                         Color.GREEN);

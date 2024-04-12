@@ -1,5 +1,6 @@
 package view;
 
+import controller.utils.ParamsUtils;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,7 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import lombok.Getter;
-import model.entity.map.ClosableCellInfo;
+import model.entity.map.MapCellInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class CodeLockPanel {
     private static final Label descLabel = new Label();
     private static final Button closeButton = new Button(Game.getText("CLOSE"));
 
-    private static ClosableCellInfo currentCellInfo = null;
+    private static MapCellInfo currentCellInfo = null;
     private static final List<CodeButton> codeButtons = new ArrayList<>();
 
 
@@ -95,15 +96,15 @@ public class CodeLockPanel {
         Game.getRoot().getChildren().add(pane);
     }
 
-    public static void showPanel(ClosableCellInfo cellInfo) {
+    public static void showPanel(MapCellInfo cellInfo) {
         currentCellInfo = cellInfo;
-        descLabel.setText(currentCellInfo.getCodeHint());
+        descLabel.setText(ParamsUtils.getString(currentCellInfo, "CodeHint"));
 
         for (int i = 0; i < 7; i++) {
-            var visible = i < currentCellInfo.getCodeForLock().length();
+            var visible = i < ParamsUtils.getString(currentCellInfo, "CodeForLock").length();
             codeButtons.get(i).charImage.setVisible(visible);
             codeButtons.get(i).charLabel.setVisible(visible);
-            codeButtons.get(i).charLabel.setText(currentCellInfo.getCharsForLock().substring(0, 1));
+            codeButtons.get(i).charLabel.setText(ParamsUtils.getString(currentCellInfo, "CharsForLock").substring(0, 1));
             codeButtons.get(i).downImage.setVisible(visible);
             codeButtons.get(i).upImage.setVisible(visible);
         }
@@ -117,20 +118,20 @@ public class CodeLockPanel {
     // прокрутка колеса с символом вверх
     private static void upChar(int index) {
         var currentChar = codeButtons.get(index).charLabel.getText().charAt(0);
-        var currentCharIndex = currentCellInfo.getCharsForLock().indexOf(currentChar);
+        var currentCharIndex = ParamsUtils.getString(currentCellInfo, "CharsForLock").indexOf(currentChar);
         var newCharIndex = Math.max(--currentCharIndex, 0);
         codeButtons.get(index).charLabel.setText(
-                String.valueOf(currentCellInfo.getCharsForLock().charAt(newCharIndex)));
+                String.valueOf(ParamsUtils.getString(currentCellInfo, "CharsForLock").charAt(newCharIndex)));
         checkIsOpen();
     }
 
     // прокрутка колеса с символом вниз
     private static void downChar(int index) {
         var currentChar = codeButtons.get(index).charLabel.getText().charAt(0);
-        var currentCharIndex = currentCellInfo.getCharsForLock().indexOf(currentChar);
-        var newCharIndex = currentCharIndex < currentCellInfo.getCharsForLock().length()-1 ? ++currentCharIndex : currentCharIndex;
+        var currentCharIndex = ParamsUtils.getString(currentCellInfo, "CharsForLock").indexOf(currentChar);
+        var newCharIndex = currentCharIndex < ParamsUtils.getString(currentCellInfo, "CharsForLock").length()-1 ? ++currentCharIndex : currentCharIndex;
         codeButtons.get(index).charLabel.setText(
-                String.valueOf(currentCellInfo.getCharsForLock().charAt(newCharIndex)));
+                String.valueOf(ParamsUtils.getString(currentCellInfo, "CharsForLock").charAt(newCharIndex)));
         checkIsOpen();
     }
 
@@ -142,8 +143,8 @@ public class CodeLockPanel {
                 code = code.concat(codeButtons.get(i).charLabel.getText());
             }
         }
-        if (code.equals(currentCellInfo.getCodeForLock())) {
-            currentCellInfo.setLocked(false);
+        if (code.equals(ParamsUtils.getString(currentCellInfo, "CodeForLock"))) {
+            ParamsUtils.setParam(currentCellInfo, "locked", "false");
             hidePanel();
             Game.showMessage(Game.getText("OPENED_BY_CODE"), Color.GREEN);
         }

@@ -1,5 +1,6 @@
 package view;
 
+import controller.utils.ParamsUtils;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -13,7 +14,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import lombok.Getter;
 import model.entity.ItemTypeEnum;
-import model.entity.map.ClosableCellInfo;
 import model.entity.map.MapCellInfo;
 
 /**
@@ -149,7 +149,7 @@ public class TileEditPanel {
     }
 
     private static void filterChars(TextField textField, String newValue) {
-        if (!isCodeLockCB.isSelected()) {
+        if (!isCodeLockCB.isSelected() && newValue != null) {
             if (!newValue.matches("\\d*")) {
                 textField.setText(newValue.replaceAll("[^\\d]", ""));
             }
@@ -207,29 +207,28 @@ public class TileEditPanel {
         trapLevelTF.setVisible(keyVisible);
 
         if (keyVisible) {
-            ClosableCellInfo closableCellInfo = (ClosableCellInfo) cellInfo;
-            isLockedCB.setSelected(closableCellInfo.isLocked());
-            lockLevelTF.setText(String.valueOf(closableCellInfo.getLockLevel()));
-            keyIdTF.setText(String.valueOf(closableCellInfo.getKeyId()));
+            isLockedCB.setSelected(ParamsUtils.getBoolean(cellInfo, "locked"));
+            lockLevelTF.setText(ParamsUtils.getString(cellInfo, "lockLevel"));
+            keyIdTF.setText(ParamsUtils.getString(cellInfo, "keyId"));
 
-            isCodeLockCB.setSelected(closableCellInfo.isCodeLock());
+            isCodeLockCB.setSelected(ParamsUtils.getBoolean(cellInfo, "CodeLock"));
             if (isCodeLockCB.isSelected()) {
-                lockLevelTF.setText(String.valueOf(closableCellInfo.getCharsForLock()).toUpperCase());
-                keyIdTF.setText(String.valueOf(closableCellInfo.getCodeForLock()).toUpperCase());
-                codeLockHintTF.setText(String.valueOf(closableCellInfo.getCodeHint()).toUpperCase());
+                lockLevelTF.setText(ParamsUtils.getString(currentCellInfo, "CharsForLock").toUpperCase());
+                keyIdTF.setText(ParamsUtils.getString(cellInfo, "CodeForLock"));
+                codeLockHintTF.setText(ParamsUtils.getString(cellInfo, "CodeHint").toUpperCase());
 
                 codeLockHintLabel.setVisible(true);
                 codeLockHintTF.setVisible(true);
             } else {
-                lockLevelTF.setText(String.valueOf(closableCellInfo.getLockLevel()));
-                keyIdTF.setText(String.valueOf(closableCellInfo.getKeyId()));
+                lockLevelTF.setText(ParamsUtils.getString(cellInfo, "LockLevel"));
+                keyIdTF.setText(ParamsUtils.getString(cellInfo, "keyId"));
 
                 codeLockHintLabel.setVisible(false);
                 codeLockHintTF.setVisible(false);
             }
 
-            isTrapCB.setSelected(closableCellInfo.isTrap());
-            trapLevelTF.setText(String.valueOf(closableCellInfo.getTrapLevel()));
+            isTrapCB.setSelected(ParamsUtils.getBoolean(cellInfo, "trap"));
+            trapLevelTF.setText(ParamsUtils.getString(cellInfo, "TrapLevel"));
         }
     }
 
@@ -237,24 +236,21 @@ public class TileEditPanel {
         currentCellInfo.setDesc(descTF.getText());
         var type = currentCellInfo.getTile2Info().getType();
         if ("CONTAINER".equals(type) || "DOOR".equals(type)) {
-            ClosableCellInfo closableCellInfo = (ClosableCellInfo) currentCellInfo;
-            closableCellInfo.setLocked(isLockedCB.isSelected());
-            closableCellInfo.setCodeLock(isCodeLockCB.isSelected());
+            ParamsUtils.setParam(currentCellInfo, "locked", String.valueOf(isLockedCB.isSelected()));
+            ParamsUtils.setParam(currentCellInfo, "codeLock", String.valueOf(isCodeLockCB.isSelected()));
             if (isCodeLockCB.isSelected()) {
-                closableCellInfo.setCodeForLock(keyIdTF.getText().isEmpty() ? null : keyIdTF.getText().toUpperCase());
-                closableCellInfo.setCharsForLock(lockLevelTF.getText().isEmpty() ? null : lockLevelTF.getText().toUpperCase());
-                closableCellInfo.setCodeHint(codeLockHintTF.getText().isEmpty() ? null : codeLockHintTF.getText().toUpperCase());
+                ParamsUtils.setParam(currentCellInfo, "CodeForLock", keyIdTF.getText().toUpperCase());
+                ParamsUtils.setParam(currentCellInfo, "CharsForLock", lockLevelTF.getText().toUpperCase());
+                ParamsUtils.setParam(currentCellInfo, "CodeHint", codeLockHintTF.getText().toUpperCase());
             } else {
-                closableCellInfo.setKeyId(keyIdTF.getText().isEmpty() ? null : Integer.parseInt(keyIdTF.getText()));
-                closableCellInfo.setLockLevel(lockLevelTF.getText().isEmpty() ? null : Integer.parseInt(lockLevelTF.getText()));
+                ParamsUtils.setParam(currentCellInfo, "keyId", keyIdTF.getText());
+                ParamsUtils.setParam(currentCellInfo, "lockLevel", lockLevelTF.getText());
             }
 
-            closableCellInfo.setTrap(isTrapCB.isSelected());
+            ParamsUtils.setParam(currentCellInfo, "Trap", String.valueOf(isTrapCB.isSelected()));
             if (isTrapCB.isSelected()) {
-                closableCellInfo.setTrapLevel(trapLevelTF.getText().isEmpty() ? null : Integer.parseInt(trapLevelTF.getText()));
+                ParamsUtils.setParam(currentCellInfo, "TrapLevel", trapLevelTF.getText());
             }
-
-            currentCellInfo = closableCellInfo;
         }
         hidePanel();
     }
