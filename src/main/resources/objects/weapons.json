@@ -321,7 +321,7 @@
     "volume": "5000",
     "price": "450",
     "stackable": false,
-    "damage": 13,
+    "damage": 8,
     "maxStrength": 300,
     "damageType": "CUTTING_DAMAGE",
     "skill": "HEAVY_WEAPON",
@@ -333,7 +333,7 @@
       },
       {
         "strId": "ROT_DAMAGE",
-        "power": "10"
+        "power": "20"
       }
     ]
   },
@@ -429,6 +429,25 @@
     "effects": [
       {
         "strId": "ELECTRIC_DAMAGE",
+        "power": "10"
+      }
+    ]
+  },
+  {
+    "id": 355,
+    "weight": "600",
+    "volume": "600",
+    "price": "1200",
+    "stackable": false,
+    "damage": 10,
+    "maxStrength": 120,
+    "damageType": "CUTTING_DAMAGE",
+    "skill": "LIGHT_WEAPON",
+    "oneHand": true,
+    "types": ["WEAPON"],
+    "effects": [
+      {
+        "strId": "FROST_DAMAGE",
         "power": "10"
       }
     ]

@@ -18,6 +18,7 @@ import view.Game;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -58,6 +59,7 @@ public class ItemDetailPanel {
         pane.setVisible(true);
         descLabel.setText(item.getName());
         if (item.getInfo() instanceof WeaponInfo) {
+            descLabel.setText(item.getInfo().getDesc());
             var weaponInfo = (WeaponInfo) item.getInfo();
             descLabel.setText(descLabel.getText() + "\n\n" +
                     String.format(Game.getText("DAMAGE"), weaponInfo.getDamage()) + "\n" +
@@ -155,12 +157,17 @@ public class ItemDetailPanel {
     private static void addEffectsText(List<EffectParams> effectsList) {
         if (effectsList != null && effectsList.size() > 0) {
             descLabel.setText(descLabel.getText() + "\n\n" + Game.getText("EFFECTS") + "\n");
-            for (EffectParams effect : effectsList) {
+            Iterator<EffectParams> iterator = effectsList.iterator();
+            while (iterator.hasNext()) {
+                EffectParams effect = iterator.next();
                 descLabel.setText(descLabel.getText() + Game.getEffectText(effect.getStrId()) + " " +
-                        effect.getPower() + Game.getText("UNITS") + " " +
+                        ((effect.getPower() != null ? effect.getPower() + " " + Game.getText("UNITS") : "") + " ") +
                         ((effect.getDurability() != null && effect.getDurability() > 0) ?
                                 (Game.getText("ON") + " " + effect.getDurability() + " " + Game.getText("TURNS")) :
                                 ""));
+                if (iterator.hasNext()) {
+                    descLabel.setText(descLabel.getText() + "\n");
+                }
             }
         }
     }
