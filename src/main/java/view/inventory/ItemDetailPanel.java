@@ -57,7 +57,6 @@ public class ItemDetailPanel {
         pane.setLayoutX(containerInventory.contains(selectItem) ? 765 : 490);
         pane.setLayoutY(y + 65);
         pane.setVisible(true);
-        descLabel.setText(item.getName());
         if (item.getInfo() instanceof WeaponInfo) {
             descLabel.setText(item.getInfo().getDesc());
             var weaponInfo = (WeaponInfo) item.getInfo();
@@ -69,6 +68,7 @@ public class ItemDetailPanel {
             addEffectsText(item.getEffects());
             addInlayerText(item);
         } else if (item.getInfo() instanceof ClothesInfo) {
+            descLabel.setText(item.getInfo().getDesc());
             var clothesInfo = (ClothesInfo) item.getInfo();
             descLabel.setText(descLabel.getText() + "\n\n" +
                     String.format(Game.getText("ARMOR"), clothesInfo.getArmor()) + "\n" +
@@ -89,6 +89,7 @@ public class ItemDetailPanel {
             addEffectsText(item.getEffects());
             addInlayerText(item);
         } else if (item.getInfo() instanceof EdibleInfo) {
+            descLabel.setText(item.getTypeId() == 13 ? item.getName() : item.getInfo().getDesc());
             var edibleInfo = (EdibleInfo) item.getInfo();
             descLabel.setText(descLabel.getText() + "\n\n" +
                     String.format(Game.getText("TASTE"), edibleInfo.getTaste()) + "\n" +
@@ -119,6 +120,7 @@ public class ItemDetailPanel {
                 descLabel.setText(descLabel.getText() + Game.getText("UNKNOWN_EFFECTS"));
             }
         } else if (item.getInfo().getTypes().contains(ItemTypeEnum.TOOL)) {
+            descLabel.setText(item.getInfo().getDesc());
             if (item.getInfo().getTypes().contains(ItemTypeEnum.WATERING_CAN)) {
                 descLabel.setText(descLabel.getText() + "\n\n" +
                         String.format(
@@ -144,6 +146,7 @@ public class ItemDetailPanel {
                                 toolSkill));
             }
         } else if (item.getInfo().getTypes().contains(ItemTypeEnum.ENCHANTMENT)) {
+            descLabel.setText(item.getInfo().getDesc());
             addEffectsText(item.getEffects());
             addInlayerText(item);
         }
