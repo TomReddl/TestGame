@@ -175,6 +175,8 @@ public class Editor {
         saveMapImage.setLayoutX(260);
         saveMapImage.setLayoutY(5);
         saveMapImage.setOnMousePressed(event -> JsonUtils.saveMap(mapNameTextField.getText(), Game.getMap()));
+        saveMapImage.setOnMouseEntered(event -> showHint(Game.getText("SAVE_MAP")));
+        saveMapImage.setOnMouseExited(event -> hideHint());
         buttonsPane.getChildren().add(saveMapImage);
 
         ImageView loadMapImage = new ImageView("/graphics/gui/LoadMap.png");
@@ -185,19 +187,33 @@ public class Editor {
             MapController.drawCurrentMap();
             CharactersController.setPlayerStartParams(Game.getMap().getSelecterCharacter());
         });
+        loadMapImage.setOnMouseEntered(event -> showHint(Game.getText("LOAD_MAP")));
+        loadMapImage.setOnMouseExited(event -> hideHint());
         buttonsPane.getChildren().add(loadMapImage);
 
         ImageView startTestGameImage = new ImageView("/graphics/gui/StartTestGame.png");
         startTestGameImage.setLayoutX(330);
         startTestGameImage.setLayoutY(5);
         startTestGameImage.setOnMousePressed(event -> Game.setGameMode(GameModeEnum.GAME));
+        startTestGameImage.setOnMouseEntered(event -> showHint(Game.getText("START_TEST_GAME")));
+        startTestGameImage.setOnMouseExited(event -> hideHint());
         buttonsPane.getChildren().add(startTestGameImage);
 
         Game.getStopTestGameImage().setLayoutX(5);
         Game.getStopTestGameImage().setLayoutY(610);
         Game.getStopTestGameImage().setOnMousePressed(event -> Game.setGameMode(GameModeEnum.EDITOR));
         Game.getStopTestGameImage().setVisible(false);
+        Game.getStopTestGameImage().setOnMouseEntered(event -> showHint(Game.getText("STOP_TEST_GAME")));
+        Game.getStopTestGameImage().setOnMouseExited(event -> hideHint());
         Game.getRoot().getChildren().add(Game.getStopTestGameImage());
+    }
+
+    private void showHint(String hint) {
+        mapInfoLabel.setText(hint);
+    }
+
+    private void hideHint() {
+        mapInfoLabel.setText("");
     }
 
     private void drawTiles() {
