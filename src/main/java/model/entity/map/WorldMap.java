@@ -27,7 +27,7 @@ public class WorldMap implements Serializable {
     List<Creature> creaturesList = new ArrayList<>();
     private String mapName;
     private Character selecterCharacter = new Character(32, 1, 0, 0, 0, 0);
-    private Map<WeatherEnum, Integer> currentWeather = new HashMap<>();; // текущая погода и ее сила
+    private Map<WeatherEnum, Integer> currentWeather = new HashMap<>(); // текущая погода и ее сила
     private Map<WeatherEnum, Integer> accessibleWeathers = new HashMap<>(); // доступная погода и вероятность ее наступления
     private Map<Integer, EffectParams> additionalEffect = new HashMap<>(); // дополнительные эффекты ингредиентов (генерируются случайно при старте новой игры)
 

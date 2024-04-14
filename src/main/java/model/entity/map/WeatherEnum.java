@@ -15,7 +15,9 @@ public enum WeatherEnum {
     BLOOD_RAIN(Game.getText("BLOOD_RAIN_WEATHER"), new Image("/graphics/weather/bloodRain.1.png"), new Image("/graphics/weather/bloodRain.2.png"), null),   // Кровавый дождь
     ACID_RAIN(Game.getText("ACID_RAIN_WEATHER"), new Image("/graphics/weather/acidRain.1.png"), new Image("/graphics/weather/acidRain.2.png"), null),       // Кислотный дождь
     FOG(Game.getText("FOG"), new Image("/graphics/weather/fog1.png"), new Image("/graphics/weather/fog2.png"), new Image("/graphics/weather/fog3.png")),        // Туман
-    SNOW(Game.getText("SNOW"), new Image("/graphics/weather/snow1.1.png"), new Image("/graphics/weather/snow1.2.png"), null);                               // Снег
+    SNOW(Game.getText("SNOW"), new Image("/graphics/weather/snow1.1.png"), new Image("/graphics/weather/snow1.2.png"), null),                               // Снег
+    BLOOD_FOG(Game.getText("BLOOD_FOG"), new Image("/graphics/weather/bloodFog1.png"),
+            new Image("/graphics/weather/bloodFog2.png"), new Image("/graphics/weather/bloodFog3.png"));                                                                // Кровавый туман
 
     @Getter
     private final String desc;

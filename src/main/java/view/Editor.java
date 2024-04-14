@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.util.Pair;
 import lombok.Getter;
 import lombok.Setter;
 import model.editor.*;
@@ -21,6 +22,7 @@ import model.entity.GameModeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.map.WeatherEnum;
 import model.entity.player.Character;
+import org.apache.commons.logging.impl.WeakHashtable;
 import view.dialog.DialogPanel;
 import view.dialog.GameDialogPanel;
 
@@ -102,6 +104,8 @@ public class Editor {
     private static final List<Image> fires = new ArrayList<>();
 
     private ComboBox<WeatherEnum> weatherCB = new ComboBox();
+
+    private Map<String, Pair<CheckBox, Slider>> weatherSliders = new HashMap<>(); // мапа <id погоды, пара: чекбокс и слайдер для этой погоды>
 
     @Getter
     private final AlchemyPanel alchemyPanel;
@@ -564,10 +568,27 @@ public class Editor {
             label.setLayoutX(25);
             label.setLayoutY(y);
 
+            Slider slider = new Slider();
+            slider.setLayoutY(y);
+            slider.setId(weatherType.name());
+            slider.setLayoutX(200);
+            slider.setPrefWidth(100);
+            slider.setMajorTickUnit(1.0);
+            slider.setShowTickMarks(true);
+            slider.setSnapToTicks(true);
+            slider.setMin(1);
+            slider.setBlockIncrement(1);
+            slider.setMax(10);
+            slider.setDisable(!checkBox.isSelected());
+            slider.valueProperty().addListener((obs, oldVal, newVal) ->
+                    changeSliderValue(slider.getId(), newVal));
+
+            weatherSliders.put(weatherType.name(), new Pair<>(checkBox, slider));
+
             HBox hBox = new HBox();
             hBox.setLayoutX(5);
             hBox.setLayoutY(y);
-            hBox.getChildren().addAll(checkBox, label);
+            hBox.getChildren().addAll(checkBox, slider, label);
             hBox.setSpacing(5);
 
             pane8.getChildren().add(hBox);
@@ -596,6 +617,10 @@ public class Editor {
         root.getChildren().add(tabPane);
     }
 
+    private static void changeSliderValue(String sliderId, Number newVal) {
+        Game.getMap().getAccessibleWeathers().put(WeatherEnum.valueOf(sliderId), newVal.intValue());
+    }
+
     // установить текущую погоду
     private void setWeather(WeatherEnum selected) {
         Map<WeatherEnum, Integer> weather = new HashMap<>();
@@ -611,8 +636,9 @@ public class Editor {
 
     // Сохранить доступную для текущей карты погоду
     private void changeAccessibleWeather(String checkBoxId, boolean checked) {
+        weatherSliders.get(checkBoxId).getValue().setDisable(!checked);
         if (checked) {
-            Game.getMap().getAccessibleWeathers().put(WeatherEnum.valueOf(checkBoxId), 1);
+            Game.getMap().getAccessibleWeathers().put(WeatherEnum.valueOf(checkBoxId), (int) weatherSliders.get(checkBoxId).getValue().getValue());
         } else {
             Game.getMap().getAccessibleWeathers().remove(WeatherEnum.valueOf(checkBoxId));
         }

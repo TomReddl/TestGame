@@ -1,12 +1,12 @@
 package controller;
 
+import javafx.scene.paint.Color;
 import model.editor.TileTypeEnum;
 import model.editor.items.BodyPartEnum;
 import model.entity.Event;
 import model.entity.GameCalendar;
 import model.entity.ItemTypeEnum;
 import model.entity.battle.DamageTypeEnum;
-import model.entity.effects.EffectParams;
 import model.entity.map.Items;
 import model.entity.map.MapCellInfo;
 import model.entity.map.WeatherEnum;
@@ -21,6 +21,7 @@ import static controller.BattleController.*;
  * Действия со временем
  */
 public class TimeController {
+    private static final Random random = new Random();
 
     private static Map<Integer, List<Event>> eventsMap = new HashMap<>(); // будущие события
 
@@ -99,6 +100,7 @@ public class TimeController {
 
             if (currentDate.getHour() % 4 == 0) {
                 MapController.moldGrowth(); // рост плесени каждые 4 часа
+                changeCurrentWeather();
             }
 
             CharactersController.changeHungerAndThirst(character); // жажда и голод убывают каждый час
@@ -279,6 +281,26 @@ public class TimeController {
         } else {
             eventsMap.put(event.getTime(), new ArrayList<>());
             eventsMap.get(event.getTime()).add(event);
+        }
+    }
+
+    /**
+     * Смена текущей погоды
+     */
+    private static void changeCurrentWeather() {
+        Collection<Integer> weatherProbabilities = Game.getMap().getAccessibleWeathers().values();
+        int maxProb = weatherProbabilities.stream().mapToInt(e -> e).sum();
+        int value = random.nextInt(maxProb);
+        for (WeatherEnum weather : Game.getMap().getAccessibleWeathers().keySet()) {
+            if (value < Game.getMap().getAccessibleWeathers().get(weather)) {
+                Map<WeatherEnum, Integer> currentWeather = new HashMap<>();
+                currentWeather.put(weather, 4);
+                Game.getMap().setCurrentWeather(currentWeather);
+                Game.showMessage(Game.getText("WEATHER_CHANGE") + " " + weather.getDesc().toLowerCase(), Color.GREEN);
+                break;
+            } else {
+                value = value - Game.getMap().getAccessibleWeathers().get(weather);
+            }
         }
     }
 }

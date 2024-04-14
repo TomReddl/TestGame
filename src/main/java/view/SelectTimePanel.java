@@ -113,9 +113,11 @@ public class SelectTimePanel {
             selectTimeLabel.setText("1 " + Game.getGameText("HOUR"));
             slider.setValue(1);
             pane.setVisible(true);
-            String subtype = mapCellInfo.getTile2Info().getParams() != null ? mapCellInfo.getTile2Info().getParams().get("subtype") : "";
-            packButton.setVisible(subtype.equals("packable"));
-            mapCell = mapCellInfo;
+            if (mapCellInfo != null) {
+                String subtype = mapCellInfo.getTile2Info().getParams() != null ? mapCellInfo.getTile2Info().getParams().get("subtype") : "";
+                packButton.setVisible(subtype.equals("packable"));
+                mapCell = mapCellInfo;
+            }
         }
     }
 

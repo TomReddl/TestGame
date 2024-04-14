@@ -1143,7 +1143,8 @@ public class MapController {
 
             // погодные эффекты рисуем только в режиме игры
             if (Game.getGameMode().equals(GameModeEnum.GAME) && !Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.CLEAR)) {
-                if (Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.FOG)) {
+                if (Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.FOG) ||
+                        Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.BLOOD_FOG)) {
                     if (tileDistance(player, x, y) >= Game.getMap().getCurrentWeather().values().iterator().next()) { // рисуем сплошной туман
                         gc.drawImage(Game.getMap().getCurrentWeather().keySet().iterator().next().getImage1(),
                                 x * tileSize, y * tileSize);
