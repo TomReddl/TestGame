@@ -398,6 +398,10 @@ public class MapController {
                         mapCellInfo.setZoneId(isRightMouse ? 0 : Editor.getSelectTile());
                         break;
                     }
+                    case ROOF: {
+                        mapCellInfo.setRoofId(isRightMouse ? 0 : Editor.getSelectTile());
+                        break;
+                    }
                 }
 
                 Game.getMap().getTiles()[player.getXMapPos() + tileX][player.getYMapPos() + tileY] = mapCellInfo;
@@ -1128,6 +1132,12 @@ public class MapController {
                 gc.drawImage(tile2Img, x * tileSize, y * tileSize - (tile2Img.getHeight() - tileSize));
             }
 
+            // Рисуем крыши
+            if (Game.getGameMode().equals(GameModeEnum.EDITOR) && Editor.isShowRoofs() && mapCellInfo.getRoofId() != 0) {
+                gc.drawImage(Editor.getRoofs().get(mapCellInfo.getRoofId()).getImage().getImage(),
+                        x * tileSize, y * tileSize);
+            }
+
             // если тайл горит, рисуем огонь
             if (mapCellInfo.getFireId() != 0) {
                 gc.drawImage(Editor.getFires().get(mapCellInfo.getFireId()),
@@ -1142,7 +1152,8 @@ public class MapController {
             }
 
             // погодные эффекты рисуем только в режиме игры
-            if (Game.getGameMode().equals(GameModeEnum.GAME) && !Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.CLEAR)) {
+            if (Game.getGameMode().equals(GameModeEnum.GAME) && !Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.CLEAR)
+                    && mapCellInfo.getRoofId() == 0) {
                 if (Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.FOG) ||
                         Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.BLOOD_FOG)) {
                     if (tileDistance(player, x, y) >= Game.getMap().getCurrentWeather().values().iterator().next()) { // рисуем сплошной туман

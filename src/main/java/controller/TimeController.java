@@ -79,10 +79,11 @@ public class TimeController {
             }
         }
 
-        if (Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.ACID_RAIN)) {
+        // Если идет кислотный дождь и у персонажа нет зонта в руке или крыши над головой, кислота наносит урон персонажу
+        if (Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.ACID_RAIN) && playerMapCell.getRoofId() == 0) {
             Items itemInRightHand = character.getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).values().iterator().next();
             if (!itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.UMBRELLA)) {
-                // Если идет кислотный дождь и у персонажа нет зонта в руке, кислота наносит урон персонажу
+
                 BattleController.applyDamageToCharacter(baseAcidRainDamage, DamageTypeEnum.FIRE_DAMAGE, character);
             }
         }

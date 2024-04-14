@@ -10,5 +10,6 @@ public enum EditorObjectType {
   CREATURE,   // существо
   ITEM,       // предмет
   POLLUTION,  // загрязнение
-  ZONE        // зона
+  ZONE,       // зона
+  ROOF        // крыша
 }

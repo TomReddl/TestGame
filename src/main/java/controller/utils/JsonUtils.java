@@ -120,6 +120,16 @@ public class JsonUtils {
         }
     }
 
+    public static List<RoofInfo> getRoofs() {
+        try {
+            var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/roofs.json";
+            return objectMapper.readValue(new File(path), new TypeReference<>() {
+            });
+        } catch (Exception ex) {
+            throw new RuntimeException("can not read 'roofs.json', cause=%s" + ex.getMessage());
+        }
+    }
+
     public static List<RecipeInfo> getRecipes() {
         try {
             var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/recipes.json";

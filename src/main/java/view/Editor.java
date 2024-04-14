@@ -48,6 +48,7 @@ public class Editor {
     private static final Pane pane6 = new Pane();
     private static final Pane pane7 = new Pane();
     private static final Pane pane8 = new Pane();
+    private static final Pane pane9 = new Pane();
     @Getter
     private static final Pane itemsPane = new Pane();
     private static final TextField searchTile1TF = new TextField();
@@ -60,6 +61,14 @@ public class Editor {
     private static final TabPane itemsTabPane = new TabPane();
     @Getter
     private static final Label showZonesLabel = new Label(Game.getText("SHOW_ZONES"));
+    @Getter
+    private static final Label showRoofsLabel = new Label(Game.getText("SHOW_ROOFS"));
+    @Getter
+    @Setter
+    private static boolean showRoofs = false;
+    @Setter
+    @Getter
+    private static CheckBox showRoofsCheckBox = new CheckBox();
     @Getter
     private static int selectTile = 0;
     @Getter
@@ -91,6 +100,9 @@ public class Editor {
     @Setter
     @Getter
     private static List<ZoneInfo> zones = JsonUtils.getZones();
+    @Setter
+    @Getter
+    private static List<RoofInfo> roofs = JsonUtils.getRoofs();
     @Setter
     @Getter
     private static List<RecipeInfo> recipes = JsonUtils.getRecipes();
@@ -210,6 +222,7 @@ public class Editor {
         tabPane.getTabs().add(new Tab(Game.getText("POLLUTIONS")));
         tabPane.getTabs().add(new Tab(Game.getText("ZONES")));
         tabPane.getTabs().add(new Tab(Game.getText("WEATHER")));
+        tabPane.getTabs().add(new Tab(Game.getText("ROOFS")));
         tabPane.getTabs().get(0).setClosable(false);
         tabPane.getTabs().get(1).setClosable(false);
         tabPane.getTabs().get(2).setClosable(false);
@@ -218,6 +231,7 @@ public class Editor {
         tabPane.getTabs().get(5).setClosable(false);
         tabPane.getTabs().get(6).setClosable(false);
         tabPane.getTabs().get(7).setClosable(false);
+        tabPane.getTabs().get(8).setClosable(false);
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setLayoutX(5);
@@ -614,6 +628,50 @@ public class Editor {
 
         tabPane.getTabs().get(7).setContent(pane8);
 
+        showRoofsCheckBox.setLayoutX(5);
+        showRoofsCheckBox.setLayoutY(5);
+        showRoofsCheckBox.setOnAction(event -> changeRoofsZones());
+
+        HBox box2 = new HBox();
+        box2.setLayoutX(5);
+        box2.setLayoutY(5);
+        box2.getChildren().addAll(showRoofsCheckBox, showRoofsLabel);
+        box2.setSpacing(5);
+
+        pane9.getChildren().add(box2);
+
+        ScrollPane scrollPane8 = new ScrollPane();
+        scrollPane8.setLayoutX(190);
+        scrollPane8.setPrefSize(180, 600);
+
+        for (int i = 0; i < roofs.size(); i++) {
+            ImageView tile;
+            if (i == 0) {
+                tile = new ImageView("/graphics/gui/Delete.png");
+            } else {
+                tile = new ImageView("/graphics/roofs/" + i + ".png");
+            }
+            tile.setFitWidth(tileSize);
+            tile.setPreserveRatio(true);
+            tile.setSmooth(true);
+            tile.setCache(true);
+            tile.setX(5 + (i / 13) * (tileSize + 5));
+            tile.setY(35 + (i) * (tileSize + 5) - (i / 13) * 585);
+            tile.setId(String.valueOf(i));
+            tile.setOnMouseClicked(event -> {
+                setBorder(pane9);
+                selectTile = roofs.get(Integer.parseInt(tile.getId())).getId();
+                selectedType = EditorObjectType.ROOF;
+                border.setX(roofs.get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+                border.setY(roofs.get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+            });
+
+            roofs.get(i).setImage(tile);
+            pane9.getChildren().add(tile);
+        }
+        scrollPane8.setContent(pane9);
+        tabPane.getTabs().get(8).setContent(scrollPane8);
+
         root.getChildren().add(tabPane);
     }
 
@@ -653,6 +711,11 @@ public class Editor {
 
     private void changeShowZones() {
         showZones = !showZones;
+        MapController.drawCurrentMap();
+    }
+
+    private void changeRoofsZones() {
+        showRoofs = !showRoofs;
         MapController.drawCurrentMap();
     }
 
