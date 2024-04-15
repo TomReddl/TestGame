@@ -162,6 +162,7 @@ public class Editor {
         TextField mapNameTextField = new TextField();
         mapNameTextField.setLayoutX(105);
         mapNameTextField.setLayoutY(5);
+        mapNameTextField.setMaxWidth(100);
         mapNameTextField.setText(Game.getMap().getMapName());
         mapNameTextField.setFocusTraversable(false);
         mapNameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -170,6 +171,14 @@ public class Editor {
             }
         });
         buttonsPane.getChildren().add(mapNameTextField);
+
+        ImageView generateMapImage = new ImageView("/graphics/gui/GenerateMap.png");
+        generateMapImage.setLayoutX(225);
+        generateMapImage.setLayoutY(5);
+        generateMapImage.setOnMousePressed(event -> MapController.generateMap());
+        generateMapImage.setOnMouseEntered(event -> showHint(Game.getText("GENERATE_MAP")));
+        generateMapImage.setOnMouseExited(event -> hideHint());
+        buttonsPane.getChildren().add(generateMapImage);
 
         ImageView saveMapImage = new ImageView("/graphics/gui/SaveMap.png");
         saveMapImage.setLayoutX(260);

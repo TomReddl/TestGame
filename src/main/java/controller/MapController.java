@@ -6,8 +6,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
 import javafx.scene.input.KeyCode;
 import javafx.scene.robot.Robot;
+import javafx.stage.FileChooser;
 import lombok.Getter;
 import model.editor.EditorObjectType;
 import model.editor.TileInfo;
@@ -29,7 +31,10 @@ import view.inventory.ItemCountPanel;
 import view.menu.MainMenu;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +53,8 @@ public class MapController {
     private static final ImageView dark = new ImageView("/graphics/tiles/Dark.png");
     @Getter
     private static final ImageView phase = new ImageView("/graphics/gui/phase.png");
+
+    private static FileChooser fileChooser = new FileChooser();
     @Getter
     private static final int dugUpGroundId = 109; // вскопанная земля
     @Getter
@@ -60,6 +67,24 @@ public class MapController {
     private static final int moldGround = 117; // плесневелая земля
     @Getter
     private static final int burntGround = 118; // горелая земля
+
+    private static final Map<Integer, Integer> pixelsMap = new HashMap(); // мапа для хранения соответствия id пикселя из картинки для генерации- id тайла
+
+    static {
+        fileChooser.setTitle("Выберите изображение для генерации");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png"));
+        fileChooser.setInitialDirectory(new File("/" + MapController.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "/graphics"));
+
+        pixelsMap.put(0, 0);     // жухлая трава
+        pixelsMap.put(1, 36);    // песок
+        pixelsMap.put(2, 112);   // вода
+        pixelsMap.put(3, 1);     // каменистая земля
+        pixelsMap.put(4, 14);    // трава
+        pixelsMap.put(5, 15);    // каменная стена
+        pixelsMap.put(6, 27);    // стена из песчанника
+        pixelsMap.put(7, 143);   // кровавая трава
+        pixelsMap.put(8, 144);   // кровавая каменистая земля
+    }
 
     /**
      * Движение мыши по карте без нажатых кнопок
@@ -612,6 +637,7 @@ public class MapController {
         } else if (editorPressButtonEnabled()) {
             int xMapPos = player.getXMapPos();
             int yMapPos = player.getYMapPos();
+            int step = Game.isShiftPressed() ? 1 : viewSize;
             switch (code) {
                 case E: {
                     Robot robot = new Robot();
@@ -626,22 +652,22 @@ public class MapController {
                     break;
                 }
                 case W: {
-                    player.setYMapPos(Math.max(yMapPos - viewSize, 0));
+                    player.setYMapPos(Math.max(yMapPos - step, 0));
                     MapController.drawCurrentMap();
                     break;
                 }
                 case S: {
-                    player.setYMapPos(Math.min(yMapPos + viewSize, mapSize - viewSize));
+                    player.setYMapPos(Math.min(yMapPos + step, mapSize - step));
                     MapController.drawCurrentMap();
                     break;
                 }
                 case D: {
-                    player.setXMapPos(Math.min(xMapPos + viewSize, mapSize - viewSize));
+                    player.setXMapPos(Math.min(xMapPos + step, mapSize - step));
                     MapController.drawCurrentMap();
                     break;
                 }
                 case A: {
-                    player.setXMapPos(Math.max(xMapPos - viewSize, 0));
+                    player.setXMapPos(Math.max(xMapPos - step, 0));
                     MapController.drawCurrentMap();
                     break;
                 }
@@ -1227,5 +1253,34 @@ public class MapController {
                 mapCellInfo.getCharacterId() == null &&
                 mapCellInfo.getX() >= 0 && mapCellInfo.getX() < mapSize &&
                 mapCellInfo.getY() >= 0 && mapCellInfo.getY() < mapSize;
+    }
+
+    /**
+     * Сгенерировать карту по картинке
+     */
+    public static void generateMap() {
+        ImageView pixelsImage = new ImageView("/graphics/pixels.png");
+        File file = fileChooser.showOpenDialog(Game.getStage());
+        if (file != null) {
+            ImageView generateImage = null;
+            try {
+                generateImage = new ImageView(new Image(new FileInputStream(file)));
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException("Не найден файл для генерации карты', cause=%s" + ex.getMessage());
+            }
+            PixelReader pixelsPR = pixelsImage.getImage().getPixelReader();
+            PixelReader generatePR = generateImage.getImage().getPixelReader();
+            for (int i = 0; i < mapSize; i++) {
+                for (int j = 0; j < mapSize; j++) {
+                    for (int k = 0; k < pixelsImage.getImage().getWidth(); k++) {
+                        if (pixelsPR.getColor(k, 0).equals(generatePR.getColor(i, j))) {
+                            Game.getMap().getTiles()[i][j].setTile1Id(pixelsMap.get(k));
+                            drawTilesAround(i, j);
+                        }
+                    }
+                }
+            }
+            MapController.drawCurrentMap();
+        }
     }
 }

@@ -3444,5 +3444,38 @@
       "wreckageId": "150"
     },
     "visibly": true
+  },
+  {
+    "id": 360,
+    "strength": 200,
+    "type": "CONTAINER",
+    "passability": false,
+    "visibly": true,
+    "params": {
+      "volume": "100000",
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 361,
+    "strength": 300,
+    "type": "CONTAINER",
+    "passability": false,
+    "visibly": true,
+    "params": {
+      "volume": "120000",
+      "wreckageId": "150"
+    }
+  },
+  {
+    "id": 362,
+    "strength": 350,
+    "type": "CONTAINER",
+    "passability": false,
+    "visibly": true,
+    "params": {
+      "volume": "100000",
+      "wreckageId": "150"
+    }
   }
 ]
