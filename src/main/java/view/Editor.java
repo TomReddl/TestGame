@@ -22,12 +22,12 @@ import model.entity.GameModeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.map.WeatherEnum;
 import model.entity.player.Character;
-import org.apache.commons.logging.impl.WeakHashtable;
 import view.dialog.DialogPanel;
 import view.dialog.GameDialogPanel;
 
 import java.io.File;
 import java.util.*;
+import java.util.regex.Pattern;
 
 import static game.GameParams.*;
 
@@ -165,6 +165,15 @@ public class Editor {
         mapNameTextField.setMaxWidth(100);
         mapNameTextField.setText(Game.getMap().getMapName());
         mapNameTextField.setFocusTraversable(false);
+        Pattern pattern = Pattern.compile("\\d{1,3}.\\d{1,3}");
+        TextFormatter<?> formatter = new TextFormatter<>(change -> {
+            if (pattern.matcher(change.getControlNewText()).matches()) {
+                return change;
+            } else {
+                return null;
+            }
+        });
+        mapNameTextField.setTextFormatter(formatter);
         mapNameTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d|\\.*")) {
                 mapNameTextField.setText(newValue.replaceAll("[^\\d|.]", ""));

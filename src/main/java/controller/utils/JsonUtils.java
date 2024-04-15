@@ -141,6 +141,9 @@ public class JsonUtils {
     }
 
     public void saveMap(String mapName, WorldMap map) {
+        String[] coordinates = mapName.split("\\.");
+        map.setWorldPosY(Integer.parseInt(coordinates[0]));
+        map.setWorldPosX(Integer.parseInt(coordinates[1]));
         try {
             var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "world/" + mapName + ".json";
             path = path.replaceAll("/", Matcher.quoteReplacement("\\"));

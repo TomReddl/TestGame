@@ -1,5 +1,8 @@
 package view.menu;
 
+import controller.CharactersController;
+import controller.MapController;
+import controller.utils.JsonUtils;
 import model.entity.GameModeEnum;
 import view.Game;
 import javafx.geometry.Insets;
@@ -55,6 +58,7 @@ public class MainMenu {
         newGameButton.setLayoutX(20);
         newGameButton.setLayoutY(50);
         newGameButton.setPrefWidth(100);
+        newGameButton.setOnAction(event -> startNewGame());
         pane.getChildren().add(newGameButton);
 
         loadGameButton.setLayoutX(20);
@@ -89,5 +93,12 @@ public class MainMenu {
 
     public static void closeGame() {
         System.exit(0);
+    }
+
+    private static void startNewGame() {
+        Game.setMap(JsonUtils.loadMap("1.1"));
+        MapController.drawCurrentMap();
+        CharactersController.setPlayerStartParams(Game.getMap().getSelecterCharacter());
+        Game.setGameMode(GameModeEnum.GAME);
     }
 }
