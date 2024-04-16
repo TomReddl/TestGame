@@ -8,10 +8,10 @@ import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 import model.editor.CharacterInfo;
-import model.editor.CreatureInfo;
 import model.editor.items.BodyPartEnum;
 import model.editor.items.ClothesStyleEnum;
 import model.entity.DirectionEnum;
+import model.entity.dialogs.Dialog;
 import model.entity.effects.EffectParams;
 import model.entity.map.Creature;
 import model.entity.map.Items;
@@ -84,25 +84,20 @@ public class Character implements Serializable {
 
     private List<Integer> knowledgeRecipes = new ArrayList<>(); // известные персонажу рецепты крафта
 
+    private Dialog dialog; // диалог с персонажем
+
     @JsonIgnore
     @Getter
     private static int baseVolume = 40000;
     @JsonIgnore
     @Getter
     private static int baseWeight = 50; // Базовый переносимый вес (кг)
-    @JsonIgnore
     private BigDecimal maxVolume;
-    @JsonIgnore
     private BigDecimal currentVolume;
-    @JsonIgnore
     private BigDecimal maxWeight;
-    @JsonIgnore
     private BigDecimal currentWeight;
     private ClothesStyleEnum style;
-
-    @JsonIgnore
     private MapCellInfo interactMapPoint; // Точка на карте, с которой взаимодействует персонаж
-
     private boolean isActiveCharacter; // признак персонажа, которым в данный момент управляет игрок
 
     public Character() {

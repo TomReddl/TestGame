@@ -1,6 +1,5 @@
 package view.menu;
 
-import controller.CharactersController;
 import controller.MapController;
 import controller.utils.JsonUtils;
 import model.entity.GameModeEnum;
@@ -98,7 +97,6 @@ public class MainMenu {
     private static void startNewGame() {
         Game.setMap(JsonUtils.loadMap("1.1"));
         MapController.drawCurrentMap();
-        CharactersController.setPlayerStartParams(Game.getMap().getSelecterCharacter());
         Game.setGameMode(GameModeEnum.GAME);
     }
 }

@@ -116,11 +116,12 @@ public class GameDialogPanel {
         pane.setVisible(false);
     }
 
-    public void showPanel(Integer characterId) {
+    public void showPanel(Character character) {
         if (!pane.isVisible()) {
             pane.setVisible(true);
         }
-        this.characterId = characterId;
+        this.characterId = character.getId();
+        dialog = character.getDialog();
         if (dialog == null) {
             dialog = new Dialog();
             selectedPhrase = new Phrase();

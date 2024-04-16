@@ -645,7 +645,7 @@ public class MapController {
                     int y = ((int) (robot.getMousePosition().getY() - Game.getStage().getY() - headerSize) / tileSize);
                     MapCellInfo cellInfo = Game.getMap().getTiles()[xMapPos + x][yMapPos + y];
                     if (cellInfo.getCharacterId() != null) {
-                        Game.getEditor().getDialogPanel().showPanel("");
+                        Game.getEditor().getDialogPanel().showPanel(Game.getMap().getCharacterList().get(cellInfo.getCharacterId()));
                     } else {
                         TileEditPanel.showPanel(cellInfo);
                     }
@@ -788,7 +788,7 @@ public class MapController {
                         if (mapCellInfo.getCharacterId() != null) {
                             Character character = Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId());
                             if (character.isAlive()) {
-                                Game.getEditor().getGameDialogPanel().showPanel(mapCellInfo.getCharacterId());
+                                Game.getEditor().getGameDialogPanel().showPanel(character);
                             } else {
                                 if (!isPhasing) {
                                     Game.getGameMenu().showContainerInventory(character.getInventory(), x, y, "character", character.getId());

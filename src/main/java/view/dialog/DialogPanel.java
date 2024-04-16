@@ -13,6 +13,7 @@ import lombok.Getter;
 import model.entity.dialogs.Answer;
 import model.entity.dialogs.Dialog;
 import model.entity.dialogs.Phrase;
+import model.entity.player.Character;
 import view.Game;
 
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class DialogPanel {
     private List<Label> phraseLabels = new ArrayList<>();
 
     private Dialog dialog;
+    private int characterId;
     private Phrase selectedPhrase;
 
     public DialogPanel() {
@@ -211,12 +213,14 @@ public class DialogPanel {
         pane.setVisible(false);
     }
 
-    public void showPanel(String dialogId) {
+    public void showPanel(Character character) {
         if (!pane.isVisible()) {
             pane.setVisible(true);
         }
-        if (dialog == null) {
-            dialog = new Dialog();
+        this.dialog = character.getDialog();
+        characterId = character.getId();
+        if (this.dialog == null) {
+            this.dialog = new Dialog();
             selectedPhrase = new Phrase();
            // dialog.getPhrases().put("", selectedPhrase);
         }
@@ -226,7 +230,7 @@ public class DialogPanel {
      * Сохранить диалог
      */
     private void saveDialog() {
-        Game.getEditor().getGameDialogPanel().setDialog(dialog);
+        Game.getMap().getCharacterList().get(characterId).setDialog(dialog);
     }
 
     /**
