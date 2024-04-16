@@ -783,6 +783,7 @@ public class MapController {
                     int x = ((int) (robot.getMousePosition().getX() - Game.getStage().getX()) / tileSize);
                     int y = ((int) (robot.getMousePosition().getY() - Game.getStage().getY() - headerSize) / tileSize);
                     if (isReachable(player, x, y)) {
+                        CharactersController.rotateCharacterToPoint(player, player.getXMapPos() + x, player.getYMapPos() + y);
                         var mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y];
                         boolean isPhasing = player.getAppliedEffects().stream().anyMatch(e -> e.getStrId().equals("PHASING"));
                         if (mapCellInfo.getCharacterId() != null) {

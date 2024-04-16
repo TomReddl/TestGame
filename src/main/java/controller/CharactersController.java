@@ -1016,4 +1016,22 @@ public class CharactersController {
         }
         return false;
     }
+
+    /**
+     * Повернуть персонажа в направлении точки
+     * @param character
+     * @param XPos
+     * @param YPos
+     */
+    public static void rotateCharacterToPoint(Character character, int XPos, int YPos) {
+        if (XPos > character.getXPosition()) {
+            character.setDirection(DirectionEnum.RIGHT);
+        } else if (XPos < character.getXPosition()) {
+            character.setDirection(DirectionEnum.LEFT);
+        } else if (YPos > character.getYPosition()) {
+            character.setDirection(DirectionEnum.DOWN);
+        } else if (YPos < character.getYPosition()) {
+            character.setDirection(DirectionEnum.UP);
+        }
+    }
 }
