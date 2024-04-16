@@ -556,7 +556,12 @@ public class CharactersController {
                 }
             } else {
                 if (tileInfo.getParams() != null) {
-                    mapCellInfo.setTile2Id(Integer.parseInt(tileInfo.getParams().get("anotherDoorState")));
+                    if (mapCellInfo.getCharacterId() == null && mapCellInfo.getCreatureId() == null &&
+                            !(player.getXPosition() == mapCellInfo.getX() && player.getYPosition() == mapCellInfo.getY())) {
+                        mapCellInfo.setTile2Id(Integer.parseInt(tileInfo.getParams().get("anotherDoorState")));
+                    } else {
+                        BattleController.applyDamageToCreatureOrCharacterOnMapCell(10, DamageTypeEnum.CRUSHING_DAMAGE, mapCellInfo);
+                    }
                 }
             }
         }

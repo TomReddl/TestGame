@@ -136,6 +136,25 @@ public class BattleController {
     }
 
     /**
+     * Наносит урон персонажу или существу, стоящему на точке карты
+     * @param damagePoints
+     * @param damageType
+     * @param mapCellInfo
+     * @return
+     */
+    public static boolean applyDamageToCreatureOrCharacterOnMapCell(int damagePoints, DamageTypeEnum damageType, MapCellInfo mapCellInfo) {
+        Character selectedCharacter = Game.getMap().getSelecterCharacter();
+        if (selectedCharacter.getXPosition() == mapCellInfo.getX() && selectedCharacter.getYPosition() == mapCellInfo.getY()) {
+            return applyDamageToCharacter(damagePoints, damageType, selectedCharacter);
+        } else if (mapCellInfo.getCharacterId() != null) {
+            return applyDamageToCharacter(damagePoints, damageType, Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId()));
+        } else if (mapCellInfo.getCreatureId() != null) {
+            return applyDamageToCreature(damagePoints, damageType, Game.getMap().getCreaturesList().get(mapCellInfo.getCreatureId()));
+        }
+        return false;
+    }
+
+    /**
      * Получить урон с учетом эффектов оружия и атакуемого существа
      *
      * @return значение урона с модификаторами
