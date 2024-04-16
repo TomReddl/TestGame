@@ -76,6 +76,7 @@ public class CharactersController {
         var showEmptiness = false;
         var applyDamage = false;
         if (MapController.isReachable(player, tileX, tileY) && !isPhasing) {
+            CharactersController.rotateCharacterToPoint(player, player.getXMapPos() + tileX, player.getYMapPos() + tileY);
             MapCellInfo mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + tileX]
                     [player.getYMapPos() + tileY];
             var itemInRightHand = player.getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).values().iterator().next();
