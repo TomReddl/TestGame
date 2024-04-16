@@ -55,16 +55,16 @@ public class TimeController {
         var currentDate = GameCalendar.getCurrentDate();
         currentDate.setTic(currentDate.getTic() + 1);
         Character character = Game.getMap().getSelecterCharacter();
+        boolean isPhasing = character.getAppliedEffects().stream().anyMatch(e -> e.getStrId().equals("PHASING"));
 
         MapCellInfo playerMapCell = Game.getMap().getTiles()[character.getXPosition()][character.getYPosition()];
-        if (playerMapCell.getFireId() != 0) {
+        if (playerMapCell.getFireId() != 0 && !isPhasing) {
             // Если персонаж стоит на горящем тайле, урон огнем наносится ему каждый ход
             BattleController.applyDamageToCharacter(playerMapCell.getFireId() * baseFireDamage, DamageTypeEnum.FIRE_DAMAGE, character);
         }
 
         // если персонаж стоит внутри непроходимого блока (но не внутри блока воды), он получает дробящий урон
         if ((!playerMapCell.getTile1Info().isPassability() && !TileTypeEnum.valueOf(playerMapCell.getTile1Info().getType()).equals(TileTypeEnum.WATER)) || !playerMapCell.getTile2Info().isPassability()) {
-            boolean isPhasing = character.getAppliedEffects().stream().anyMatch(e -> e.getStrId().equals("PHASING"));
             // если на персонажа действует эффект "фазирование", то он не получает урон от нахождения внутри твердого объекта
             if (!isPhasing) {
                 BattleController.applyDamageToCharacter(crushingWallDamage, DamageTypeEnum.CRUSHING_DAMAGE, character);
@@ -74,7 +74,7 @@ public class TimeController {
         Integer pollutionId = playerMapCell.getPollutionId();
         if (pollutionId >= 13 && pollutionId <= 15) {
             // Если персонаж стоит на кислотном загрязнении без обуви, урон кислотой наносится ему каждый ход
-            if (character.getWearingItems().get(BodyPartEnum.SHOES.ordinal()).values().iterator().next() == null) {
+            if (character.getWearingItems().get(BodyPartEnum.SHOES.ordinal()).values().iterator().next() == null && !isPhasing) {
                 BattleController.applyDamageToCharacter((pollutionId - 12) * baseAcidPollutionDamage, DamageTypeEnum.ACID_DAMAGE, character);
             }
         }
@@ -82,8 +82,7 @@ public class TimeController {
         // Если идет кислотный дождь и у персонажа нет зонта в руке или крыши над головой, кислота наносит урон персонажу
         if (Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.ACID_RAIN) && playerMapCell.getRoofId() == 0) {
             Items itemInRightHand = character.getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).values().iterator().next();
-            if (!itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.UMBRELLA)) {
-
+            if (!itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.UMBRELLA) && !isPhasing) {
                 BattleController.applyDamageToCharacter(baseAcidRainDamage, DamageTypeEnum.FIRE_DAMAGE, character);
             }
         }

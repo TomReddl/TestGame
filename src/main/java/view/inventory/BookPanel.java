@@ -62,7 +62,6 @@ public class BookPanel {
         pane.setPrefSize(bookSizeX, bookSizeY + 30);
         pane.setLayoutX(5);
         pane.setLayoutY(5);
-        pane.setStyle("-fx-background: transparent; -fx-background-color: transparent;");
         pane.setVisible(false);
 
         backgroundImage = new ImageView();
@@ -100,7 +99,7 @@ public class BookPanel {
         pane.getChildren().add(rightPageLabel);
 
         scrollLabel.setFont(bookFont);
-        scrollLabel.setTextFill(Color.web("#4a3710"));
+        scrollLabel.setStyle("-fx-text-fill: #4a3710");
         scrollLabel.setWrapText(true);
 
         previousPageLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
