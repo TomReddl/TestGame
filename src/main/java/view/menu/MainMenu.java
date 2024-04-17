@@ -23,7 +23,7 @@ public class MainMenu {
     @Getter
     private static final Pane pane = new Pane();
     @Getter
-    private static final ImageView backgroundImage = new ImageView("/graphics/gui/Background1.png");
+    private static final ImageView backgroundImage = new ImageView("/graphics/gui/Background2.png");
     @Getter
     private static final Button continueButton = new Button(Game.getText("CONTINUE"));
     @Getter
@@ -52,6 +52,7 @@ public class MainMenu {
         continueButton.setLayoutX(20);
         continueButton.setLayoutY(20);
         continueButton.setPrefWidth(100);
+        continueButton.setOnAction(event -> startNewGame());
         pane.getChildren().add(continueButton);
 
         newGameButton.setLayoutX(20);
