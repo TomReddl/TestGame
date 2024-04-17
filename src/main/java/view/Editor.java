@@ -769,6 +769,8 @@ public class Editor {
             pane6.getChildren().remove(border);
         } else if (pane7.getChildren().contains(border)) {
             pane7.getChildren().remove(border);
+        } else if (pane9.getChildren().contains(border)) {
+            pane9.getChildren().remove(border);
         }
         pane.getChildren().add(border);
     }
