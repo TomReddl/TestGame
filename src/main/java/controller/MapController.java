@@ -704,6 +704,7 @@ public class MapController {
      */
     private static void onGameKeyReleased(KeyCode code) {
         var player = Game.getMap().getSelecterCharacter();
+        Game.getEditor().getTimeControlPanel().stopTime(); // останавливаем автоматическое течение времени, если игрок жмет на кнопку
         Game.hideMessage();
         int xPos = player.getXPosition();
         int yPos = player.getYPosition();

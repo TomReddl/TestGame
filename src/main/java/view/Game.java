@@ -125,6 +125,8 @@ public class Game {
                 MainMenu.getPane().setLayoutY(0);
                 MainMenu.getBackgroundImage().setVisible(true);
                 Editor.getMapInfoLabel().setVisible(false);
+                Game.getEditor().getTimeControlPanel().getPane().setVisible(false);
+                Game.getEditor().getTimeControlPanel().stopTime();
                 break;
             }
             case EDITOR: {
@@ -139,6 +141,8 @@ public class Game {
                 PlayerIndicatorsPanel.showPanel(false);
                 GameMenuPanel.getPane().setVisible(false);
                 Game.getTimeLabel().setVisible(false);
+                Game.getEditor().getTimeControlPanel().getPane().setVisible(false);
+                Game.getEditor().getTimeControlPanel().stopTime();
                 break;
             }
             case GAME: {
@@ -152,12 +156,14 @@ public class Game {
                 Editor.getMapInfoLabel().setLayoutY(30);
                 Game.getTimeLabel().setVisible(true);
                 timeLabel.setText(TimeController.getCurrentDataStr(false));
+                Game.getEditor().getTimeControlPanel().getPane().setVisible(true);
                 break;
             }
             case GAME_MENU: {
                 MainMenu.getPane().setLayoutX(MainMenu.getGameMenuPosX());
                 MainMenu.getPane().setLayoutY(MainMenu.getGameMenuPosY());
                 MainMenu.getBackgroundImage().setVisible(false);
+                Game.getEditor().getTimeControlPanel().stopTime();
                 break;
             }
         }

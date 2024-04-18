@@ -1,6 +1,8 @@
 package controller;
 
 import javafx.scene.paint.Color;
+import lombok.Getter;
+import lombok.Setter;
 import model.editor.TileTypeEnum;
 import model.editor.items.BodyPartEnum;
 import model.entity.Event;
@@ -23,7 +25,17 @@ import static controller.BattleController.*;
 public class TimeController {
     private static final Random random = new Random();
 
+    @Getter
+    private static final Long baseTicTime = 100L; // базовое время в миллисекундах для
+
     private static Map<Integer, List<Event>> eventsMap = new HashMap<>(); // будущие события
+
+    @Getter
+    private static Timer timer = new Timer();
+
+    @Getter
+    @Setter
+    private static TimerTask task; // Храним задачу для таймера времени в отдельной переменной
 
     /**
      * Выполнить указанное количество тиков
@@ -293,11 +305,13 @@ public class TimeController {
         int value = random.nextInt(maxProb);
         for (WeatherEnum weather : Game.getMap().getAccessibleWeathers().keySet()) {
             if (value < Game.getMap().getAccessibleWeathers().get(weather)) {
-                Map<WeatherEnum, Integer> currentWeather = new HashMap<>();
-                currentWeather.put(weather, 4);
-                Game.getMap().setCurrentWeather(currentWeather);
-                Game.showMessage(Game.getText("WEATHER_CHANGE") + " " + weather.getDesc().toLowerCase(), Color.GREEN);
-                break;
+                if (!Game.getMap().getCurrentWeather().keySet().iterator().next().equals(weather)) {
+                    Map<WeatherEnum, Integer> currentWeather = new HashMap<>();
+                    currentWeather.put(weather, 4);
+                    Game.getMap().setCurrentWeather(currentWeather);
+                    Game.showMessage(Game.getText("WEATHER_CHANGE") + " " + weather.getDesc().toLowerCase(), Color.GREEN);
+                    break;
+                }
             } else {
                 value = value - Game.getMap().getAccessibleWeathers().get(weather);
             }

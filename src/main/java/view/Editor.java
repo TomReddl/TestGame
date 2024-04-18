@@ -137,6 +137,8 @@ public class Editor {
     private final DialogPanel dialogPanel;
     @Getter
     private final GameDialogPanel gameDialogPanel;
+    @Getter
+    private final TimeControlPanel timeControlPanel;
 
     public Editor() {
         Game.getRoot().getChildren().add(canvas);
@@ -151,6 +153,7 @@ public class Editor {
         inlayerDuplicatorPanel = new InlayerDuplicatorPanel();
         dialogPanel = new DialogPanel();
         gameDialogPanel = new GameDialogPanel();
+        timeControlPanel = new TimeControlPanel();
     }
 
     private void drawEditorButtons() {
@@ -226,11 +229,11 @@ public class Editor {
         Game.getRoot().getChildren().add(Game.getStopTestGameImage());
     }
 
-    private void showHint(String hint) {
+    public static void showHint(String hint) {
         mapInfoLabel.setText(hint);
     }
 
-    private void hideHint() {
+    public static void hideHint() {
         mapInfoLabel.setText("");
     }
 

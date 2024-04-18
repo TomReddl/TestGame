@@ -76,6 +76,7 @@ public class CharactersController {
         var showEmptiness = false;
         var applyDamage = false;
         if (MapController.isReachable(player, tileX, tileY) && !isPhasing) {
+            Game.getEditor().getTimeControlPanel().stopTime(); // останавливаем автоматическое течение времени, если игрок нажал мышкой на карту
             CharactersController.rotateCharacterToPoint(player, player.getXMapPos() + tileX, player.getYMapPos() + tileY);
             MapCellInfo mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + tileX]
                     [player.getYMapPos() + tileY];
