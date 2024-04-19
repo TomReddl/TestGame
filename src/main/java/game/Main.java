@@ -24,6 +24,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         Game.setStage(primaryStage);
         Scene scene = new Scene(Game.getRoot());
+        scene.getStylesheets().add("css/game-styles.css");
         primaryStage.setTitle("Game");
         primaryStage.setResizable(false);
         primaryStage.setMaximized(false);

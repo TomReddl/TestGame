@@ -1,0 +1,10 @@
+.menu-button {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Arial";
+    -fx-text-fill: #00266e;
+    -fx-border-color: #4bbbbe;
+    -fx-background-color: #cbebec;
+    -fx-border-radius: 8;
+    -fx-padding: 3 6 6 6;
+    -fx-effect: dropshadow( one-pass-box , black , 8 , 0.0 , 2 , 0 );
+}

@@ -51,42 +51,48 @@ public class MainMenu {
 
         continueButton.setLayoutX(20);
         continueButton.setLayoutY(20);
-        continueButton.setPrefWidth(100);
+        continueButton.setPrefWidth(150);
+        continueButton.getStyleClass().add("menu-button");
         continueButton.setOnAction(event -> startNewGame());
         pane.getChildren().add(continueButton);
 
         newGameButton.setLayoutX(20);
         newGameButton.setLayoutY(50);
-        newGameButton.setPrefWidth(100);
+        newGameButton.setPrefWidth(150);
+        newGameButton.getStyleClass().add("menu-button");
         newGameButton.setOnAction(event -> startNewGame());
         pane.getChildren().add(newGameButton);
 
         loadGameButton.setLayoutX(20);
         loadGameButton.setLayoutY(80);
-        loadGameButton.setPrefWidth(100);
+        loadGameButton.setPrefWidth(150);
+        loadGameButton.getStyleClass().add("menu-button");
         pane.getChildren().add(loadGameButton);
 
         editorButton.setLayoutX(20);
         editorButton.setLayoutY(110);
-        editorButton.setPrefWidth(100);
+        editorButton.setPrefWidth(150);
+        editorButton.getStyleClass().add("menu-button");
         editorButton.setOnAction(event -> Game.setGameMode(GameModeEnum.EDITOR));
         pane.getChildren().add(editorButton);
 
         settingsButton.setLayoutX(20);
         settingsButton.setLayoutY(140);
-        settingsButton.setPrefWidth(100);
+        settingsButton.setPrefWidth(150);
+        settingsButton.getStyleClass().add("menu-button");
         settingsButton.setOnAction(event -> settingsPanel.viewSettingsPanel());
         pane.getChildren().add(settingsButton);
 
         exitButton.setLayoutX(20);
         exitButton.setLayoutY(170);
-        exitButton.setPrefWidth(100);
+        exitButton.setPrefWidth(150);
+        exitButton.getStyleClass().add("menu-button");
         exitButton.setOnAction(event -> closeGame());
         pane.getChildren().add(exitButton);
 
         pane.setLayoutX(0);
         pane.setLayoutY(0);
-        pane.setPrefSize(140, 210);
+        pane.setPrefSize(190, 210);
 
         Game.getRoot().getChildren().add(pane);
     }
