@@ -26,6 +26,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static game.GameParams.viewSize;
+
 /**
  * Информация о персонаже
  */
@@ -85,6 +87,9 @@ public class Character implements Serializable {
     private List<Integer> knowledgeRecipes = new ArrayList<>(); // известные персонажу рецепты крафта
 
     private Dialog dialog; // диалог с персонажем
+
+    @JsonIgnore
+    private boolean[][] visiblyPoints = new boolean[viewSize][viewSize]; // точки на карте, которые персонаж видит в данный момент
 
     @JsonIgnore
     @Getter

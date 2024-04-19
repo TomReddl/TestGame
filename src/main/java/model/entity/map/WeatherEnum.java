@@ -8,19 +8,21 @@ import view.Game;
  * Погода
  */
 public enum WeatherEnum {
-    CLEAR(Game.getText("CLEAR_WEATHER"), null, null, null),                                                                                         // Безоблачно
-    SMALL_RAIN(Game.getText("SMALL_RAIN_WEATHER"), new Image("/graphics/weather/rain3.1.png"), new Image("/graphics/weather/rain3.2.png"), null),           // Морось
-    MEDIUM_RAIN(Game.getText("MEDIUM_RAIN_WEATHER"), new Image("/graphics/weather/rain1.1.png"), new Image("/graphics/weather/rain1.2.png"), null),         // Дождь
-    HEAVY_RAIN(Game.getText("HEAVY_RAIN_WEATHER"), new Image("/graphics/weather/rain2.1.png"), new Image("/graphics/weather/rain2.2.png"), null),           // Ливень
-    BLOOD_RAIN(Game.getText("BLOOD_RAIN_WEATHER"), new Image("/graphics/weather/bloodRain.1.png"), new Image("/graphics/weather/bloodRain.2.png"), null),   // Кровавый дождь
-    ACID_RAIN(Game.getText("ACID_RAIN_WEATHER"), new Image("/graphics/weather/acidRain.1.png"), new Image("/graphics/weather/acidRain.2.png"), null),       // Кислотный дождь
-    FOG(Game.getText("FOG"), new Image("/graphics/weather/fog1.png"), new Image("/graphics/weather/fog2.png"), new Image("/graphics/weather/fog3.png")),        // Туман
-    SNOW(Game.getText("SNOW"), new Image("/graphics/weather/snow1.1.png"), new Image("/graphics/weather/snow1.2.png"), null),                               // Снег
-    BLOOD_FOG(Game.getText("BLOOD_FOG"), new Image("/graphics/weather/bloodFog1.png"),
+    CLEAR(Game.getText("CLEAR_WEATHER"), false, null, null, null),                                                                                         // Безоблачно
+    SMALL_RAIN(Game.getText("SMALL_RAIN_WEATHER"), false, new Image("/graphics/weather/rain3.1.png"), new Image("/graphics/weather/rain3.2.png"), null),           // Морось
+    MEDIUM_RAIN(Game.getText("MEDIUM_RAIN_WEATHER"), false, new Image("/graphics/weather/rain1.1.png"), new Image("/graphics/weather/rain1.2.png"), null),         // Дождь
+    HEAVY_RAIN(Game.getText("HEAVY_RAIN_WEATHER"), false, new Image("/graphics/weather/rain2.1.png"), new Image("/graphics/weather/rain2.2.png"), null),           // Ливень
+    BLOOD_RAIN(Game.getText("BLOOD_RAIN_WEATHER"), false, new Image("/graphics/weather/bloodRain.1.png"), new Image("/graphics/weather/bloodRain.2.png"), null),   // Кровавый дождь
+    ACID_RAIN(Game.getText("ACID_RAIN_WEATHER"), false, new Image("/graphics/weather/acidRain.1.png"), new Image("/graphics/weather/acidRain.2.png"), null),       // Кислотный дождь
+    FOG(Game.getText("FOG"), true, new Image("/graphics/weather/fog1.png"), new Image("/graphics/weather/fog2.png"), new Image("/graphics/weather/fog3.png")),        // Туман
+    SNOW(Game.getText("SNOW"), false, new Image("/graphics/weather/snow1.1.png"), new Image("/graphics/weather/snow1.2.png"), null),                               // Снег
+    BLOOD_FOG(Game.getText("BLOOD_FOG"), true, new Image("/graphics/weather/bloodFog1.png"),
             new Image("/graphics/weather/bloodFog2.png"), new Image("/graphics/weather/bloodFog3.png"));                                                                // Кровавый туман
 
     @Getter
     private final String desc;
+    @Getter
+    private final Boolean reducesVisibility; // влияет ли погодный эффект на ухудшение видимости
     @Getter
     private final Image image1;
     @Getter
@@ -28,8 +30,9 @@ public enum WeatherEnum {
     @Getter
     private final Image image3;
 
-    WeatherEnum(String desc, Image image1, Image image2, Image image3) {
+    WeatherEnum(String desc, Boolean reducesVisibility, Image image1, Image image2, Image image3) {
         this.desc = desc;
+        this.reducesVisibility = reducesVisibility;
         this.image1 = image1;
         this.image2 = image2;
         this.image3 = image3;

@@ -37,7 +37,7 @@ public class TimeControlPanel {
         pane = new Pane();
         pane.setPrefSize(210, 60);
         pane.setLayoutX(10 + tileSize * viewSize);
-        pane.setLayoutY(60);
+        pane.setLayoutY(90);
         pane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
         pane.setStyle("-fx-border-color:gray;");
         pane.setVisible(false);

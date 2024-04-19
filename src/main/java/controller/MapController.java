@@ -33,10 +33,7 @@ import view.menu.MainMenu;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static controller.BattleController.baseFireDamage;
 import static game.GameParams.*;
@@ -316,9 +313,11 @@ public class MapController {
      */
     public static void showMapPointInfo(double x, double y, Label mapInfoLabel) {
         var player = Game.getMap().getSelecterCharacter();
-        if (x < viewSize * tileSize && y < viewSize * tileSize && needShowPointInfo(x, y)) {
-            int xPos = player.getXMapPos() + (((int) x) / tileSize);
-            int yPos = player.getYMapPos() + (((int) y) / tileSize);
+        int xPos = (((int) x) / tileSize);
+        int yPos = (((int) y) / tileSize);
+        if (x < viewSize * tileSize && y < viewSize * tileSize && needShowPointInfo(xPos, yPos)) {
+            xPos = xPos + player.getXMapPos();
+            yPos = yPos + player.getYMapPos();
             var mapCellInfo = Game.getMap().getTiles()[xPos][yPos];
             mapInfoLabel.setText(
                     "X: " + xPos + ", Y: " + yPos + ". " +
@@ -338,17 +337,26 @@ public class MapController {
             if (ParamsUtils.getBoolean(mapCellInfo, "trap")) {
                 mapInfoLabel.setText(mapInfoLabel.getText() + "\n" + Game.getText("TRAPPED"));
             }
+            if (mapCellInfo.getCharacterId() != null) {
+                Character character = Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId());
+                mapInfoLabel.setText(mapInfoLabel.getText() + "\n" + character.getName() + (character.isAlive() ? "" : " (" + Game.getGameText("DEAD").toLowerCase() + ")"));
+            }
+            if (mapCellInfo.getCreatureId() != null) {
+                Creature creature = Game.getMap().getCreaturesList().get(mapCellInfo.getCreatureId());
+                mapInfoLabel.setText(mapInfoLabel.getText() + "\n" + creature.getInfo().getName() + (creature.isAlive() ? "" : " (" + Game.getGameText("DEAD").toLowerCase() + ")"));
+            }
         } else {
             mapInfoLabel.setText("");
         }
     }
 
     // Нужно ли отображать информацию о точке на карте
-    private static boolean needShowPointInfo(double x, double y) {
+    private static boolean needShowPointInfo(int x, int y) {
+        WeatherEnum weather = Game.getMap().getCurrentWeather().keySet().iterator().next();
         return Game.getGameMode().equals(GameModeEnum.EDITOR) ||
-                !Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.FOG) ||
-                (Game.getMap().getCurrentWeather().keySet().iterator().next().equals(WeatherEnum.FOG) &&
-                        tileDistance(Game.getMap().getSelecterCharacter(), (((int) x) / tileSize), (((int) y) / tileSize)) < Game.getMap().getCurrentWeather().values().iterator().next());
+                Game.getMap().getSelecterCharacter().getVisiblyPoints()[x][y] && (
+                !weather.getReducesVisibility() ||
+                (tileDistance(Game.getMap().getSelecterCharacter(), x, y) < Game.getMap().getCurrentWeather().values().iterator().next()));
     }
 
     /**
@@ -911,6 +919,7 @@ public class MapController {
             drawBlindMap(character);
         } else {
             boolean[][] visiblyPoints = CharactersController.findVisibleMapPoints(Game.getMap().getSelecterCharacter());
+            character.setVisiblyPoints(visiblyPoints);
             for (int x = 0; x < viewSize; x++) {
                 for (int y = 0; y < viewSize; y++) {
                     drawBottomLayer(XPos, YPos, x, y, !Game.getGameMode().equals(GameModeEnum.GAME) || visiblyPoints[x][y]);
@@ -1237,7 +1246,7 @@ public class MapController {
         return Game.getGameMode().equals(GameModeEnum.EDITOR) || !CreaturesController.invisibleCreatures.contains(creatureId) || epiphany;
     }
 
-    public static int tileDistance(Character character, double x, double y) {
+    public static int tileDistance(Character character, int x, int y) {
         return (int) Math.round(Math.sqrt((Math.pow(character.getXPosition() - (character.getXMapPos() + x), 2)) +
                 (Math.pow(character.getYPosition() - (character.getYMapPos() + y), 2))));
     }
