@@ -11,8 +11,12 @@ import java.util.Map;
 public class ParamsUtils {
 
     public static boolean getBoolean(Map<String, String> params, String paramName) {
-        if (params != null && paramName != null && params.get(paramName.toLowerCase()) != null) {
-            return Boolean.parseBoolean(params.get(paramName.toLowerCase()));
+        if (params != null && paramName != null) {
+            var paramValue = params.get(paramName.toLowerCase());
+            if (paramValue == null) {
+                paramValue = params.get(paramName);
+            }
+            return Boolean.parseBoolean(paramValue);
         }
         return false;
     }
@@ -22,8 +26,12 @@ public class ParamsUtils {
     }
 
     public static Integer getInteger(Map<String, String> params, String paramName) {
-        if (params != null && paramName != null && params.get(paramName.toLowerCase()) != null) {
-            return Integer.parseInt(params.get(paramName.toLowerCase()));
+        if (params != null && paramName != null) {
+            var paramValue = params.get(paramName.toLowerCase());
+            if (paramValue == null) {
+                paramValue = params.get(paramName);
+            }
+            return Integer.parseInt(paramValue);
         }
         return null;
     }
@@ -33,8 +41,12 @@ public class ParamsUtils {
     }
 
     public static String getString(Map<String, String> params, String paramName) {
-        if (params != null && paramName != null && params.get(paramName.toLowerCase()) != null) {
-            return params.get(paramName.toLowerCase());
+        if (params != null && paramName != null) {
+            var paramValue = params.get(paramName.toLowerCase());
+            if (paramValue == null) {
+                paramValue = params.get(paramName);
+            }
+            return paramValue;
         }
         return null;
     }

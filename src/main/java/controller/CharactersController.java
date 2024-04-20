@@ -376,9 +376,9 @@ public class CharactersController {
         int Xpos = player.getXMapPos();
         int YPos = player.getYMapPos();
         var mapCellInfo = Game.getMap().getTiles()[Xpos + x][YPos + y];
-        TileInfo tileInfo = Editor.getTiles2().get(mapCellInfo.getTile2Id());
-        if (tileInfo.getType() != null) {
-            switch (TileTypeEnum.valueOf(tileInfo.getType())) {
+        TileInfo tile2Info = Editor.getTiles2().get(mapCellInfo.getTile2Id());
+        if (tile2Info.getType() != null) {
+            switch (TileTypeEnum.valueOf(tile2Info.getType())) {
                 case DOOR:
                 case CONTAINER: {
                     closableInteract(mapCellInfo);
@@ -401,7 +401,7 @@ public class CharactersController {
                     break;
                 }
                 case ALCHEMY_TABLE: {
-                    Game.getEditor().getAlchemyPanel().showPanel(true, tileInfo.getName(), Integer.parseInt(tileInfo.getParams().get("level")));
+                    Game.getEditor().getAlchemyPanel().showPanel(true, tile2Info.getName(), Integer.parseInt(tile2Info.getParams().get("level")));
                     break;
                 }
                 case ALCHEMY_LABORATORY: {
@@ -417,11 +417,11 @@ public class CharactersController {
                     break;
                 }
                 case CRAFTING_PLACE: {
-                    Game.getEditor().getCraftPanel().showPanel(tileInfo);
+                    Game.getEditor().getCraftPanel().showPanel(tile2Info);
                     break;
                 }
                 case JEWELRY_TABLE: {
-                    Game.getEditor().getEnchantmentPanel().showPanel(tileInfo);
+                    Game.getEditor().getEnchantmentPanel().showPanel(tile2Info);
                     break;
                 }
                 case INLAYER_DUPLICATOR: {
@@ -429,7 +429,11 @@ public class CharactersController {
                     break;
                 }
             }
-            MapController.drawTile(player, x, y);
+        }
+
+        String replacedId = ParamsUtils.getString(tile2Info.getParams(), "replacedId");
+        if (replacedId != null) {
+            mapCellInfo.setTile2Id(Integer.parseInt(replacedId));
         }
 
         TileInfo tile1Info = Editor.getTiles1().get(mapCellInfo.getTile1Id());

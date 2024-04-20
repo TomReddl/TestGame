@@ -3477,5 +3477,125 @@
       "volume": "100000",
       "wreckageId": "150"
     }
+  },
+  {
+    "id": 363,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "replacedId": "370"
+    }
+  },
+  {
+    "id": 364,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "replacedId": "371"
+    }
+  },
+  {
+    "id": 365,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "replacedId": "372"
+    }
+  },
+  {
+    "id": 366,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "replacedId": "374"
+    }
+  },
+  {
+    "id": 367,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "replacedId": "373"
+    }
+  },
+  {
+    "id": 368,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "replacedId": "369"
+    }
+  },
+  {
+    "id": 369,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "replacedId": "368"
+    }
+  },
+  {
+    "id": 370,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "replacedId": "363"
+    }
+  },
+  {
+    "id": 371,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "replacedId": "364"
+    }
+  },
+  {
+    "id": 372,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "replacedId": "365"
+    }
+  },
+  {
+    "id": 373,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "replacedId": "367"
+    }
+  },
+  {
+    "id": 373,
+    "strength": 100,
+    "passability": false,
+    "visibly": true,
+    "burn": true,
+    "params": {
+      "replacedId": "366"
+    }
   }
 ]
