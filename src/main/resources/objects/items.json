@@ -2423,5 +2423,98 @@
     "types": [
       "RESOURCE"
     ]
+  },
+  {
+    "id": 356,
+    "weight": "40",
+    "volume": "50",
+    "price": "20",
+    "stackable": true,
+    "burn": true
+  },
+  {
+    "id": 357,
+    "weight": "10",
+    "volume": "50",
+    "price": "10",
+    "stackable": true,
+    "burn": true
+  },
+  {
+    "id": 358,
+    "weight": "200",
+    "volume": "400",
+    "price": "60",
+    "stackable": true,
+    "burn": true
+  },
+  {
+    "id": 359,
+    "weight": "40",
+    "volume": "40",
+    "price": "10",
+    "stackable": true,
+    "burn": true
+  },
+  {
+    "id": 360,
+    "weight": "400",
+    "volume": "400",
+    "price": "100",
+    "stackable": true
+  },
+  {
+    "id": 361,
+    "weight": "30",
+    "volume": "30",
+    "price": "10",
+    "stackable": true,
+    "burn": true
+  },
+  {
+    "id": 362,
+    "weight": "10",
+    "volume": "50",
+    "price": "1",
+    "stackable": true,
+    "burn": true
+  },
+  {
+    "id": 363,
+    "weight": "600",
+    "volume": "700",
+    "price": "25",
+    "stackable": true,
+    "burn": true
+  },
+  {
+    "id": 364,
+    "weight": "5000",
+    "volume": "2000",
+    "price": "50",
+    "stackable": true
+  },
+  {
+    "id": 365,
+    "weight": "400",
+    "volume": "600",
+    "price": "20",
+    "stackable": true,
+    "burn": true
+  },
+  {
+    "id": 366,
+    "weight": "30",
+    "volume": "60",
+    "price": "20",
+    "stackable": true
+  },
+  {
+    "id": 367,
+    "weight": "300",
+    "volume": "400",
+    "price": "50",
+    "stackable": true,
+    "burn": true
   }
 ]
