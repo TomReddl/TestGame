@@ -314,6 +314,7 @@ public class Game {
                 label.setVisible(false);
             }
             messageLabel = messageLabels.get(0);
+            i = 0;
             messageLabel.setVisible(true);
         }
         if (color.length > 0) {

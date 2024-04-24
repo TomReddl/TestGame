@@ -149,6 +149,8 @@ public class ItemDetailPanel {
             descLabel.setText(item.getInfo().getDesc());
             addEffectsText(item.getEffects());
             addInlayerText(item);
+        } else {
+            descLabel.setText(item.getInfo().getDesc());
         }
     }
 

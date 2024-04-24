@@ -18,7 +18,7 @@ public class GameParams {
     public static final int mapSize = 300; // размер карты в тайлах
     public static final int viewSize = 15; // размер отображаемой зоны карты в тайлах
     public static final int screenSizeX = 1400; // ширина игрового окна в пикселях
-    public static final int screenSizeY = 680; // высота игрового окна в пикселях
+    public static final int screenSizeY = 690; // высота игрового окна в пикселях
     public static GameLangEnum lang = GameLangEnum.RU; // язык игры
 
     static {

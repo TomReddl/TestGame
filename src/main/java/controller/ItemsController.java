@@ -669,6 +669,10 @@ public class ItemsController {
                 Game.getTimeLabel().setText(TimeController.getCurrentDataStr(true));
             } else if (item.getInfo().getTypes().contains(ItemTypeEnum.FOLDABLE)) {
                 setFoldableItem(item);
+            } else if (item.getTypeId() == 361) {
+                Game.showMessage(Game.getText("DICE_RESULT") + " " + (random.nextInt(6) + 1), Color.GREEN);
+            } else if (item.getTypeId() == 368) {
+                Game.showMessage(Game.getText("DICE_RESULT") + " 6", Color.GREEN);
             }
         }
     }

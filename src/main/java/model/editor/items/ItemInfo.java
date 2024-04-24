@@ -42,7 +42,7 @@ public class ItemInfo {
 
     public List<EffectParams> getEffects() {
         // для ингредиентов добавляем случайные дополнительные эффекты
-        if (this.getTypes().contains(ItemTypeEnum.INGREDIENT) && effects != null) {
+        if (this.getTypes() != null && this.getTypes().contains(ItemTypeEnum.INGREDIENT) && effects != null) {
             List<EffectParams> allEffects = new ArrayList<>(effects);
             allEffects.add(Game.getMap().getAdditionalEffect().get(id));
             return allEffects;
