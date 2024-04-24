@@ -2558,9 +2558,6 @@
     "weight": "35",
     "volume": "30",
     "price": "10",
-    "stackable": true,
-    "types": [
-      "COMMON"
-    ]
+    "stackable": true
   }
 ]

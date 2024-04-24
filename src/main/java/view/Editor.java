@@ -507,13 +507,17 @@ public class Editor {
                 border.setY(items.get(Integer.parseInt(tile.getId())).getIcon().getY() - 1);
             });
 
-            items.get(i).setIcon(tile);
-            items.get(i).setName(Game.getItemsText(i + "NAME"));
-            items.get(i).setDesc(Game.getItemsText(i + "DESC"));
-            if (i > 0) {
-                items.get(i).setImage(new ImageView("/graphics/items/" + i + ".png"));
+            ItemInfo itemInfo = items.get(i);
+            itemInfo.setIcon(tile);
+            itemInfo.setName(Game.getItemsText(i + "NAME"));
+            itemInfo.setDesc(Game.getItemsText(i + "DESC"));
+            if (itemInfo.getTypes() == null) {
+                itemInfo.setTypes(Collections.singletonList(ItemTypeEnum.COMMON));
             }
-            itemsPane.getChildren().add(items.get(i).getIcon());
+            if (i > 0) {
+                itemInfo.setImage(new ImageView("/graphics/items/" + i + ".png"));
+            }
+            itemsPane.getChildren().add(itemInfo.getIcon());
         }
         itemsPane.setOnMouseEntered(event -> Popover.setPane(itemsPane));
         scrollPane5.setContent(itemsPane);
