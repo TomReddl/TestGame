@@ -2559,5 +2559,16 @@
     "volume": "30",
     "price": "10",
     "stackable": true
+  },
+  {
+    "id": 369,
+    "weight": "300",
+    "volume": "300",
+    "price": "90",
+    "maxStrength": 50,
+    "stackable": true,
+    "types": [
+      "COMMON"
+    ]
   }
 ]
