@@ -36,6 +36,9 @@ public class TimeController {
     @Getter
     @Setter
     private static TimerTask task; // Храним задачу для таймера времени в отдельной переменной
+    @Getter
+    @Setter
+    private static TimerTask walkTask; // задача для перемещения персонажа при нажатии WASD
 
     /**
      * Выполнить указанное количество тиков
@@ -315,6 +318,73 @@ public class TimeController {
             } else {
                 value = value - Game.getMap().getAccessibleWeathers().get(weather);
             }
+        }
+    }
+
+    public static TimerTask getTimeTask() {
+        return new TimerTask() {
+            public void run() {
+                TimeController.tic(true);
+            }
+        };
+    }
+
+    public static TimerTask getWalkTask() {
+        return new TimerTask() {
+            public void run() {
+                var player = Game.getMap().getSelecterCharacter();
+                Game.getEditor().getTimeControlPanel().stopTime(); // останавливаем автоматическое течение времени, если игрок жмет на кнопку
+                Game.hideMessage();
+                switch (Game.getKeyCode()) {
+                    case D: {
+                        if (CharactersController.isOverloaded(player)) {
+                            Game.showMessage(Game.getText("ERROR_OVERLOADED"));
+                        } else {
+                            CharactersController.heroMoveRight(player);
+                        }
+
+                        break;
+                    }
+                    case A: {
+                        if (CharactersController.isOverloaded(player)) {
+                            Game.showMessage(Game.getText("ERROR_OVERLOADED"));
+                        } else {
+                            CharactersController.heroMoveLeft(player);
+                        }
+                        break;
+                    }
+                    case S: {
+                        if (CharactersController.isOverloaded(player)) {
+                            Game.showMessage(Game.getText("ERROR_OVERLOADED"));
+                        } else {
+                            CharactersController.heroMoveDown(player);
+                        }
+                        break;
+                    }
+                    case W: {
+                        if (CharactersController.isOverloaded(player)) {
+                            Game.showMessage(Game.getText("ERROR_OVERLOADED"));
+                        } else {
+                            CharactersController.heroMoveUp(player);
+                        }
+                        break;
+                    }
+                }
+            }
+        };
+    }
+
+    public static void stopWalk() {
+        if (walkTask != null) {
+            walkTask.cancel();
+            walkTask = null;
+        }
+    }
+
+    public static void startWalk() {
+        if (walkTask == null) {
+            walkTask = getWalkTask();
+            TimeController.getTimer().schedule(walkTask, new Date(), TimeController.getBaseTicTime() * 2);
         }
     }
 }

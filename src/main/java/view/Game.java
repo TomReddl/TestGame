@@ -6,6 +6,7 @@ import game.GameParams;
 import javafx.scene.Group;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -115,6 +116,9 @@ public class Game {
     @Getter
     @Setter
     private static boolean isShiftPressed; // нажата клавиша shift
+    @Getter
+    @Setter
+    private static KeyCode keyCode;
 
     public static void setGameMode(GameModeEnum mode) {
         gameMode = mode;

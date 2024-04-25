@@ -343,7 +343,9 @@ public class MapController {
             }
             if (mapCellInfo.getCreatureId() != null) {
                 Creature creature = Game.getMap().getCreaturesList().get(mapCellInfo.getCreatureId());
-                mapInfoLabel.setText(mapInfoLabel.getText() + "\n" + creature.getInfo().getName() + (creature.isAlive() ? "" : " (" + Game.getGameText("DEAD").toLowerCase() + ")"));
+                if (showCreature(creature.getCreatureTypeId())) {
+                    mapInfoLabel.setText(mapInfoLabel.getText() + "\n" + creature.getInfo().getName() + (creature.isAlive() ? "" : " (" + Game.getGameText("DEAD").toLowerCase() + ")"));
+                }
             }
         } else {
             mapInfoLabel.setText("");
@@ -572,6 +574,8 @@ public class MapController {
      * @param code - код нажатой кнопки
      */
     public static void onKeyReleased(KeyCode code) {
+        Game.setKeyCode(null);
+        TimeController.stopWalk();
         if (code == KeyCode.SHIFT) {
             Game.setShiftPressed(false);
         } else {
@@ -597,11 +601,11 @@ public class MapController {
      *
      * @param code - код нажатой кнопки
      */
-    public static void onKeyTyped(KeyCode code) {
+    public static void OnKeyPressed(KeyCode code) {
         switch (Game.getGameMode()) {
             case GAME:
             case EDITOR: {
-                onEditorKeyTyped(code);
+                onEditorKeyPressed(code);
                 break;
             }
         }
@@ -626,10 +630,12 @@ public class MapController {
      *
      * @param code - код нажатой кнопки
      */
-    public static void onEditorKeyTyped(KeyCode code) {
+    public static void onEditorKeyPressed(KeyCode code) {
         if (code == KeyCode.SHIFT) {
             Game.setShiftPressed(true);
         }
+        Game.setKeyCode(code);
+        TimeController.startWalk();
     }
 
     /**
@@ -724,7 +730,7 @@ public class MapController {
                     if (CharactersController.isOverloaded(player)) {
                         Game.showMessage(Game.getText("ERROR_OVERLOADED"));
                     } else {
-                        CharactersController.heroMoveRight(player);
+                     //   CharactersController.heroMoveRight(player);
                     }
                 }
                 break;
@@ -736,7 +742,7 @@ public class MapController {
                     if (CharactersController.isOverloaded(player)) {
                         Game.showMessage(Game.getText("ERROR_OVERLOADED"));
                     } else {
-                        CharactersController.heroMoveLeft(player);
+                    //    CharactersController.heroMoveLeft(player);
                     }
                 }
                 break;
@@ -745,7 +751,7 @@ public class MapController {
                 if (CharactersController.isOverloaded(player)) {
                     Game.showMessage(Game.getText("ERROR_OVERLOADED"));
                 } else {
-                    CharactersController.heroMoveDown(player);
+                  //  CharactersController.heroMoveDown(player);
                 }
                 break;
             }
@@ -753,7 +759,7 @@ public class MapController {
                 if (CharactersController.isOverloaded(player)) {
                     Game.showMessage(Game.getText("ERROR_OVERLOADED"));
                 } else {
-                    CharactersController.heroMoveUp(player);
+                  //  CharactersController.heroMoveUp(player);
                 }
                 break;
             }

@@ -37,7 +37,7 @@ public class Main extends Application {
         MapController.drawCurrentMap();
 
         scene.setOnKeyReleased(event -> MapController.onKeyReleased(event.getCode()));
-        scene.setOnKeyPressed(event -> MapController.onKeyTyped(event.getCode()));
+        scene.setOnKeyPressed(event -> MapController.OnKeyPressed(event.getCode()));
 
         Game.getRoot().setOnMousePressed(event -> MapController.mapClick(event.getX(), event.getY(), event.getButton() == MouseButton.SECONDARY));
         Game.getRoot().setOnMouseReleased(event -> MapController.drawMapEnd());

@@ -11,7 +11,6 @@ import javafx.scene.paint.Color;
 import lombok.Getter;
 
 import java.util.Date;
-import java.util.TimerTask;
 
 import static game.GameParams.tileSize;
 import static game.GameParams.viewSize;
@@ -114,25 +113,16 @@ public class TimeControlPanel {
         if (TimeController.getTask() != null) {
             borderImage.setLayoutX(stopTimeImage.getLayoutX() - 2);
             TimeController.getTask().cancel();
+            TimeController.setTask(null);
         }
     }
 
     private void startTime(int speed, double xPos) {
-        if (TimeController.getTask() != null) {
-            TimeController.getTask().cancel();
+        if (TimeController.getTask() == null) {
+            TimeController.setTask(TimeController.getTimeTask());
+            borderImage.setLayoutX(xPos - 2);
+            TimeController.getTimer().schedule(TimeController.getTask(), new Date(), TimeController.getBaseTicTime() * speed);
         }
-        TimeController.setTask(getTask());
-        borderImage.setLayoutX(xPos - 2);
-        TimeController.getTimer().schedule(TimeController.getTask(), new Date(), TimeController.getBaseTicTime() * speed);
-
-    }
-
-    private TimerTask getTask() {
-        return new TimerTask() {
-            public void run() {
-                TimeController.tic(true);
-            }
-        };
     }
 
     /**
