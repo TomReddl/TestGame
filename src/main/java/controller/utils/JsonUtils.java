@@ -7,8 +7,10 @@ import com.fasterxml.jackson.datatype.jsr310.deser.InstantDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
 import model.editor.*;
 import model.editor.items.*;
-import model.entity.map.WorldMap;
+import model.entity.map.MapChunk;
 import lombok.experimental.UtilityClass;
+import model.entity.map.WorldInfo;
+import view.Game;
 
 import java.io.File;
 import java.time.ZonedDateTime;
@@ -140,7 +142,7 @@ public class JsonUtils {
         }
     }
 
-    public void saveMap(String mapName, WorldMap map) {
+    public void saveMap(String mapName, MapChunk map) {
         String[] coordinates = mapName.split("\\.");
         map.setWorldPosY(Integer.parseInt(coordinates[0]));
         map.setWorldPosX(Integer.parseInt(coordinates[1]));
@@ -149,11 +151,26 @@ public class JsonUtils {
             path = path.replaceAll("/", Matcher.quoteReplacement("\\"));
             objectMapper.writeValue(new File(path), map);
         } catch (Exception ex) {
-            throw new RuntimeException("can not save map " + ex.getMessage());
+            throw new RuntimeException("Не удалось сохранить чанк карты mapName: " + ex.getMessage());
+        }
+        saveWorldInfo(Game.getWorldInfo());
+    }
+
+    /**
+     * Сохранить общую информацию о мире игры
+     * @param worldInfo
+     */
+    public void saveWorldInfo(WorldInfo worldInfo) {
+        try {
+            var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "world/world.json";
+            path = path.replaceAll("/", Matcher.quoteReplacement("\\"));
+            objectMapper.writeValue(new File(path), worldInfo);
+        } catch (Exception ex) {
+            throw new RuntimeException("Не удалось сохранить информацию о мире игры: " + ex.getMessage());
         }
     }
 
-    public static WorldMap loadMap(String mapName) {
+    public static MapChunk loadMap(String mapName) {
         try {
             var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "world/" + mapName + ".json";
             return objectMapper.readValue(new File(path), new TypeReference<>() {});

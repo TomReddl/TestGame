@@ -17,7 +17,8 @@ import model.editor.TileInfo;
 import model.editor.items.ItemInfo;
 import model.entity.GameModeEnum;
 import model.entity.ItemTypeEnum;
-import model.entity.map.WorldMap;
+import model.entity.map.MapChunk;
+import model.entity.map.WorldInfo;
 import view.inventory.InventoryPanel;
 import view.inventory.PlayerIndicatorsPanel;
 import view.menu.GameMenuPanel;
@@ -86,7 +87,10 @@ public class Game {
     private static final ImageView stopTestGameImage = new ImageView("/graphics/gui/StopTestGame.png");
     @Getter
     @Setter
-    private static WorldMap map = new WorldMap();
+    private static MapChunk map = new MapChunk(); // информация о текущем чанке карты мира
+    @Getter
+    @Setter
+    private static WorldInfo worldInfo = new WorldInfo(); // общая информация о мире игры
     @Getter
     private static final Editor editor = new Editor();
     @Getter
@@ -131,6 +135,7 @@ public class Game {
                 Editor.getMapInfoLabel().setVisible(false);
                 Game.getEditor().getTimeControlPanel().getPane().setVisible(false);
                 Game.getEditor().getTimeControlPanel().stopTime();
+                Game.getEditor().getSquadPanel().getPane().setVisible(false);
                 break;
             }
             case EDITOR: {
@@ -147,6 +152,7 @@ public class Game {
                 Game.getTimeLabel().setVisible(false);
                 Game.getEditor().getTimeControlPanel().getPane().setVisible(false);
                 Game.getEditor().getTimeControlPanel().stopTime();
+                Game.getEditor().getSquadPanel().getPane().setVisible(false);
                 break;
             }
             case GAME: {
@@ -161,6 +167,7 @@ public class Game {
                 Game.getTimeLabel().setVisible(true);
                 timeLabel.setText(TimeController.getCurrentDataStr(false));
                 Game.getEditor().getTimeControlPanel().getPane().setVisible(true);
+                Game.getEditor().getSquadPanel().getPane().setVisible(true);
                 break;
             }
             case GAME_MENU: {

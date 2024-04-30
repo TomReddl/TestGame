@@ -1204,5 +1204,19 @@
     "strength": 0,
     "passability": true,
     "visibly": true
+  },
+  {
+    "id": 146,
+    "strength": 0,
+    "burn": true,
+    "passability": true,
+    "visibly": true
+  },
+  {
+    "id": 147,
+    "strength": 0,
+    "burn": true,
+    "passability": true,
+    "visibly": true
   }
 ]

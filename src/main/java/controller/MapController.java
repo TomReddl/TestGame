@@ -15,7 +15,6 @@ import model.editor.EditorObjectType;
 import model.editor.TileInfo;
 import model.editor.TileTypeEnum;
 import model.editor.items.BodyPartEnum;
-import model.entity.GameCalendar;
 import model.entity.GameModeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.battle.DamageTypeEnum;
@@ -96,8 +95,8 @@ public class MapController {
             if (tileX != Game.getXMapInfoPos() || tileY != Game.getYMapInfoPos()) {
                 MapController.showMapPointInfo(x, y, Editor.getMapInfoLabel());
 
-                Game.setXMapInfoPos(Game.getMap().getSelecterCharacter().getXMapPos() + (((int) x) / tileSize));
-                Game.setYMapInfoPos(Game.getMap().getSelecterCharacter().getYMapPos() + (((int) y) / tileSize));
+                Game.setXMapInfoPos(Game.getMap().getPlayersSquad().getSelectedCharacter().getXMapPos() + (((int) x) / tileSize));
+                Game.setYMapInfoPos(Game.getMap().getPlayersSquad().getSelectedCharacter().getYMapPos() + (((int) y) / tileSize));
             }
         }
     }
@@ -117,8 +116,8 @@ public class MapController {
                 MapController.drawTileOnMap(x, y,
                         isRightMouse, Editor.getCanvas());
 
-                Game.setXMapInfoPos(Game.getMap().getSelecterCharacter().getXMapPos() + (((int) x) / tileSize));
-                Game.setYMapInfoPos(Game.getMap().getSelecterCharacter().getYMapPos() + (((int) y) / tileSize));
+                Game.setXMapInfoPos(Game.getMap().getPlayersSquad().getSelectedCharacter().getXMapPos() + (((int) x) / tileSize));
+                Game.setYMapInfoPos(Game.getMap().getPlayersSquad().getSelectedCharacter().getYMapPos() + (((int) y) / tileSize));
             }
         }
     }
@@ -312,7 +311,7 @@ public class MapController {
      * @param mapInfoLabel - лэйбл для показа подсказки
      */
     public static void showMapPointInfo(double x, double y, Label mapInfoLabel) {
-        var player = Game.getMap().getSelecterCharacter();
+        var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
         int xPos = (((int) x) / tileSize);
         int yPos = (((int) y) / tileSize);
         if (x < viewSize * tileSize && y < viewSize * tileSize && needShowPointInfo(xPos, yPos)) {
@@ -356,9 +355,9 @@ public class MapController {
     private static boolean needShowPointInfo(int x, int y) {
         WeatherEnum weather = Game.getMap().getCurrentWeather().keySet().iterator().next();
         return Game.getGameMode().equals(GameModeEnum.EDITOR) ||
-                Game.getMap().getSelecterCharacter().getVisiblyPoints()[x][y] && (
+                Game.getMap().getPlayersSquad().getSelectedCharacter().getVisiblyPoints()[x][y] && (
                 !weather.getReducesVisibility() ||
-                (tileDistance(Game.getMap().getSelecterCharacter(), x, y) < Game.getMap().getCurrentWeather().values().iterator().next()));
+                (tileDistance(Game.getMap().getPlayersSquad().getSelectedCharacter(), x, y) < Game.getMap().getCurrentWeather().values().iterator().next()));
     }
 
     /**
@@ -373,7 +372,7 @@ public class MapController {
         if (Game.getGameMode().equals(GameModeEnum.EDITOR)) {
             var tileX = (((int) x) / tileSize);
             var tileY = (((int) y) / tileSize);
-            var player = Game.getMap().getSelecterCharacter();
+            var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
             MapCellInfo mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + tileX]
                     [player.getYMapPos() + tileY];
             if (Game.isShiftPressed() && Editor.getSelectedType().equals(EditorObjectType.GROUND)) {
@@ -500,7 +499,7 @@ public class MapController {
                 Game.getMap().getTiles()[XPos][YPos].setTile1Id(getWallVariantId(XPos, YPos, "7"));
             }
         }
-        var player = Game.getMap().getSelecterCharacter();
+        var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
         drawTile(player, XPos - player.getXMapPos(), YPos - player.getYMapPos());
     }
 
@@ -644,7 +643,7 @@ public class MapController {
      * @param code - код нажатой кнопки
      */
     private static void onEditorKeyReleased(KeyCode code) {
-        var player = Game.getMap().getSelecterCharacter();
+        var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
         if (code == KeyCode.ESCAPE) {
             MainMenu.getPane().setVisible(false);
             Game.setGameMode(GameModeEnum.GAME_MENU);
@@ -717,7 +716,7 @@ public class MapController {
      * @param code - код нажатой кнопки
      */
     private static void onGameKeyReleased(KeyCode code) {
-        var player = Game.getMap().getSelecterCharacter();
+        var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
         Game.getEditor().getTimeControlPanel().stopTime(); // останавливаем автоматическое течение времени, если игрок жмет на кнопку
         Game.hideMessage();
         int xPos = player.getXPosition();
@@ -726,40 +725,12 @@ public class MapController {
             case D: {
                 if (BookPanel.getPane().isVisible()) {
                     BookPanel.showNextPage();
-                } else {
-                    if (CharactersController.isOverloaded(player)) {
-                        Game.showMessage(Game.getText("ERROR_OVERLOADED"));
-                    } else {
-                     //   CharactersController.heroMoveRight(player);
-                    }
                 }
                 break;
             }
             case A: {
                 if (BookPanel.getPane().isVisible()) {
                     BookPanel.showPreviousPage();
-                } else {
-                    if (CharactersController.isOverloaded(player)) {
-                        Game.showMessage(Game.getText("ERROR_OVERLOADED"));
-                    } else {
-                    //    CharactersController.heroMoveLeft(player);
-                    }
-                }
-                break;
-            }
-            case S: {
-                if (CharactersController.isOverloaded(player)) {
-                    Game.showMessage(Game.getText("ERROR_OVERLOADED"));
-                } else {
-                  //  CharactersController.heroMoveDown(player);
-                }
-                break;
-            }
-            case W: {
-                if (CharactersController.isOverloaded(player)) {
-                    Game.showMessage(Game.getText("ERROR_OVERLOADED"));
-                } else {
-                  //  CharactersController.heroMoveUp(player);
                 }
                 break;
             }
@@ -909,7 +880,7 @@ public class MapController {
      * Отрисовать текущую область карты
      */
     public static void drawCurrentMap() {
-        var player = Game.getMap().getSelecterCharacter();
+        var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
         drawMap(player.getXMapPos(), player.getYMapPos());
     }
 
@@ -920,11 +891,11 @@ public class MapController {
      * @param YPos - координата y левого верхнего угла отрисовываемой области
      */
     public static void drawMap(int XPos, int YPos) {
-        Character character = Game.getMap().getSelecterCharacter();
+        Character character = Game.getMap().getPlayersSquad().getSelectedCharacter();
         if (CharactersController.isBlind(character)) { // если персонаж под действием эффекта "слепота"
             drawBlindMap(character);
         } else {
-            boolean[][] visiblyPoints = CharactersController.findVisibleMapPoints(Game.getMap().getSelecterCharacter());
+            boolean[][] visiblyPoints = CharactersController.findVisibleMapPoints(Game.getMap().getPlayersSquad().getSelectedCharacter());
             character.setVisiblyPoints(visiblyPoints);
             for (int x = 0; x < viewSize; x++) {
                 for (int y = 0; y < viewSize; y++) {
@@ -981,7 +952,7 @@ public class MapController {
      * Перерисовать тайл, на которой стоит персонаж
      */
     public static void drawPlayerTile() {
-        Character character = Game.getMap().getSelecterCharacter();
+        Character character = Game.getMap().getPlayersSquad().getSelectedCharacter();
         drawTile(character, character.getXViewPos(), character.getYViewPos());
     }
 
@@ -989,7 +960,7 @@ public class MapController {
      * Отрисовать руду при подстветке металлоискателем
      */
     public static void drawOres(int itemId) {
-        var player = Game.getMap().getSelecterCharacter();
+        var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
         GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
         for (int x = 0; x < viewSize; x++) {
             for (int y = 0; y < viewSize; y++) {
@@ -1011,7 +982,7 @@ public class MapController {
      * Отрисовать пустоты при подстветке эхолокатором
      */
     public static void drawEmptiness() {
-        var player = Game.getMap().getSelecterCharacter();
+        var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
         GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
         for (int x = 0; x < viewSize; x++) {
             for (int y = 0; y < viewSize; y++) {
@@ -1029,7 +1000,7 @@ public class MapController {
      * Отрисовать подсветку живых существ, если на персонажа действует эффект "обнаружение жизни"
      */
     public static void drawAlive() {
-        var player = Game.getMap().getSelecterCharacter();
+        var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
         GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
         for (int x = 0; x < viewSize; x++) {
             for (int y = 0; y < viewSize; y++) {
@@ -1123,7 +1094,7 @@ public class MapController {
 
     // отрисовка верхнего уровня тайла
     private static void drawUpperLayer(int Xpos, int YPos, int x, int y, boolean visibly) {
-        var player = Game.getMap().getSelecterCharacter();
+        var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
         List<Character> characterList = Game.getMap().getCharacterList();
         List<Creature> creaturesList = Game.getMap().getCreaturesList();
         GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
@@ -1212,7 +1183,7 @@ public class MapController {
                                 x * tileSize, y * tileSize);
                     }
                 } else {
-                    if (GameCalendar.getCurrentDate().getTic() % 2 == 0) {
+                    if (Game.getWorldInfo().getCurrentDate().getTic() % 2 == 0) {
                         gc.drawImage(Game.getMap().getCurrentWeather().keySet().iterator().next().getImage1(),
                                 x * tileSize, y * tileSize);
                     } else {
@@ -1243,7 +1214,7 @@ public class MapController {
      */
     private static boolean showCreature(int creatureId) {
         boolean epiphany = false;
-        for (EffectParams effect : Game.getMap().getSelecterCharacter().getAppliedEffects()) {
+        for (EffectParams effect : Game.getMap().getPlayersSquad().getSelectedCharacter().getAppliedEffects()) {
             if (effect.getStrId().equals("EPIPHANY")) {
                 epiphany = true;
                 break;

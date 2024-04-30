@@ -42,10 +42,10 @@ public class CraftRecipeRecord {
         itemName.setFont(Font.font("Arial", FontWeight.NORMAL, 12));
         itemName.setLayoutX(60);
         itemName.setLayoutY(15);
-        itemName.setTextFill(ItemsController.getCraftElements(recipeInfo, Game.getMap().getSelecterCharacter()) != null ? Color.BLACK : Color.web("#A9A9A9"));
+        itemName.setTextFill(ItemsController.getCraftElements(recipeInfo, Game.getMap().getPlayersSquad().getSelectedCharacter()) != null ? Color.BLACK : Color.web("#A9A9A9"));
         pane.getChildren().add(itemName);
 
-        pane.setOnMouseClicked(event -> ItemsController.craftItem(recipeInfo, Game.getMap().getSelecterCharacter()));
+        pane.setOnMouseClicked(event -> ItemsController.craftItem(recipeInfo, Game.getMap().getPlayersSquad().getSelectedCharacter()));
     }
 
     /**
@@ -56,7 +56,7 @@ public class CraftRecipeRecord {
         String text = Game.getText("REQUIRED") + ": ";
         for (String itemTypeId : recipeInfo.getElements().keySet()) {
             ItemInfo element = Editor.getItems().get(Integer.parseInt(itemTypeId));
-            Items findElement = ItemsController.findItemInInventory(Integer.parseInt(itemTypeId), Game.getMap().getSelecterCharacter().getInventory());
+            Items findElement = ItemsController.findItemInInventory(Integer.parseInt(itemTypeId), Game.getMap().getPlayersSquad().getSelectedCharacter().getInventory());
             String elementCount = findElement != null ? " (" + Game.getText("IN_STOCK").toLowerCase() + ": " + findElement.getCount() + ")" : "";
             text = text.concat("\n" + element.getName() + ": " + recipeInfo.getElements().get(itemTypeId) + elementCount);
         }

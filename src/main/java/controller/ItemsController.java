@@ -205,7 +205,7 @@ public class ItemsController {
         InventoryPanel inventoryPanel = character != null ? Game.getInventory() : Game.getContainerInventory();
         inventoryPanel.filterInventoryTabs(inventoryPanel.getTabPane().getSelectionModel().getSelectedItem());
 
-        if (character != null && character.isActiveCharacter()) {
+        if (character != null && character.equals(Game.getMap().getPlayersSquad().getSelectedCharacter())) {
             Game.showMessage(String.format(Game.getGameText("ITEM_ADDED"), item.getName(), count), Color.GREEN);
         }
 
@@ -240,7 +240,7 @@ public class ItemsController {
      * Переложить весь мусор из инвентаря персонажа в мусорку (кнопка "Складировать весь мусор")
      */
     public static void storeTrash() {
-        List<Items> playerInventory = Game.getMap().getSelecterCharacter().getInventory().stream().filter(item -> item.getInfo().getTypes().contains(ItemTypeEnum.TRASH)).collect(Collectors.toList());
+        List<Items> playerInventory = Game.getMap().getPlayersSquad().getSelectedCharacter().getInventory().stream().filter(item -> item.getInfo().getTypes().contains(ItemTypeEnum.TRASH)).collect(Collectors.toList());
         while (playerInventory.size() > 0) {
             Items item = playerInventory.get(0);
             addItemsToContainerFromPlayer(item, item.getCount(), Game.getContainerInventory().getItems());
@@ -252,16 +252,16 @@ public class ItemsController {
      * Разделать тушу существа
      */
     public static void butcheringCreature() {
-        Items itemInRightHand = Game.getMap().getSelecterCharacter().getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).values().iterator().next();
+        Items itemInRightHand = Game.getMap().getPlayersSquad().getSelectedCharacter().getWearingItems().get(BodyPartEnum.RIGHT_ARM.ordinal()).values().iterator().next();
         if (itemInRightHand != null && ((WeaponInfo) itemInRightHand.getInfo()).getDamageType().equals(DamageTypeEnum.CUTTING_DAMAGE.name())) {
-            Creature creature = Game.getMap().getSelecterCharacter().getInteractCreature();
+            Creature creature = Game.getMap().getPlayersSquad().getSelectedCharacter().getInteractCreature();
             if (creature != null && !creature.isAlive() && creature.getInfo().getOrgans() != null) {
                 TimeController.tic(60);
-                ItemsController.damageItem(itemInRightHand, 10, Game.getMap().getSelecterCharacter().getInventory(), Game.getMap().getSelecterCharacter());
+                ItemsController.damageItem(itemInRightHand, 10, Game.getMap().getPlayersSquad().getSelectedCharacter().getInventory(), Game.getMap().getPlayersSquad().getSelectedCharacter());
                 creature.setButchering(true);
                 Game.getContainerInventory().getButcherButton().setVisible(false);
                 for (String key : creature.getInfo().getOrgans().keySet()) {
-                    addItem(new Items(Integer.parseInt(key), getButcheringItemsCount(creature.getInfo().getOrgans().get(key))), creature.getInventory(), Game.getMap().getSelecterCharacter());
+                    addItem(new Items(Integer.parseInt(key), getButcheringItemsCount(creature.getInfo().getOrgans().get(key))), creature.getInventory(), Game.getMap().getPlayersSquad().getSelectedCharacter());
                 }
                 Game.getContainerInventory().refreshInventory();
                 MapController.drawCurrentMap();
@@ -472,9 +472,9 @@ public class ItemsController {
      * @return true, если удалось переместить предметы
      */
     public static boolean addItemsToPlayerFromContainer(Items item, int count, List<Items> containerInventory) {
-        var player = Game.getMap().getSelecterCharacter();
+        var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
         List<Items> inventory = player.getInventory();
-        if (addItem(item, count, inventory, Game.getMap().getSelecterCharacter()) != null) {
+        if (addItem(item, count, inventory, Game.getMap().getPlayersSquad().getSelectedCharacter()) != null) {
             if (Game.getContainerInventory().getInventoryType().equals(InventoryPanel.InventoryTypeEnum.CHARACTER)) {
                 if (item.isEquipment()) {
                     equipItem(item, Game.getMap().getCharacterList().get(Game.getContainerInventory().getCharacterId()));
@@ -517,7 +517,7 @@ public class ItemsController {
      * @param containerInventory - инвентарь, в который перемещаются предметы
      */
     public static void addItemsToContainerFromPlayer(Items item, int count, List<Items> containerInventory) {
-        Character character = Game.getMap().getSelecterCharacter();
+        Character character = Game.getMap().getPlayersSquad().getSelectedCharacter();
         List<Items> inventory = character.getInventory();
         MapCellInfo mapCellInfo = character.getInteractMapPoint();
         String tileType = null;
@@ -683,7 +683,7 @@ public class ItemsController {
      * @param items - предмет
      */
     private static void setFoldableItem(Items items) {
-        Character character = Game.getMap().getSelecterCharacter();
+        Character character = Game.getMap().getPlayersSquad().getSelectedCharacter();
         MapCellInfo mapCellInfo = Game.getMap().getTiles()[character.getXPosition()][character.getYPosition()];
         if (mapCellInfo.getTile2Id() == 0) {
             mapCellInfo.setTile2Id(Integer.parseInt(items.getInfo().getParams().get("tileId"))); // устанавливаем предмет, если клетка не занята
@@ -760,7 +760,7 @@ public class ItemsController {
                         wearingItems.set(index, itemsMap);
                     }
                 } else {
-                    if (character.isActiveCharacter()) {
+                    if (character.equals(Game.getMap().getPlayersSquad().getSelectedCharacter())) {
                         Game.showMessage(Game.getText("ERROR_CANT_REMOVE_ITEM"));
                     }
                     return false;
@@ -869,7 +869,7 @@ public class ItemsController {
 
             return true;
         } else {
-            if (character.isActiveCharacter()) {
+            if (character.equals(Game.getMap().getPlayersSquad().getSelectedCharacter())) {
                 Game.showMessage(Game.getText("ERROR_CANT_EQUIP_BROKEN_ITEM"));
             }
             return false;
@@ -982,13 +982,13 @@ public class ItemsController {
             ItemsController.addItem(new Items(recipeInfo.getItemId(), recipeInfo.getItemCount() != null ? recipeInfo.getItemCount() : 1), character.getInventory(), character);
             Integer exp = recipeInfo.getExp();
             CharactersController.addSkillExp(recipeInfo.getSkillId(), exp != null ? exp : 10);
-            if (Game.getMap().getSelecterCharacter().equals(character)) {
+            if (Game.getMap().getPlayersSquad().getSelectedCharacter().equals(character)) {
                 Integer timeToCraft = recipeInfo.getTimeToCraft();
                 TimeController.tic(timeToCraft != null ? timeToCraft : defaultTimeToCraft);
                 Game.showMessage(String.format(Game.getGameText("ITEM_CREATED"), Editor.getItems().get(recipeInfo.getItemId()).getName()),
                         Color.GREEN);
             }
-            Game.getEditor().getCraftPanel().showPanel(Game.getMap().getSelecterCharacter().getInteractMapPoint().getTile2Info()); // перерисовываем панель крафта на случай, если изменился список доступных рецептов
+            Game.getEditor().getCraftPanel().showPanel(Game.getMap().getPlayersSquad().getSelectedCharacter().getInteractMapPoint().getTile2Info()); // перерисовываем панель крафта на случай, если изменился список доступных рецептов
         }
     }
 

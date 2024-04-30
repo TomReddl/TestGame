@@ -12,8 +12,6 @@ public class GameCalendar {
     private static final int startYear = 1872; // стартовый год игры
     @Getter
     private static final int ticsInHour = 60; // количество тиков в 1 часе
-    @Getter
-    private static GameDate currentDate = new GameDate(); // текущая игровая дата
 
     /**
      * Игровая дата

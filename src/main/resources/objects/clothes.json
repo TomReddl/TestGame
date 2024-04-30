@@ -1954,5 +1954,25 @@
         "strId": "FIRE_DAMAGE_IMMUNITY"
       }
     ]
+  },
+  {
+    "id": 370,
+    "weight": "900",
+    "volume": "2500",
+    "price": "600",
+    "stackable": false,
+    "armor": 10,
+    "maxStrength": 140,
+    "skill": "LIGHT_ARMOR",
+    "bodyPart": "HEAD",
+    "covering": 30,
+    "style": "FRONTIER",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "effects": [
+      {
+        "strId": "MOLD_SPORE_IMMUNITY"
+      }
+    ]
   }
 ]

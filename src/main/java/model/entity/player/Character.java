@@ -40,10 +40,6 @@ public class Character implements Serializable {
     private int xPosition; // координаты персонажа на карте
     @JsonProperty("yPosition")
     private int yPosition;
-    @JsonProperty("xMapPos")
-    private int xMapPos; // сдвиг области отрисовки карты от начала координат
-    @JsonProperty("yMapPos")
-    private int yMapPos;
     @JsonProperty("xViewPos")
     private int xViewPos; // положение персонажа в отрисованной области
     @JsonProperty("yViewPos")
@@ -88,6 +84,11 @@ public class Character implements Serializable {
 
     private Dialog dialog; // диалог с персонажем
 
+    @JsonProperty("cellCoefficient")
+    private BigDecimal cellCoefficient; // коэффициент цен при продаже предметов
+    @JsonProperty("buyCoefficient")
+    private BigDecimal buyCoefficient; // коэффициент цен при покупке предметов
+
     @JsonIgnore
     private boolean[][] visiblyPoints = new boolean[viewSize][viewSize]; // точки на карте, которые персонаж видит в данный момент
 
@@ -103,7 +104,6 @@ public class Character implements Serializable {
     private BigDecimal currentWeight;
     private ClothesStyleEnum style;
     private MapCellInfo interactMapPoint; // Точка на карте, с которой взаимодействует персонаж
-    private boolean isActiveCharacter; // признак персонажа, которым в данный момент управляет игрок
 
     public Character() {
         image = new ImageView("/graphics/characters/32.png");
@@ -131,6 +131,8 @@ public class Character implements Serializable {
         hairColor = HairColorEnum.Brown;
         gender = GenderEnum.MALE;
         this.name = CharacterGenerator.generateName(characterTypeId);
+        cellCoefficient = BigDecimal.valueOf(1.4);
+        buyCoefficient = BigDecimal.valueOf(0.6);
 
         for (BodyPartEnum partEnum : BodyPartEnum.values()) {
             Map<BodyPartEnum, Items> map = new HashMap();
@@ -164,5 +166,25 @@ public class Character implements Serializable {
     @JsonIgnore
     public CharacterInfo getInfo() {
         return Editor.getCharacters().get(characterTypeId);
+    }
+
+    @JsonIgnore
+    public int getXMapPos() {
+        return Game.getMap().getPlayersSquad().getXMapPos();
+    }
+
+    @JsonIgnore
+    public int getYMapPos() {
+        return Game.getMap().getPlayersSquad().getYMapPos();
+    }
+
+    @JsonIgnore
+    public void setXMapPos(int xMapPos) {
+        Game.getMap().getPlayersSquad().setXMapPos(xMapPos);
+    }
+
+    @JsonIgnore
+    public void setYMapPos(int yMapPos) {
+        Game.getMap().getPlayersSquad().setYMapPos(yMapPos);
     }
 }

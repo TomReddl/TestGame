@@ -196,16 +196,16 @@ public class PlayerIndicatorsPanel {
 
         var key = Collections.max(styles.entrySet(), Map.Entry.comparingByValue()).getKey();
         key = styles.get(key) > 30 ? key : ClothesStyleEnum.COMMON.name();
-        Game.getMap().getSelecterCharacter().setStyle(ClothesStyleEnum.valueOf(key));
+        Game.getMap().getPlayersSquad().getSelectedCharacter().setStyle(ClothesStyleEnum.valueOf(key));
 
-        styleLabel.setText(String.format(Game.getText("STYLE"), Game.getMap().getSelecterCharacter().getStyle().getDesc()));
+        styleLabel.setText(String.format(Game.getText("STYLE"), Game.getMap().getPlayersSquad().getSelectedCharacter().getStyle().getDesc()));
     }
 
     public static void showPanel(Boolean show) {
         PlayerIndicatorsPanel.getPane().setVisible(show);
 
         if (show) {
-            var indicators = Game.getMap().getSelecterCharacter().getParams().getIndicators();
+            var indicators = Game.getMap().getPlayersSquad().getSelectedCharacter().getParams().getIndicators();
 
             healthValueLabel.setText(indicators.get(0).getCurrentValue() + "/" + indicators.get(0).getMaxValue());
             staminaValueLabel.setText(indicators.get(1).getCurrentValue() + "/" + indicators.get(1).getMaxValue());
@@ -233,14 +233,14 @@ public class PlayerIndicatorsPanel {
      * @param value       - новое текущее значение
      */
     public static void setIndicatorValue(int indicatorId, int value) {
-        var params = Game.getMap().getSelecterCharacter().getParams();
+        var params = Game.getMap().getPlayersSquad().getSelectedCharacter().getParams();
         params.getIndicators().get(indicatorId).setCurrentValue(value);
         if (params.getIndicators().get(indicatorId).getCurrentValue() > params.getIndicators().get(indicatorId).getMaxValue()) {
             params.getIndicators().get(indicatorId).setCurrentValue(params.getIndicators().get(indicatorId).getMaxValue());
         } else if (params.getIndicators().get(indicatorId).getCurrentValue() < params.getIndicators().get(indicatorId).getMinValue()) {
             params.getIndicators().get(indicatorId).setCurrentValue(params.getIndicators().get(indicatorId).getMinValue());
         }
-        var maxValue = Game.getMap().getSelecterCharacter().getParams().getIndicators().get(indicatorId).getMaxValue();
+        var maxValue = Game.getMap().getPlayersSquad().getSelectedCharacter().getParams().getIndicators().get(indicatorId).getMaxValue();
         indicatorControls.get(indicatorId).getKey().setText(value + "/" + maxValue);
         indicatorControls.get(indicatorId).getValue().setProgress((double) value / maxValue);
     }

@@ -149,7 +149,7 @@ public class EnchantmentPanel {
         clearPanel();
         enchantButton.setDisable(true);
         pane.setVisible(false);
-        Game.getMap().getSelecterCharacter().setInteractMapPoint(null);
+        Game.getMap().getPlayersSquad().getSelectedCharacter().setInteractMapPoint(null);
     }
 
     private void clearPanel() {
@@ -166,7 +166,7 @@ public class EnchantmentPanel {
      */
     private void enchantItem() {
         if (item.getTypeId() != 0 && inlayer.getTypeId() != 0) {
-            Character character = Game.getMap().getSelecterCharacter();
+            Character character = Game.getMap().getPlayersSquad().getSelectedCharacter();
             if (item.getInlayerId() == null || item.getInlayerId() == 0) { // зачаровываем
                 Integer inlayerSize = (item.getParams() != null && item.getParams().get("inlayerSize") != null) ? InlayerSizeEnum.valueOf(item.getParams().get("inlayerSize")).getSize() : null;
                 if (inlayerSize == null) {

@@ -171,7 +171,7 @@ public class CombinerPanel {
         chanceLabel.setText("");
         pane.setVisible(false);
         biomassCountLabel.setText("");
-        Game.getMap().getSelecterCharacter().setInteractMapPoint(null);
+        Game.getMap().getPlayersSquad().getSelectedCharacter().setInteractMapPoint(null);
     }
 
     /**
@@ -179,12 +179,12 @@ public class CombinerPanel {
      */
     private void combineIngredients() {
         if (firstIngredient.getTypeId() != 0 && secondIngredient.getTypeId() != 0) {
-            List<String> knowEffects1 = Game.getMap().getSelecterCharacter().getKnowledgeInfo().getKnowEffects().get(firstIngredient.getTypeId());
+            List<String> knowEffects1 = Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getKnowEffects().get(firstIngredient.getTypeId());
             List<String> effects1 = firstIngredient.getEffects().stream().map(EffectParams::getStrId).collect(Collectors.toList());
-            List<String> knowEffects2 = Game.getMap().getSelecterCharacter().getKnowledgeInfo().getKnowEffects().get(secondIngredient.getTypeId());
+            List<String> knowEffects2 = Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getKnowEffects().get(secondIngredient.getTypeId());
             List<String> effects2 = secondIngredient.getEffects().stream().map(EffectParams::getStrId).collect(Collectors.toList());
             if (effects1.equals(knowEffects1) && effects2.equals(knowEffects2)) {
-                Character character = Game.getMap().getSelecterCharacter();
+                Character character = Game.getMap().getPlayersSquad().getSelectedCharacter();
                 TimeController.tic(timeToCombine);
                 // проверяем, на месте ли наш стол, а то за время объединения он мог куда-то деться
                 String tileType = character.getInteractMapPoint().getTile2Info().getType();
@@ -239,7 +239,7 @@ public class CombinerPanel {
 
     public void showPanel() {
         pane.setVisible(true);
-        biomass = ItemsController.findItemInInventory(biomassId, Game.getMap().getSelecterCharacter().getInventory());
+        biomass = ItemsController.findItemInInventory(biomassId, Game.getMap().getPlayersSquad().getSelectedCharacter().getInventory());
         if (biomass != null) {
             biomassImage.setImage(biomass.getInfo().getIcon().getImage());
             biomassCountLabel.setText(String.valueOf(biomass.getCount()));
@@ -268,7 +268,7 @@ public class CombinerPanel {
                     }
                 }
             }
-            int alchemySkill = Game.getMap().getSelecterCharacter().getParams().getSkills().get("POTIONS").getCurrentValue();
+            int alchemySkill = Game.getMap().getPlayersSquad().getSelectedCharacter().getParams().getSkills().get("POTIONS").getCurrentValue();
             if (count == 0) {
                 chance = 10 + alchemySkill / 2;
             } else if (count == 1) {

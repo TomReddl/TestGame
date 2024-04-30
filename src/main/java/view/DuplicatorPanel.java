@@ -142,7 +142,7 @@ public class DuplicatorPanel {
         pane.setVisible(false);
         ingredientCountLabel.setText("");
         biomassCountLabel.setText("");
-        Game.getMap().getSelecterCharacter().setInteractMapPoint(null);
+        Game.getMap().getPlayersSquad().getSelectedCharacter().setInteractMapPoint(null);
     }
 
     /**
@@ -150,7 +150,7 @@ public class DuplicatorPanel {
      */
     private void duplicate() {
         if (selectedIngredient.getTypeId() != 0 && biomass.getTypeId() != 0) {
-            Character character = Game.getMap().getSelecterCharacter();
+            Character character = Game.getMap().getPlayersSquad().getSelectedCharacter();
             TimeController.tic(timeToDuplicate);
             // проверяем, на месте ли наш стол, а то за время дублирования он мог куда-то деться
             String tileType = character.getInteractMapPoint().getTile2Info().getType();
@@ -189,7 +189,7 @@ public class DuplicatorPanel {
 
     public void showPanel() {
         pane.setVisible(true);
-        biomass = ItemsController.findItemInInventory(biomassId, Game.getMap().getSelecterCharacter().getInventory());
+        biomass = ItemsController.findItemInInventory(biomassId, Game.getMap().getPlayersSquad().getSelectedCharacter().getInventory());
         if (biomass != null) {
             biomassImage.setImage(biomass.getInfo().getIcon().getImage());
             biomassCountLabel.setText(String.valueOf(biomass.getCount()));

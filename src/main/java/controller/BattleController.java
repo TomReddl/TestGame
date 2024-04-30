@@ -42,11 +42,11 @@ public class BattleController {
         WeaponInfo weaponInfo = ((WeaponInfo) weapon.getInfo());
         boolean isKilled = applyDamageToCreature(getDamageWithEffects(weapon, creature, true), DamageTypeEnum.valueOf(weaponInfo.getDamageType()), creature);
         if (isKilled) {
-            if (Game.getMap().getSelecterCharacter() == character) { // выводим сообщение, только если атаковал текущий выбранный персонаж
+            if (Game.getMap().getPlayersSquad().getSelectedCharacter() == character) { // выводим сообщение, только если атаковал текущий выбранный персонаж
                 Game.showMessage(creature.getInfo().getName() + " " + Game.getText("KILLED"), Color.GREEN);
             }
         }
-        ItemsController.damageItem(weapon, 1, Game.getMap().getSelecterCharacter().getInventory(), Game.getMap().getSelecterCharacter());
+        ItemsController.damageItem(weapon, 1, Game.getMap().getPlayersSquad().getSelectedCharacter().getInventory(), Game.getMap().getPlayersSquad().getSelectedCharacter());
         int level = creature.getInfo().getLevel() != null ? creature.getInfo().getLevel() : 1;
         CharactersController.addSkillExp(((WeaponInfo) weapon.getInfo()).getSkill(), 5 * level);
     }
@@ -63,7 +63,7 @@ public class BattleController {
             for (EffectParams creatureEffect : creature.getInfo().getEffects()) {
                 // если есть иммунитет к типу урона
                 if (creatureEffect.getStrId().equals(damageType + "_IMMUNITY")) {
-                    if (Game.getMap().getSelecterCharacter() == character) {
+                    if (Game.getMap().getPlayersSquad().getSelectedCharacter() == character) {
                         Game.showMessage(Game.getGameText("TARGET_HAS") + " " + Game.getEffectText(damageType + "_IMMUNITY").toLowerCase());
                     }
                 } else if (creatureEffect.getStrId().equals(damageType + "_RESIST")) {
@@ -73,7 +73,7 @@ public class BattleController {
         }
         boolean isKilled = applyDamageToCreature(damage, damageType, creature);
         if (isKilled) {
-            if (Game.getMap().getSelecterCharacter() == character) { // выводим сообщение, только если атаковал текущий выбранный персонаж
+            if (Game.getMap().getPlayersSquad().getSelectedCharacter() == character) { // выводим сообщение, только если атаковал текущий выбранный персонаж
                 Game.showMessage(creature.getInfo().getName() + " " + Game.getText("KILLED"), Color.GREEN);
             }
         }
@@ -92,11 +92,11 @@ public class BattleController {
         WeaponInfo weaponInfo = ((WeaponInfo) weapon.getInfo());
         boolean isKilled = applyDamageToCharacter(((WeaponInfo) weapon.getInfo()).getDamage(), DamageTypeEnum.valueOf(weaponInfo.getDamageType()), attackedCharacter); // TODO учесть броню attackedCharacter
         if (isKilled) {
-            if (Game.getMap().getSelecterCharacter() == character) { // выводим сообщение, только если атаковал текущий выбранный персонаж
+            if (Game.getMap().getPlayersSquad().getSelectedCharacter() == character) { // выводим сообщение, только если атаковал текущий выбранный персонаж
                 Game.showMessage(attackedCharacter.getName() + " " + Game.getText("KILLED"), Color.GREEN);
             }
         }
-        ItemsController.damageItem(weapon, 1, Game.getMap().getSelecterCharacter().getInventory(), Game.getMap().getSelecterCharacter());
+        ItemsController.damageItem(weapon, 1, Game.getMap().getPlayersSquad().getSelectedCharacter().getInventory(), Game.getMap().getPlayersSquad().getSelectedCharacter());
         CharactersController.addSkillExp(((WeaponInfo) weapon.getInfo()).getSkill(), 10); // TODO скейл опыта от прокачки attackedCharacter
     }
 
@@ -110,7 +110,7 @@ public class BattleController {
     public static void attackCharacter(Character character, int damage, Character attackedCharacter) {
         boolean isKilled = applyDamageToCharacter(damage, DamageTypeEnum.CRUSHING_DAMAGE, attackedCharacter); // TODO учесть броню attackedCharacter
         if (isKilled) {
-            if (Game.getMap().getSelecterCharacter() == character) { // выводим сообщение, только если атаковал текущий выбранный персонаж
+            if (Game.getMap().getPlayersSquad().getSelectedCharacter() == character) { // выводим сообщение, только если атаковал текущий выбранный персонаж
                 Game.showMessage(attackedCharacter.getName() + " " + Game.getText("KILLED"), Color.GREEN);
             }
         }
@@ -143,7 +143,7 @@ public class BattleController {
      * @return
      */
     public static boolean applyDamageToCreatureOrCharacterOnMapCell(int damagePoints, DamageTypeEnum damageType, MapCellInfo mapCellInfo) {
-        Character selectedCharacter = Game.getMap().getSelecterCharacter();
+        Character selectedCharacter = Game.getMap().getPlayersSquad().getSelectedCharacter();
         if (selectedCharacter.getXPosition() == mapCellInfo.getX() && selectedCharacter.getYPosition() == mapCellInfo.getY()) {
             return applyDamageToCharacter(damagePoints, damageType, selectedCharacter);
         } else if (mapCellInfo.getCharacterId() != null) {
@@ -268,11 +268,11 @@ public class BattleController {
         // при нанесение урона на земле остается кровь
         if (damageType.isBloody()) {
             Game.getMap().getTiles()[character.getXPosition()][character.getYPosition()].setPollutionId(1);
-            MapController.drawTile(Game.getMap().getSelecterCharacter(), character.getXPos(), character.getYPos());
+            MapController.drawTile(Game.getMap().getPlayersSquad().getSelectedCharacter(), character.getXPos(), character.getYPos());
         }
         if (characterHealth <= 0) {
             character.setAlive(false);
-            if (character.isActiveCharacter()) {
+            if (character.equals(Game.getMap().getPlayersSquad().getSelectedCharacter())) {
                 killActiveCharacter();
             }
             return true;
@@ -296,7 +296,7 @@ public class BattleController {
                 damagePoints -= effect.getPower();
             } else if (effect.getStrId().equals(damageType + "_IMMUNITY")) {
                 damagePoints = 0;
-                if (Game.getMap().getSelecterCharacter() == character) {
+                if (Game.getMap().getPlayersSquad().getSelectedCharacter() == character) {
                     Game.showMessage(Game.getGameText("CHARACTER_HAS") + " " + Game.getEffectText(damageType + "_IMMUNITY").toLowerCase(), Color.GREEN);
                 }
             }
@@ -331,7 +331,7 @@ public class BattleController {
         }
         String tileType = mapCellInfo.getTile2Info().getType();
         if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.TRAINING_DUMMY)) { // если ударить тренировочный манекен, добавится опыт
-            var skill = Game.getMap().getSelecterCharacter().getParams().getSkills().get(((WeaponInfo) weapon.getInfo()).getSkill());
+            var skill = Game.getMap().getPlayersSquad().getSelectedCharacter().getParams().getSkills().get(((WeaponInfo) weapon.getInfo()).getSkill());
             if (skill.getRealValue() < Integer.parseInt(mapCellInfo.getTile2Info().getParams().get("maxTrainingLevel"))) { // опыт добавится, только если реальный навык ниже максимального уровня, до которого позволяет качаться манекен
                 CharactersController.addSkillExp(((WeaponInfo) weapon.getInfo()).getSkill(), 5);
             } else {
@@ -422,7 +422,7 @@ public class BattleController {
      * Пинок персонажа или существа
      */
     public static void kick() {
-        Character selectedCharacter = Game.getMap().getSelecterCharacter();
+        Character selectedCharacter = Game.getMap().getPlayersSquad().getSelectedCharacter();
         DirectionEnum direction = selectedCharacter.getDirection();
         int targetX = selectedCharacter.getXPosition() + getKickShiftX(direction);
         int targetY = selectedCharacter.getYPosition() + getKickShiftY(direction);

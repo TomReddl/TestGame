@@ -143,7 +143,7 @@ public class InlayerDuplicatorPanel {
         pane.setVisible(false);
         inlayerCountLabel.setText("");
         blankCountLabel.setText("");
-        Game.getMap().getSelecterCharacter().setInteractMapPoint(null);
+        Game.getMap().getPlayersSquad().getSelectedCharacter().setInteractMapPoint(null);
     }
 
     /**
@@ -154,7 +154,7 @@ public class InlayerDuplicatorPanel {
             if (selectedInlayer.getParams().get("inlayerSize").equals(InlayerSizeEnum.GREAT.name())) {
                 Game.showMessage(Game.getText("DUPLICATE_GREAT_IMPOSSIBLE")); // великие инкрустаты нельзя дублировать
             } else {
-                Character character = Game.getMap().getSelecterCharacter();
+                Character character = Game.getMap().getPlayersSquad().getSelectedCharacter();
                 TimeController.tic(timeToDuplicate);
                 // проверяем, на месте ли наш стол, а то за время дублирования он мог куда-то деться
                 String tileType = character.getInteractMapPoint().getTile2Info().getType();
@@ -198,7 +198,7 @@ public class InlayerDuplicatorPanel {
 
     public void showPanel() {
         pane.setVisible(true);
-        blank = ItemsController.findItemInInventory(inlayerBlankId, Game.getMap().getSelecterCharacter().getInventory());
+        blank = ItemsController.findItemInInventory(inlayerBlankId, Game.getMap().getPlayersSquad().getSelectedCharacter().getInventory());
         if (blank != null) {
             blankImage.setImage(blank.getInfo().getIcon().getImage());
             blankCountLabel.setText(String.valueOf(blank.getCount()));

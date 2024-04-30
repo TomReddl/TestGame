@@ -100,7 +100,7 @@ public class ItemCountPanel {
             ItemsController.addItemsToPlayerFromContainer(currentItem, (int) slider.getValue(), Game.getContainerInventory().getItems());
         } else if (currentAction.equals(ItemsController.ItemActionType.DROP)) {
             ItemDetailPanel.setSelectItem(currentItem);
-            ItemsController.dropItems(Game.getMap().getSelecterCharacter(), (int) slider.getValue());
+            ItemsController.dropItems(Game.getMap().getPlayersSquad().getSelectedCharacter(), (int) slider.getValue());
         }
     }
 

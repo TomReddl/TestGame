@@ -24,6 +24,7 @@ import model.entity.map.WeatherEnum;
 import model.entity.player.Character;
 import view.dialog.DialogPanel;
 import view.dialog.GameDialogPanel;
+import view.player.SquadPanel;
 
 import java.io.File;
 import java.util.*;
@@ -139,6 +140,8 @@ public class Editor {
     private final GameDialogPanel gameDialogPanel;
     @Getter
     private final TimeControlPanel timeControlPanel;
+    @Getter
+    private final SquadPanel squadPanel;
 
     public Editor() {
         Game.getRoot().getChildren().add(canvas);
@@ -154,6 +157,7 @@ public class Editor {
         dialogPanel = new DialogPanel();
         gameDialogPanel = new GameDialogPanel();
         timeControlPanel = new TimeControlPanel();
+        squadPanel = new SquadPanel();
     }
 
     private void drawEditorButtons() {
@@ -206,7 +210,7 @@ public class Editor {
         loadMapImage.setOnMousePressed(event -> {
             Game.setMap(JsonUtils.loadMap(mapNameTextField.getText()));
             MapController.drawCurrentMap();
-            CharactersController.setPlayerStartParams(Game.getMap().getSelecterCharacter());
+            CharactersController.setPlayerStartParams(Game.getMap().getPlayersSquad().getSelectedCharacter());
         });
         loadMapImage.setOnMouseEntered(event -> showHint(Game.getText("LOAD_MAP")));
         loadMapImage.setOnMouseExited(event -> hideHint());

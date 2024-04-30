@@ -30,7 +30,7 @@ public class Main extends Application {
         primaryStage.setMaximized(false);
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/graphics/gui/Icon.png")));
 
-        var player = Game.getMap().getSelecterCharacter();
+        var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
 
         Game.getInventory().filterInventoryTabs(Game.getInventory().getTabPane().getSelectionModel().getSelectedItem());
 

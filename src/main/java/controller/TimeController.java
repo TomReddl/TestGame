@@ -67,9 +67,9 @@ public class TimeController {
      * @return true, если удалось увеличить время
      */
     private static boolean incTime(boolean show) {
-        var currentDate = GameCalendar.getCurrentDate();
+        var currentDate = Game.getWorldInfo().getCurrentDate();
         currentDate.setTic(currentDate.getTic() + 1);
-        Character character = Game.getMap().getSelecterCharacter();
+        Character character = Game.getMap().getPlayersSquad().getSelectedCharacter();
         boolean isPhasing = character.getAppliedEffects().stream().anyMatch(e -> e.getStrId().equals("PHASING"));
 
         MapCellInfo playerMapCell = Game.getMap().getTiles()[character.getXPosition()][character.getYPosition()];
@@ -168,7 +168,7 @@ public class TimeController {
      * @return текущая дата в читаемом виде
      */
     public static String getCurrentDataStr(boolean detailTime) {
-        var currentDate = GameCalendar.getCurrentDate();
+        var currentDate = Game.getWorldInfo().getCurrentDate();
         String time;
         if (detailTime) {
             String hour = currentDate.getHour() < 10 ? "0" + currentDate.getHour() : String.valueOf(currentDate.getHour());
@@ -208,7 +208,7 @@ public class TimeController {
      * @return время года для текущей даты
      */
     public static GameCalendar.SeasonEnum getSeason() {
-        return GameCalendar.MonthEnum.getMonth(GameCalendar.getCurrentDate().getMonth()).getSeason();
+        return GameCalendar.MonthEnum.getMonth(Game.getWorldInfo().getCurrentDate().getMonth()).getSeason();
     }
 
     /**
@@ -332,7 +332,7 @@ public class TimeController {
     public static TimerTask getWalkTask() {
         return new TimerTask() {
             public void run() {
-                var player = Game.getMap().getSelecterCharacter();
+                var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
                 Game.getEditor().getTimeControlPanel().stopTime(); // останавливаем автоматическое течение времени, если игрок жмет на кнопку
                 Game.hideMessage();
                 switch (Game.getKeyCode()) {

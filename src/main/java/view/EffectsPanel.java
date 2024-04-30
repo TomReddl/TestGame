@@ -85,11 +85,11 @@ public class EffectsPanel {
     public void refreshEffectsPanel() {
         innerPane.getChildren().remove(innerPane.getChildren().indexOf(powerLabel) + 1, innerPane.getChildren().size());
         int i = 0;
-        for (EffectParams effect : Game.getMap().getSelecterCharacter().getAppliedEffects()) {
+        for (EffectParams effect : Game.getMap().getPlayersSquad().getSelectedCharacter().getAppliedEffects()) {
             var itemRecord = new EffectRecord(effect);
             itemRecord.getPane().setLayoutY(++i * tileSize);
             innerPane.getChildren().add(itemRecord.getPane());
         }
-        Game.getGameMenu().getEffectTab().setDisable(Game.getMap().getSelecterCharacter().getAppliedEffects().isEmpty());
+        Game.getGameMenu().getEffectTab().setDisable(Game.getMap().getPlayersSquad().getSelectedCharacter().getAppliedEffects().isEmpty());
     }
 }

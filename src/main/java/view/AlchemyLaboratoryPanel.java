@@ -109,7 +109,7 @@ public class AlchemyLaboratoryPanel {
         ingredientImage.setImage(null);
         exploreButton.setDisable(true);
         pane.setVisible(false);
-        Game.getMap().getSelecterCharacter().setInteractMapPoint(null);
+        Game.getMap().getPlayersSquad().getSelectedCharacter().setInteractMapPoint(null);
     }
 
     /**
@@ -119,9 +119,9 @@ public class AlchemyLaboratoryPanel {
      */
     private void exploreEffect() {
         if (selectedIngredient.getTypeId() != 0) {
-            List<String> effects = Game.getMap().getSelecterCharacter().getKnowledgeInfo().getKnowEffects().get(selectedIngredient.getTypeId());
+            List<String> effects = Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getKnowEffects().get(selectedIngredient.getTypeId());
             if (effects == null) {
-                Character character = Game.getMap().getSelecterCharacter();
+                Character character = Game.getMap().getPlayersSquad().getSelectedCharacter();
                 TimeController.tic(timeToExplore);
                 // проверяем, на месте ли наш стол, а то за время исследования он мог сгореть
                 String tileType = character.getInteractMapPoint().getTile2Info().getType();
@@ -132,7 +132,7 @@ public class AlchemyLaboratoryPanel {
                     effects = new ArrayList<>();
                     String newEffect = selectedIngredient.getEffects().get(0).getStrId();
                     effects.add(newEffect);
-                    Game.getMap().getSelecterCharacter().getKnowledgeInfo().getKnowEffects().put(selectedIngredient.getTypeId(), effects);
+                    Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getKnowEffects().put(selectedIngredient.getTypeId(), effects);
                     Game.showMessage(Game.getText("NEW_EFFECT_EXPLORED") + ": " +
                             EffectsController.getEffects().get(newEffect).getName(), Color.GREEN);
 

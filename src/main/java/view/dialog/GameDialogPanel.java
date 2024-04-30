@@ -141,13 +141,13 @@ public class GameDialogPanel {
     private void setPhrase(Integer characterId, Phrase phrase) {
         if (phrase != null) {
             selectedPhrase = phrase;
-            applyPhraseScript(selectedPhrase.getScript());
+            applyPhraseScript(selectedPhrase.getScript(), characterId);
             ((Text) textFlow.getChildren().get(0)).setText(Game.getMap().getCharacterList().get(characterId).getName() + ": " + replaceDialogText(selectedPhrase.getText()));
             int i = 0;
             answers.clear();
             answersScrollContentPane.getChildren().clear();
             for (Answer answer : selectedPhrase.getAnswers()) {
-                if (checkAnswerVisibly(answer.getVisiblyCondition())) {
+                if (checkAnswerVisibly(answer.getVisiblyCondition(), characterId)) {
                     Label answerLabel = new Label();
                     answerLabel.setFont(font);
                     answerLabel.setTextFill(Color.web("#4a3710"));
@@ -190,7 +190,7 @@ public class GameDialogPanel {
      * @return - обработанный текст диалога
      */
     private String replaceDialogText(String text) {
-        text = text.replaceAll("%playerName", Game.getMap().getSelecterCharacter().getName());
+        text = text.replaceAll("%playerName", Game.getMap().getPlayersSquad().getSelectedCharacter().getName());
         text = text.replaceAll("%NPCName", Game.getMap().getCharacterList().get(characterId).getName());
 
         return text;
@@ -199,9 +199,10 @@ public class GameDialogPanel {
     /**
      * Проверить условие видимости ответа в диалоге
      * @param condition - условие
+     * @param characterId - id персонажа, с которым ведется диалог
      * @return - true, если ответ видим в диалоге, false, если не виден
      */
-    private boolean checkAnswerVisibly(String condition) {
+    private boolean checkAnswerVisibly(String condition, Integer characterId) {
         if (condition == null || condition.equals("")) {
             return true;
         } else {
@@ -212,7 +213,21 @@ public class GameDialogPanel {
                 switch (word) {
                     case "playerHasItem": {
                         word = words[i++];
-                        result = ItemsController.findItemInInventory(Integer.parseInt(word), Game.getMap().getSelecterCharacter().getInventory()) != null;
+                        var item = ItemsController.findItemInInventory(Integer.parseInt(word), Game.getMap().getPlayersSquad().getSelectedCharacter().getInventory());
+                        result = item != null;
+                        if (item != null) {
+                            try {
+                                var count = Integer.parseInt(words[i+1]);
+                                i++;
+                                return item.getCount() >= count;
+                            } catch(NumberFormatException ignored){
+                            }
+                        }
+                        break;
+                    }
+                    case "NPCInSquad": {
+                        result = Game.getMap().getPlayersSquad().getCharacters().get(characterId) != null;
+                        break;
                     }
                 }
             }
@@ -241,7 +256,7 @@ public class GameDialogPanel {
                     switch (word) {
                         case "playerHasItem": {
                             word = words[i++];
-                            if (ItemsController.findItemInInventory(Integer.parseInt(word), Game.getMap().getSelecterCharacter().getInventory()) != null) {
+                            if (ItemsController.findItemInInventory(Integer.parseInt(word), Game.getMap().getPlayersSquad().getSelectedCharacter().getInventory()) != null) {
                                 return words[i];
                             } else {
                                 i++;
@@ -260,17 +275,34 @@ public class GameDialogPanel {
     /**
      * Применить скрипт, срабатывающий при выборе фразы
      * @param script - скрипт
+     * @param characterId - id персонажа, с которым ведется диалог
      */
-    private void applyPhraseScript(String script) {
+    private void applyPhraseScript(String script, Integer characterId) {
         if (script != null && !script.equals("")) {
             String[] words = script.split(" ");
             try {
-                Character character = Game.getMap().getSelecterCharacter();
+                Character selectedCharacter = Game.getMap().getPlayersSquad().getSelectedCharacter();
                 for (int i = 0; i < words.length; i++) {
                     String word = words[i++];
                     switch (word) {
                         case "playerAddItem": {
-                            ItemsController.addItem(new Items(Integer.parseInt(words[i++]), Integer.parseInt(words[i++])), character.getInventory(), character);
+                            ItemsController.addItem(new Items(Integer.parseInt(words[i++]), Integer.parseInt(words[i++])), selectedCharacter.getInventory(), selectedCharacter);
+                        }
+                        case "addNPCToSquad": {
+                            Character character = Game.getMap().getCharacterList().get(characterId);
+                            if (!Game.getMap().getPlayersSquad().getCharacters().contains(character)) {
+                                Game.getMap().getPlayersSquad().getCharacters().add(character);
+                            }
+                            Game.getEditor().getSquadPanel().drawSquadMembersPanels();
+                            Game.showMessage(Game.getGameText("NPC_ENTERED_SQUAD"), Color.GREEN);
+                        }
+                        case "removeNPCFromSquad": {
+                            Character character = Game.getMap().getPlayersSquad().getCharacters().get(characterId);
+                            if (character != null) {
+                                Game.getMap().getPlayersSquad().getCharacters().remove(character);
+                            }
+                            Game.getEditor().getSquadPanel().drawSquadMembersPanels();
+                            Game.showMessage(Game.getGameText("NPC_LEAVE_SQUAD"), Color.GREEN);
                         }
                     }
                 }

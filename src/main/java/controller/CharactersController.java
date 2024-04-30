@@ -11,7 +11,6 @@ import model.editor.TileTypeEnum;
 import model.editor.items.BodyPartEnum;
 import model.entity.DirectionEnum;
 import model.entity.Event;
-import model.entity.GameCalendar;
 import model.entity.ItemTypeEnum;
 import model.entity.battle.DamageTypeEnum;
 import model.entity.effects.EffectParams;
@@ -48,14 +47,14 @@ public class CharactersController {
      * Рост волос
      */
     public static void growingHair() {
-        var hairLength = Game.getMap().getSelecterCharacter().getHairLength();
+        var hairLength = Game.getMap().getPlayersSquad().getSelectedCharacter().getHairLength();
         if (hairLength < 3) {
-            Game.getMap().getSelecterCharacter().setHairLength(hairLength + 1);
+            Game.getMap().getPlayersSquad().getSelectedCharacter().setHairLength(hairLength + 1);
         }
-        if (Game.getMap().getSelecterCharacter().getGender().equals(GenderEnum.MALE)) { // борода растет только у мужчин
-            var beardLength = Game.getMap().getSelecterCharacter().getBeardLength();
+        if (Game.getMap().getPlayersSquad().getSelectedCharacter().getGender().equals(GenderEnum.MALE)) { // борода растет только у мужчин
+            var beardLength = Game.getMap().getPlayersSquad().getSelectedCharacter().getBeardLength();
             if (beardLength < 3) {
-                Game.getMap().getSelecterCharacter().setBeardLength(beardLength + 1);
+                Game.getMap().getPlayersSquad().getSelectedCharacter().setBeardLength(beardLength + 1);
             }
         }
     }
@@ -70,7 +69,7 @@ public class CharactersController {
     public static void gameMapClick(double x, double y, boolean isRightMouse) {
         var tileX = (((int) x) / tileSize);
         var tileY = (((int) y) / tileSize);
-        var player = Game.getMap().getSelecterCharacter();
+        var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
         boolean isPhasing = player.getAppliedEffects().stream().anyMatch(e -> e.getStrId().equals("PHASING"));
         var showOres = false;
         var showEmptiness = false;
@@ -164,7 +163,7 @@ public class CharactersController {
             } else if (itemInRightHand != null && itemInRightHand.getInfo().getTypes().contains(ItemTypeEnum.EXPLOSIVES)) { // если в руках взрывчатка
                 MapController.addItemOnMap(mapCellInfo.getX(), mapCellInfo.getY(), new Items(itemInRightHand.getTypeId(), 1));
                 Event event = new Event();
-                event.setTime(Integer.parseInt(itemInRightHand.getParams().get("time")) + GameCalendar.getCurrentDate().getTic());
+                event.setTime(Integer.parseInt(itemInRightHand.getParams().get("time")) + Game.getWorldInfo().getCurrentDate().getTic());
                 event.setParams(itemInRightHand.getParams());
                 event.setX(mapCellInfo.getX());
                 event.setY(mapCellInfo.getY());
@@ -272,7 +271,7 @@ public class CharactersController {
      * @param skillPoints на сколько пунктов увеличить
      */
     public static void increaseSkill(String skillId, int skillPoints) {
-        var skills = Game.getMap().getSelecterCharacter().getParams().getSkills();
+        var skills = Game.getMap().getPlayersSquad().getSelectedCharacter().getParams().getSkills();
 
         skills.get(skillId).setRealValue(skills.get(skillId).getRealValue() + skillPoints);
         if (skills.get(skillId).getRealValue() > 100) {
@@ -295,13 +294,13 @@ public class CharactersController {
      * @param expPoints сколько опыта нужно добавить
      */
     public static void addSkillExp(String skillId, int expPoints) {
-        Character character = Game.getMap().getSelecterCharacter();
+        Character character = Game.getMap().getPlayersSquad().getSelectedCharacter();
         for (EffectParams effect : character.getAppliedEffects()) {
             if (effect.getStrId().equals("ADD_EXP")) { // если на персонаже эффект "Увеличенный опыт", добавляем его к каждому получению опыта
                 expPoints += effect.getPower();
             }
         }
-        var skill = Game.getMap().getSelecterCharacter().getParams().getSkills().get(skillId);
+        var skill = Game.getMap().getPlayersSquad().getSelectedCharacter().getParams().getSkills().get(skillId);
         skill.setExperience(skill.getExperience() + expPoints);
         while (skill.getExperience() >= skill.getRealValue() * 10) {
             skill.setExperience(skill.getExperience() - skill.getRealValue() * 10);
@@ -318,7 +317,7 @@ public class CharactersController {
      */
     public static void pickUpItems(List<Items> itemsList, int x, int y) {
         TimeController.tic(true);
-        var player = Game.getMap().getSelecterCharacter();
+        var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
         var mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + x][player.getYMapPos() + y];
 
         if (isClosedCell(mapCellInfo)) {
@@ -372,7 +371,7 @@ public class CharactersController {
      * @param y - координата y предметов на карте
      */
     public static void interactionWithMap(int x, int y) {
-        var player = Game.getMap().getSelecterCharacter();
+        var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
         int Xpos = player.getXMapPos();
         int YPos = player.getYMapPos();
         var mapCellInfo = Game.getMap().getTiles()[Xpos + x][YPos + y];
@@ -460,7 +459,7 @@ public class CharactersController {
      * @param mapCellInfo - точка на карте
      */
     public static void washInBath(MapCellInfo mapCellInfo) {
-        Character character = Game.getMap().getSelecterCharacter();
+        Character character = Game.getMap().getPlayersSquad().getSelectedCharacter();
         ParamsInfo params = character.getParams();
         int currentCleanness = params.getIndicators().get(4).getCurrentValue(); // текущее значение чистоты
         if (currentCleanness < 70) {
@@ -499,7 +498,7 @@ public class CharactersController {
     public static void harvest(MapCellInfo mapCellInfo) {
         if (mapCellInfo.getTile2Info().getParams() != null &&
                 mapCellInfo.getTile2Info().getParams().get("harvestId1") != null) {
-            var player = Game.getMap().getSelecterCharacter();
+            var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
             int i = 1;
             List<Pair<Integer, Integer>> harvests = new ArrayList<>();
             while (mapCellInfo.getTile2Info().getParams().get("harvestId" + i) != null) {
@@ -528,7 +527,7 @@ public class CharactersController {
      */
     private static void closableInteract(MapCellInfo mapCellInfo) {
         TileInfo tileInfo = mapCellInfo.getTile2Info();
-        var player = Game.getMap().getSelecterCharacter();
+        var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
         if (ParamsUtils.getBoolean(mapCellInfo, "locked")) {
             if (ParamsUtils.getBoolean(mapCellInfo, "codeLock")) {
                 CodeLockPanel.showPanel(mapCellInfo);
@@ -555,7 +554,7 @@ public class CharactersController {
                 if (sapperTools == null) {
                     ParamsUtils.setParam(mapCellInfo, "Trap", "false");
                     Game.showMessage(Game.getText("TRAP_TRIGGERED"));
-                    BattleController.applyDamageToCharacter(ParamsUtils.getInteger(mapCellInfo, "TrapLevel"), DamageTypeEnum.PIERCING_DAMAGE, Game.getMap().getSelecterCharacter());
+                    BattleController.applyDamageToCharacter(ParamsUtils.getInteger(mapCellInfo, "TrapLevel"), DamageTypeEnum.PIERCING_DAMAGE, Game.getMap().getPlayersSquad().getSelectedCharacter());
                 } else {
                     trapDeactivation(mapCellInfo, sapperTools);
                 }
@@ -579,15 +578,15 @@ public class CharactersController {
      * @param hackingTools     - инструменты для взлома
      */
     private static void hackLock(MapCellInfo mapCellInfo, Items hackingTools) {
-        var hackingSkill = Game.getMap().getSelecterCharacter().getParams().getSkills().get("LOCKPICKING").getCurrentValue(); // уровень навыка
-        var dexterity = Game.getMap().getSelecterCharacter().getParams().getCharacteristics().get(2).getCurrentValue(); // уровень ловкости
+        var hackingSkill = Game.getMap().getPlayersSquad().getSelectedCharacter().getParams().getSkills().get("LOCKPICKING").getCurrentValue(); // уровень навыка
+        var dexterity = Game.getMap().getPlayersSquad().getSelectedCharacter().getParams().getCharacteristics().get(2).getCurrentValue(); // уровень ловкости
         var skillBonus = Integer.parseInt(hackingTools.getInfo().getParams().get("skillBonus")); // бонус к навыку от инструментов инструментов
         var lockLevel = ParamsUtils.getInteger(mapCellInfo, "lockLevel"); // уровень замка
         var hackChance = hackingSkill * 1.5 + dexterity * 0.25 + skillBonus * 1.5 - lockLevel; // формула рассчета вероятности взлома замка
         if (hackChance < 0) {
             Game.showMessage(Game.getText("CANT_HACK")); // если шанс взлома меньше 0, вообще не пытаемся взломать
         } else {
-            ItemsController.damageItem(hackingTools, 1, Game.getMap().getSelecterCharacter().getInventory(), Game.getMap().getSelecterCharacter());
+            ItemsController.damageItem(hackingTools, 1, Game.getMap().getPlayersSquad().getSelectedCharacter().getInventory(), Game.getMap().getPlayersSquad().getSelectedCharacter());
             if (random.nextInt(100) < hackChance) {
                 ParamsUtils.setParam(mapCellInfo, "locked", "false");
                 Game.showMessage(
@@ -609,15 +608,15 @@ public class CharactersController {
      * @param sapperTools      - сапёрные инструменты
      */
     private static void trapDeactivation(MapCellInfo mapCellInfo, Items sapperTools) {
-        var hackingSkill = Game.getMap().getSelecterCharacter().getParams().getSkills().get("LOCKPICKING").getCurrentValue(); // уровень навыка
-        var dexterity = Game.getMap().getSelecterCharacter().getParams().getCharacteristics().get(2).getCurrentValue(); // уровень ловкости
+        var hackingSkill = Game.getMap().getPlayersSquad().getSelectedCharacter().getParams().getSkills().get("LOCKPICKING").getCurrentValue(); // уровень навыка
+        var dexterity = Game.getMap().getPlayersSquad().getSelectedCharacter().getParams().getCharacteristics().get(2).getCurrentValue(); // уровень ловкости
         var skillBonus = Integer.parseInt(sapperTools.getInfo().getParams().get("skillBonus")); // бонус инструментов
         var trapLevel = ParamsUtils.getInteger(mapCellInfo, "TrapLevel"); // уровень замка
         var defuseChance = hackingSkill * 1.5 + dexterity * 0.25 + skillBonus * 1.5 - trapLevel; // формула рассчета вероятности взлома замка
         if (defuseChance < 0) {
             Game.showMessage(Game.getText("CANT_DEFUSE")); // если шанс взлома меньше 0, вообще не пытаемся взломать
         } else {
-            ItemsController.damageItem(sapperTools, 1, Game.getMap().getSelecterCharacter().getInventory(), Game.getMap().getSelecterCharacter());
+            ItemsController.damageItem(sapperTools, 1, Game.getMap().getPlayersSquad().getSelectedCharacter().getInventory(), Game.getMap().getPlayersSquad().getSelectedCharacter());
             if (random.nextInt(100) < defuseChance) {
                 ParamsUtils.setParam(mapCellInfo, "trap", "false");
                 Game.showMessage(
@@ -638,7 +637,7 @@ public class CharactersController {
      * @return true, если персонаж может сдвинуть тайл
      */
     private static boolean canMoveTile2() {
-        var player = Game.getMap().getSelecterCharacter();
+        var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
         int x = player.getXPosition();
         int y = player.getYPosition();
 

@@ -139,6 +139,8 @@ public class EffectsController {
         effects.put("ACID_DAMAGE_IMMUNITY", new EffectInfo(Game.getEffectText("ACID_DAMAGE_IMMUNITY"), "GREEN"));
         effects.put("ROT_DAMAGE_IMMUNITY", new EffectInfo(Game.getEffectText("ROT_DAMAGE_IMMUNITY"), "RED"));
 
+        effects.put("MOLD_SPORE_IMMUNITY", new EffectInfo(Game.getEffectText("MOLD_SPORE_IMMUNITY"), "BLUE"));
+
         effects.put("PIERCING_DAMAGE", new EffectInfo(Game.getEffectText("PIERCING_DAMAGE"), "BLUE"));
         effects.put("CUTTING_DAMAGE", new EffectInfo(Game.getEffectText("CUTTING_DAMAGE"), "BLUE"));
         effects.put("CRUSHING_DAMAGE", new EffectInfo(Game.getEffectText("CRUSHING_DAMAGE"), "GREEN"));

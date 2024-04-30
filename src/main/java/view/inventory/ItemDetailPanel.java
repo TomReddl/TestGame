@@ -102,7 +102,7 @@ public class ItemDetailPanel {
                 for (EffectParams effect : item.getEffects()) {
                     boolean showEffectInfo = true;
                     if (item.getInfo().getTypes().contains(ItemTypeEnum.INGREDIENT)) {
-                        List<String> effects = Game.getMap().getSelecterCharacter().getKnowledgeInfo().getKnowEffects().get(item.getTypeId());
+                        List<String> effects = Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getKnowEffects().get(item.getTypeId());
                         if (effects == null || !effects.contains(effect.getStrId())) {
                             showEffectInfo = false; // для ингредиентов не показывает эффекты, которые персонаж еще не открыл
                         }

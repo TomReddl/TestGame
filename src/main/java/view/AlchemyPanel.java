@@ -229,7 +229,7 @@ public class AlchemyPanel {
      * Сварить зелье
      */
     private void cookPotion() {
-        Character character = Game.getMap().getSelecterCharacter();
+        Character character = Game.getMap().getPlayersSquad().getSelectedCharacter();
 
         Map<String, Integer> effectsMap = new HashMap<>();
         for (Items item : selectedIngredients) {
@@ -262,7 +262,7 @@ public class AlchemyPanel {
                         if (ingredient.getEffects().stream()
                                 .map(EffectParams::getStrId)
                                 .collect(Collectors.toList()).contains(key)) {
-                            List<String> effects = Game.getMap().getSelecterCharacter().getKnowledgeInfo().getKnowEffects().get(ingredient.getTypeId());
+                            List<String> effects = Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getKnowEffects().get(ingredient.getTypeId());
                             if (effects == null) {
                                 effects = new ArrayList<>();
                                 effects.add(key);
@@ -273,7 +273,7 @@ public class AlchemyPanel {
                                     newEffectExplored = true;
                                 }
                             }
-                            Game.getMap().getSelecterCharacter().getKnowledgeInfo().getKnowEffects().put(ingredient.getTypeId(), effects);
+                            Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getKnowEffects().put(ingredient.getTypeId(), effects);
                         }
                     }
                 }
@@ -346,7 +346,7 @@ public class AlchemyPanel {
         potionEffectsLabel.setText("");
         potionNameEdit.setText("");
         cookButton.setDisable(true);
-        Game.getMap().getSelecterCharacter().setInteractMapPoint(null);
+        Game.getMap().getPlayersSquad().getSelectedCharacter().setInteractMapPoint(null);
     }
 
     private void addIngredient(int index, boolean isRightMouse) {
@@ -390,7 +390,7 @@ public class AlchemyPanel {
         ingredientBackgroundsImages.get(4).setVisible(level > 2); // пятый ингредиент можно добавлять начиная с 3 уровня стола
         ingredientImages.get(4).setVisible(level > 2);
 
-        selectedBottle = ItemsController.findItemInInventory(bottleOfWaterId, Game.getMap().getSelecterCharacter().getInventory());
+        selectedBottle = ItemsController.findItemInInventory(bottleOfWaterId, Game.getMap().getPlayersSquad().getSelectedCharacter().getInventory());
         if (selectedBottle != null) {
             bottleImage.setImage(selectedBottle.getInfo().getIcon().getImage());
             selectedBottlesCount.setText(String.valueOf(selectedBottle.getCount()));
@@ -403,7 +403,7 @@ public class AlchemyPanel {
     public void setCookButtonDisabled() {
         cookButton.setDisable(!canCook());
 
-        quality = ItemsController.getQuality(Game.getMap().getSelecterCharacter().getParams().getSkills().get("POTIONS"));
+        quality = ItemsController.getQuality(Game.getMap().getPlayersSquad().getSelectedCharacter().getParams().getSkills().get("POTIONS"));
         durability = (int) (1 + 5 * quality.getQualityLevel()) + random.nextInt(5);
         power = (int) (1 + 5 * quality.getQualityLevel()) + random.nextInt(5);
     }
@@ -427,7 +427,7 @@ public class AlchemyPanel {
      */
     public void setEffectsText() {
         Map<String, Integer> effectsMap = new HashMap<>();
-        var knowEffects = Game.getMap().getSelecterCharacter().getKnowledgeInfo().getKnowEffects();
+        var knowEffects = Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getKnowEffects();
         for (Items item : selectedIngredients) {
             if (item.getTypeId() != 0 && item.getEffects() != null) {
                 for (String effect : item.getEffects().stream()

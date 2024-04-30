@@ -143,7 +143,7 @@ public class SelectTimePanel {
         if (mapCell != null) {
             var params = mapCell.getTile2Info().getParams();
             mapCell.setTile2Id(0);
-            Character character = Game.getMap().getSelecterCharacter();
+            Character character = Game.getMap().getPlayersSquad().getSelectedCharacter();
             var packingItemId = params.get("packingItem");
             if (packingItemId != null) {
                 ItemsController.addItem(new Items(Integer.parseInt(packingItemId), 1), character.getInventory(), character);

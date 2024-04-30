@@ -2570,5 +2570,16 @@
     "types": [
       "COMMON"
     ]
+  },
+  {
+    "id": 371,
+    "weight": "1",
+    "volume": "1",
+    "price": "1",
+    "maxStrength": 20,
+    "stackable": true,
+    "types": [
+      "COMMON"
+    ]
   }
 ]

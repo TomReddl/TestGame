@@ -156,7 +156,7 @@ public class BookPanel {
             if (file.exists()) {
                 document = documentBuilder.parse(file);
 
-                if (Game.getMap().getSelecterCharacter().getKnowledgeInfo().getLangs().contains(WorldLangEnum.valueOf(document.getElementsByTagName("lang").item(0).getTextContent()))) {
+                if (Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getLangs().contains(WorldLangEnum.valueOf(document.getElementsByTagName("lang").item(0).getTextContent()))) {
 
                     /*  повышаем навык, если
                      *  1) персонаж знает язык книги
@@ -165,12 +165,12 @@ public class BookPanel {
                      */
                     var increaseSkill = document.getElementsByTagName("increaseSkill").item(0);
                     if (increaseSkill != null &&
-                            !Game.getMap().getSelecterCharacter().getKnowledgeInfo().getReadBooks().contains(bookTypeId)) {
+                            !Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getReadBooks().contains(bookTypeId)) {
                         CharactersController.increaseSkill(increaseSkill.getTextContent(), 1);
                     }
 
                     // добавляем книгу в список прочтенных
-                    Game.getMap().getSelecterCharacter().getKnowledgeInfo().getReadBooks().add(bookTypeId);
+                    Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getReadBooks().add(bookTypeId);
                 }
 
                 var type = document.getElementsByTagName("type").item(0).getTextContent();
@@ -220,7 +220,7 @@ public class BookPanel {
         leftPageLabel.setVisible(true);
         rightPageLabel.setVisible(false);
 
-        if (Game.getMap().getSelecterCharacter().getKnowledgeInfo().getLangs().contains(WorldLangEnum.valueOf(document.getElementsByTagName("lang").item(0).getTextContent()))) {
+        if (Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getLangs().contains(WorldLangEnum.valueOf(document.getElementsByTagName("lang").item(0).getTextContent()))) {
             leftPageLabel.setText(text);
         } else {
             leftPageLabel.setText(getForeignLanguageText(text));
@@ -243,7 +243,7 @@ public class BookPanel {
 
         var text = document.getElementsByTagName("pages").item(0).getChildNodes().item(1).getTextContent();
 
-        if (Game.getMap().getSelecterCharacter().getKnowledgeInfo().getLangs().contains(WorldLangEnum.valueOf(document.getElementsByTagName("lang").item(0).getTextContent()))) {
+        if (Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getLangs().contains(WorldLangEnum.valueOf(document.getElementsByTagName("lang").item(0).getTextContent()))) {
             scrollLabel.setText(text);
         } else {
             scrollLabel.setText(getForeignLanguageText(text));
@@ -280,7 +280,7 @@ public class BookPanel {
 
             if (!leftText.startsWith("IMG_")) {
                 leftPageLabel.setVisible(true);
-                if (Game.getMap().getSelecterCharacter().getKnowledgeInfo().getLangs().contains(WorldLangEnum.valueOf(document.getElementsByTagName("lang").item(0).getTextContent()))) {
+                if (Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getLangs().contains(WorldLangEnum.valueOf(document.getElementsByTagName("lang").item(0).getTextContent()))) {
                     leftPageLabel.setText(leftText);
                 } else {
                     leftPageLabel.setText(getForeignLanguageText(leftText));
@@ -302,7 +302,7 @@ public class BookPanel {
 
             if (!rightText.startsWith("IMG_")) {
                 rightPageLabel.setVisible(true);
-                if (Game.getMap().getSelecterCharacter().getKnowledgeInfo().getLangs().contains(WorldLangEnum.valueOf(document.getElementsByTagName("lang").item(0).getTextContent()))) {
+                if (Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getLangs().contains(WorldLangEnum.valueOf(document.getElementsByTagName("lang").item(0).getTextContent()))) {
                     rightPageLabel.setText(rightText);
                 } else {
                     rightPageLabel.setText(getForeignLanguageText(rightText));

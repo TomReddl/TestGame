@@ -8,16 +8,17 @@ import view.Game;
  * Погода
  */
 public enum WeatherEnum {
-    CLEAR(Game.getText("CLEAR_WEATHER"), false, null, null, null),                                                                                         // Безоблачно
+    CLEAR(Game.getText("CLEAR_WEATHER"), false, null, null, null),                                                                                        // Безоблачно
     SMALL_RAIN(Game.getText("SMALL_RAIN_WEATHER"), false, new Image("/graphics/weather/rain3.1.png"), new Image("/graphics/weather/rain3.2.png"), null),           // Морось
     MEDIUM_RAIN(Game.getText("MEDIUM_RAIN_WEATHER"), false, new Image("/graphics/weather/rain1.1.png"), new Image("/graphics/weather/rain1.2.png"), null),         // Дождь
     HEAVY_RAIN(Game.getText("HEAVY_RAIN_WEATHER"), false, new Image("/graphics/weather/rain2.1.png"), new Image("/graphics/weather/rain2.2.png"), null),           // Ливень
     BLOOD_RAIN(Game.getText("BLOOD_RAIN_WEATHER"), false, new Image("/graphics/weather/bloodRain.1.png"), new Image("/graphics/weather/bloodRain.2.png"), null),   // Кровавый дождь
     ACID_RAIN(Game.getText("ACID_RAIN_WEATHER"), false, new Image("/graphics/weather/acidRain.1.png"), new Image("/graphics/weather/acidRain.2.png"), null),       // Кислотный дождь
-    FOG(Game.getText("FOG"), true, new Image("/graphics/weather/fog1.png"), new Image("/graphics/weather/fog2.png"), new Image("/graphics/weather/fog3.png")),        // Туман
+    FOG(Game.getText("FOG"), true, new Image("/graphics/weather/fog1.png"), new Image("/graphics/weather/fog2.png"), new Image("/graphics/weather/fog3.png")),         // Туман
     SNOW(Game.getText("SNOW"), false, new Image("/graphics/weather/snow1.1.png"), new Image("/graphics/weather/snow1.2.png"), null),                               // Снег
     BLOOD_FOG(Game.getText("BLOOD_FOG"), true, new Image("/graphics/weather/bloodFog1.png"),
-            new Image("/graphics/weather/bloodFog2.png"), new Image("/graphics/weather/bloodFog3.png"));                                                                // Кровавый туман
+            new Image("/graphics/weather/bloodFog2.png"), new Image("/graphics/weather/bloodFog3.png")), // Кровавый туман
+    MOLD_FALL(Game.getText("MOLD_FALL_WEATHER"), false, new Image("/graphics/weather/moldRain.1.png"), new Image("/graphics/weather/moldRain.2.png"), null);       // Плеснепад
 
     @Getter
     private final String desc;

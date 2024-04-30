@@ -6,6 +6,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import model.entity.effects.EffectParams;
 import model.entity.player.Character;
+import model.entity.player.Squad;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,25 +17,34 @@ import java.util.Map;
 import static game.GameParams.mapSize;
 
 /**
- * Карта мира со всеми персонажами и предметами на ней
+ * Часть карты мира со всеми персонажами, существами и предметами на ней, а также настройками, свойстенными этой части карты
  */
 @Getter
 @Setter
 @Slf4j
-public class WorldMap implements Serializable {
+public class MapChunk implements Serializable {
     private MapCellInfo[][] tiles = new MapCellInfo[mapSize][mapSize];
     List<Character> characterList = new ArrayList<>();
     List<Creature> creaturesList = new ArrayList<>();
     private String mapName;
     private int worldPosX; // координата карты по горизонтали в мире
     private int worldPosY; // координата карты по вертикали в мире
-    private Character selecterCharacter = new Character(32, 1, 0, 0, 0, 0);
+    private Squad playersSquad = new Squad(); // отряд игрока
     private Map<WeatherEnum, Integer> currentWeather = new HashMap<>(); // текущая погода и ее сила
     private Map<WeatherEnum, Integer> accessibleWeathers = new HashMap<>(); // доступная погода и вероятность ее наступления
     private Map<Integer, EffectParams> additionalEffect = new HashMap<>(); // дополнительные эффекты ингредиентов (генерируются случайно при старте новой игры)
 
-    public WorldMap() {
-        selecterCharacter.setActiveCharacter(true);
+    public MapChunk() {
+        Character mainCharacter = new Character(32, 0, 0, 0, 0, 0);
+        characterList.add(mainCharacter);
+        playersSquad.setMainCharacter(mainCharacter);
+        playersSquad.setName("альфа");
+        Fraction playerSquadFraction = new Fraction();
+        playerSquadFraction.setId("playerSquad");
+        playerSquadFraction.setName("бродяги фронтира");
+        playersSquad.setFraction(playerSquadFraction);
+        playersSquad.setSelectedCharacter(mainCharacter);
+        playersSquad.getCharacters().add(mainCharacter);
         accessibleWeathers.put(WeatherEnum.CLEAR, 1);
         currentWeather.put(WeatherEnum.CLEAR, 1);
         mapName = "1.1";
