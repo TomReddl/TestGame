@@ -136,6 +136,7 @@ public class Game {
                 Game.getEditor().getTimeControlPanel().getPane().setVisible(false);
                 Game.getEditor().getTimeControlPanel().stopTime();
                 Game.getEditor().getSquadPanel().getPane().setVisible(false);
+                Game.hideMessage();
                 break;
             }
             case EDITOR: {
@@ -153,6 +154,7 @@ public class Game {
                 Game.getEditor().getTimeControlPanel().getPane().setVisible(false);
                 Game.getEditor().getTimeControlPanel().stopTime();
                 Game.getEditor().getSquadPanel().getPane().setVisible(false);
+                Game.hideMessage();
                 break;
             }
             case GAME: {

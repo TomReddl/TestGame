@@ -282,27 +282,33 @@ public class GameDialogPanel {
             String[] words = script.split(" ");
             try {
                 Character selectedCharacter = Game.getMap().getPlayersSquad().getSelectedCharacter();
+                Character character = Game.getMap().getCharacterList().get(characterId);
                 for (int i = 0; i < words.length; i++) {
                     String word = words[i++];
                     switch (word) {
                         case "playerAddItem": {
                             ItemsController.addItem(new Items(Integer.parseInt(words[i++]), Integer.parseInt(words[i++])), selectedCharacter.getInventory(), selectedCharacter);
+                            break;
                         }
                         case "addNPCToSquad": {
-                            Character character = Game.getMap().getCharacterList().get(characterId);
                             if (!Game.getMap().getPlayersSquad().getCharacters().contains(character)) {
                                 Game.getMap().getPlayersSquad().getCharacters().add(character);
                             }
                             Game.getEditor().getSquadPanel().drawSquadMembersPanels();
                             Game.showMessage(Game.getGameText("NPC_ENTERED_SQUAD"), Color.GREEN);
+                            break;
                         }
                         case "removeNPCFromSquad": {
-                            Character character = Game.getMap().getPlayersSquad().getCharacters().get(characterId);
                             if (character != null) {
                                 Game.getMap().getPlayersSquad().getCharacters().remove(character);
                             }
                             Game.getEditor().getSquadPanel().drawSquadMembersPanels();
                             Game.showMessage(Game.getGameText("NPC_LEAVE_SQUAD"), Color.GREEN);
+                            break;
+                        }
+                        case "trade": {
+                            Game.getGameMenu().showContainerInventory(character.getInventory(), 0, 0, "trade", character.getId());
+                            break;
                         }
                     }
                 }

@@ -42,7 +42,8 @@ public enum ItemTypeEnum {
     FOLDABLE(Game.getText("FOLDABLE")), // Раскладываемый
     EXPLOSIVES(Game.getText("EXPLOSIVES")), // Взрывчатка
     ENCHANTMENT(Game.getText("ENCHANTMENT")), // Инкрустат (предмет для зачарования)
-    SEED(Game.getText("SEED")); // Семена растений
+    SEED(Game.getText("SEED")), // Семена растений
+    MONEY(Game.getText("MONEY")); // Деньги
 
     @Getter
     @Setter

@@ -3589,7 +3589,7 @@
     }
   },
   {
-    "id": 373,
+    "id": 374,
     "strength": 100,
     "passability": false,
     "visibly": true,
@@ -3597,5 +3597,37 @@
     "params": {
       "replacedId": "366"
     }
+  },
+  {
+    "id": 375,
+    "name": "Зеленый ковёр",
+    "strength": 50,
+    "passability": true,
+    "visibly": true,
+    "burn": true
+  },
+  {
+    "id": 376,
+    "name": "Синий ковёр",
+    "strength": 50,
+    "passability": true,
+    "visibly": true,
+    "burn": true
+  },
+  {
+    "id": 377,
+    "name": "Коричневый ковёр",
+    "strength": 50,
+    "passability": true,
+    "visibly": true,
+    "burn": true
+  },
+  {
+    "id": 378,
+    "name": "Жёлтый ковёр",
+    "strength": 50,
+    "passability": true,
+    "visibly": true,
+    "burn": true
   }
 ]

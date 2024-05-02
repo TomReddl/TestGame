@@ -44,7 +44,7 @@
     "id": 8,
     "weight": "20",
     "volume": "5",
-    "price": "6000",
+    "price": "150",
     "stackable": true,
     "types": [
       "TREASURE"
@@ -54,7 +54,7 @@
     "id": 9,
     "weight": "20",
     "volume": "5",
-    "price": "8000",
+    "price": "200",
     "stackable": true,
     "types": [
       "TREASURE"
@@ -63,7 +63,7 @@
   {
     "id": 14,
     "weight": "200",
-    "volume": "500",
+    "volume": "20",
     "price": "80",
     "stackable": true,
     "types": [
@@ -74,7 +74,7 @@
     "id": 15,
     "weight": "300",
     "volume": "1500",
-    "price": "120",
+    "price": "25",
     "stackable": true,
     "types": [
       "COMMON"
@@ -114,9 +114,9 @@
   },
   {
     "id": 33,
-    "weight": "10000",
+    "weight": "2000",
     "volume": "1000",
-    "price": "600",
+    "price": "40",
     "stackable": true,
     "types": [
       "RESOURCE"
@@ -2579,7 +2579,51 @@
     "maxStrength": 20,
     "stackable": true,
     "types": [
-      "COMMON"
+      "MONEY"
+    ]
+  },
+  {
+    "id": 372,
+    "weight": "2",
+    "volume": "1",
+    "price": "10",
+    "maxStrength": 30,
+    "stackable": true,
+    "types": [
+      "MONEY"
+    ]
+  },
+  {
+    "id": 373,
+    "weight": "2",
+    "volume": "2",
+    "price": "50",
+    "maxStrength": 40,
+    "stackable": true,
+    "types": [
+      "MONEY"
+    ]
+  },
+  {
+    "id": 374,
+    "weight": "3",
+    "volume": "2",
+    "price": "100",
+    "maxStrength": 40,
+    "stackable": true,
+    "types": [
+      "MONEY"
+    ]
+  },
+  {
+    "id": 375,
+    "weight": "3",
+    "volume": "2",
+    "price": "1000",
+    "maxStrength": 40,
+    "stackable": true,
+    "types": [
+      "MONEY"
     ]
   }
 ]

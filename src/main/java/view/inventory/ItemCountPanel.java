@@ -1,6 +1,7 @@
 package view.inventory;
 
 import controller.ItemsController;
+import controller.TradeController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -101,6 +102,10 @@ public class ItemCountPanel {
         } else if (currentAction.equals(ItemsController.ItemActionType.DROP)) {
             ItemDetailPanel.setSelectItem(currentItem);
             ItemsController.dropItems(Game.getMap().getPlayersSquad().getSelectedCharacter(), (int) slider.getValue());
+        } else if (currentAction.equals(ItemsController.ItemActionType.BUY)) {
+            TradeController.buyItems(Game.getMap().getPlayersSquad().getSelectedCharacter(), Game.getMap().getCharacterList().get(Game.getContainerInventory().getCharacterId()), currentItem, (int) slider.getValue());
+        } else if (currentAction.equals(ItemsController.ItemActionType.CELL)) {
+            TradeController.cellItems(Game.getMap().getPlayersSquad().getSelectedCharacter(), Game.getMap().getCharacterList().get(Game.getContainerInventory().getCharacterId()), currentItem, (int) slider.getValue());
         }
     }
 

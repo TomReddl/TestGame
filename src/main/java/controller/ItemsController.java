@@ -41,7 +41,9 @@ public class ItemsController {
     public enum ItemActionType {
         TO_PLAYER("Переместить предметы в инвентарь игрока"),
         TO_CONTAINER("Переместить предметы в контейнер"),
-        DROP("Выбросить предметы изх инвентаря персонажа");
+        DROP("Выбросить предметы из инвентаря персонажа"),
+        CELL("Продать предметы из инвентаря игрока"),
+        BUY("Купить предметы из инвентаря персонажа");
 
         @Getter
         private final String desc;
@@ -450,15 +452,29 @@ public class ItemsController {
      */
     private static void shiftItem(Items item) {
         List<Items> containerInventory = Game.getContainerInventory().getItems();
+        var isTrade = Game.getContainerInventory().getInventoryType().equals(InventoryPanel.InventoryTypeEnum.TRADE);
 
         if (item.getCount() == 1 || Game.isShiftPressed()) {
             if (containerInventory.contains(item)) {
-                addItemsToPlayerFromContainer(item, item.getCount(), containerInventory);
+                if (isTrade) {
+                    TradeController.buyItems(Game.getMap().getPlayersSquad().getSelectedCharacter(), Game.getMap().getCharacterList().get(Game.getContainerInventory().getCharacterId()), item, null);
+                } else {
+                    addItemsToPlayerFromContainer(item, item.getCount(), containerInventory);
+                }
             } else {
-                addItemsToContainerFromPlayer(item, item.getCount(), containerInventory);
+                if (isTrade) {
+                    TradeController.cellItems(Game.getMap().getPlayersSquad().getSelectedCharacter(), Game.getMap().getCharacterList().get(Game.getContainerInventory().getCharacterId()), item, null);
+                } else {
+                    addItemsToContainerFromPlayer(item, item.getCount(), containerInventory);
+                }
             }
         } else {
-            ItemActionType action = containerInventory.contains(item) ? ItemActionType.TO_PLAYER : ItemActionType.TO_CONTAINER;
+            ItemActionType action;
+            if (isTrade) {
+                action = containerInventory.contains(item) ? ItemActionType.BUY : ItemActionType.CELL;
+            } else {
+                action = containerInventory.contains(item) ? ItemActionType.TO_PLAYER : ItemActionType.TO_CONTAINER;
+            }
             ItemCountPanel.show(action, item);
         }
     }

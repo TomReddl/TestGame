@@ -1974,5 +1974,60 @@
         "strId": "MOLD_SPORE_IMMUNITY"
       }
     ]
+  },
+  {
+    "id": 376,
+    "weight": "800",
+    "volume": "1000",
+    "price": "100",
+    "stackable": false,
+    "armor": 0,
+    "maxStrength": 60,
+    "skill": "LIGHT_ARMOR",
+    "bodyPart": "TORSO",
+    "covering": 50,
+    "style": "CATTGAR",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "LARGE"
+    }
+  },
+  {
+    "id": 377,
+    "weight": "200",
+    "volume": "500",
+    "price": "50",
+    "stackable": false,
+    "armor": 0,
+    "maxStrength": 20,
+    "skill": "LIGHT_ARMOR",
+    "bodyPart": "HEAD",
+    "covering": 15,
+    "style": "CATTGAR",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 378,
+    "weight": "400",
+    "volume": "1500",
+    "price": "70",
+    "stackable": false,
+    "burn": true,
+    "armor": 0,
+    "maxStrength": 50,
+    "skill": "ARMORLESS",
+    "bodyPart": "SHOES",
+    "covering": 10,
+    "style": "CATTGAR",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
   }
 ]

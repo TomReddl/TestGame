@@ -1,6 +1,7 @@
 package view.inventory;
 
 import controller.ItemsController;
+import controller.TradeController;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -44,7 +45,8 @@ public class InventoryPanel {
     public enum InventoryTypeEnum {
         PLAYER, // инвентарь персонажа игрока
         CONTAINER, // инвентарь контейнера
-        CHARACTER; // инвентарь неигрового персонажа
+        CHARACTER, // инвентарь неигрового персонажа (обыск)
+        TRADE; // инвентарь торговца
     }
 
     // Режим открытия инвентаря
@@ -342,9 +344,11 @@ public class InventoryPanel {
                 for (Items items : items) {
                     List<ItemTypeEnum> types = items.getInfo().getTypes();
                     if (types != null && (types.contains(type) || (secondType != null && types.contains(secondType)) || ItemTypeEnum.ALL.equals(type))) {
-                        var itemRecord = new ItemRecord(items, selectType, this);
-                        itemRecord.getPane().setLayoutY(++i * tileSize);
-                        pane.getChildren().add(itemRecord.getPane());
+                        if (!inventoryType.equals(InventoryTypeEnum.TRADE) || TradeController.isItemAvailableForTrade(items)) {
+                            var itemRecord = new ItemRecord(items, selectType, this);
+                            itemRecord.getPane().setLayoutY(++i * tileSize);
+                            pane.getChildren().add(itemRecord.getPane());
+                        }
                     }
                 }
             }
@@ -362,6 +366,8 @@ public class InventoryPanel {
     public void show(List<Items> itemsList, int x, int y, ShowModeEnum showMode, String type, Integer characterId) {
         if (type.equals("character")) {
             inventoryType = InventoryTypeEnum.CHARACTER;
+        } else if (type.equals("trade")) {
+            inventoryType = InventoryTypeEnum.TRADE;
         } else if (type.equals("")) {
             inventoryType = InventoryTypeEnum.CONTAINER;
         } else {

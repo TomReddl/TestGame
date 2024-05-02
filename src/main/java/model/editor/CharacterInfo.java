@@ -27,4 +27,5 @@ public class CharacterInfo implements Serializable {
     private String bloodType; // тип крови персонажа
     private Map<String, String> items; // предметы
     private CreatureSizeEnum size; // размер персонажа
+    private String tradableItems; // торгуемые предметы
 }

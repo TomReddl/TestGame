@@ -21,6 +21,8 @@ import model.entity.effects.EffectInfo;
 import model.entity.map.Items;
 import view.Game;
 
+import java.math.BigDecimal;
+
 import static game.GameParams.tileSize;
 
 /**
@@ -122,7 +124,12 @@ public class ItemRecord {
         volumeLabel.setLayoutY(10);
         pane.getChildren().add(volumeLabel);
 
-        priceLabel = new Label(items.getPrice().toString());
+        Long price = items.getPrice();
+        if (inventoryPanel.getInventoryType().equals(InventoryPanel.InventoryTypeEnum.TRADE)) { // для окна торговли показываем цену сразу с учетом коэффициента наценки
+            var celler = Game.getMap().getCharacterList().get(Game.getContainerInventory().getCharacterId());
+            price = celler.getCellCoefficient().multiply(BigDecimal.valueOf(price)).longValue();
+        }
+        priceLabel = new Label(price.toString());
         priceLabel.setLayoutX(inventoryPanel.getPriceLabel().getLayoutX());
         priceLabel.setLayoutY(10);
         pane.getChildren().add(priceLabel);
