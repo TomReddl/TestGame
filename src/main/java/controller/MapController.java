@@ -11,6 +11,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.robot.Robot;
 import javafx.stage.FileChooser;
 import lombok.Getter;
+import model.editor.ConstructionInfo;
 import model.editor.EditorObjectType;
 import model.editor.TileInfo;
 import model.editor.TileTypeEnum;
@@ -373,11 +374,12 @@ public class MapController {
             var tileX = (((int) x) / tileSize);
             var tileY = (((int) y) / tileSize);
             var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
-            MapCellInfo mapCellInfo = Game.getMap().getTiles()[player.getXMapPos() + tileX]
-                    [player.getYMapPos() + tileY];
+            int xCoord = player.getXMapPos() + tileX;
+            int yCoord = player.getYMapPos() + tileY;
+            MapCellInfo mapCellInfo = Game.getMap().getTiles()[xCoord][yCoord];
             if (Game.isShiftPressed() && Editor.getSelectedType().equals(EditorObjectType.GROUND)) {
                 // при зажатой клавише shift заливаем все одинаковые тайлы выбранным тайлом
-                mapFill(player.getXMapPos() + tileX, player.getYMapPos() + tileY, Editor.getSelectTile(), mapCellInfo.getTile1Id());
+                mapFill(xCoord, yCoord, Editor.getSelectTile(), mapCellInfo.getTile1Id());
                 drawCurrentMap();
             } else {
                 switch (Editor.getSelectedType()) {
@@ -390,11 +392,9 @@ public class MapController {
                         if (isRightMouse || Editor.getSelectTile() == 0) {
                             mapCellInfo.setCharacterId(null);
                         } else if (mapCellInfo.getCharacterId() == null) {
-                            Game.getMap().getCharacterList().add(new Character(Editor.getSelectTile(), Game.getMap().getCharacterList().size(),
-                                    player.getXMapPos() + tileX,
-                                    player.getYMapPos() + tileY,
-                                    player.getXMapPos(), player.getYMapPos()));
-                            mapCellInfo.setCharacterId(Game.getMap().getCharacterList().get(Game.getMap().getCharacterList().size() - 1).getId());
+                            Character character = new Character(Editor.getSelectTile(), xCoord, yCoord, player.getXMapPos(), player.getYMapPos());
+                            Game.getMap().getCharacterList().put(character.getId(), character);
+                            mapCellInfo.setCharacterId(character.getId());
                         }
                         break;
                     }
@@ -402,11 +402,10 @@ public class MapController {
                         if (isRightMouse || Editor.getSelectTile() == 0) {
                             mapCellInfo.setCreatureId(null);
                         } else if (mapCellInfo.getCreatureId() == null) {
-                            Game.getMap().getCreaturesList().add(new Creature(Editor.getSelectTile(), Game.getMap().getCreaturesList().size(),
-                                    player.getXMapPos() + tileX,
-                                    player.getYMapPos() + tileY));
+                            Creature creature = new Creature(Editor.getSelectTile(), xCoord, yCoord);
+                            Game.getMap().getCreaturesList().put(creature.getId(), creature);
 
-                            mapCellInfo.setCreatureId(Game.getMap().getCreaturesList().get(Game.getMap().getCreaturesList().size() - 1).getId());
+                            mapCellInfo.setCreatureId(creature.getId());
                         }
                         break;
                     }
@@ -417,10 +416,7 @@ public class MapController {
                             ItemsController.addItemToCharacter(addedItem, addedItem.getCount(), Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId()));
                         } else {
                             // добавляем предмет на карту
-                            addItemOnMap(
-                                    player.getXMapPos() + tileX,
-                                    player.getYMapPos() + tileY,
-                                    new Items(isRightMouse ? 0 : Editor.getSelectTile(), Game.isShiftPressed() ? 10 : 1));
+                            addItemOnMap(xCoord, yCoord, new Items(isRightMouse ? 0 : Editor.getSelectTile(), Game.isShiftPressed() ? 10 : 1));
                         }
                         break;
                     }
@@ -436,10 +432,38 @@ public class MapController {
                         mapCellInfo.setRoofId(isRightMouse ? 0 : Editor.getSelectTile());
                         break;
                     }
+                    case CONSTRUCTION_COORDINATES: {
+                        if (Editor.getFirstConstructionPointTX().getText().equals("")) {
+                            Editor.getFirstConstructionPointTX().setText(xCoord + "." + yCoord);
+                        } else {
+                            Editor.getSecondConstructionPointTX().setText(xCoord + "." + yCoord);
+                        }
+                        break;
+                    }
+                    case CONSTRUCTION: {
+                        ConstructionInfo construction = Editor.getConstructions().get(Editor.getSelectTile());
+                        for (int i = 0; i < construction.getTiles().length; i++) {
+                            for (int j = 0; j < construction.getTiles()[0].length; j++) {
+                                Game.getMap().getTiles()[i+ xCoord][j + yCoord] = construction.getTiles()[i][j];
+                                String creatureId = Game.getMap().getTiles()[i+ xCoord][j + yCoord].getCreatureId();
+                                String characterId = Game.getMap().getTiles()[i+ xCoord][j + yCoord].getCharacterId();
+                                if (creatureId != null) {
+                                    Game.getMap().getCreaturesList().put(creatureId, construction.getCreaturesList().get(creatureId));
+                                }
+                                if (characterId != null) {
+                                    Game.getMap().getCharacterList().put(characterId, construction.getCharacterList().get(characterId));
+                                }
+                            }
+                        }
+                        MapController.drawCurrentMap();
+                        break;
+                    }
                 }
 
-                Game.getMap().getTiles()[player.getXMapPos() + tileX][player.getYMapPos() + tileY] = mapCellInfo;
-                drawTilesAround(player.getXMapPos() + tileX, player.getYMapPos() + tileY);
+                if (!Editor.getSelectedType().equals(EditorObjectType.CONSTRUCTION)) {
+                    Game.getMap().getTiles()[xCoord][yCoord] = mapCellInfo;
+                    drawTilesAround(xCoord, yCoord);
+                }
             }
             canvas.requestFocus();
         }
@@ -775,7 +799,9 @@ public class MapController {
                         if (mapCellInfo.getCharacterId() != null) {
                             Character character = Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId());
                             if (character.isAlive()) {
-                                Game.getEditor().getGameDialogPanel().showPanel(character);
+                                if (character.getDialog() != null) {
+                                    Game.getEditor().getGameDialogPanel().showPanel(character);
+                                }
                             } else {
                                 if (!isPhasing) {
                                     Game.getGameMenu().showContainerInventory(character.getInventory(), x, y, "character", character.getId());
@@ -1095,8 +1121,8 @@ public class MapController {
     // отрисовка верхнего уровня тайла
     private static void drawUpperLayer(int Xpos, int YPos, int x, int y, boolean visibly) {
         var player = Game.getMap().getPlayersSquad().getSelectedCharacter();
-        List<Character> characterList = Game.getMap().getCharacterList();
-        List<Creature> creaturesList = Game.getMap().getCreaturesList();
+        Map<String, Character> characterList = Game.getMap().getCharacterList();
+        Map<String, Creature> creaturesList = Game.getMap().getCreaturesList();
         GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
         var mapCellInfo = Game.getMap().getTiles()[Xpos + x][YPos + y];
 

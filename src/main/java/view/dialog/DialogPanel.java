@@ -58,7 +58,7 @@ public class DialogPanel {
     private List<Label> phraseLabels = new ArrayList<>();
 
     private Dialog dialog;
-    private int characterId;
+    private String characterId;
     private Phrase selectedPhrase;
 
     public DialogPanel() {

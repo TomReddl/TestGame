@@ -1,0 +1,5053 @@
+[
+  {
+    "name": "1",
+    "id": 0,
+    "tiles": [
+      [
+        {
+          "tile1Id": 32,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 28,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 12,
+          "params": null
+        }
+      ],
+      [
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": [
+            {
+              "id": 0,
+              "typeId": 355,
+              "count": 1,
+              "equipment": false,
+              "currentStrength": 120,
+              "params": null,
+              "name": "Леденящий кинжал",
+              "price": 1200,
+              "effects": [
+                {
+                  "strId": "FROST_DAMAGE",
+                  "power": 10,
+                  "durability": null,
+                  "baseItem": null,
+                  "type": null
+                }
+              ],
+              "unselectable": false,
+              "inlayerId": null
+            }
+          ],
+          "desc": null,
+          "x": 6,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": "4c92cc9e-465f-4f81-b5c3-921bf3a49d92",
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": "b69690a6-9a39-4002-9b24-575db3b552e0",
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 12,
+          "params": null
+        }
+      ],
+      [
+        {
+          "tile1Id": 29,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 12,
+          "params": null
+        }
+      ],
+      [
+        {
+          "tile1Id": 24,
+          "tile2Id": 81,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 12,
+          "params": null
+        }
+      ],
+      [
+        {
+          "tile1Id": 28,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": "df259cc2-1b2e-41ac-bb81-8a1896e54368",
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 24,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 12,
+          "params": null
+        }
+      ],
+      [
+        {
+          "tile1Id": 31,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 29,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 12,
+          "params": null
+        }
+      ]
+    ],
+    "characterList": {
+      "4c92cc9e-465f-4f81-b5c3-921bf3a49d92": {
+        "wearingItems": [
+          {
+            "UNDERWEAR": null
+          },
+          {
+            "SHIRT": null
+          },
+          {
+            "HEAD": {
+              "id": 0,
+              "typeId": 35,
+              "count": 1,
+              "equipment": true,
+              "currentStrength": 150,
+              "params": {
+                "inlayerSize": "MEDIUM"
+              },
+              "name": "Каттгарский стальной шлем",
+              "price": 400,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          },
+          {
+            "FACE": null
+          },
+          {
+            "NECKLACE": null
+          },
+          {
+            "TORSO": {
+              "id": 0,
+              "typeId": 36,
+              "count": 1,
+              "equipment": true,
+              "currentStrength": 150,
+              "params": {
+                "inlayerSize": "LARGE"
+              },
+              "name": "Каттгарская униформа",
+              "price": 400,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          },
+          {
+            "LEGS": {
+              "id": 0,
+              "typeId": 37,
+              "count": 1,
+              "equipment": true,
+              "currentStrength": 150,
+              "params": {
+                "inlayerSize": "MEDIUM"
+              },
+              "name": "Каттгарские штаны",
+              "price": 400,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          },
+          {
+            "SHOES": {
+              "id": 0,
+              "typeId": 23,
+              "count": 1,
+              "equipment": true,
+              "currentStrength": 50,
+              "params": {
+                "inlayerSize": "SMALL"
+              },
+              "name": "Кожаные ботинки",
+              "price": 400,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          },
+          {
+            "BELT": null
+          },
+          {
+            "BACKPACK": null
+          },
+          {
+            "GLOVES": null
+          },
+          {
+            "LEFT_ARM": null
+          },
+          {
+            "RIGHT_ARM": {
+              "id": 0,
+              "typeId": 24,
+              "count": 1,
+              "equipment": true,
+              "currentStrength": 160,
+              "params": null,
+              "name": "Стальной двуручный меч",
+              "price": 1000,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          }
+        ],
+        "knowledgeRecipes": [],
+        "dialog": null,
+        "maxVolume": null,
+        "currentVolume": 0.000,
+        "maxWeight": null,
+        "currentWeight": 2.900,
+        "style": null,
+        "interactMapPoint": null,
+        "xPosition": 6,
+        "yPosition": 8,
+        "xViewPos": 0,
+        "yViewPos": 0,
+        "direction": "RIGHT",
+        "name": "Ришин Зурд",
+        "gender": "MALE",
+        "hairColor": "Brown",
+        "hairLength": 1,
+        "beardLength": 0,
+        "npcTypeId": 1,
+        "xPos": 0,
+        "yPos": 0,
+        "id": "4c92cc9e-465f-4f81-b5c3-921bf3a49d92",
+        "isAlive": true,
+        "params": {
+          "legacy": [
+            {
+              "strId": "HAN",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "RISA",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "ULKOR",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "MHAA",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "WURTUS",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "SHI_DOL",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            }
+          ],
+          "characteristics": [
+            {
+              "strId": "POWER",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "STAMINA",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "AGILITY",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "CHARISMA",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "INTELLIGENCE",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "PERCEPTION",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            }
+          ],
+          "skills": {
+            "LIGHT_WEAPON": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "TRADE": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "ENCHANTMENT": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "PICK_POCKET": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "SNEAK": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "HEAVY_ARMOR": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "PERFORMANCE": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "FARMING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "SEWING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "SPEECH": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "MEDICINE": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "ARMORLESS": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "LIGHT_ARMOR": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "LOVE": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "ANIMAL_HANDLING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "COMMAND": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "MARKSMANSHIP": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "HEAVY_WEAPON": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "POTIONS": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "HAND_COMBAT": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "DEDUCTION": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "TRAINING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "BLACKSMITHING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "LOCKPICKING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "COOKING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "CONSTRUCTION": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "STONE_ART": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "BLOCKING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "CARPENTRY": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "ENGINEERING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            }
+          },
+          "indicators": [
+            {
+              "currentValue": 50,
+              "minValue": 0,
+              "maxValue": 100
+            },
+            {
+              "currentValue": 50,
+              "minValue": 0,
+              "maxValue": 100
+            },
+            {
+              "currentValue": 50,
+              "minValue": 0,
+              "maxValue": 100
+            },
+            {
+              "currentValue": 50,
+              "minValue": 0,
+              "maxValue": 100
+            },
+            {
+              "currentValue": 50,
+              "minValue": 0,
+              "maxValue": 100
+            }
+          ]
+        },
+        "knowledgeInfo": {
+          "readBooks": [],
+          "langs": [
+            "NALHAIM",
+            "CATTGAR"
+          ],
+          "knowEffects": {}
+        },
+        "inventory": [
+          {
+            "id": 0,
+            "typeId": 35,
+            "count": 1,
+            "equipment": true,
+            "currentStrength": 150,
+            "params": {
+              "inlayerSize": "MEDIUM"
+            },
+            "name": "Каттгарский стальной шлем",
+            "price": 400,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 36,
+            "count": 1,
+            "equipment": true,
+            "currentStrength": 150,
+            "params": {
+              "inlayerSize": "LARGE"
+            },
+            "name": "Каттгарская униформа",
+            "price": 400,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 37,
+            "count": 1,
+            "equipment": true,
+            "currentStrength": 150,
+            "params": {
+              "inlayerSize": "MEDIUM"
+            },
+            "name": "Каттгарские штаны",
+            "price": 400,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 23,
+            "count": 1,
+            "equipment": true,
+            "currentStrength": 50,
+            "params": {
+              "inlayerSize": "SMALL"
+            },
+            "name": "Кожаные ботинки",
+            "price": 400,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 24,
+            "count": 1,
+            "equipment": true,
+            "currentStrength": 160,
+            "params": null,
+            "name": "Стальной двуручный меч",
+            "price": 1000,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          }
+        ],
+        "appliedEffects": [],
+        "cellCoefficient": 1.4,
+        "buyCoefficient": 0.6
+      },
+      "df259cc2-1b2e-41ac-bb81-8a1896e54368": {
+        "wearingItems": [
+          {
+            "UNDERWEAR": null
+          },
+          {
+            "SHIRT": null
+          },
+          {
+            "HEAD": {
+              "id": 0,
+              "typeId": 377,
+              "count": 1,
+              "equipment": true,
+              "currentStrength": 20,
+              "params": {
+                "inlayerSize": "SMALL"
+              },
+              "name": "Изысканная тюбитейка",
+              "price": 50,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          },
+          {
+            "FACE": null
+          },
+          {
+            "NECKLACE": null
+          },
+          {
+            "TORSO": {
+              "id": 0,
+              "typeId": 376,
+              "count": 1,
+              "equipment": true,
+              "currentStrength": 60,
+              "params": {
+                "inlayerSize": "LARGE"
+              },
+              "name": "Просторная туника",
+              "price": 100,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          },
+          {
+            "LEGS": null
+          },
+          {
+            "SHOES": {
+              "id": 0,
+              "typeId": 378,
+              "count": 1,
+              "equipment": true,
+              "currentStrength": 50,
+              "params": {
+                "inlayerSize": "SMALL"
+              },
+              "name": "Красные туфли",
+              "price": 70,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          },
+          {
+            "BELT": null
+          },
+          {
+            "BACKPACK": {
+              "id": 0,
+              "typeId": 27,
+              "count": 1,
+              "equipment": true,
+              "currentStrength": 50,
+              "params": {
+                "addVolume": "40000"
+              },
+              "name": "Малый рюкзак",
+              "price": 400,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          },
+          {
+            "GLOVES": null
+          },
+          {
+            "LEFT_ARM": null
+          },
+          {
+            "RIGHT_ARM": null
+          }
+        ],
+        "knowledgeRecipes": [],
+        "dialog": null,
+        "maxVolume": null,
+        "currentVolume": 7.700,
+        "maxWeight": null,
+        "currentWeight": 47.300,
+        "style": null,
+        "interactMapPoint": null,
+        "xPosition": 9,
+        "yPosition": 8,
+        "xViewPos": 0,
+        "yViewPos": 0,
+        "direction": "RIGHT",
+        "name": "Ришин Зурд",
+        "gender": "MALE",
+        "hairColor": "Brown",
+        "hairLength": 1,
+        "beardLength": 0,
+        "npcTypeId": 36,
+        "xPos": 0,
+        "yPos": 0,
+        "id": "df259cc2-1b2e-41ac-bb81-8a1896e54368",
+        "isAlive": true,
+        "params": {
+          "legacy": [
+            {
+              "strId": "HAN",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "RISA",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "ULKOR",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "MHAA",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "WURTUS",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "SHI_DOL",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            }
+          ],
+          "characteristics": [
+            {
+              "strId": "POWER",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "STAMINA",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "AGILITY",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "CHARISMA",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "INTELLIGENCE",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "PERCEPTION",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            }
+          ],
+          "skills": {
+            "LIGHT_WEAPON": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "TRADE": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "ENCHANTMENT": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "PICK_POCKET": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "SNEAK": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "HEAVY_ARMOR": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "PERFORMANCE": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "FARMING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "SEWING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "SPEECH": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "MEDICINE": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "ARMORLESS": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "LIGHT_ARMOR": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "LOVE": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "ANIMAL_HANDLING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "COMMAND": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "MARKSMANSHIP": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "HEAVY_WEAPON": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "POTIONS": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "HAND_COMBAT": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "DEDUCTION": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "TRAINING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "BLACKSMITHING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "LOCKPICKING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "COOKING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "CONSTRUCTION": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "STONE_ART": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "BLOCKING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "CARPENTRY": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "ENGINEERING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            }
+          },
+          "indicators": [
+            {
+              "currentValue": 50,
+              "minValue": 0,
+              "maxValue": 100
+            },
+            {
+              "currentValue": 50,
+              "minValue": 0,
+              "maxValue": 100
+            },
+            {
+              "currentValue": 50,
+              "minValue": 0,
+              "maxValue": 100
+            },
+            {
+              "currentValue": 50,
+              "minValue": 0,
+              "maxValue": 100
+            },
+            {
+              "currentValue": 50,
+              "minValue": 0,
+              "maxValue": 100
+            }
+          ]
+        },
+        "knowledgeInfo": {
+          "readBooks": [],
+          "langs": [
+            "NALHAIM",
+            "CATTGAR"
+          ],
+          "knowEffects": {}
+        },
+        "inventory": [
+          {
+            "id": 0,
+            "typeId": 4,
+            "count": 1,
+            "equipment": false,
+            "currentStrength": 50,
+            "params": null,
+            "name": "Набедренная повязка",
+            "price": 10,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 378,
+            "count": 1,
+            "equipment": true,
+            "currentStrength": 50,
+            "params": {
+              "inlayerSize": "SMALL"
+            },
+            "name": "Красные туфли",
+            "price": 70,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 377,
+            "count": 1,
+            "equipment": true,
+            "currentStrength": 20,
+            "params": {
+              "inlayerSize": "SMALL"
+            },
+            "name": "Изысканная тюбитейка",
+            "price": 50,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 376,
+            "count": 1,
+            "equipment": true,
+            "currentStrength": 60,
+            "params": {
+              "inlayerSize": "LARGE"
+            },
+            "name": "Просторная туника",
+            "price": 100,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 27,
+            "count": 1,
+            "equipment": true,
+            "currentStrength": 50,
+            "params": {
+              "addVolume": "40000"
+            },
+            "name": "Малый рюкзак",
+            "price": 400,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 273,
+            "count": 5,
+            "equipment": false,
+            "currentStrength": 0,
+            "params": null,
+            "name": "Глина",
+            "price": 60,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 138,
+            "count": 1,
+            "equipment": false,
+            "currentStrength": 100,
+            "params": null,
+            "name": "Железный слиток",
+            "price": 50,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 155,
+            "count": 1,
+            "equipment": false,
+            "currentStrength": 0,
+            "params": null,
+            "name": "Медная руда",
+            "price": 50,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          }
+        ],
+        "appliedEffects": [],
+        "cellCoefficient": 1.4,
+        "buyCoefficient": 0.6
+      }
+    },
+    "creaturesList": {
+      "b69690a6-9a39-4002-9b24-575db3b552e0": {
+        "health": 100,
+        "inventory": [],
+        "butchering": false,
+        "id": "b69690a6-9a39-4002-9b24-575db3b552e0",
+        "creatureTypeId": 129,
+        "xPos": 6,
+        "yPos": 11,
+        "isAlive": true
+      }
+    }
+  },
+  {
+    "name": "Богатый дом",
+    "id": 0,
+    "tiles": [
+      [
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 4,
+          "y": 2,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 4,
+          "y": 3,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 4,
+          "y": 4,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 148,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 4,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 4,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 4,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 4,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 4,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 148,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 4,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 4,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 4,
+          "y": 12,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 4,
+          "y": 13,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 4,
+          "y": 14,
+          "params": null
+        }
+      ],
+      [
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 2,
+          "params": null
+        },
+        {
+          "tile1Id": 32,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 3,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 4,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 32,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 32,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 12,
+          "params": null
+        },
+        {
+          "tile1Id": 28,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 13,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 5,
+          "y": 14,
+          "params": null
+        }
+      ],
+      [
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 2,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 3,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 4,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 128,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 66,
+          "tile1Strength": 0,
+          "tile2Strength": 150,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 375,
+          "tile1Strength": 0,
+          "tile2Strength": 50,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 23,
+          "tile1Strength": 0,
+          "tile2Strength": 70,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": [
+            {
+              "id": 0,
+              "typeId": 371,
+              "count": 160,
+              "equipment": false,
+              "currentStrength": 20,
+              "params": null,
+              "name": "Шад",
+              "price": 1,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          ],
+          "desc": null,
+          "x": 6,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 64,
+          "tile1Strength": 0,
+          "tile2Strength": 150,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 12,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 13,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 6,
+          "y": 14,
+          "params": null
+        }
+      ],
+      [
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 2,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 3,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 130,
+          "tile1Strength": 0,
+          "tile2Strength": 150,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 4,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 134,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 42,
+          "tile1Strength": 0,
+          "tile2Strength": 150,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 43,
+          "tile1Strength": 0,
+          "tile2Strength": 50,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 12,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 13,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 148,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 7,
+          "y": 14,
+          "params": null
+        }
+      ],
+      [
+        {
+          "tile1Id": 1,
+          "tile2Id": 122,
+          "tile1Strength": 0,
+          "tile2Strength": 50,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 2,
+          "params": null
+        },
+        {
+          "tile1Id": 31,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 3,
+          "params": null
+        },
+        {
+          "tile1Id": 34,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 4,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 80,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 31,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 34,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 80,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 33,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 34,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 80,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 12,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 13,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 8,
+          "y": 14,
+          "params": null
+        }
+      ],
+      [
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 2,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 81,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 3,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 375,
+          "tile1Strength": 0,
+          "tile2Strength": 50,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 4,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 375,
+          "tile1Strength": 0,
+          "tile2Strength": 50,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 375,
+          "tile1Strength": 0,
+          "tile2Strength": 50,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 81,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 116,
+          "tile1Strength": 0,
+          "tile2Strength": 150,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 375,
+          "tile1Strength": 0,
+          "tile2Strength": 50,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 12,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 13,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 9,
+          "y": 14,
+          "params": null
+        }
+      ],
+      [
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 2,
+          "params": null
+        },
+        {
+          "tile1Id": 32,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 3,
+          "params": null
+        },
+        {
+          "tile1Id": 34,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 4,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 80,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 28,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 27,
+          "tile1Strength": 0,
+          "tile2Strength": 50,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": "d7a6889b-87bd-493f-9418-af586b19d669",
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 29,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 111,
+          "tile1Strength": 0,
+          "tile2Strength": 150,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 12,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 13,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 10,
+          "y": 14,
+          "params": null
+        }
+      ],
+      [
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 11,
+          "y": 2,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 11,
+          "y": 3,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 145,
+          "tile1Strength": 0,
+          "tile2Strength": 50,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 11,
+          "y": 4,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 11,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 20,
+          "tile1Strength": 0,
+          "tile2Strength": 40,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 11,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 11,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 24,
+          "tile1Strength": 0,
+          "tile2Strength": 50,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": [
+            {
+              "id": 0,
+              "typeId": 2,
+              "count": 1,
+              "equipment": false,
+              "currentStrength": 0,
+              "params": null,
+              "name": "Хлеб",
+              "price": 10,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          ],
+          "desc": null,
+          "x": 11,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 11,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 81,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 11,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 11,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 11,
+          "y": 12,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 11,
+          "y": 13,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 148,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 11,
+          "y": 14,
+          "params": null
+        }
+      ],
+      [
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 12,
+          "y": 2,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 12,
+          "y": 3,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 32,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 12,
+          "y": 4,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 32,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 12,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 16,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 12,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 12,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 28,
+          "tile1Strength": 0,
+          "tile2Strength": 50,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 12,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 44,
+          "tile1Strength": 0,
+          "tile2Strength": 150,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": [
+            {
+              "id": 0,
+              "typeId": 34,
+              "count": 3,
+              "equipment": false,
+              "currentStrength": 0,
+              "params": null,
+              "name": "Яйцо роро",
+              "price": 300,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            },
+            {
+              "id": 0,
+              "typeId": 89,
+              "count": 1,
+              "equipment": false,
+              "currentStrength": 0,
+              "params": null,
+              "name": "Моховика",
+              "price": 40,
+              "effects": [
+                {
+                  "strId": "POWER_INC",
+                  "power": null,
+                  "durability": null,
+                  "baseItem": null,
+                  "type": null
+                },
+                {
+                  "strId": "EPIPHANY",
+                  "power": null,
+                  "durability": null,
+                  "baseItem": null,
+                  "type": null
+                }
+              ],
+              "unselectable": false,
+              "inlayerId": null
+            },
+            {
+              "id": 0,
+              "typeId": 87,
+              "count": 5,
+              "equipment": false,
+              "currentStrength": 0,
+              "params": null,
+              "name": "Хрумофрукт",
+              "price": 40,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          ],
+          "desc": null,
+          "x": 12,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 28,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 12,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 12,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 145,
+          "tile2Id": 17,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": [
+            {
+              "id": 0,
+              "typeId": 329,
+              "count": 1,
+              "equipment": false,
+              "currentStrength": 110,
+              "params": {
+                "inlayerSize": "MEDIUM"
+              },
+              "name": "Свинцовый шлем",
+              "price": 320,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            },
+            {
+              "id": 0,
+              "typeId": 330,
+              "count": 1,
+              "equipment": false,
+              "currentStrength": 110,
+              "params": {
+                "inlayerSize": "GREAT"
+              },
+              "name": "Свинцовая кираса",
+              "price": 670,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            },
+            {
+              "id": 0,
+              "typeId": 331,
+              "count": 1,
+              "equipment": false,
+              "currentStrength": 110,
+              "params": {
+                "inlayerSize": "MEDIUM"
+              },
+              "name": "Свинцовые поножи",
+              "price": 420,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            },
+            {
+              "id": 0,
+              "typeId": 332,
+              "count": 1,
+              "equipment": false,
+              "currentStrength": 110,
+              "params": {
+                "inlayerSize": "MEDIUM"
+              },
+              "name": "Свинцовые сапоги",
+              "price": 320,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          ],
+          "desc": null,
+          "x": 12,
+          "y": 12,
+          "params": null
+        },
+        {
+          "tile1Id": 27,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 12,
+          "y": 13,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 12,
+          "y": 14,
+          "params": null
+        }
+      ],
+      [
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 13,
+          "y": 2,
+          "params": null
+        },
+        {
+          "tile1Id": 31,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 13,
+          "y": 3,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 13,
+          "y": 4,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 13,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 13,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 31,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 13,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 13,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 13,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 31,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 13,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 13,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 30,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 13,
+          "y": 12,
+          "params": null
+        },
+        {
+          "tile1Id": 29,
+          "tile2Id": 0,
+          "tile1Strength": 150,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 1,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 13,
+          "y": 13,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 13,
+          "y": 14,
+          "params": null
+        }
+      ],
+      [
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 14,
+          "y": 2,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 14,
+          "y": 3,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 14,
+          "y": 4,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 14,
+          "y": 5,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 148,
+          "tile1Strength": 0,
+          "tile2Strength": 100,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 14,
+          "y": 6,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 14,
+          "y": 7,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 14,
+          "y": 8,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 14,
+          "y": 9,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 14,
+          "y": 10,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 14,
+          "y": 11,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 14,
+          "y": 12,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 14,
+          "y": 13,
+          "params": null
+        },
+        {
+          "tile1Id": 1,
+          "tile2Id": 0,
+          "tile1Strength": 0,
+          "tile2Strength": 0,
+          "pollutionId": 0,
+          "fireId": 0,
+          "zoneId": 0,
+          "roofId": 0,
+          "characterId": null,
+          "creatureId": null,
+          "items": null,
+          "desc": null,
+          "x": 14,
+          "y": 14,
+          "params": null
+        }
+      ]
+    ],
+    "characterList": {
+      "d7a6889b-87bd-493f-9418-af586b19d669": {
+        "wearingItems": [
+          {
+            "UNDERWEAR": null
+          },
+          {
+            "SHIRT": null
+          },
+          {
+            "HEAD": {
+              "id": 0,
+              "typeId": 377,
+              "count": 1,
+              "equipment": true,
+              "currentStrength": 20,
+              "params": {
+                "inlayerSize": "SMALL"
+              },
+              "name": "Изысканная тюбитейка",
+              "price": 50,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          },
+          {
+            "FACE": null
+          },
+          {
+            "NECKLACE": null
+          },
+          {
+            "TORSO": {
+              "id": 0,
+              "typeId": 376,
+              "count": 1,
+              "equipment": true,
+              "currentStrength": 60,
+              "params": {
+                "inlayerSize": "LARGE"
+              },
+              "name": "Просторная туника",
+              "price": 100,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          },
+          {
+            "LEGS": null
+          },
+          {
+            "SHOES": {
+              "id": 0,
+              "typeId": 378,
+              "count": 1,
+              "equipment": true,
+              "currentStrength": 50,
+              "params": {
+                "inlayerSize": "SMALL"
+              },
+              "name": "Красные туфли",
+              "price": 70,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          },
+          {
+            "BELT": null
+          },
+          {
+            "BACKPACK": {
+              "id": 0,
+              "typeId": 27,
+              "count": 1,
+              "equipment": true,
+              "currentStrength": 50,
+              "params": {
+                "addVolume": "40000"
+              },
+              "name": "Малый рюкзак",
+              "price": 400,
+              "effects": null,
+              "unselectable": false,
+              "inlayerId": null
+            }
+          },
+          {
+            "GLOVES": null
+          },
+          {
+            "LEFT_ARM": null
+          },
+          {
+            "RIGHT_ARM": null
+          }
+        ],
+        "knowledgeRecipes": [],
+        "dialog": null,
+        "maxVolume": null,
+        "currentVolume": 7.700,
+        "maxWeight": null,
+        "currentWeight": 47.300,
+        "style": null,
+        "interactMapPoint": null,
+        "xPosition": 10,
+        "yPosition": 8,
+        "xViewPos": 0,
+        "yViewPos": 0,
+        "direction": "RIGHT",
+        "name": "Ришин Зурд",
+        "gender": "MALE",
+        "hairColor": "Brown",
+        "hairLength": 1,
+        "beardLength": 0,
+        "npcTypeId": 36,
+        "xPos": 0,
+        "yPos": 0,
+        "id": "d7a6889b-87bd-493f-9418-af586b19d669",
+        "isAlive": true,
+        "params": {
+          "legacy": [
+            {
+              "strId": "HAN",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "RISA",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "ULKOR",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "MHAA",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "WURTUS",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "SHI_DOL",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            }
+          ],
+          "characteristics": [
+            {
+              "strId": "POWER",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "STAMINA",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "AGILITY",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "CHARISMA",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "INTELLIGENCE",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            },
+            {
+              "strId": "PERCEPTION",
+              "realValue": 5,
+              "currentValue": 5,
+              "experience": 0
+            }
+          ],
+          "skills": {
+            "LIGHT_WEAPON": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "TRADE": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "ENCHANTMENT": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "PICK_POCKET": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "SNEAK": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "HEAVY_ARMOR": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "PERFORMANCE": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "FARMING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "SEWING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "SPEECH": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "MEDICINE": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "ARMORLESS": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "LIGHT_ARMOR": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "LOVE": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "ANIMAL_HANDLING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "COMMAND": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "MARKSMANSHIP": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "HEAVY_WEAPON": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "POTIONS": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "HAND_COMBAT": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "DEDUCTION": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "TRAINING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "BLACKSMITHING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "LOCKPICKING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "COOKING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "CONSTRUCTION": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "STONE_ART": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "BLOCKING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "CARPENTRY": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            },
+            "ENGINEERING": {
+              "strId": null,
+              "realValue": 10,
+              "currentValue": 10,
+              "experience": 0
+            }
+          },
+          "indicators": [
+            {
+              "currentValue": 50,
+              "minValue": 0,
+              "maxValue": 100
+            },
+            {
+              "currentValue": 50,
+              "minValue": 0,
+              "maxValue": 100
+            },
+            {
+              "currentValue": 50,
+              "minValue": 0,
+              "maxValue": 100
+            },
+            {
+              "currentValue": 50,
+              "minValue": 0,
+              "maxValue": 100
+            },
+            {
+              "currentValue": 50,
+              "minValue": 0,
+              "maxValue": 100
+            }
+          ]
+        },
+        "knowledgeInfo": {
+          "readBooks": [],
+          "langs": [
+            "NALHAIM",
+            "CATTGAR"
+          ],
+          "knowEffects": {}
+        },
+        "inventory": [
+          {
+            "id": 0,
+            "typeId": 4,
+            "count": 1,
+            "equipment": false,
+            "currentStrength": 50,
+            "params": null,
+            "name": "Набедренная повязка",
+            "price": 10,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 378,
+            "count": 1,
+            "equipment": true,
+            "currentStrength": 50,
+            "params": {
+              "inlayerSize": "SMALL"
+            },
+            "name": "Красные туфли",
+            "price": 70,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 377,
+            "count": 1,
+            "equipment": true,
+            "currentStrength": 20,
+            "params": {
+              "inlayerSize": "SMALL"
+            },
+            "name": "Изысканная тюбитейка",
+            "price": 50,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 376,
+            "count": 1,
+            "equipment": true,
+            "currentStrength": 60,
+            "params": {
+              "inlayerSize": "LARGE"
+            },
+            "name": "Просторная туника",
+            "price": 100,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 27,
+            "count": 1,
+            "equipment": true,
+            "currentStrength": 50,
+            "params": {
+              "addVolume": "40000"
+            },
+            "name": "Малый рюкзак",
+            "price": 400,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 273,
+            "count": 5,
+            "equipment": false,
+            "currentStrength": 0,
+            "params": null,
+            "name": "Глина",
+            "price": 60,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 138,
+            "count": 1,
+            "equipment": false,
+            "currentStrength": 100,
+            "params": null,
+            "name": "Железный слиток",
+            "price": 50,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          },
+          {
+            "id": 0,
+            "typeId": 155,
+            "count": 1,
+            "equipment": false,
+            "currentStrength": 0,
+            "params": null,
+            "name": "Медная руда",
+            "price": 50,
+            "effects": null,
+            "unselectable": false,
+            "inlayerId": null
+          }
+        ],
+        "appliedEffects": [],
+        "cellCoefficient": 1.4,
+        "buyCoefficient": 0.6
+      }
+    },
+    "creaturesList": {}
+  }
+]

@@ -191,5 +191,21 @@
     "imageId": 35,
     "gender": "FEMALE",
     "size": "MEDIUM"
+  },
+  {
+    "imageId": 36,
+    "gender": "MALE",
+    "items": {
+      "4": "1",
+      "378": "1",
+      "377": "1",
+      "376": "1",
+      "27": "1",
+      "273": "5",
+      "138": "1",
+      "155": "1"
+    },
+    "tradableItems": "resources",
+    "size": "MEDIUM"
   }
 ]

@@ -793,14 +793,16 @@ public class EffectsController {
      */
     public static void removeEffects(Items items, Character character) {
         List<EffectParams> removedEffects = new ArrayList<>();
-        for (EffectParams effect : character.getAppliedEffects()) {
-            if (effect.getBaseItem().equals(items)) {
-                removedEffects.add(effect);
+        if (character.getAppliedEffects() != null) {
+            for (EffectParams effect : character.getAppliedEffects()) {
+                if (effect.getBaseItem().equals(items)) {
+                    removedEffects.add(effect);
+                }
             }
+            removedEffects.forEach(effect -> removeEffect(character, effect));
+            Game.getParams().refreshParamsValueViews(); // перерисовывает параметры персонажа
+            Game.getEffectsPanel().refreshEffectsPanel();
         }
-        removedEffects.forEach(effect -> removeEffect(character, effect));
-        Game.getParams().refreshParamsValueViews(); // перерисовывает параметры персонажа
-        Game.getEffectsPanel().refreshEffectsPanel();
     }
 
     /**

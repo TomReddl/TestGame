@@ -110,7 +110,7 @@ public class InventoryPanel {
     private List<Items> items = Game.getMap().getPlayersSquad().getSelectedCharacter().getInventory();
     @Getter
     @Setter
-    private Integer characterId = null; // id персонажа, чей инвентарь открыт
+    private String characterId = null; // id персонажа, чей инвентарь открыт
     @Getter
     private int x; // координаты нужны для панели инвентаря контейнера, чтобы перерисовывать тайл, если игрок забирает с него все предметы
     @Getter
@@ -234,7 +234,7 @@ public class InventoryPanel {
             totalWeightLabel.setLayoutY(405);
             totalWeightLabel.setLayoutX(10);
             outerPane.getChildren().add(totalWeightLabel);
-        } else {
+        } else if (!inventoryType.equals(InventoryTypeEnum.TRADE)) {
             scrollPane.setMaxHeight(380);
             takeAllButton.setLayoutX(10);
             takeAllButton.setLayoutY(395);
@@ -363,7 +363,7 @@ public class InventoryPanel {
         setVolumeText();
     }
 
-    public void show(List<Items> itemsList, int x, int y, ShowModeEnum showMode, String type, Integer characterId) {
+    public void show(List<Items> itemsList, int x, int y, ShowModeEnum showMode, String type, String characterId) {
         if (type.equals("character")) {
             inventoryType = InventoryTypeEnum.CHARACTER;
         } else if (type.equals("trade")) {

@@ -86,7 +86,7 @@ public class SquadPanel {
         innerPane.getChildren().remove(0, innerPane.getChildren().size());
 
         int i = 0;
-        for (Character character : Game.getMap().getPlayersSquad().getCharacters()) {
+        for (Character character : Game.getMap().getPlayersSquad().getCharacters().values()) {
             var characterRecord = new SquadMemberPanel(character);
             squadMemberPanelList.add(characterRecord);
             characterRecord.getPane().setLayoutY(i++ * characterRecord.getPane().getPrefHeight() + 10);

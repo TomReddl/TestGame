@@ -80,7 +80,7 @@ public class GameMenuPanel {
         GameMenuPanel.getTabPane().getSelectionModel().select(Integer.parseInt(tabName));
     }
 
-    public void showContainerInventory(List<Items> itemsList, int x, int y, String type, Integer characterId) {
+    public void showContainerInventory(List<Items> itemsList, int x, int y, String type, String characterId) {
         showGameMenuPanel("0");
         Game.getContainerInventory().show(itemsList, x, y, InventoryPanel.ShowModeEnum.DEFAULT, type, characterId);
     }

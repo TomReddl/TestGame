@@ -28,8 +28,8 @@ public class MapCellInfo implements Serializable {
     private int fireId; // огонь на тайле
     private int zoneId; // к какой зоне принадлежит тайл
     private int roofId; // id крыши тайла, если она есть
-    private Integer characterId; // если на тайле стоит персонаж, здесь отображается его id
-    private Integer creatureId; // если на тайле стоит существо, здесь отображается его id
+    private String characterId; // если на тайле стоит персонаж, здесь отображается его id
+    private String creatureId; // если на тайле стоит существо, здесь отображается его id
     private List<Items> items; // лежащие на тайле предметы
     private String desc; // кастомное описание тайла
     private int x; // координата x на карте мира

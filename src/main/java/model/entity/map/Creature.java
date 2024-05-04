@@ -11,6 +11,7 @@ import view.Editor;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Информация о существе
@@ -20,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Creature implements Serializable {
     @JsonProperty("id")
-    private int id; // идентификатор данного конкретного существа
+    private String id; // идентификатор данного конкретного существа
     @JsonProperty("creatureTypeId")
     private int creatureTypeId; // идентификатор типа существа
     @JsonProperty("xPos")
@@ -33,9 +34,9 @@ public class Creature implements Serializable {
     private Integer health;
     private List<Items> inventory; // инвентарь существа
 
-    public Creature(int creatureTypeId, int id, int xPos, int yPos) {
+    public Creature(int creatureTypeId, int xPos, int yPos) {
         this.creatureTypeId = creatureTypeId;
-        this.id = id;
+        this.id = UUID.randomUUID().toString();
         this.xPos = xPos;
         this.yPos = yPos;
         this.health = Editor.getCreatures().get(creatureTypeId).getHealth();

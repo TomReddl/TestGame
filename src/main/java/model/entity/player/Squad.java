@@ -6,8 +6,8 @@ import lombok.Setter;
 import model.entity.map.Fraction;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Информация об отряде
@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 public class Squad implements Serializable {
     String name; // название отряда
-    List<Character> characters = new ArrayList<>(); // список членов отряда
+    Map<String, Character> characters = new HashMap<>(); // список членов отряда
     Character selectedCharacter; // выбранный в данный момент персонаж
     Character mainCharacter; // основной персонаж
     Fraction fraction; // фракция, к которой принадлежит отряд

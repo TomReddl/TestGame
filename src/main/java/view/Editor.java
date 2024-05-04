@@ -6,6 +6,7 @@ import controller.utils.JsonUtils;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
+import javafx.scene.effect.BlendMode;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -15,6 +16,7 @@ import javafx.scene.text.FontWeight;
 import javafx.util.Pair;
 import lombok.Getter;
 import lombok.Setter;
+import model.editor.ConstructionInfo;
 import model.editor.*;
 import model.editor.items.ItemInfo;
 import model.editor.items.RecipeInfo;
@@ -50,6 +52,7 @@ public class Editor {
     private static final Pane pane7 = new Pane();
     private static final Pane pane8 = new Pane();
     private static final Pane pane9 = new Pane();
+    private static final Pane pane10 = new Pane();
     @Getter
     private static final Pane itemsPane = new Pane();
     private static final TextField searchTile1TF = new TextField();
@@ -106,6 +109,9 @@ public class Editor {
     private static List<RoofInfo> roofs = JsonUtils.getRoofs();
     @Setter
     @Getter
+    private static List<ConstructionInfo> constructions = JsonUtils.getConstructions();
+    @Setter
+    @Getter
     private static List<RecipeInfo> recipes = JsonUtils.getRecipes();
     @Setter
     @Getter
@@ -119,6 +125,17 @@ public class Editor {
     private ComboBox<WeatherEnum> weatherCB = new ComboBox();
 
     private Map<String, Pair<CheckBox, Slider>> weatherSliders = new HashMap<>(); // мапа <id погоды, пара: чекбокс и слайдер для этой погоды>
+    private static final ImageView selectConstructionImage = new ImageView("/graphics/gui/SelectConstruction.png"); // Выбрать конструкцию для сохранения
+    @Getter
+    private static final TextField firstConstructionPointTX = new TextField();
+    private static final Label firstConstructionPointLabel = new Label(Game.getText("FIRST_POINT"));
+    @Getter
+    private static final TextField secondConstructionPointTX = new TextField();
+    private static final Label secondConstructionPointLabel = new Label(Game.getText("SECOND_POINT"));
+    @Getter
+    private static final TextField nameConstructionTX = new TextField();
+    private static final Label nameConstructionPointLabel = new Label(Game.getText("NAME_POINT"));
+    private static final ImageView saveConstructionImage = new ImageView("/graphics/gui/SaveMap.png");
 
     @Getter
     private final AlchemyPanel alchemyPanel;
@@ -264,6 +281,7 @@ public class Editor {
         tabPane.getTabs().add(new Tab(Game.getText("ZONES")));
         tabPane.getTabs().add(new Tab(Game.getText("WEATHER")));
         tabPane.getTabs().add(new Tab(Game.getText("ROOFS")));
+        tabPane.getTabs().add(new Tab(Game.getText("CONSTRUCTIONS")));
         tabPane.getTabs().get(0).setClosable(false);
         tabPane.getTabs().get(1).setClosable(false);
         tabPane.getTabs().get(2).setClosable(false);
@@ -273,6 +291,7 @@ public class Editor {
         tabPane.getTabs().get(6).setClosable(false);
         tabPane.getTabs().get(7).setClosable(false);
         tabPane.getTabs().get(8).setClosable(false);
+        tabPane.getTabs().get(9).setClosable(false);
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setLayoutX(5);
@@ -717,6 +736,76 @@ public class Editor {
         scrollPane8.setContent(pane9);
         tabPane.getTabs().get(8).setContent(scrollPane8);
 
+        selectConstructionImage.setLayoutX(5);
+        selectConstructionImage.setLayoutY(5);
+        selectConstructionImage.setOnMouseClicked(event -> selectConstruction());
+
+        firstConstructionPointLabel.setLayoutY(15);
+        firstConstructionPointLabel.setLayoutX(50);
+        pane10.getChildren().add(firstConstructionPointLabel);
+
+        firstConstructionPointTX.setLayoutX(80);
+        firstConstructionPointTX.setLayoutY(15);
+        firstConstructionPointTX.setPrefWidth(40);
+        pane10.getChildren().add(firstConstructionPointTX);
+
+        secondConstructionPointLabel.setLayoutY(15);
+        secondConstructionPointLabel.setLayoutX(130);
+        pane10.getChildren().add(secondConstructionPointLabel);
+
+        secondConstructionPointTX.setLayoutX(155);
+        secondConstructionPointTX.setLayoutY(15);
+        secondConstructionPointTX.setPrefWidth(40);
+        pane10.getChildren().add(secondConstructionPointTX);
+
+        nameConstructionPointLabel.setLayoutY(15);
+        nameConstructionPointLabel.setLayoutX(205);
+        pane10.getChildren().add(nameConstructionPointLabel);
+
+        nameConstructionTX.setLayoutX(260);
+        nameConstructionTX.setLayoutY(15);
+        nameConstructionTX.setPrefWidth(80);
+        nameConstructionTX.setText("1");
+        pane10.getChildren().add(nameConstructionTX);
+
+        saveConstructionImage.setLayoutX(350);
+        saveConstructionImage.setLayoutY(15);
+        saveConstructionImage.setOnMouseClicked(event -> saveConstruction());
+        pane10.getChildren().add(saveConstructionImage);
+
+        pane10.getChildren().add(selectConstructionImage);
+
+        ScrollPane scrollPane9 = new ScrollPane();
+        scrollPane9.setLayoutX(190);
+        scrollPane9.setPrefSize(180, 600);
+
+        for (int i = 0; i < constructions.size(); i++) {
+            ImageView tile = new ImageView("/graphics/gui/Construction.png");
+            tile.setFitWidth(tileSize);
+            tile.setPreserveRatio(true);
+            tile.setSmooth(true);
+            tile.setCache(true);
+            tile.setX(5 + (i / 13) * (tileSize + 5));
+            tile.setY(50 + (i) * (tileSize + 5) - (i / 13) * 585);
+            tile.setId(String.valueOf(i));
+            tile.setOnMouseClicked(event -> {
+                setBorder(pane10);
+                selectTile = Integer.parseInt(tile.getId());
+                selectedType = EditorObjectType.CONSTRUCTION;
+                border.setX(constructions.get(Integer.parseInt(tile.getId())).getImage().getX() - 1);
+                border.setY(constructions.get(Integer.parseInt(tile.getId())).getImage().getY() - 1);
+            });
+            int finalI = i;
+            tile.setOnMouseEntered(event -> Popover.showPopover(finalI + " " + constructions.get(finalI).getName(), tile.getX(), tile.getY() + tileSize));
+            tile.setOnMouseExited(event -> Popover.hidePopover());
+
+            constructions.get(i).setImage(tile);
+            pane10.getChildren().add(tile);
+        }
+        pane10.setOnMouseEntered(event -> Popover.setPane(pane10));
+        scrollPane9.setContent(pane10);
+        tabPane.getTabs().get(9).setContent(scrollPane9);
+
         root.getChildren().add(tabPane);
     }
 
@@ -764,6 +853,46 @@ public class Editor {
         MapController.drawCurrentMap();
     }
 
+    /**
+     * Нажатие на кнопку выбора области для сохранения конструкции
+     */
+    private void selectConstruction() {
+        firstConstructionPointTX.setText("");
+        secondConstructionPointTX.setText("");
+        selectedType = EditorObjectType.CONSTRUCTION_COORDINATES;
+    }
+
+    /**
+     * Сохранить конструкцию для дальнейшего использования
+     */
+    private void saveConstruction() {
+        if (!firstConstructionPointTX.getText().equals("") && !secondConstructionPointTX.getText().equals("")) {
+            String[] firstCoordinates = firstConstructionPointTX.getText().split("\\.");
+            int firstX = Integer.parseInt(firstCoordinates[0]);
+            int firstY = Integer.parseInt(firstCoordinates[1]);
+            String[] secondCoordinates = secondConstructionPointTX.getText().split("\\.");
+            int secondX = Integer.parseInt(secondCoordinates[0]);
+            int secondY = Integer.parseInt(secondCoordinates[1]);
+            ConstructionInfo construction = new ConstructionInfo(firstX, firstY, secondX, secondY);
+            construction.setName(nameConstructionTX.getText());
+            for (int i = firstX; i <= secondX; i++) {
+                for (int j = firstY; j <= secondY; j++) {
+                    construction.getTiles()[i-firstX][j-firstY] = Game.getMap().getTiles()[i][j];
+                    String creatureId = Game.getMap().getTiles()[i][j].getCreatureId();
+                    String characterId = Game.getMap().getTiles()[i][j].getCharacterId();
+                    if (creatureId != null) {
+                        construction.getCreaturesList().put(creatureId, Game.getMap().getCreaturesList().get(creatureId));
+                    }
+                    if (characterId != null) {
+                        construction.getCharacterList().put(characterId, Game.getMap().getCharacterList().get(characterId));
+                    }
+                }
+            }
+            constructions.add(construction);
+            JsonUtils.saveConstructions(constructions);
+        }
+    }
+
     private void setBorder(Pane pane) {
         border.setVisible(true);
         if (pane1.getChildren().contains(border)) {
@@ -782,6 +911,8 @@ public class Editor {
             pane7.getChildren().remove(border);
         } else if (pane9.getChildren().contains(border)) {
             pane9.getChildren().remove(border);
+        } else if (pane10.getChildren().contains(border)) {
+            pane10.getChildren().remove(border);
         }
         pane.getChildren().add(border);
     }

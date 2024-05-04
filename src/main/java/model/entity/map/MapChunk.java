@@ -9,9 +9,7 @@ import model.entity.player.Character;
 import model.entity.player.Squad;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import static game.GameParams.mapSize;
@@ -24,8 +22,8 @@ import static game.GameParams.mapSize;
 @Slf4j
 public class MapChunk implements Serializable {
     private MapCellInfo[][] tiles = new MapCellInfo[mapSize][mapSize];
-    List<Character> characterList = new ArrayList<>();
-    List<Creature> creaturesList = new ArrayList<>();
+    Map<String, Character> characterList = new HashMap<>();
+    Map<String, Creature> creaturesList = new HashMap<>();
     private String mapName;
     private int worldPosX; // координата карты по горизонтали в мире
     private int worldPosY; // координата карты по вертикали в мире
@@ -35,8 +33,8 @@ public class MapChunk implements Serializable {
     private Map<Integer, EffectParams> additionalEffect = new HashMap<>(); // дополнительные эффекты ингредиентов (генерируются случайно при старте новой игры)
 
     public MapChunk() {
-        Character mainCharacter = new Character(32, 0, 0, 0, 0, 0);
-        characterList.add(mainCharacter);
+        Character mainCharacter = new Character(32, 0, 0, 0, 0);
+        characterList.put(mainCharacter.getId(), mainCharacter);
         playersSquad.setMainCharacter(mainCharacter);
         playersSquad.setName("альфа");
         Fraction playerSquadFraction = new Fraction();
@@ -44,7 +42,7 @@ public class MapChunk implements Serializable {
         playerSquadFraction.setName("бродяги фронтира");
         playersSquad.setFraction(playerSquadFraction);
         playersSquad.setSelectedCharacter(mainCharacter);
-        playersSquad.getCharacters().add(mainCharacter);
+        playersSquad.getCharacters().put(mainCharacter.getId(), mainCharacter);
         accessibleWeathers.put(WeatherEnum.CLEAR, 1);
         currentWeather.put(WeatherEnum.CLEAR, 1);
         mapName = "1.1";

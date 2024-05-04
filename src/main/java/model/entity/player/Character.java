@@ -21,10 +21,7 @@ import view.Game;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static game.GameParams.viewSize;
 
@@ -63,7 +60,7 @@ public class Character implements Serializable {
     @JsonProperty("yPos")
     private int yPos;
     @JsonProperty("id")
-    private int id; // идентификатор данного конкретного персонажа
+    private String id; // идентификатор данного конкретного персонажа
     @JsonProperty("isAlive")
     private boolean isAlive;
 
@@ -115,9 +112,9 @@ public class Character implements Serializable {
         }
     }
 
-    public Character(int characterTypeId, int id, int xPosition, int yPosition, int xPos, int yPos) {
+    public Character(int characterTypeId, int xPosition, int yPosition, int xPos, int yPos) {
         this.characterTypeId = characterTypeId;
-        this.id = id;
+        this.id = UUID.randomUUID().toString();
         this.xPos = xPos;
         this.yPos = yPos;
         this.xPosition = xPosition;

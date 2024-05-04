@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.InstantDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
+import model.editor.ConstructionInfo;
 import model.editor.*;
 import model.editor.items.*;
 import model.entity.map.MapChunk;
@@ -132,6 +133,16 @@ public class JsonUtils {
         }
     }
 
+    public static List<ConstructionInfo> getConstructions() {
+        try {
+            var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/constructions.json";
+            return objectMapper.readValue(new File(path), new TypeReference<>() {
+            });
+        } catch (Exception ex) {
+            throw new RuntimeException("can not read 'constructions.json', cause=%s" + ex.getMessage());
+        }
+    }
+
     public static List<RecipeInfo> getRecipes() {
         try {
             var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/recipes.json";
@@ -158,6 +169,7 @@ public class JsonUtils {
 
     /**
      * Сохранить общую информацию о мире игры
+     *
      * @param worldInfo
      */
     public void saveWorldInfo(WorldInfo worldInfo) {
@@ -173,9 +185,25 @@ public class JsonUtils {
     public static MapChunk loadMap(String mapName) {
         try {
             var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "world/" + mapName + ".json";
-            return objectMapper.readValue(new File(path), new TypeReference<>() {});
+            return objectMapper.readValue(new File(path), new TypeReference<>() {
+            });
         } catch (Exception ex) {
             throw new RuntimeException("can not read map, cause=%s" + ex.getMessage());
+        }
+    }
+
+    /**
+     * Сохранить конструкции
+     *
+     * @param constructions
+     */
+    public void saveConstructions(List<ConstructionInfo> constructions) {
+        try {
+            var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/constructions.json";
+            path = path.replaceAll("/", Matcher.quoteReplacement("\\"));
+            objectMapper.writeValue(new File(path), constructions);
+        } catch (Exception ex) {
+            throw new RuntimeException("Не удалось сохранить информацию о мире игры: " + ex.getMessage());
         }
     }
 }
