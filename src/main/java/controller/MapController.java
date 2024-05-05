@@ -51,7 +51,7 @@ public class MapController {
     @Getter
     private static final ImageView phase = new ImageView("/graphics/gui/phase.png");
 
-    private static FileChooser fileChooser = new FileChooser();
+    private static final FileChooser fileChooser = new FileChooser();
     @Getter
     private static final int dugUpGroundId = 109; // вскопанная земля
     @Getter

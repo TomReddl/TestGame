@@ -1204,5 +1204,70 @@
     "elements": {
       "152": 4
     }
+  },
+  {
+    "name": "Легкий свинцовый нагрудник",
+    "recipeId": 92,
+    "itemId": 379,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "153": 6
+    }
+  },
+  {
+    "name": "Легкие свинцовые штаны",
+    "recipeId": 93,
+    "itemId": 380,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "153": 4
+    }
+  },
+  {
+    "name": "Легкий свинцовый шлем",
+    "recipeId": 94,
+    "itemId": 381,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "153": 3
+    }
+  },
+  {
+    "name": "Легкие свинцовые перчатки",
+    "recipeId": 95,
+    "itemId": 382,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "153": 2
+    }
+  },
+  {
+    "name": "Легкие свинцовые ботинки",
+    "recipeId": 96,
+    "itemId": 383,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "153": 3
+    }
   }
 ]

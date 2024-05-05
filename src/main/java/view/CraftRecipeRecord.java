@@ -21,9 +21,9 @@ import model.entity.map.Items;
  */
 public class CraftRecipeRecord {
     @Getter
-    private Pane pane;
-    private Label itemName; // название предмета
-    private ImageView icon; // иконка создаваемого предмета
+    private final Pane pane;
+    private final Label itemName; // название предмета
+    private final ImageView icon; // иконка создаваемого предмета
 
     public CraftRecipeRecord(RecipeInfo recipeInfo) {
         pane = new Pane();

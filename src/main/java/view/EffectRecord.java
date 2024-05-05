@@ -17,11 +17,11 @@ import model.entity.effects.EffectParams;
  */
 public class EffectRecord {
     @Getter
-    private Pane pane;
-    private Label effectNameLabel; // название эффекта
-    private Label effectSourceLabel; // источник эффекта
-    private Label timeLabel; // время эффекта
-    private Label powerLabel; // сила эффекта
+    private final Pane pane;
+    private final Label effectNameLabel; // название эффекта
+    private final Label effectSourceLabel; // источник эффекта
+    private final Label timeLabel; // время эффекта
+    private final Label powerLabel; // сила эффекта
 
     public EffectRecord(EffectParams effect) {
         pane = new Pane();

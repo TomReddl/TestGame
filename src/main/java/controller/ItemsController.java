@@ -230,10 +230,12 @@ public class ItemsController {
      */
     public static void takeAllItems() {
         List<Items> containerInventory = Game.getContainerInventory().getItems();
-        while (containerInventory.size() > 0) {
-            Items item = containerInventory.get(0);
-            if (!addItemsToPlayerFromContainer(item, item.getCount(), containerInventory)) {
-                break;
+        if (containerInventory != null) {
+            while (containerInventory.size() > 0) {
+                Items item = containerInventory.get(0);
+                if (!addItemsToPlayerFromContainer(item, item.getCount(), containerInventory)) {
+                    break;
+                }
             }
         }
     }

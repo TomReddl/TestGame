@@ -49,7 +49,7 @@ public class EnchantmentPanel {
     private final Button enchantButton; // кнопка "Зачаровать"
     private final Button closeButton;
     private final TextField nameEdit = new TextField();
-    private ImageView enchantmentImage; // изображение иконки зачарованного предмета
+    private final ImageView enchantmentImage; // изображение иконки зачарованного предмета
 
     @Getter
     @Setter

@@ -12,9 +12,9 @@ import view.Game;
  */
 public class ParamRecord {
     @Getter
-    private HBox box;
-    private Label nameLabel;
-    private Label valueLabel;
+    private final HBox box;
+    private final Label nameLabel;
+    private final Label valueLabel;
 
     public ParamRecord(Parameter parameter, int index, String paramType) {
         box = new HBox();

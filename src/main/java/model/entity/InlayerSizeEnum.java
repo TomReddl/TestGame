@@ -18,7 +18,7 @@ public enum InlayerSizeEnum {
     private String desc;
 
     @Getter
-    private int size;
+    private final int size;
 
     InlayerSizeEnum(String desc, int size) {
         this.desc = desc;

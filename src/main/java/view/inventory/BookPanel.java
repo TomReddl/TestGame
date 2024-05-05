@@ -32,8 +32,8 @@ public class BookPanel {
     private static final Pane pane;
     private static final ImageView backgroundImage;
     private static final ScrollPane scrollPane = new ScrollPane();
-    private static ImageView leftImage;
-    private static ImageView rightImage;
+    private static final ImageView leftImage;
+    private static final ImageView rightImage;
     private static final int bookSizeX = 600; // ширина книги в пикселях
     private static final int bookSizeY = 400; // высота книги в пикселях
     private static final Label leftPageLabel = new Label();

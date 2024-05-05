@@ -43,7 +43,7 @@ public class GameDialogPanel {
     private final Pane answersScrollContentPane;
     @Getter
     private final ScrollPane answersScrollPane;
-    private List<Label> answers = new ArrayList<>();
+    private final List<Label> answers = new ArrayList<>();
 
     @Setter
     private Dialog dialog;

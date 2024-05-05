@@ -122,9 +122,9 @@ public class Editor {
     @Getter
     private static final List<Image> fires = new ArrayList<>();
 
-    private ComboBox<WeatherEnum> weatherCB = new ComboBox();
+    private final ComboBox<WeatherEnum> weatherCB = new ComboBox();
 
-    private Map<String, Pair<CheckBox, Slider>> weatherSliders = new HashMap<>(); // мапа <id погоды, пара: чекбокс и слайдер для этой погоды>
+    private final Map<String, Pair<CheckBox, Slider>> weatherSliders = new HashMap<>(); // мапа <id погоды, пара: чекбокс и слайдер для этой погоды>
     private static final ImageView selectConstructionImage = new ImageView("/graphics/gui/SelectConstruction.png"); // Выбрать конструкцию для сохранения
     @Getter
     private static final TextField firstConstructionPointTX = new TextField();
@@ -911,9 +911,7 @@ public class Editor {
             pane7.getChildren().remove(border);
         } else if (pane9.getChildren().contains(border)) {
             pane9.getChildren().remove(border);
-        } else if (pane10.getChildren().contains(border)) {
-            pane10.getChildren().remove(border);
-        }
+        } else pane10.getChildren().remove(border);
         pane.getChildren().add(border);
     }
 

@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class TradeController {
 
-    private static Map<String, Set<ItemTypeEnum>> tradableItems = new HashMap<>(); // торгуемые предметы
+    private static final Map<String, Set<ItemTypeEnum>> tradableItems = new HashMap<>(); // торгуемые предметы
 
     static {
         tradableItems.put("resources", Set.of(ItemTypeEnum.RESOURCE));

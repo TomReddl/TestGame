@@ -28,10 +28,10 @@ public class TimeController {
     @Getter
     private static final Long baseTicTime = 100L; // базовое время в миллисекундах для
 
-    private static Map<Integer, List<Event>> eventsMap = new HashMap<>(); // будущие события
+    private static final Map<Integer, List<Event>> eventsMap = new HashMap<>(); // будущие события
 
     @Getter
-    private static Timer timer = new Timer();
+    private static final Timer timer = new Timer();
 
     @Getter
     @Setter

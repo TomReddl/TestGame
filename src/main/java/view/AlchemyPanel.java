@@ -46,15 +46,15 @@ public class AlchemyPanel {
     @Getter
     private final List<ImageView> ingredientImages = new ArrayList<>(); // изображения выбранных инредиентов зелья
     @Getter
-    private List<Label> selectedIngredientsCount = new ArrayList<>(); // лэйблы для количества выбранных ингредиентов
+    private final List<Label> selectedIngredientsCount = new ArrayList<>(); // лэйблы для количества выбранных ингредиентов
     private final ImageView bottleBackgroundImage; // фон для бутылки зелья
     @Getter
     private final ImageView bottleImage; // изображение выбранной бутылки
     @Getter
-    private Label selectedBottlesCount = new Label(); // лэйбл для количества выбранных для зелья бутылок
+    private final Label selectedBottlesCount = new Label(); // лэйбл для количества выбранных для зелья бутылок
     private final Label tableLabel; // название стола
     @Getter
-    private List<Items> selectedIngredients = new ArrayList<>(); // выбранные для зелья предметы
+    private final List<Items> selectedIngredients = new ArrayList<>(); // выбранные для зелья предметы
     @Getter
     @Setter
     private Items selectedBottle = new Items(); // выбранная для зелья бутылка

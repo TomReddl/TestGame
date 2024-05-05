@@ -30,10 +30,10 @@ import static game.GameParams.tileSize;
  */
 public class ItemRecord {
     @Getter
-    private Pane pane;
+    private final Pane pane;
     private ImageView icon;
     private ImageView brokenItemIcon; // иконка сломанного предмета
-    private Label nameLabel;
+    private final Label nameLabel;
     private Label typeLabel;
     private Label weightLabel;
     private Label volumeLabel;

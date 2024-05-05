@@ -55,7 +55,7 @@ public class DialogPanel {
     private final Button addAnswerButton;
 
     private List<AnswerPanel> answerPanels = new ArrayList<>();
-    private List<Label> phraseLabels = new ArrayList<>();
+    private final List<Label> phraseLabels = new ArrayList<>();
 
     private Dialog dialog;
     private String characterId;

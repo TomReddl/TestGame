@@ -46,7 +46,7 @@ public class InventoryPanel {
         PLAYER, // инвентарь персонажа игрока
         CONTAINER, // инвентарь контейнера
         CHARACTER, // инвентарь неигрового персонажа (обыск)
-        TRADE; // инвентарь торговца
+        TRADE // инвентарь торговца
     }
 
     // Режим открытия инвентаря
@@ -58,7 +58,7 @@ public class InventoryPanel {
         SELECT_FOR_DUPLICATOR, // выбор предмета для дублирования
         SELECT_INLAYER_FOR_ENCHANT, // выбор инкрустата для зачарования
         SELECT_INLAYER_FOR_DUPLICATOR, // выбор инкрустата для дублирования
-        SELECT_ITEM_FOR_ENCHANT; // выбор предмета для зачарования
+        SELECT_ITEM_FOR_ENCHANT // выбор предмета для зачарования
     }
 
     // Тип сортировки
@@ -294,7 +294,7 @@ public class InventoryPanel {
         } else if (interactMapPoint != null) {
             String tileType = interactMapPoint.getTile2Info().getType();
             if (tileType != null && TileTypeEnum.valueOf(tileType).equals(TileTypeEnum.CONTAINER)) {
-                maxVolume = BigDecimal.valueOf(Integer.parseInt(interactMapPoint.getTile2Info().getParams().get("volume"))).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);;
+                maxVolume = BigDecimal.valueOf(Integer.parseInt(interactMapPoint.getTile2Info().getParams().get("volume"))).divide(BigDecimal.valueOf(1000), 3, RoundingMode.HALF_UP);
             }
         }
         if (currentVolume != null && maxVolume != null) {
