@@ -1275,7 +1275,7 @@
     "recipeId": 97,
     "itemId": 384,
     "craftingPlace": "anvil",
-    "level": 1,
+    "level": 2,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 120,
     "group": "well-known",
@@ -1288,7 +1288,7 @@
     "recipeId": 98,
     "itemId": 385,
     "craftingPlace": "anvil",
-    "level": 1,
+    "level": 2,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 80,
     "group": "well-known",
@@ -1301,7 +1301,7 @@
     "recipeId": 99,
     "itemId": 386,
     "craftingPlace": "anvil",
-    "level": 1,
+    "level": 2,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 60,
     "group": "well-known",
@@ -1314,7 +1314,7 @@
     "recipeId": 100,
     "itemId": 387,
     "craftingPlace": "anvil",
-    "level": 1,
+    "level": 2,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 60,
     "group": "well-known",
@@ -1327,7 +1327,7 @@
     "recipeId": 101,
     "itemId": 388,
     "craftingPlace": "anvil",
-    "level": 1,
+    "level": 2,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 60,
     "group": "well-known",
@@ -1340,7 +1340,7 @@
     "recipeId": 102,
     "itemId": 389,
     "craftingPlace": "anvil",
-    "level": 1,
+    "level": 2,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 120,
     "group": "well-known",
@@ -1353,7 +1353,7 @@
     "recipeId": 103,
     "itemId": 390,
     "craftingPlace": "anvil",
-    "level": 1,
+    "level": 2,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 80,
     "group": "well-known",
@@ -1366,7 +1366,7 @@
     "recipeId": 104,
     "itemId": 391,
     "craftingPlace": "anvil",
-    "level": 1,
+    "level": 2,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 60,
     "group": "well-known",
@@ -1379,7 +1379,7 @@
     "recipeId": 105,
     "itemId": 392,
     "craftingPlace": "anvil",
-    "level": 1,
+    "level": 2,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 60,
     "group": "well-known",
@@ -1392,12 +1392,77 @@
     "recipeId": 106,
     "itemId": 393,
     "craftingPlace": "anvil",
-    "level": 1,
+    "level": 2,
     "skillId": "BLACKSMITHING",
     "timeToCraft": 60,
     "group": "well-known",
     "elements": {
       "142": 3
+    }
+  },
+  {
+    "name": "Легкий пайроналовый нагрудник",
+    "recipeId": 107,
+    "itemId": 394,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "143": 6
+    }
+  },
+  {
+    "name": "Легкие пайроналовые штаны",
+    "recipeId": 108,
+    "itemId": 395,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "143": 4
+    }
+  },
+  {
+    "name": "Легкий пайроналовый шлем",
+    "recipeId": 109,
+    "itemId": 396,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "143": 3
+    }
+  },
+  {
+    "name": "Легкие пайроналовые перчатки",
+    "recipeId": 105,
+    "itemId": 397,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "143": 2
+    }
+  },
+  {
+    "name": "Легкие пайроналовые сапоги",
+    "recipeId": 106,
+    "itemId": 398,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "143": 3
     }
   }
 ]
