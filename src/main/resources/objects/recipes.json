@@ -1334,5 +1334,70 @@
     "elements": {
       "139": 3
     }
+  },
+  {
+    "name": "Легкий зирконитовый нагрудник",
+    "recipeId": 102,
+    "itemId": 389,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "142": 6
+    }
+  },
+  {
+    "name": "Легкие зирконитовые штаны",
+    "recipeId": 103,
+    "itemId": 390,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "142": 4
+    }
+  },
+  {
+    "name": "Легкий зирконитовый шлем",
+    "recipeId": 104,
+    "itemId": 391,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "142": 3
+    }
+  },
+  {
+    "name": "Легкие зирконитовые перчатки",
+    "recipeId": 105,
+    "itemId": 392,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "142": 2
+    }
+  },
+  {
+    "name": "Легкие зирконитовые сапоги",
+    "recipeId": 106,
+    "itemId": 393,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "142": 3
+    }
   }
 ]
