@@ -1441,7 +1441,7 @@
   },
   {
     "name": "Легкие пайроналовые перчатки",
-    "recipeId": 105,
+    "recipeId": 110,
     "itemId": 397,
     "craftingPlace": "anvil",
     "level": 2,
@@ -1454,7 +1454,7 @@
   },
   {
     "name": "Легкие пайроналовые сапоги",
-    "recipeId": 106,
+    "recipeId": 111,
     "itemId": 398,
     "craftingPlace": "anvil",
     "level": 2,
@@ -1463,6 +1463,71 @@
     "group": "well-known",
     "elements": {
       "143": 3
+    }
+  },
+  {
+    "name": "Легкий люмериевый нагрудник",
+    "recipeId": 112,
+    "itemId": 399,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "146": 6
+    }
+  },
+  {
+    "name": "Легкие люмериеовые штаны",
+    "recipeId": 113,
+    "itemId": 400,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "146": 4
+    }
+  },
+  {
+    "name": "Легкий люмериеовый шлем",
+    "recipeId": 114,
+    "itemId": 401,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "146": 3
+    }
+  },
+  {
+    "name": "Легкие люмериеовые перчатки",
+    "recipeId": 115,
+    "itemId": 402,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "146": 2
+    }
+  },
+  {
+    "name": "Легкие люмериеовые сапоги",
+    "recipeId": 116,
+    "itemId": 403,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "146": 3
     }
   }
 ]
