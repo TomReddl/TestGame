@@ -1269,5 +1269,70 @@
     "elements": {
       "153": 3
     }
+  },
+  {
+    "name": "Легкий аригитовый нагрудник",
+    "recipeId": 97,
+    "itemId": 384,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "139": 6
+    }
+  },
+  {
+    "name": "Легкие аригитовые штаны",
+    "recipeId": 98,
+    "itemId": 385,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "139": 4
+    }
+  },
+  {
+    "name": "Легкий аригитовый шлем",
+    "recipeId": 99,
+    "itemId": 386,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "139": 3
+    }
+  },
+  {
+    "name": "Легкие аригитовые наручи",
+    "recipeId": 100,
+    "itemId": 387,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "139": 2
+    }
+  },
+  {
+    "name": "Легкие аригитовые сандалии",
+    "recipeId": 101,
+    "itemId": 388,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "139": 3
+    }
   }
 ]
