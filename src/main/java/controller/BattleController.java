@@ -12,7 +12,7 @@ import model.entity.effects.EffectParams;
 import model.entity.map.Creature;
 import model.entity.map.Items;
 import model.entity.map.MapCellInfo;
-import model.entity.player.Character;
+import model.entity.character.Character;
 import view.Editor;
 import view.Game;
 import view.menu.MainMenu;

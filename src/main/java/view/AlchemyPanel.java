@@ -25,7 +25,7 @@ import model.editor.items.QualityGradationEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.effects.EffectParams;
 import model.entity.map.Items;
-import model.entity.player.Character;
+import model.entity.character.Character;
 import view.inventory.InventoryPanel;
 
 import java.util.*;

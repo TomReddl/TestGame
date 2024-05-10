@@ -11,7 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import lombok.Getter;
-import model.entity.player.Character;
+import model.entity.character.Character;
 import view.Game;
 
 import java.util.ArrayList;

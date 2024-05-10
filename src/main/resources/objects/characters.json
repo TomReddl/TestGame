@@ -207,5 +207,21 @@
     },
     "tradableItems": "resources",
     "size": "MEDIUM"
+  },
+  {
+    "imageId": 37,
+    "gender": "MALE",
+    "items": {
+      "2": "1",
+      "23": "1",
+      "25": "1",
+      "80": "1",
+      "117": "1",
+      "404": "1",
+      "405": "1",
+      "406": "1"
+    },
+    "profession": "farmer",
+    "size": "MEDIUM"
   }
 ]

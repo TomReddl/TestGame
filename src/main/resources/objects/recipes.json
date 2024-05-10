@@ -1529,5 +1529,330 @@
     "elements": {
       "146": 3
     }
+  },
+  {
+    "name": "Легкий деагаровый нагрудник",
+    "recipeId": 117,
+    "itemId": 407,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "147": 6
+    }
+  },
+  {
+    "name": "Легкие деагаровые штаны",
+    "recipeId": 118,
+    "itemId": 408,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "147": 4
+    }
+  },
+  {
+    "name": "Легкий деагаровый шлем",
+    "recipeId": 119,
+    "itemId": 409,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "147": 3
+    }
+  },
+  {
+    "name": "Легкие деагаровые перчатки",
+    "recipeId": 120,
+    "itemId": 410,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "147": 2
+    }
+  },
+  {
+    "name": "Легкие деагаровые сапоги",
+    "recipeId": 121,
+    "itemId": 411,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "147": 3
+    }
+  },
+  {
+    "name": "Легкий эонитиевый нагрудник",
+    "recipeId": 122,
+    "itemId": 412,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "148": 6
+    }
+  },
+  {
+    "name": "Легкие эонитиевые поножи",
+    "recipeId": 123,
+    "itemId": 413,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "148": 4
+    }
+  },
+  {
+    "name": "Легкий эонитиевый шлем",
+    "recipeId": 124,
+    "itemId": 414,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "148": 3
+    }
+  },
+  {
+    "name": "Легкие эонитиевые наручи",
+    "recipeId": 125,
+    "itemId": 415,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "148": 2
+    }
+  },
+  {
+    "name": "Легкие эонитиевые сандалии",
+    "recipeId": 126,
+    "itemId": 416,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "148": 3
+    }
+  },
+  {
+    "name": "Легкий сайдаловый нагрудник",
+    "recipeId": 127,
+    "itemId": 417,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "149": 6
+    }
+  },
+  {
+    "name": "Легкие сайдаловые поножи",
+    "recipeId": 128,
+    "itemId": 418,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "149": 4
+    }
+  },
+  {
+    "name": "Легкий сайдаловый шлем",
+    "recipeId": 129,
+    "itemId": 419,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "149": 3
+    }
+  },
+  {
+    "name": "Легкие сайдаловые наручи",
+    "recipeId": 130,
+    "itemId": 420,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "149": 2
+    }
+  },
+  {
+    "name": "Легкие сайдаловые сандалии",
+    "recipeId": 131,
+    "itemId": 421,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "149": 3
+    }
+  },
+  {
+    "name": "Легкий рибуритовый нагрудник",
+    "recipeId": 132,
+    "itemId": 422,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "150": 6
+    }
+  },
+  {
+    "name": "Легкие рибуритовые поножи",
+    "recipeId": 133,
+    "itemId": 423,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "150": 4
+    }
+  },
+  {
+    "name": "Легкий рибуритовый шлем",
+    "recipeId": 134,
+    "itemId": 424,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "150": 3
+    }
+  },
+  {
+    "name": "Легкие рибуритовые перчатки",
+    "recipeId": 135,
+    "itemId": 425,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "150": 2
+    }
+  },
+  {
+    "name": "Легкие рибуритовые ботинки",
+    "recipeId": 136,
+    "itemId": 426,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "150": 3
+    }
+  },
+  {
+    "name": "Легкий курамиевый нагрудник",
+    "recipeId": 137,
+    "itemId": 427,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 120,
+    "group": "well-known",
+    "elements": {
+      "151": 6
+    }
+  },
+  {
+    "name": "Легкие курамиевые поножи",
+    "recipeId": 138,
+    "itemId": 428,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 80,
+    "group": "well-known",
+    "elements": {
+      "151": 4
+    }
+  },
+  {
+    "name": "Легкий курамиевый шлем",
+    "recipeId": 139,
+    "itemId": 429,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "151": 3
+    }
+  },
+  {
+    "name": "Легкие курамиевые перчатки",
+    "recipeId": 140,
+    "itemId": 430,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "151": 2
+    }
+  },
+  {
+    "name": "Легкие курамиевые ботинки",
+    "recipeId": 141,
+    "itemId": 431,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "151": 3
+    }
   }
 ]

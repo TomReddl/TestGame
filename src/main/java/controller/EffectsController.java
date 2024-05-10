@@ -8,7 +8,7 @@ import model.entity.effects.EffectInfo;
 import model.entity.effects.EffectParams;
 import model.entity.effects.EffectTypeEnum;
 import model.entity.map.Items;
-import model.entity.player.Character;
+import model.entity.character.Character;
 import view.Editor;
 import view.Game;
 

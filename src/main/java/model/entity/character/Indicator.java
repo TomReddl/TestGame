@@ -1,4 +1,4 @@
-package model.entity.player;
+package model.entity.character;
 
 import lombok.Getter;
 import lombok.Setter;

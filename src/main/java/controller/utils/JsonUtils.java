@@ -8,6 +8,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.ZonedDateTimeSerializer;
 import model.editor.ConstructionInfo;
 import model.editor.*;
 import model.editor.items.*;
+import model.entity.dialogs.Dialog;
 import model.entity.map.MapChunk;
 import lombok.experimental.UtilityClass;
 import model.entity.map.WorldInfo;
@@ -204,6 +205,21 @@ public class JsonUtils {
             objectMapper.writeValue(new File(path), constructions);
         } catch (Exception ex) {
             throw new RuntimeException("Не удалось сохранить информацию о мире игры: " + ex.getMessage());
+        }
+    }
+
+    /**
+     * Загрузить пресохраненный диалог по имени
+     * @param name
+     * @return
+     */
+    public static Dialog getDialog(String name) {
+        try {
+            var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/dialogs/" + name + ".json";
+            return objectMapper.readValue(new File(path), new TypeReference<>() {
+            });
+        } catch (Exception ex) {
+            throw new RuntimeException("can not read " + name + "'.json', cause=%s" + ex.getMessage());
         }
     }
 }

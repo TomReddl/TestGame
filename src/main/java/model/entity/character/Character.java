@@ -1,4 +1,4 @@
-package model.entity.player;
+package model.entity.character;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;

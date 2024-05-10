@@ -1,0 +1,25 @@
+{
+  "characterId": null,
+  "phrases": {
+    "1": {
+      "id": "1",
+      "text": "Что тебе нужно?",
+      "script": "",
+      "answers": [
+        {
+          "text": "Расскажи про своё занятие",
+          "visiblyCondition": "",
+          "nextPhraseCondition": "2"
+        }
+      ]
+    },
+    "2": {
+      "id": "2",
+      "text": "Я фермер. Зарабатываю на жизнь работой в полях.",
+      "script": "",
+      "answers": [
+      ]
+    }
+  },
+  "firstPhraseCondition": null
+}

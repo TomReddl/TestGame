@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import model.entity.effects.EffectParams;
-import model.entity.player.Character;
-import model.entity.player.Squad;
+import model.entity.character.Character;
+import model.entity.character.Squad;
 
 import java.io.Serializable;
 import java.util.HashMap;

@@ -13,7 +13,7 @@ import lombok.Getter;
 import model.entity.dialogs.Answer;
 import model.entity.dialogs.Dialog;
 import model.entity.dialogs.Phrase;
-import model.entity.player.Character;
+import model.entity.character.Character;
 import view.Game;
 
 import java.util.ArrayList;

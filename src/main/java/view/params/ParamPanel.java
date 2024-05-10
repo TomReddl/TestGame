@@ -12,8 +12,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import lombok.Getter;
-import model.entity.player.Parameter;
-import model.entity.player.ParamsInfo;
+import model.entity.character.Parameter;
+import model.entity.character.ParamsInfo;
 import view.Game;
 
 import java.util.ArrayList;

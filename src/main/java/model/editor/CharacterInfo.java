@@ -5,7 +5,7 @@ import javafx.scene.image.ImageView;
 import lombok.Getter;
 import lombok.Setter;
 import model.entity.creatures.CreatureSizeEnum;
-import model.entity.player.GenderEnum;
+import model.entity.character.GenderEnum;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -28,4 +28,5 @@ public class CharacterInfo implements Serializable {
     private Map<String, String> items; // предметы
     private CreatureSizeEnum size; // размер персонажа
     private String tradableItems; // торгуемые предметы
+    private String profession; // профессия
 }

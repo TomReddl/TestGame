@@ -4,7 +4,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import lombok.Getter;
 import model.entity.effects.EffectParams;
-import model.entity.player.Parameter;
+import model.entity.character.Parameter;
 import view.Game;
 
 /**

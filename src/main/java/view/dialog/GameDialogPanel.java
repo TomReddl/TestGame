@@ -1,6 +1,7 @@
 package view.dialog;
 
 import controller.ItemsController;
+import controller.utils.JsonUtils;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -19,7 +20,7 @@ import model.entity.dialogs.Answer;
 import model.entity.dialogs.Dialog;
 import model.entity.dialogs.Phrase;
 import model.entity.map.Items;
-import model.entity.player.Character;
+import model.entity.character.Character;
 import view.Game;
 import view.inventory.BookPanel;
 
@@ -117,17 +118,14 @@ public class GameDialogPanel {
     }
 
     public void showPanel(Character character) {
-        if (!pane.isVisible()) {
-            pane.setVisible(true);
-        }
         this.characterId = character.getId();
         dialog = character.getDialog();
-        if (dialog == null) {
-            dialog = new Dialog();
-            selectedPhrase = new Phrase();
-            dialog.getPhrases().put("", selectedPhrase);
-            ((Text) textFlow.getChildren().get(0)).setText("");
-        } else {
+        String profession = character.getInfo().getProfession();
+        if (character.getDialog() == null && profession != null) {
+            dialog = JsonUtils.getDialog(profession);
+        }
+        if (dialog != null && !pane.isVisible()) {
+            pane.setVisible(true);
             setPhrase(characterId, dialog.getPhrases().get("1"));
         }
     }
@@ -135,8 +133,8 @@ public class GameDialogPanel {
     /**
      * Установить фразу
      *
-     * @param characterId  - id персонажа
-     * @param phrase       - фраза
+     * @param characterId - id персонажа
+     * @param phrase      - фраза
      */
     private void setPhrase(String characterId, Phrase phrase) {
         if (phrase != null) {
@@ -186,6 +184,7 @@ public class GameDialogPanel {
 
     /**
      * Подстановка значений в текст диалога
+     *
      * @param text - текст диалога
      * @return - обработанный текст диалога
      */
@@ -198,7 +197,8 @@ public class GameDialogPanel {
 
     /**
      * Проверить условие видимости ответа в диалоге
-     * @param condition - условие
+     *
+     * @param condition   - условие
      * @param characterId - id персонажа, с которым ведется диалог
      * @return - true, если ответ видим в диалоге, false, если не виден
      */
@@ -217,10 +217,10 @@ public class GameDialogPanel {
                         result = item != null;
                         if (item != null) {
                             try {
-                                var count = Integer.parseInt(words[i+1]);
+                                var count = Integer.parseInt(words[i + 1]);
                                 i++;
                                 return item.getCount() >= count;
-                            } catch(NumberFormatException ignored){
+                            } catch (NumberFormatException ignored) {
                             }
                         }
                         break;
@@ -237,6 +237,7 @@ public class GameDialogPanel {
 
     /**
      * Применить условие для выбора следующей фразы в диалоге
+     *
      * @param condition
      * @return
      */
@@ -247,7 +248,7 @@ public class GameDialogPanel {
             try {
                 Integer.parseInt(condition);
                 return condition;
-            } catch(NumberFormatException ignored){
+            } catch (NumberFormatException ignored) {
             }
             String[] words = condition.split(" ");
             try {
@@ -274,7 +275,8 @@ public class GameDialogPanel {
 
     /**
      * Применить скрипт, срабатывающий при выборе фразы
-     * @param script - скрипт
+     *
+     * @param script      - скрипт
      * @param characterId - id персонажа, с которым ведется диалог
      */
     private void applyPhraseScript(String script, String characterId) {

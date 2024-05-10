@@ -21,7 +21,7 @@ import model.entity.ItemTypeEnum;
 import model.entity.battle.DamageTypeEnum;
 import model.entity.effects.EffectParams;
 import model.entity.map.*;
-import model.entity.player.Character;
+import model.entity.character.Character;
 import view.Editor;
 import view.Game;
 import view.SelectTimePanel;
@@ -799,9 +799,7 @@ public class MapController {
                         if (mapCellInfo.getCharacterId() != null) {
                             Character character = Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId());
                             if (character.isAlive()) {
-                                if (character.getDialog() != null) {
                                     Game.getEditor().getGameDialogPanel().showPanel(character);
-                                }
                             } else {
                                 if (!isPhasing) {
                                     Game.getGameMenu().showContainerInventory(character.getInventory(), x, y, "character", character.getId());

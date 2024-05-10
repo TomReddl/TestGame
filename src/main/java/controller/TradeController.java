@@ -2,7 +2,7 @@ package controller;
 
 import model.entity.ItemTypeEnum;
 import model.entity.map.Items;
-import model.entity.player.Character;
+import model.entity.character.Character;
 import view.Game;
 
 import java.math.BigDecimal;

@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import model.entity.map.Creature;
 import model.entity.map.MapCellInfo;
-import model.entity.player.Character;
+import model.entity.character.Character;
 
 import java.io.Serializable;
 import java.util.HashMap;

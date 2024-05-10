@@ -16,7 +16,7 @@ import lombok.Getter;
 import model.entity.GameCalendar;
 import model.entity.map.Items;
 import model.entity.map.MapCellInfo;
-import model.entity.player.Character;
+import model.entity.character.Character;
 import view.inventory.ItemCountPanel;
 
 import static game.GameParams.tileSize;
