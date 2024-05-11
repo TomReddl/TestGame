@@ -702,7 +702,7 @@ public class CharactersController {
                 character.setYViewPos(character.getYViewPos() - 1);
             }
             TimeController.tic(true);
-        } else if (Game.isShiftPressed()) {
+        } else {
             MapController.drawPlayerTile();
         }
     }
@@ -724,7 +724,7 @@ public class CharactersController {
                 character.setYViewPos(character.getYViewPos() + 1);
             }
             TimeController.tic(true);
-        } else if (Game.isShiftPressed()) {
+        } else {
             MapController.drawPlayerTile();
         }
     }
@@ -746,7 +746,7 @@ public class CharactersController {
                 character.setXViewPos(character.getXViewPos() - 1);
             }
             TimeController.tic(true);
-        } else if (Game.isShiftPressed()) {
+        } else {
             MapController.drawPlayerTile();
         }
     }
@@ -768,7 +768,7 @@ public class CharactersController {
                 character.setXViewPos(character.getXViewPos() + 1);
             }
             TimeController.tic(true);
-        } else if (Game.isShiftPressed()) {
+        } else {
             MapController.drawPlayerTile();
         }
     }
