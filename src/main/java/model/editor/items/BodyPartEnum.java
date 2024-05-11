@@ -12,7 +12,6 @@ public enum BodyPartEnum {
     UNDERWEAR("Нижнее белье"),
     SHIRT("Рубашка"),
     HEAD("Голова"),
-    FACE("Лицо"),
     NECKLACE("Ожерелье"),
     TORSO("Торс"),
     LEGS("Ноги"),

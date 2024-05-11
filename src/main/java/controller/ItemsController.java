@@ -37,6 +37,9 @@ public class ItemsController {
 
     private static final int defaultTimeToCraft = 20; // дефолтное время крафта
 
+    // Компаратор надетых на манекен предметов для орисовки их в порядке расположения записей в ItemTypeEnum
+    public static Comparator<Items> compareWearingItems = Comparator.comparing(o -> o.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES) ? BodyPartEnum.valueOf(((ClothesInfo) o.getInfo()).getBodyPart()).ordinal() : 1);
+
     // Виды действий с предметами
     public enum ItemActionType {
         TO_PLAYER("Переместить предметы в инвентарь игрока"),

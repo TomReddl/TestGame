@@ -881,9 +881,6 @@
             }
           },
           {
-            "FACE": null
-          },
-          {
             "NECKLACE": null
           },
           {
@@ -1386,9 +1383,6 @@
               "unselectable": false,
               "inlayerId": null
             }
-          },
-          {
-            "FACE": null
           },
           {
             "NECKLACE": null
@@ -4537,9 +4531,6 @@
               "unselectable": false,
               "inlayerId": null
             }
-          },
-          {
-            "FACE": null
           },
           {
             "NECKLACE": null

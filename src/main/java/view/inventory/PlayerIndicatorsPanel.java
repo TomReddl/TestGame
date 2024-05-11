@@ -177,7 +177,6 @@ public class PlayerIndicatorsPanel {
                 switch (wearingItem.keySet().iterator().next()) {
                     case HEAD:
                     case SHIRT:
-                    case FACE:
                     case GLOVES:
                     case SHOES: {
                         styles.put(style,

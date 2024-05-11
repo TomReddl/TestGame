@@ -16,6 +16,8 @@ import model.editor.EditorObjectType;
 import model.editor.TileInfo;
 import model.editor.TileTypeEnum;
 import model.editor.items.BodyPartEnum;
+import model.editor.items.ClothesInfo;
+import model.editor.items.ItemInfo;
 import model.entity.GameModeEnum;
 import model.entity.ItemTypeEnum;
 import model.entity.battle.DamageTypeEnum;
@@ -357,8 +359,8 @@ public class MapController {
         WeatherEnum weather = Game.getMap().getCurrentWeather().keySet().iterator().next();
         return Game.getGameMode().equals(GameModeEnum.EDITOR) ||
                 Game.getMap().getPlayersSquad().getSelectedCharacter().getVisiblyPoints()[x][y] && (
-                !weather.getReducesVisibility() ||
-                (tileDistance(Game.getMap().getPlayersSquad().getSelectedCharacter(), x, y) < Game.getMap().getCurrentWeather().values().iterator().next()));
+                        !weather.getReducesVisibility() ||
+                                (tileDistance(Game.getMap().getPlayersSquad().getSelectedCharacter(), x, y) < Game.getMap().getCurrentWeather().values().iterator().next()));
     }
 
     /**
@@ -414,6 +416,9 @@ public class MapController {
                             // добавляем предмет в инвентарь персонажа
                             Items addedItem = new Items(isRightMouse ? 0 : Editor.getSelectTile(), Game.isShiftPressed() ? 10 : 1);
                             ItemsController.addItemToCharacter(addedItem, addedItem.getCount(), Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId()));
+                        } else if (mapCellInfo.getTile2Info().getType().equals(TileTypeEnum.MANNEQUIN.toString())) {
+                            // добавляем предмет на манекен
+                            addItemOnMannequin(xCoord, yCoord, new Items(isRightMouse ? 0 : Editor.getSelectTile(), 1));
                         } else {
                             // добавляем предмет на карту
                             addItemOnMap(xCoord, yCoord, new Items(isRightMouse ? 0 : Editor.getSelectTile(), Game.isShiftPressed() ? 10 : 1));
@@ -444,9 +449,9 @@ public class MapController {
                         ConstructionInfo construction = Editor.getConstructions().get(Editor.getSelectTile());
                         for (int i = 0; i < construction.getTiles().length; i++) {
                             for (int j = 0; j < construction.getTiles()[0].length; j++) {
-                                Game.getMap().getTiles()[i+ xCoord][j + yCoord] = construction.getTiles()[i][j];
-                                String creatureId = Game.getMap().getTiles()[i+ xCoord][j + yCoord].getCreatureId();
-                                String characterId = Game.getMap().getTiles()[i+ xCoord][j + yCoord].getCharacterId();
+                                Game.getMap().getTiles()[i + xCoord][j + yCoord] = construction.getTiles()[i][j];
+                                String creatureId = Game.getMap().getTiles()[i + xCoord][j + yCoord].getCreatureId();
+                                String characterId = Game.getMap().getTiles()[i + xCoord][j + yCoord].getCharacterId();
                                 if (creatureId != null) {
                                     Game.getMap().getCreaturesList().put(creatureId, construction.getCreaturesList().get(creatureId));
                                 }
@@ -799,7 +804,7 @@ public class MapController {
                         if (mapCellInfo.getCharacterId() != null) {
                             Character character = Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId());
                             if (character.isAlive()) {
-                                    Game.getEditor().getGameDialogPanel().showPanel(character);
+                                Game.getEditor().getGameDialogPanel().showPanel(character);
                             } else {
                                 if (!isPhasing) {
                                     Game.getGameMenu().showContainerInventory(character.getInventory(), x, y, "character", character.getId());
@@ -1068,6 +1073,41 @@ public class MapController {
         }
     }
 
+    /**
+     * Добавить предмет на манекен в режиме редактора (только одежду или оружие)
+     *
+     * @param x         - координата тайла по горизонтали
+     * @param y         - координата тайла по вертикали
+     * @param addedItem - добавляемый предмет
+     */
+    public static void addItemOnMannequin(int x, int y, Items addedItem) {
+        if (addedItem.getTypeId() == 0) {
+            Game.getMap().getTiles()[x][y].setItems(null);
+        } else if (addedItem.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES) || (addedItem.getInfo().getTypes().contains(ItemTypeEnum.WEAPON))) {
+            List<Items> inventory = Game.getMap().getTiles()[x][y].getItems();
+            if (inventory == null) {
+                inventory = new ArrayList<>();
+                inventory.add(addedItem);
+                Game.getMap().getTiles()[x][y].setItems(inventory);
+            } else {
+                var addetBp = addedItem.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES) ? BodyPartEnum.valueOf(((ClothesInfo) addedItem.getInfo()).getBodyPart()) : null;
+                for (Items items : inventory) {
+                    if (items.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES)) {
+                        var bp = BodyPartEnum.valueOf(((ClothesInfo) items.getInfo()).getBodyPart());
+                        if (addetBp != null && addetBp.equals(bp)) {
+                            ItemsController.deleteItem(items, 1, inventory, null); // если на манекене уже есть предмет того же типа, как добавляемый, стираем старый предмет
+                            break;
+                        }
+                    } else if (items.getInfo().getTypes().contains(ItemTypeEnum.WEAPON) && (addedItem.getInfo().getTypes().contains(ItemTypeEnum.WEAPON))) {
+                        ItemsController.deleteItem(items, 1, inventory, null); // если на манекене уже есть оружие и добавляем оружие, то стираем старый предмет
+                        break;
+                    }
+                }
+                inventory.add(addedItem);
+            }
+        }
+    }
+
     // отрисовка нижнего уровня тайла
     private static void drawBottomLayer(int Xpos, int YPos, int x, int y, boolean visibly) {
         GraphicsContext gc = Editor.getCanvas().getGraphicsContext2D();
@@ -1103,6 +1143,8 @@ public class MapController {
                 }
             } else if (tileInfo2.getType().equals(TileTypeEnum.MANNEQUIN.toString())) { // Для манекена отрисовываем надетые на него вещи
                 if (mapCellInfo.getItems() != null) {
+                    List<Items> items = mapCellInfo.getItems();
+                    items.sort(ItemsController.compareWearingItems);
                     for (Items item : mapCellInfo.getItems()) {
                         var path = "/graphics/items/" + item.getTypeId() + "doll.png";
                         var f = new File("/" + Character.class.getProtectionDomain().getCodeSource().getLocation().getPath() + path);
