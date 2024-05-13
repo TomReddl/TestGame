@@ -1,7 +1,7 @@
 package view.inventory;
 
 import controller.ItemsController;
-import controller.TradeController;
+import controller.MoneyController;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -344,7 +344,7 @@ public class InventoryPanel {
                 for (Items items : items) {
                     List<ItemTypeEnum> types = items.getInfo().getTypes();
                     if (types != null && (types.contains(type) || (secondType != null && types.contains(secondType)) || ItemTypeEnum.ALL.equals(type))) {
-                        if (!inventoryType.equals(InventoryTypeEnum.TRADE) || TradeController.isItemAvailableForTrade(items)) {
+                        if (!inventoryType.equals(InventoryTypeEnum.TRADE) || MoneyController.isItemAvailableForTrade(items)) {
                             var itemRecord = new ItemRecord(items, selectType, this);
                             itemRecord.getPane().setLayoutY(++i * tileSize);
                             pane.getChildren().add(itemRecord.getPane());

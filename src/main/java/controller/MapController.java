@@ -416,7 +416,7 @@ public class MapController {
                             // добавляем предмет в инвентарь персонажа
                             Items addedItem = new Items(isRightMouse ? 0 : Editor.getSelectTile(), Game.isShiftPressed() ? 10 : 1);
                             ItemsController.addItemToCharacter(addedItem, addedItem.getCount(), Game.getMap().getCharacterList().get(mapCellInfo.getCharacterId()));
-                        } else if (mapCellInfo.getTile2Info().getType().equals(TileTypeEnum.MANNEQUIN.toString())) {
+                        } else if (mapCellInfo.getTile2Info().getType() != null && mapCellInfo.getTile2Info().getType().equals(TileTypeEnum.MANNEQUIN.toString())) {
                             // добавляем предмет на манекен
                             addItemOnMannequin(xCoord, yCoord, new Items(isRightMouse ? 0 : Editor.getSelectTile(), 1));
                         } else {

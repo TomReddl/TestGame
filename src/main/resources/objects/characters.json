@@ -70,7 +70,19 @@
   {
     "imageId": 12,
     "gender": "MALE",
-    "size": "MEDIUM"
+    "size": "MEDIUM",
+    "trainableSkills": [
+      "15", "16", "17"
+    ],
+    "items": {
+      "7": "1",
+      "23": "1",
+      "25": "1",
+      "372": "13",
+      "443": "1",
+      "445": "1"
+    },
+    "profession": "teacher"
   },
   {
     "imageId": 13,

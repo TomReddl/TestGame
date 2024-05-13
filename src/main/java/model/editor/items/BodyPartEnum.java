@@ -13,11 +13,11 @@ public enum BodyPartEnum {
     SHIRT("Рубашка"),
     HEAD("Голова"),
     NECKLACE("Ожерелье"),
-    TORSO("Торс"),
     LEGS("Ноги"),
     SHOES("Обувь"),
-    BELT("Пояс"),
     BACKPACK("Рюкзак"),
+    TORSO("Торс"),
+    BELT("Пояс"),
     GLOVES("Перчатки"),
     LEFT_ARM("Левая рука"),
     RIGHT_ARM("Правая рука");

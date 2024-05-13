@@ -14,4 +14,5 @@ public class Answer implements Serializable {
     String text; // текст ответа
     String visiblyCondition; // условие видимости ответа
     String nextPhraseCondition; // id или условие выбора следующей фразы
+    String script; // скрипт, срабатывающий при нажатии на ответ
 }

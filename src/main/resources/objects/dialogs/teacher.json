@@ -1,0 +1,19 @@
+{
+  "characterId": null,
+  "phrases": {
+    "1": {
+      "id": "1",
+      "text": "Приветствую тебя, путник. Я %NPCName, учитель гуманитарных наук. \nЧто ты хочешь?",
+      "script": "",
+      "answers": [
+        {
+          "text": "Я пришел учиться у тебя",
+          "visiblyCondition": "",
+          "nextPhraseCondition": "",
+          "script": "training"
+        }
+      ]
+    }
+  },
+  "firstPhraseCondition": null
+}

@@ -287,6 +287,7 @@ public class DialogPanel {
                 answerPanel.getTextEdit().setText(answer.getText());
                 answerPanel.getNextPhraseConditionEdit().setText(answer.getNextPhraseCondition());
                 answerPanel.getVisiblyConditionEdit().setText(answer.getVisiblyCondition());
+                answerPanel.getScriptEdit().setText(answer.getScript());
                 answersScrollContentPane.getChildren().add(answerPanel.getPane());
                 i++;
             }
@@ -306,6 +307,7 @@ public class DialogPanel {
             answer.setText(answerPanel.getTextEdit().getText());
             answer.setVisiblyCondition(answerPanel.getVisiblyConditionEdit().getText());
             answer.setNextPhraseCondition(answerPanel.getNextPhraseConditionEdit().getText());
+            answer.setScript(answerPanel.getScriptEdit().getText());
             phrase.getAnswers().add(answer);
         }
     }

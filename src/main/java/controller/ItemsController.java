@@ -462,13 +462,13 @@ public class ItemsController {
         if (item.getCount() == 1 || Game.isShiftPressed()) {
             if (containerInventory.contains(item)) {
                 if (isTrade) {
-                    TradeController.buyItems(Game.getMap().getPlayersSquad().getSelectedCharacter(), Game.getMap().getCharacterList().get(Game.getContainerInventory().getCharacterId()), item, null);
+                    MoneyController.buyItems(Game.getMap().getPlayersSquad().getSelectedCharacter(), Game.getMap().getCharacterList().get(Game.getContainerInventory().getCharacterId()), item, null);
                 } else {
                     addItemsToPlayerFromContainer(item, item.getCount(), containerInventory);
                 }
             } else {
                 if (isTrade) {
-                    TradeController.cellItems(Game.getMap().getPlayersSquad().getSelectedCharacter(), Game.getMap().getCharacterList().get(Game.getContainerInventory().getCharacterId()), item, null);
+                    MoneyController.cellItems(Game.getMap().getPlayersSquad().getSelectedCharacter(), Game.getMap().getCharacterList().get(Game.getContainerInventory().getCharacterId()), item, null);
                 } else {
                     addItemsToContainerFromPlayer(item, item.getCount(), containerInventory);
                 }
@@ -554,6 +554,7 @@ public class ItemsController {
                     for (Items i : containerInventory) {
                         if (i.getInfo().getTypes().contains(ItemTypeEnum.CLOTHES) && ((ClothesInfo) i.getInfo()).getBodyPart().equals(((ClothesInfo) item.getInfo()).getBodyPart())) {
                             canAdd = false;
+                            Game.showMessage(Game.getText("MANNEQUIN_SLOT_OCCUPIED"));
                             break;
                         }
                     }

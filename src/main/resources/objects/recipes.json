@@ -240,7 +240,7 @@
     }
   },
   {
-    "name": "Аригитовый шлем",
+    "name": "Аригитовый закрытый шлем",
     "recipeId": 19,
     "itemId": 168,
     "craftingPlace": "anvil",
@@ -249,7 +249,7 @@
     "timeToCraft": 60,
     "group": "well-known",
     "elements": {
-      "139": 6
+      "139": 8
     }
   },
   {
@@ -361,7 +361,7 @@
     }
   },
   {
-    "name": "Зирконитовый шлем",
+    "name": "Зирконитовый закрытый шлем",
     "recipeId": 28,
     "itemId": 278,
     "craftingPlace": "anvil",
@@ -370,7 +370,7 @@
     "timeToCraft": 60,
     "group": "well-known",
     "elements": {
-      "142": 6
+      "142": 8
     }
   },
   {
@@ -400,7 +400,7 @@
     }
   },
   {
-    "name": "Пайроналовый шлем",
+    "name": "Пайроналовый закрытый шлем",
     "recipeId": 31,
     "itemId": 283,
     "craftingPlace": "anvil",
@@ -409,7 +409,7 @@
     "timeToCraft": 60,
     "group": "well-known",
     "elements": {
-      "143": 6
+      "143": 8
     }
   },
   {
@@ -465,7 +465,7 @@
     }
   },
   {
-    "name": "Люмериевый шлем",
+    "name": "Люмериевый закрытый шлем",
     "recipeId": 36,
     "itemId": 288,
     "craftingPlace": "anvil",
@@ -474,7 +474,7 @@
     "timeToCraft": 60,
     "group": "well-known",
     "elements": {
-      "146": 6
+      "146": 8
     }
   },
   {
@@ -530,7 +530,7 @@
     }
   },
   {
-    "name": "Деагаровый шлем",
+    "name": "Деагаровый закрытый шлем",
     "recipeId": 41,
     "itemId": 293,
     "craftingPlace": "anvil",
@@ -539,7 +539,7 @@
     "timeToCraft": 60,
     "group": "well-known",
     "elements": {
-      "147": 6
+      "147": 8
     }
   },
   {
@@ -608,7 +608,7 @@
     }
   },
   {
-    "name": "Эонитиевый шлем",
+    "name": "Эонитиевый открытый шлем",
     "recipeId": 47,
     "itemId": 299,
     "craftingPlace": "anvil",
@@ -660,7 +660,7 @@
     }
   },
   {
-    "name": "Сайдаловый шлем",
+    "name": "Сайдаловый открытый шлем",
     "recipeId": 51,
     "itemId": 303,
     "craftingPlace": "anvil",
@@ -738,7 +738,7 @@
     }
   },
   {
-    "name": "Рибуритовый шлем",
+    "name": "Рибуритовый закрытый шлем",
     "recipeId": 57,
     "itemId": 309,
     "craftingPlace": "anvil",
@@ -747,7 +747,7 @@
     "timeToCraft": 60,
     "group": "well-known",
     "elements": {
-      "150": 6
+      "150": 8
     }
   },
   {
@@ -803,7 +803,7 @@
     }
   },
   {
-    "name": "Курамиевый шлем",
+    "name": "Курамиевый закрытый шлем",
     "recipeId": 62,
     "itemId": 314,
     "craftingPlace": "anvil",
@@ -812,7 +812,7 @@
     "timeToCraft": 60,
     "group": "well-known",
     "elements": {
-      "151": 6
+      "151": 8
     }
   },
   {
@@ -868,7 +868,7 @@
     }
   },
   {
-    "name": "Железный шлем",
+    "name": "Железный открытый шлем",
     "recipeId": 67,
     "itemId": 319,
     "craftingPlace": "anvil",
@@ -933,7 +933,7 @@
     }
   },
   {
-    "name": "Стальной шлем",
+    "name": "Стальной открытый шлем",
     "recipeId": 72,
     "itemId": 324,
     "craftingPlace": "anvil",
@@ -998,7 +998,7 @@
     }
   },
   {
-    "name": "Свинцовый шлем",
+    "name": "Свинцовый закрытый шлем",
     "recipeId": 77,
     "itemId": 329,
     "craftingPlace": "anvil",
@@ -1007,7 +1007,7 @@
     "timeToCraft": 60,
     "group": "well-known",
     "elements": {
-      "153": 6
+      "153": 8
     }
   },
   {
@@ -1089,7 +1089,7 @@
     }
   },
   {
-    "name": "Легкий железный шлем",
+    "name": "Легкий железный закрытый шлем",
     "recipeId": 84,
     "itemId": 336,
     "craftingPlace": "anvil",
@@ -1098,7 +1098,7 @@
     "timeToCraft": 60,
     "group": "well-known",
     "elements": {
-      "138": 3
+      "138": 4
     }
   },
   {
@@ -1154,7 +1154,7 @@
     }
   },
   {
-    "name": "Легкий стальной шлем",
+    "name": "Легкий стальной открытый шлем",
     "recipeId": 88,
     "itemId": 342,
     "craftingPlace": "anvil",
@@ -1193,7 +1193,7 @@
     }
   },
   {
-    "name": "Легкий стальной шлем",
+    "name": "Легкий стальной закрытый шлем",
     "recipeId": 91,
     "itemId": 345,
     "craftingPlace": "anvil",
@@ -1232,7 +1232,7 @@
     }
   },
   {
-    "name": "Легкий свинцовый шлем",
+    "name": "Легкий свинцовый открытый шлем",
     "recipeId": 94,
     "itemId": 381,
     "craftingPlace": "anvil",
@@ -1297,7 +1297,7 @@
     }
   },
   {
-    "name": "Легкий аригитовый шлем",
+    "name": "Легкий аригитовый открытый шлем",
     "recipeId": 99,
     "itemId": 386,
     "craftingPlace": "anvil",
@@ -1362,7 +1362,7 @@
     }
   },
   {
-    "name": "Легкий зирконитовый шлем",
+    "name": "Легкий зирконитовый открытый шлем",
     "recipeId": 104,
     "itemId": 391,
     "craftingPlace": "anvil",
@@ -1427,7 +1427,7 @@
     }
   },
   {
-    "name": "Легкий пайроналовый шлем",
+    "name": "Легкий пайроналовый открытый шлем",
     "recipeId": 109,
     "itemId": 396,
     "craftingPlace": "anvil",
@@ -1492,7 +1492,7 @@
     }
   },
   {
-    "name": "Легкий люмериеовый шлем",
+    "name": "Легкий люмериевый открытый шлем",
     "recipeId": 114,
     "itemId": 401,
     "craftingPlace": "anvil",
@@ -1557,7 +1557,7 @@
     }
   },
   {
-    "name": "Легкий деагаровый шлем",
+    "name": "Легкий деагаровый открытый шлем",
     "recipeId": 119,
     "itemId": 409,
     "craftingPlace": "anvil",
@@ -1622,7 +1622,7 @@
     }
   },
   {
-    "name": "Легкий эонитиевый шлем",
+    "name": "Легкий эонитиевый открытый шлем",
     "recipeId": 124,
     "itemId": 414,
     "craftingPlace": "anvil",
@@ -1687,7 +1687,7 @@
     }
   },
   {
-    "name": "Легкий сайдаловый шлем",
+    "name": "Легкий сайдаловый открытый шлем",
     "recipeId": 129,
     "itemId": 419,
     "craftingPlace": "anvil",
@@ -1752,7 +1752,7 @@
     }
   },
   {
-    "name": "Легкий рибуритовый шлем",
+    "name": "Легкий рибуритовый открытый шлем",
     "recipeId": 134,
     "itemId": 424,
     "craftingPlace": "anvil",
@@ -1817,7 +1817,7 @@
     }
   },
   {
-    "name": "Легкий курамиевый шлем",
+    "name": "Легкий курамиевый открытый шлем",
     "recipeId": 139,
     "itemId": 429,
     "craftingPlace": "anvil",
@@ -1853,6 +1853,305 @@
     "group": "well-known",
     "elements": {
       "151": 3
+    }
+  },
+  {
+    "name": "Легкий курамиевый закрытый шлем",
+    "recipeId": 142,
+    "itemId": 432,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "151": 4
+    }
+  },
+  {
+    "name": "Легкий рибуритовый закрытый шлем",
+    "recipeId": 143,
+    "itemId": 433,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "150": 4
+    }
+  },
+  {
+    "name": "Легкий сайдаловый закрытый шлем",
+    "recipeId": 144,
+    "itemId": 434,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "149": 4
+    }
+  },
+  {
+    "name": "Легкий эонитиевый закрытый шлем",
+    "recipeId": 145,
+    "itemId": 435,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "148": 4
+    }
+  },
+  {
+    "name": "Легкий деагаровый закрытый шлем",
+    "recipeId": 146,
+    "itemId": 436,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "147": 4
+    }
+  },
+  {
+    "name": "Легкий люмериевый закрытый шлем",
+    "recipeId": 147,
+    "itemId": 437,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "146": 4
+    }
+  },
+  {
+    "name": "Легкий пайроналовый закрытый шлем",
+    "recipeId": 148,
+    "itemId": 438,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "143": 4
+    }
+  },
+  {
+    "name": "Легкий зирконитовый закрытый шлем",
+    "recipeId": 149,
+    "itemId": 439,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "142": 4
+    }
+  },
+  {
+    "name": "Легкий аригитовый закрытый шлем",
+    "recipeId": 150,
+    "itemId": 440,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "139": 4
+    }
+  },
+  {
+    "name": "Легкий свинцовый закрытый шлем",
+    "recipeId": 151,
+    "itemId": 441,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "153": 4
+    }
+  },
+  {
+    "name": "Легкий железный открытый шлем",
+    "recipeId": 152,
+    "itemId": 442,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "138": 3
+    }
+  },
+  {
+    "name": "Аригитовый открытый шлем",
+    "recipeId": 153,
+    "itemId": 446,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "139": 6
+    }
+  },
+  {
+    "name": "Зирконитовый открытый шлем",
+    "recipeId": 154,
+    "itemId": 447,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "142": 6
+    }
+  },
+  {
+    "name": "Пайроналовый открытый шлем",
+    "recipeId": 155,
+    "itemId": 448,
+    "craftingPlace": "anvil",
+    "level": 2,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "143": 6
+    }
+  },
+  {
+    "name": "Люмериевый открытый шлем",
+    "recipeId": 156,
+    "itemId": 449,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "146": 6
+    }
+  },
+  {
+    "name": "Деагаровый открытый шлем",
+    "recipeId": 157,
+    "itemId": 450,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "147": 6
+    }
+  },
+  {
+    "name": "Эонитиевый закрытый шлем",
+    "recipeId": 158,
+    "itemId": 451,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "148": 8
+    }
+  },
+  {
+    "name": "Сайдаловый закрытый шлем",
+    "recipeId": 159,
+    "itemId": 452,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "149": 8
+    }
+  },
+  {
+    "name": "Рибуритовый открытый шлем",
+    "recipeId": 160,
+    "itemId": 453,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "150": 6
+    }
+  },
+  {
+    "name": "Курамиевый открытый шлем",
+    "recipeId": 161,
+    "itemId": 454,
+    "craftingPlace": "anvil",
+    "level": 3,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "151": 6
+    }
+  },
+  {
+    "name": "Железный закрытый шлем",
+    "recipeId": 162,
+    "itemId": 455,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "138": 8
+    }
+  },
+  {
+    "name": "Стальной закрытый шлем",
+    "recipeId": 163,
+    "itemId": 456,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "152": 8
+    }
+  },
+  {
+    "name": "Свинцовый открытый шлем",
+    "recipeId": 164,
+    "itemId": 457,
+    "craftingPlace": "anvil",
+    "level": 1,
+    "skillId": "BLACKSMITHING",
+    "timeToCraft": 60,
+    "group": "well-known",
+    "elements": {
+      "153": 6
     }
   }
 ]

@@ -25,6 +25,7 @@ import model.entity.map.WeatherEnum;
 import model.entity.character.Character;
 import view.dialog.DialogPanel;
 import view.dialog.GameDialogPanel;
+import view.dialog.TrainingPanel;
 import view.player.SquadPanel;
 
 import java.io.File;
@@ -158,6 +159,8 @@ public class Editor {
     private final TimeControlPanel timeControlPanel;
     @Getter
     private final SquadPanel squadPanel;
+    @Getter
+    private final TrainingPanel trainingPanel;
 
     public Editor() {
         Game.getRoot().getChildren().add(canvas);
@@ -174,6 +177,7 @@ public class Editor {
         gameDialogPanel = new GameDialogPanel();
         timeControlPanel = new TimeControlPanel();
         squadPanel = new SquadPanel();
+        trainingPanel = new TrainingPanel();
     }
 
     private void drawEditorButtons() {

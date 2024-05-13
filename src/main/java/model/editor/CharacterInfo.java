@@ -8,6 +8,7 @@ import model.entity.creatures.CreatureSizeEnum;
 import model.entity.character.GenderEnum;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -29,4 +30,5 @@ public class CharacterInfo implements Serializable {
     private CreatureSizeEnum size; // размер персонажа
     private String tradableItems; // торгуемые предметы
     private String profession; // профессия
+    private List<String> trainableSkills; // тренируемые навыки
 }

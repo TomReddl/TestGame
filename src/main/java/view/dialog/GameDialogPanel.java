@@ -114,7 +114,9 @@ public class GameDialogPanel {
     }
 
     private void closeDialog() {
-        pane.setVisible(false);
+        if (!Game.getEditor().getTrainingPanel().getPane().isVisible()) {
+            pane.setVisible(false);
+        }
     }
 
     public void showPanel(Character character) {
@@ -126,60 +128,70 @@ public class GameDialogPanel {
         }
         if (dialog != null && !pane.isVisible()) {
             pane.setVisible(true);
-            setPhrase(characterId, dialog.getPhrases().get("1"));
+            setPhrase(characterId, null, dialog.getPhrases().get("1"));
         }
     }
 
     /**
      * Установить фразу
      *
-     * @param characterId - id персонажа
-     * @param phrase      - фраза
+     * @param characterId      - id персонажа
+     * @param selectAnswer     - ответ, на который нажали, чтобы перейти на фразу
+     * @param phrase           - фраза
      */
-    private void setPhrase(String characterId, Phrase phrase) {
-        if (phrase != null) {
-            selectedPhrase = phrase;
-            applyPhraseScript(selectedPhrase.getScript(), characterId);
-            ((Text) textFlow.getChildren().get(0)).setText(Game.getMap().getCharacterList().get(characterId).getName() + ": " + replaceDialogText(selectedPhrase.getText()));
-            int i = 0;
-            answers.clear();
-            answersScrollContentPane.getChildren().clear();
-            for (Answer answer : selectedPhrase.getAnswers()) {
-                if (checkAnswerVisibly(answer.getVisiblyCondition(), characterId)) {
-                    Label answerLabel = new Label();
-                    answerLabel.setFont(font);
-                    answerLabel.setTextFill(Color.web("#4a3710"));
-                    answerLabel.setLayoutX(5);
-                    answerLabel.setOnMouseEntered(event -> onAnswerMouseEnter(answerLabel));
-                    answerLabel.setOnMouseExited(event -> onAnswerMouseExited(answerLabel));
-                    answerLabel.setOnMouseClicked(event -> setPhrase(characterId, dialog.getPhrases().get(applyNextPhraseCondition(answer.getNextPhraseCondition()))));
-                    answerLabel.setLayoutY(5 + i * 20);
-                    answerLabel.setText(replaceDialogText(answer.getText()));
-                    answersScrollContentPane.getChildren().add(answerLabel);
-                    answers.add(answerLabel);
-                    i++;
-                }
+    private void setPhrase(String characterId, Answer selectAnswer, Phrase phrase) {
+        if (!Game.getEditor().getTrainingPanel().getPane().isVisible()) {
+            if (selectAnswer != null) {
+                applyPhraseScript(selectAnswer.getScript(), characterId);
             }
-            Label exitDialogLabel = new Label();
-            exitDialogLabel.setFont(font);
-            exitDialogLabel.setTextFill(Color.web("#4a3710"));
-            exitDialogLabel.setLayoutX(5);
-            exitDialogLabel.setOnMouseEntered(event -> onAnswerMouseEnter(exitDialogLabel));
-            exitDialogLabel.setOnMouseExited(event -> onAnswerMouseExited(exitDialogLabel));
-            exitDialogLabel.setOnMouseClicked(event -> closeDialog());
-            exitDialogLabel.setLayoutY(5 + i * 20);
-            exitDialogLabel.setText("[" + Game.getText("CLOSE_DIALOG") + "]");
-            answersScrollContentPane.getChildren().add(exitDialogLabel);
-            answers.add(exitDialogLabel);
+            if (phrase != null) {
+                selectedPhrase = phrase;
+                applyPhraseScript(selectedPhrase.getScript(), characterId);
+                ((Text) textFlow.getChildren().get(0)).setText(Game.getMap().getCharacterList().get(characterId).getName() + ": " + replaceDialogText(selectedPhrase.getText()));
+                int i = 0;
+                answers.clear();
+                answersScrollContentPane.getChildren().clear();
+                for (Answer answer : selectedPhrase.getAnswers()) {
+                    if (checkAnswerVisibly(answer.getVisiblyCondition(), characterId)) {
+                        Label answerLabel = new Label();
+                        answerLabel.setFont(font);
+                        answerLabel.setTextFill(Color.web("#4a3710"));
+                        answerLabel.setLayoutX(5);
+                        answerLabel.setOnMouseEntered(event -> onAnswerMouseEnter(answerLabel));
+                        answerLabel.setOnMouseExited(event -> onAnswerMouseExited(answerLabel));
+                        answerLabel.setOnMouseClicked(event -> setPhrase(characterId, answer, dialog.getPhrases().get(applyNextPhraseCondition(answer.getNextPhraseCondition()))));
+                        answerLabel.setLayoutY(5 + i * 20);
+                        answerLabel.setText(replaceDialogText(answer.getText()));
+                        answersScrollContentPane.getChildren().add(answerLabel);
+                        answers.add(answerLabel);
+                        i++;
+                    }
+                }
+                Label exitDialogLabel = new Label();
+                exitDialogLabel.setFont(font);
+                exitDialogLabel.setTextFill(Color.web("#4a3710"));
+                exitDialogLabel.setLayoutX(5);
+                exitDialogLabel.setOnMouseEntered(event -> onAnswerMouseEnter(exitDialogLabel));
+                exitDialogLabel.setOnMouseExited(event -> onAnswerMouseExited(exitDialogLabel));
+                exitDialogLabel.setOnMouseClicked(event -> closeDialog());
+                exitDialogLabel.setLayoutY(5 + i * 20);
+                exitDialogLabel.setText("[" + Game.getText("CLOSE_DIALOG") + "]");
+                answersScrollContentPane.getChildren().add(exitDialogLabel);
+                answers.add(exitDialogLabel);
+            }
         }
     }
 
     private void onAnswerMouseEnter(Label answerLabel) {
-        answerLabel.setTextFill(Color.RED);
+        if (!Game.getEditor().getTrainingPanel().getPane().isVisible()) {
+            answerLabel.setTextFill(Color.RED);
+        }
     }
 
     private void onAnswerMouseExited(Label answerLabel) {
-        answerLabel.setTextFill(Color.web("#4a3710"));
+        if (!Game.getEditor().getTrainingPanel().getPane().isVisible()) {
+            answerLabel.setTextFill(Color.web("#4a3710"));
+        }
     }
 
     /**
@@ -310,6 +322,10 @@ public class GameDialogPanel {
                         }
                         case "trade": {
                             Game.getGameMenu().showContainerInventory(character.getInventory(), 0, 0, "trade", characterId);
+                            break;
+                        }
+                        case "training": {
+                            Game.getEditor().getTrainingPanel().showPanel(character);
                             break;
                         }
                     }

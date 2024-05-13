@@ -30,6 +30,9 @@ public class AnswerPanel {
     private final Label nextPhraseConditionLabel;
     @Getter
     private final TextField nextPhraseConditionEdit;
+    private final Label scriptLabel;
+    @Getter
+    private final TextField scriptEdit;
     private final Button deleteAnswerButton;
     private final Button goToPhraseButton;
     @Getter
@@ -37,7 +40,7 @@ public class AnswerPanel {
     private int id;
 
     @Getter
-    private static final int paneHeight = 110; // высота панели ответа
+    private static final int paneHeight = 140; // высота панели ответа
 
     public AnswerPanel(int id) {
         this.id = id;
@@ -85,6 +88,20 @@ public class AnswerPanel {
         nextPhraseConditionEdit.setFont(Font.font("Arial", FontWeight.BOLD, 12));
         nextPhraseConditionEdit.setOnKeyTyped(event -> nextPhraseConditionEdit());
         pane.getChildren().add(nextPhraseConditionEdit);
+
+        scriptLabel = new Label();
+        scriptLabel.setLayoutX(10);
+        scriptLabel.setLayoutY(100);
+        scriptLabel.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        scriptLabel.setText(Game.getText("SCRIPT"));
+        pane.getChildren().add(scriptLabel);
+
+        scriptEdit = new TextField();
+        scriptEdit.setLayoutX(160);
+        scriptEdit.setLayoutY(100);
+        scriptEdit.setFont(Font.font("Arial", FontWeight.BOLD, 12));
+        scriptEdit.setOnKeyTyped(event -> nextPhraseConditionEdit());
+        pane.getChildren().add(scriptEdit);
 
         deleteAnswerButton = new Button(Game.getText("DELETE_ANSWER"));
         deleteAnswerButton.setLayoutX(320);

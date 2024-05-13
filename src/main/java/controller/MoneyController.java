@@ -9,14 +9,21 @@ import java.math.BigDecimal;
 import java.util.*;
 
 /**
- * Действия, связанные с торговлей
+ * Действия, связанные с денежными операциями
  */
-public class TradeController {
+public class MoneyController {
 
     private static final Map<String, Set<ItemTypeEnum>> tradableItems = new HashMap<>(); // торгуемые предметы
+    private static final int baseTrainingPrice = 100; // базовая цена обучения навыку
 
     static {
         tradableItems.put("resources", Set.of(ItemTypeEnum.RESOURCE));
+        tradableItems.put("weapons", Set.of(ItemTypeEnum.WEAPON));
+        tradableItems.put("clothes", Set.of(ItemTypeEnum.CLOTHES));
+        tradableItems.put("eat", Set.of(ItemTypeEnum.EAT));
+        tradableItems.put("books", Set.of(ItemTypeEnum.BOOK));
+        tradableItems.put("treasures", Set.of(ItemTypeEnum.TREASURE));
+        tradableItems.put("potions", Set.of(ItemTypeEnum.POTION, ItemTypeEnum.INGREDIENT));
     }
 
     /**
@@ -90,23 +97,23 @@ public class TradeController {
         var moneyCount = 0;
         var money1 = ItemsController.findItemInInventory(371, inventory);
         if (money1 != null) {
-            moneyCount =+ money1.getCount();
+            moneyCount += money1.getCount();
         }
         var money10 = ItemsController.findItemInInventory(372, inventory);
         if (money10 != null) {
-            moneyCount =+ money10.getCount();
+            moneyCount += money10.getCount()*10;
         }
         var money50 = ItemsController.findItemInInventory(373, inventory);
         if (money50 != null) {
-            moneyCount =+ money50.getCount();
+            moneyCount += money50.getCount()*50;
         }
         var money100 = ItemsController.findItemInInventory(374, inventory);
         if (money100 != null) {
-            moneyCount =+ money100.getCount();
+            moneyCount += money100.getCount()*100;
         }
         var money1000 = ItemsController.findItemInInventory(375, inventory);
         if (money1000 != null) {
-            moneyCount =+ money1000.getCount();
+            moneyCount += money1000.getCount()*1000;
         }
 
         return moneyCount;
@@ -143,5 +150,16 @@ public class TradeController {
             result.add(new Items(375, price / 1000));
         }
         return result;
+    }
+
+    /**
+     * Получить цену обучения навыку у учителя
+     * @param trainer     - кто будет обучать
+     * @param student     - кого будут обучать
+     * @param skillName   - какой навык тренируется
+     * @return            - сумма в шадах
+     */
+    public static int getTrainingPrice(Character trainer, Character student, String skillName) {
+        return baseTrainingPrice + student.getParams().getSkills().get(skillName).getRealValue() * 15;
     }
 }
