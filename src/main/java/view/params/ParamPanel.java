@@ -123,7 +123,7 @@ public class ParamPanel {
         pane.getChildren().add(legacyLabel);
 
         var i = 0;
-        for (Parameter legacyParam : Game.getMap().getPlayersSquad().getSelectedCharacter().getParams().getLegacy()) {
+        for (Parameter legacyParam : Game.getMap().getPlayersSquad().getSelectedCharacter().getParams().getLegacy().values()) {
             var paramRecord = new ParamRecord(legacyParam, i, legacy);
             legacyLabels.add((Label) paramRecord.getBox().getChildrenUnmodifiable().get(1));
             paramRecord.getBox().setLayoutY(20 + (i++) * 18);
@@ -136,7 +136,7 @@ public class ParamPanel {
         pane.getChildren().add(characteristicsLabel);
 
         i = 0;
-        for (Parameter getCharacteristicParam : Game.getMap().getPlayersSquad().getSelectedCharacter().getParams().getCharacteristics()) {
+        for (Parameter getCharacteristicParam : Game.getMap().getPlayersSquad().getSelectedCharacter().getParams().getCharacteristics().values()) {
             var paramRecord = new ParamRecord(getCharacteristicParam, i, characteristic);
             characteristicsLabels.add((Label) paramRecord.getBox().getChildrenUnmodifiable().get(1));
             paramRecord.getBox().setLayoutY(150 + (i++) * 18);
@@ -185,10 +185,10 @@ public class ParamPanel {
     public void refreshParamsValueViews() {
         ParamsInfo paramsInfo = Game.getMap().getPlayersSquad().getSelectedCharacter().getParams();
         for (int i = 0; i < 6; i++) {
-            legacyLabels.get(i).setText(paramsInfo.getLegacy().get(i).getCurrentValue().toString());
+            legacyLabels.get(i).setText(paramsInfo.getLegacy().values().iterator().next().getCurrentValue().toString());
         }
         for (int i = 0; i < 6; i++) {
-            Parameter parameter = paramsInfo.getCharacteristics().get(i);
+            Parameter parameter = paramsInfo.getCharacteristics().values().iterator().next();
             characteristicsLabels.get(i).setText(parameter.getCurrentValue().toString());
             if (parameter.getCurrentValue() > parameter.getRealValue()) {
                 ParamPanel.getCharacteristicsLabels().get(i).setTextFill(Color.GREEN);

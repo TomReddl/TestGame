@@ -72,16 +72,24 @@
     "gender": "MALE",
     "size": "MEDIUM",
     "trainableSkills": [
-      "15", "16", "17"
+      "SPEECH", "TRADE", "COMMAND", "PERFORMANCE"
     ],
     "items": {
       "7": "1",
-      "23": "1",
       "25": "1",
       "372": "13",
       "443": "1",
-      "445": "1"
+      "445": "1",
+      "459": "1"
     },
+    "skills": {
+      "SPEECH": "45",
+      "TRADE": "25",
+      "COMMAND": "30",
+      "PERFORMANCE": "55",
+      "TRAINING": "60"
+    },
+    "cellCoefficient": 1.4,
     "profession": "teacher"
   },
   {

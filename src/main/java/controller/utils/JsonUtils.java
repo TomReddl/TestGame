@@ -137,11 +137,15 @@ public class JsonUtils {
     public static List<ConstructionInfo> getConstructions() {
         try {
             var path = "/" + JsonUtils.class.getProtectionDomain().getCodeSource().getLocation().getPath() + "objects/constructions.json";
-            return objectMapper.readValue(new File(path), new TypeReference<>() {
-            });
+            var f = new File(path);
+            if (f.exists()) {
+                return objectMapper.readValue(f, new TypeReference<>() {
+                });
+            }
         } catch (Exception ex) {
             throw new RuntimeException("can not read 'constructions.json', cause=%s" + ex.getMessage());
         }
+        return new ArrayList<>();
     }
 
     public static List<RecipeInfo> getRecipes() {

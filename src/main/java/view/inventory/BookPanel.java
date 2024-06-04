@@ -12,6 +12,7 @@ import javafx.scene.text.FontWeight;
 import lombok.Getter;
 import model.entity.GameModeEnum;
 import model.entity.WorldLangEnum;
+import model.entity.character.Character;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import view.Game;
@@ -155,8 +156,9 @@ public class BookPanel {
             DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
             if (file.exists()) {
                 document = documentBuilder.parse(file);
+                Character character = Game.getMap().getPlayersSquad().getSelectedCharacter();
 
-                if (Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getLangs().contains(WorldLangEnum.valueOf(document.getElementsByTagName("lang").item(0).getTextContent()))) {
+                if (character.getKnowledgeInfo().getLangs().contains(WorldLangEnum.valueOf(document.getElementsByTagName("lang").item(0).getTextContent()))) {
 
                     /*  повышаем навык, если
                      *  1) персонаж знает язык книги
@@ -165,12 +167,12 @@ public class BookPanel {
                      */
                     var increaseSkill = document.getElementsByTagName("increaseSkill").item(0);
                     if (increaseSkill != null &&
-                            !Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getReadBooks().contains(bookTypeId)) {
-                        CharactersController.increaseSkill(increaseSkill.getTextContent(), 1);
+                            !character.getKnowledgeInfo().getReadBooks().contains(bookTypeId)) {
+                        CharactersController.increaseSkill(character, increaseSkill.getTextContent(), 1);
                     }
 
                     // добавляем книгу в список прочтенных
-                    Game.getMap().getPlayersSquad().getSelectedCharacter().getKnowledgeInfo().getReadBooks().add(bookTypeId);
+                    character.getKnowledgeInfo().getReadBooks().add(bookTypeId);
                 }
 
                 var type = document.getElementsByTagName("type").item(0).getTextContent();
@@ -329,7 +331,7 @@ public class BookPanel {
         Game.showMessage(Game.getText("ERROR_BOOK_FOREIGN_LANG"));
         StringBuilder sb = new StringBuilder();
         for (char c : text.toCharArray()) {
-            sb.append(Character.toString(c + 15));
+            sb.append(java.lang.Character.toString(c + 15));
         }
         return sb.toString();
     }

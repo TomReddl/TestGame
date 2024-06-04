@@ -13,6 +13,7 @@ public enum BodyPartEnum {
     SHIRT("Рубашка"),
     HEAD("Голова"),
     NECKLACE("Ожерелье"),
+    RING("Кольцо"),
     LEGS("Ноги"),
     SHOES("Обувь"),
     BACKPACK("Рюкзак"),

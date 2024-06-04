@@ -61,4 +61,20 @@ public class ParamsUtils {
         }
         mapCellInfo.getParams().put(paramName.toLowerCase(), value);
     }
+
+    /**
+     * Получить случайно число из строки, содержащей диапазон
+     *
+     * @param countStr строка с количеством. Может содержать интервал вида "1-5"
+     * @return число
+     */
+    public static int getCount(String countStr) {
+        if (countStr.contains("-")) {
+            String[] parts = countStr.split("-");
+            int min = Integer.parseInt(parts[0]);
+            int max = Integer.parseInt(parts[1]);
+            return (int) (Math.random() * (max - min + 1)) + min;
+        }
+        return Integer.parseInt(countStr);
+    }
 }

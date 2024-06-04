@@ -1,5 +1,6 @@
 package controller;
 
+import controller.utils.ParamsUtils;
 import javafx.scene.paint.Color;
 import lombok.Getter;
 import model.editor.TileTypeEnum;
@@ -268,7 +269,7 @@ public class ItemsController {
                 creature.setButchering(true);
                 Game.getContainerInventory().getButcherButton().setVisible(false);
                 for (String key : creature.getInfo().getOrgans().keySet()) {
-                    addItem(new Items(Integer.parseInt(key), getButcheringItemsCount(creature.getInfo().getOrgans().get(key))), creature.getInventory(), Game.getMap().getPlayersSquad().getSelectedCharacter());
+                    addItem(new Items(Integer.parseInt(key), ParamsUtils.getCount(creature.getInfo().getOrgans().get(key))), creature.getInventory(), Game.getMap().getPlayersSquad().getSelectedCharacter());
                 }
                 Game.getContainerInventory().refreshInventory();
                 MapController.drawCurrentMap();
@@ -276,22 +277,6 @@ public class ItemsController {
         } else {
             Game.showMessage(Game.getText("NOT_BUTCHERING"));
         }
-    }
-
-    /**
-     * Получить случайно число органов при разделке из строки
-     *
-     * @param countStr строка с количеством органов. Может содержать интервал вида "1-5"
-     * @return количество органов
-     */
-    private static int getButcheringItemsCount(String countStr) {
-        if (countStr.contains("-")) {
-            String[] parts = countStr.split("-");
-            int min = Integer.parseInt(parts[0]);
-            int max = Integer.parseInt(parts[1]);
-            return (int) (Math.random() * (max - min + 1)) + min;
-        }
-        return Integer.parseInt(countStr);
     }
 
     /**
@@ -924,7 +909,7 @@ public class ItemsController {
      * @return максимальная масса, которую может переносить персонаж
      */
     public static BigDecimal getMaximumWeight(Character character) {
-        return BigDecimal.valueOf(character.getParams().getCharacteristics().get(3).getCurrentValue() * 3 + Character.getBaseWeight());
+        return BigDecimal.valueOf(character.getParams().getCharacteristics().get("POWER").getCurrentValue() * 3 + Character.getBaseWeight());
     }
 
     /**

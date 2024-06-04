@@ -152,6 +152,7 @@ public class EffectsController {
         effects.put("ROT_DAMAGE", new EffectInfo(Game.getEffectText("ROT_DAMAGE"), "RED"));
 
         effects.put("PHASING", new EffectInfo(Game.getEffectText("PHASING"), "RED"));
+        effects.put("FAST_TRAIN", new EffectInfo(Game.getEffectText("FAST_TRAIN"), "BLUE"));
 
         setAdditionalEffects();
     }

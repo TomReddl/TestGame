@@ -8,6 +8,7 @@ import model.entity.creatures.CreatureSizeEnum;
 import model.entity.character.GenderEnum;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -31,4 +32,9 @@ public class CharacterInfo implements Serializable {
     private String tradableItems; // торгуемые предметы
     private String profession; // профессия
     private List<String> trainableSkills; // тренируемые навыки
+    private Map<String, String> legacy; // наследия персонажа в формате название - значение
+    private Map<String, String> characteristics; // характеристики персонажа в формате название - значение
+    private Map<String, String> skills; // навыки персонажа в формате название - значение
+    private BigDecimal cellCoefficient; // коэффициент цен при продаже предметов
+    private BigDecimal buyCoefficient; // коэффициент цен при покупке предметов
 }

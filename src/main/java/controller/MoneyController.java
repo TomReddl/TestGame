@@ -40,11 +40,20 @@ public class MoneyController {
         var moneyCount= getMoneyCount(buyer.getInventory());
         if (moneyCount >= totalPrice) {
             ItemsController.addItemsToPlayerFromContainer(item, count, celler.getInventory());
-            for (Items items : getMoneyForPay(totalPrice, buyer.getInventory())) {
-                ItemsController.addItemsToContainerFromPlayer(items, items.getCount(), buyer.getInventory());
-            }
+            payMoneyToOtherCharacter(totalPrice, buyer);
         } else if (Game.getMap().getPlayersSquad().getSelectedCharacter().equals(buyer)) {
             Game.showMessage(String.format(Game.getGameText("NOT_ENOUGH_MONEY"), item.getName()));
+        }
+    }
+
+    /**
+     * Заплатить деньги другому персонажу из инвентаря текущего персонажа
+     * @param money     - сумма оплаты
+     * @param character - персонаж, которому платят
+     */
+    public static void payMoneyToOtherCharacter(int money, Character character) {
+        for (Items items : getMoneyForPay(money, character.getInventory())) {
+            ItemsController.addItemsToContainerFromPlayer(items, items.getCount(), character.getInventory());
         }
     }
 
@@ -160,6 +169,8 @@ public class MoneyController {
      * @return            - сумма в шадах
      */
     public static int getTrainingPrice(Character trainer, Character student, String skillName) {
-        return baseTrainingPrice + student.getParams().getSkills().get(skillName).getRealValue() * 15;
+        int price = baseTrainingPrice + student.getParams().getSkills().get(skillName).getRealValue() * 15;
+        price = trainer.getCellCoefficient().multiply(BigDecimal.valueOf(price)).intValue(); // учитывается личная наценка тренера
+        return price;
     }
 }

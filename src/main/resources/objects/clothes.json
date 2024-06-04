@@ -3583,5 +3583,45 @@
     "params": {
       "inlayerSize": "MEDIUM"
     }
+  },
+  {
+    "id": 459,
+    "weight": "500",
+    "volume": "1400",
+    "price": "60",
+    "stackable": false,
+    "burn": true,
+    "armor": 0,
+    "maxStrength": 100,
+    "skill": "ARMORLESS",
+    "bodyPart": "SHOES",
+    "covering": 20,
+    "style": "NALHAIM",
+    "gender": "UNISEX",
+    "types": ["CLOTHES"],
+    "params": {
+      "inlayerSize": "SMALL"
+    }
+  },
+  {
+    "id": 460,
+    "weight": "50",
+    "volume": "60",
+    "price": "160",
+    "stackable": false,
+    "burn": false,
+    "armor": 0,
+    "maxStrength": 100,
+    "skill": "ARMORLESS",
+    "bodyPart": "RING",
+    "covering": 0,
+    "style": "NOBLEMAN",
+    "gender": "UNISEX",
+    "types": ["CLOTHES", "TREASURE"],
+    "effects": [
+      {
+        "strId": "FAST_TRAIN"
+      }
+    ]
   }
 ]

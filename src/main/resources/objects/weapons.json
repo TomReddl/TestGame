@@ -451,5 +451,18 @@
         "power": "10"
       }
     ]
+  },
+  {
+    "id": 458,
+    "weight": "500",
+    "volume": "600",
+    "price": "40",
+    "stackable": false,
+    "damage": 5,
+    "maxStrength": 100,
+    "damageType": "CUTTING_DAMAGE",
+    "skill": "LIGHT_WEAPON",
+    "oneHand": true,
+    "types": ["WEAPON"]
   }
 ]

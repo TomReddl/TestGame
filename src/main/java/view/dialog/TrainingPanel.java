@@ -1,5 +1,6 @@
 package view.dialog;
 
+import controller.CharactersController;
 import controller.MoneyController;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -13,10 +14,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import lombok.Getter;
+import model.entity.GameCalendar;
 import model.entity.character.Character;
+import model.entity.character.Parameter;
 import view.Game;
 import view.inventory.BookPanel;
-import view.params.ParamPanel;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -50,8 +52,8 @@ public class TrainingPanel {
         }
 
         pane = new Pane();
-        pane.setPrefSize(400, 210);
-        pane.setLayoutX(100);
+        pane.setPrefSize(460, 210);
+        pane.setLayoutX(70);
         pane.setLayoutY(100);
         pane.setBackground(new Background(new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)));
         pane.setStyle("-fx-border-color:gray;");
@@ -71,8 +73,8 @@ public class TrainingPanel {
         scrollPane = new ScrollPane();
         scrollPane.setLayoutX(10);
         scrollPane.setLayoutY(30);
-        scrollPane.setPrefSize(380, 140);
-        scrollPane.setMinWidth(200);
+        scrollPane.setPrefSize(440, 140);
+        scrollPane.setMinWidth(260);
         scrollPane.setContent(scrollContentPane);
         scrollPane.setStyle("-fx-border-color:grey;");
         pane.getChildren().add(scrollPane);
@@ -93,27 +95,72 @@ public class TrainingPanel {
         Game.getRoot().getChildren().add(pane);
     }
 
-    public void showPanel(Character character) {
+    public void showPanel(Character teacher) {
         pane.setVisible(true);
-        titleLabel.setText(Game.getText("SKILL_TRAINING") + " " + character.getName());
+        Character student = Game.getMap().getPlayersSquad().getSelectedCharacter();
+        titleLabel.setText(Game.getText("SKILL_TRAINING") + " " + teacher.getName());
         int i = 0;
-        for (String trainingSkill : character.getInfo().getTrainableSkills()) {
-            String skillName = ParamPanel.getSkillsNames().get(Integer.parseInt(trainingSkill));
-            Label label = new Label(Game.getText("TRAINING_SKILL_NAME") + " \"" +
-                    Game.getText(skillName + "_PARAM_NAME") + "\" " +
-                    Game.getText("UP_TO") + " " + (character.getParams().getSkills().get(skillName).getRealValue() + 1) + " " +
-                    Game.getText("UNITS") + " (" + MoneyController.getTrainingPrice(character, Game.getMap().getPlayersSquad().getSelectedCharacter(), skillName) + " " + Game.getText("SHAD") + ")");
-            label.setTextFill(Color.web("#4a3710"));
-            label.setFont(font);
-            label.setLayoutX(10);
-            label.setLayoutY(10 + i*15);
-            i++;
-            scrollContentPane.getChildren().add(label);
+        scrollContentPane.getChildren().clear();
+        int studentMoney = MoneyController.getMoneyCount(Game.getMap().getPlayersSquad().getSelectedCharacter().getInventory());
+        for (String trainingSkill : teacher.getInfo().getTrainableSkills()) {
+            Parameter studentSkill = student.getParams().getSkills().get(trainingSkill);
+            Parameter teacherSkill = teacher.getParams().getSkills().get(trainingSkill);
+            Parameter teacherTrainingSkill = teacher.getParams().getSkills().get("TRAINING");
+            int trainingPrice = MoneyController.getTrainingPrice(teacher, student, trainingSkill);
+            int trainingTime = CharactersController.getTrainTime(student, student.getParams().getSkills().get(trainingSkill));
+            String impossibilityReason = "";
+            boolean skillLessMax = studentSkill.getRealValue() < 100;
+            if (skillLessMax) {
+                impossibilityReason = Game.getGameText("SKILL_MAX");
+            }
+            boolean skillTeacherLessStudent = studentSkill.getRealValue() <= teacherSkill.getCurrentValue();
+            if (skillTeacherLessStudent) {
+                impossibilityReason = Game.getGameText("SKILL_TEACHER_LESS_STUDENT");
+            }
+            boolean skillTrainTeacherLessStudent = studentSkill.getRealValue() <= teacherTrainingSkill.getCurrentValue();
+            if (skillTrainTeacherLessStudent) {
+                impossibilityReason = Game.getGameText("SKILL_TRAIN_TRACHER_LESS_STUDENT");
+            }
+            boolean enoughMoney = studentMoney >= trainingPrice;
+            if (!enoughMoney) {
+                impossibilityReason = Game.getGameText("NOT_ENOUGH_MONEY");
+            }
+            boolean canTrain = skillLessMax && skillTeacherLessStudent && skillTrainTeacherLessStudent && enoughMoney;
+                Label label = new Label(Game.getText("TRAINING_SKILL_NAME") + " \"" +
+                        Game.getText(trainingSkill + "_PARAM_NAME") + "\" " +
+                        Game.getText("UP_TO") + " " + (studentSkill.getRealValue() + 1) + " " +
+                        Game.getText("UNITS") + " (" + trainingPrice + " " + Game.getText("SHAD") + ", " +
+                        (trainingTime / GameCalendar.getTicsInHour()) + " " + Game.getGameText("HOUR") + ")");
+                label.setTextFill(canTrain ? Color.web("#4a3710") : Color.GRAY);
+                label.setFont(font);
+                label.setOnMouseEntered(event -> labelMouseEntered(label, canTrain));
+                label.setOnMouseExited(event -> labelMouseExited(label, canTrain));
+            String finalImpossibilityReason = impossibilityReason.toLowerCase();
+            label.setOnMouseClicked(event -> CharactersController.trainSkill(canTrain, teacher, student, trainingSkill, trainingPrice, trainingTime, finalImpossibilityReason));
+                label.setLayoutX(10);
+                label.setLayoutY(10 + i * 15);
+                i++;
+                scrollContentPane.getChildren().add(label);
         }
-        charactersMoneyLabel.setText(Game.getText("CHARACTERS_MONEY") + " " + MoneyController.getMoneyCount(Game.getMap().getPlayersSquad().getSelectedCharacter().getInventory()) + " " + Game.getText("SHAD"));
+        if (scrollContentPane.getChildren().size() == 0) {
+            pane.setVisible(false);
+        }
+        charactersMoneyLabel.setText(Game.getText("CHARACTERS_MONEY") + " " + studentMoney + " " + Game.getText("SHAD"));
     }
 
-    private void closePanel() {
+    public void closePanel() {
         pane.setVisible(false);
+    }
+
+    private void labelMouseEntered(Label label, boolean canTrain) {
+        if (canTrain) {
+            label.setTextFill(Color.RED);
+        }
+    }
+
+    private void labelMouseExited(Label label, boolean canTrain) {
+        if (canTrain) {
+            label.setTextFill(Color.web("#4a3710"));
+        }
     }
 }

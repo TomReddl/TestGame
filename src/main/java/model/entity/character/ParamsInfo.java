@@ -13,42 +13,44 @@ import java.util.Map;
  */
 public class ParamsInfo implements Serializable {
     @Getter
-    private final List<Parameter> legacy = new ArrayList<>(); // наследия персонажа
+    private final Map<String, Parameter> legacy = new HashMap<>(); // наследия персонажа
     @Getter
-    private final List<Parameter> characteristics = new ArrayList<>(); // характеристики персонажа
+    private final Map<String, Parameter> characteristics = new HashMap<>(); // характеристики персонажа
     @Getter
     private final Map<String, Parameter> skills = new HashMap<>(); // навыки персонажа
     @Getter
     private final List<Indicator> indicators = new ArrayList<>(); // показатели персонажа
 
     public ParamsInfo() {
+        List<Parameter> legacyList = new ArrayList<>();
+        List<Parameter> characteristicsList = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
             Parameter legacyParam = new Parameter();
             legacyParam.setCurrentValue(5);
             legacyParam.setRealValue(5);
             legacyParam.setExperience(0);
-            legacy.add(legacyParam);
+            legacyList.add(legacyParam);
 
             Parameter characteristic = new Parameter();
             characteristic.setCurrentValue(5);
             characteristic.setRealValue(5);
             characteristic.setExperience(0);
-            characteristics.add(characteristic);
+            characteristicsList.add(characteristic);
         }
 
-        legacy.get(0).setStrId("HAN");
-        legacy.get(1).setStrId("RISA");
-        legacy.get(2).setStrId("ULKOR");
-        legacy.get(3).setStrId("MHAA");
-        legacy.get(4).setStrId("WURTUS");
-        legacy.get(5).setStrId("SHI_DOL");
+        legacy.put("HAN", legacyList.get(0));
+        legacy.put("RISA", legacyList.get(1));
+        legacy.put("ULKOR", legacyList.get(2));
+        legacy.put("MHAA", legacyList.get(3));
+        legacy.put("WURTUS", legacyList.get(4));
+        legacy.put("SHI_DOL", legacyList.get(5));
 
-        characteristics.get(0).setStrId("POWER");
-        characteristics.get(1).setStrId("STAMINA");
-        characteristics.get(2).setStrId("AGILITY");
-        characteristics.get(3).setStrId("CHARISMA");
-        characteristics.get(4).setStrId("INTELLIGENCE");
-        characteristics.get(5).setStrId("PERCEPTION");
+        characteristics.put("POWER", characteristicsList.get(0));
+        characteristics.put("STAMINA", characteristicsList.get(1));
+        characteristics.put("AGILITY", characteristicsList.get(2));
+        characteristics.put("CHARISMA", characteristicsList.get(3));
+        characteristics.put("INTELLIGENCE", characteristicsList.get(4));
+        characteristics.put("PERCEPTION", characteristicsList.get(5));
 
         for (int i = 0; i < 5; i++) {
             Indicator indicator = new Indicator();

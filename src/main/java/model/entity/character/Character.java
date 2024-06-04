@@ -2,7 +2,9 @@ package model.entity.character;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import controller.CharactersController;
 import controller.ItemsController;
+import controller.utils.ParamsUtils;
 import controller.utils.generation.CharacterGenerator;
 import javafx.scene.image.ImageView;
 import lombok.Getter;
@@ -128,8 +130,6 @@ public class Character implements Serializable {
         hairColor = HairColorEnum.Brown;
         gender = GenderEnum.MALE;
         this.name = CharacterGenerator.generateName(characterTypeId);
-        cellCoefficient = BigDecimal.valueOf(1.4);
-        buyCoefficient = BigDecimal.valueOf(0.6);
 
         for (BodyPartEnum partEnum : BodyPartEnum.values()) {
             Map<BodyPartEnum, Items> map = new HashMap();
@@ -137,12 +137,44 @@ public class Character implements Serializable {
             wearingItems.add(map);
         }
 
-        Map<String, String> items = Editor.getCharacters().get(characterTypeId).getItems();
+        CharacterInfo characterInfo = Editor.getCharacters().get(characterTypeId);
+
+        Map<String, String> items = characterInfo.getItems();
         if (items != null) {
             for (String key : items.keySet()) {
-                Items addedItem = new Items(Integer.parseInt(key), Integer.parseInt(Editor.getCharacters().get(characterTypeId).getItems().get(key)));
+                Items addedItem = new Items(Integer.parseInt(key), ParamsUtils.getCount(characterInfo.getItems().get(key)));
                 ItemsController.addItemToCharacter(addedItem, addedItem.getCount(), this);
             }
+        }
+
+        Map<String, String> legacy = characterInfo.getLegacy();
+        if (legacy != null) {
+            for (String key : legacy.keySet()) {
+                params.getLegacy().get(key).setRealValue(ParamsUtils.getCount(characterInfo.getLegacy().get(key)));
+            }
+        }
+
+        Map<String, String> characteristics = characterInfo.getCharacteristics();
+        if (characteristics != null) {
+            for (String key : characteristics.keySet()) {
+                params.getLegacy().get(key).setRealValue(ParamsUtils.getCount(characterInfo.getCharacteristics().get(key)));
+            }
+        }
+
+        Map<String, String> skills = characterInfo.getSkills();
+        if (skills != null) {
+            for (String key : skills.keySet()) {
+                params.getSkills().get(key).setRealValue(ParamsUtils.getCount(characterInfo.getSkills().get(key)));
+            }
+        }
+
+        cellCoefficient = characterInfo.getCellCoefficient();
+        if (cellCoefficient == null) {
+            cellCoefficient = CharactersController.defaultCellCoefficient;
+        }
+        buyCoefficient = characterInfo.getBuyCoefficient();
+        if (buyCoefficient == null) {
+            buyCoefficient = CharactersController.defaultBuyCoefficient;
         }
 
         appliedEffects = new ArrayList<>();

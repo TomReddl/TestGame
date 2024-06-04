@@ -11,8 +11,10 @@ import model.editor.TileTypeEnum;
 import model.editor.items.BodyPartEnum;
 import model.entity.DirectionEnum;
 import model.entity.Event;
+import model.entity.GameCalendar;
 import model.entity.ItemTypeEnum;
 import model.entity.battle.DamageTypeEnum;
+import model.entity.character.Parameter;
 import model.entity.effects.EffectParams;
 import model.entity.map.*;
 import model.entity.character.GenderEnum;
@@ -26,6 +28,7 @@ import view.inventory.InventoryPanel;
 import view.inventory.PlayerIndicatorsPanel;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.*;
 
 import static controller.ItemsController.engineeringWateringCan;
@@ -42,6 +45,9 @@ public class CharactersController {
     private static final ImageView upDirection = new ImageView("/graphics/gui/upDirection.png");
     private static final ImageView leftDirection = new ImageView("/graphics/gui/leftDirection.png");
     private static final ImageView rightDirection = new ImageView("/graphics/gui/rightDirection.png");
+
+    public static BigDecimal defaultBuyCoefficient = BigDecimal.valueOf(0.8);  // дефолтный коэффициент цен при покупке предметов
+    public static BigDecimal defaultCellCoefficient = BigDecimal.valueOf(1.2); // дефолтный коэффициент цен при продаже предметов
 
     /**
      * Рост волос
@@ -267,11 +273,12 @@ public class CharactersController {
     /**
      * Увеличить навык
      *
+     * @param character   персонаж, которому повышается навык
      * @param skillId     идентификатор навыка
      * @param skillPoints на сколько пунктов увеличить
      */
-    public static void increaseSkill(String skillId, int skillPoints) {
-        var skills = Game.getMap().getPlayersSquad().getSelectedCharacter().getParams().getSkills();
+    public static void increaseSkill(Character character, String skillId, int skillPoints) {
+        var skills = character.getParams().getSkills();
 
         skills.get(skillId).setRealValue(skills.get(skillId).getRealValue() + skillPoints);
         if (skills.get(skillId).getRealValue() > 100) {
@@ -304,7 +311,7 @@ public class CharactersController {
         skill.setExperience(skill.getExperience() + expPoints);
         while (skill.getExperience() >= skill.getRealValue() * 10) {
             skill.setExperience(skill.getExperience() - skill.getRealValue() * 10);
-            increaseSkill(skillId, 1);
+            increaseSkill(Game.getMap().getPlayersSquad().getSelectedCharacter(), skillId, 1);
         }
     }
 
@@ -1043,5 +1050,41 @@ public class CharactersController {
         } else if (YPos < character.getYPosition()) {
             character.setDirection(DirectionEnum.UP);
         }
+    }
+
+    /**
+     * Тренировать навык у учителя
+     * @param canTrain
+     * @param trainer
+     * @param student
+     * @param skillName
+     * @param price
+     */
+    public static void trainSkill(boolean canTrain, Character trainer, Character student, String skillName, int price, int time, String impossibilityReason) {
+        if (canTrain) {
+            MoneyController.payMoneyToOtherCharacter(price, trainer);
+            TimeController.tic(time);
+            increaseSkill(student, skillName, 1);
+            student.getParams().getSkills().get(skillName).setExperience(0);
+            Game.getEditor().getTrainingPanel().closePanel();
+        } else {
+            Game.showMessage(Game.getGameText("CANT_TRAIN") + ": " + impossibilityReason);
+        }
+    }
+
+    /**
+     * Получить время обучения в тиках
+     * @param character
+     * @param skill
+     * @return
+     */
+    public static int getTrainTime(Character character, Parameter skill) {
+        final boolean isFastTrain = character.getAppliedEffects().stream()
+                .anyMatch(e -> e.getStrId().equals("FAST_TRAIN"));
+        final int minimumTime = 2; // обучение не может занимать меньше 2 часов
+        final int baseTime = minimumTime + ((skill.getRealValue() + 1) / 10);
+        final int fastTrainReduction = isFastTrain ? 4 : 0; // эффект "Ускоренная тренировка" сокращает время обучения на 4 часа
+        final int actualTime = Math.max(minimumTime, baseTime - fastTrainReduction);
+        return actualTime  *  GameCalendar.getTicsInHour();
     }
 }
